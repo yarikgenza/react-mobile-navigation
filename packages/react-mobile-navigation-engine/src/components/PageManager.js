@@ -47,7 +47,6 @@ export class PageManager extends React.Component {
   renderPage(pageId, pageState) {
     const { children, pageHeight, pageWidth, pagingActions, stackId } = this.props;
     const childrenArray = React.Children.toArray(children);
-    const page = getPageById(childrenArray, pageId);
     return (
       <CustomPage
         key={pageId}
@@ -58,7 +57,7 @@ export class PageManager extends React.Component {
         pagingActions={pagingActions}
         stackId={stackId}
       >
-        {page}
+        {getPageById(childrenArray, pageId)}
       </CustomPage>
     );
   }
@@ -67,8 +66,8 @@ export class PageManager extends React.Component {
     const { defaultPageId, stackSystemData } = this.props;
     const activePageId = getActivePageId(stackSystemData, defaultPageId);
     const visiblePages = this.getVisiblePages(activePageId);
-    return visiblePages.map(c => (
-      this.renderPage(c.pageId, c.pageState)
+    return visiblePages.map(page => (
+      this.renderPage(page.pageId, page.pageState)
     ));
   }
 
