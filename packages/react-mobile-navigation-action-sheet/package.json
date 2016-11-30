@@ -1,0 +1,60 @@
+{
+  "name": "react-mobile-navigation-action-sheet",
+  "version": "0.0.1-rc.1",
+  "description": "React mobile navigation action sheet",
+  "author": {
+    "name": "Rostyslav Khanas",
+    "email": "rk@try.cards"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "scripts": {
+    "install-peer-dependencies": "npm install react@15.3.2 && npm install react-dom@15.3.2 && npm install react-art && npm install react-motion && npm install react-native && npm install styled-components",
+    "clean": "rimraf lib",
+    "lint": "eslint src",
+    "build": "npm run lint && npm run clean && babel src --out-dir lib",
+    "start": "cd examples/main && webpack-dev-server --inline --hot"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "dependencies": {
+    "autobind-decorator": "^1.3.3",
+    "binary-ui-icons": "0.0.1",
+    "binary-ui-styles": "0.0.1-rc.3",
+    "invariant": "^2.2.1",
+    "react-action-hoc": "0.0.1-rc.10",
+    "react-mobile-navigation-core": "0.0.1-rc.0",
+    "react-mobile-navigation-sheet": "0.0.1-rc.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0"
+  },
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-cli": "^6.7.7",
+    "babel-core": "^6.7.7",
+    "babel-eslint": "^6.0.3",
+    "babel-loader": "^6.2.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-object-rest-spread": "^6.5.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-es2015-allow-top-level-this": "0.0.1",
+    "babel-preset-react": "^6.3.13",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.5.3",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.5.0",
+    "eslint-plugin-jsx-a11y": "^1.0.2",
+    "eslint-plugin-react": "^5.0.1",
+    "file-loader": "^0.8.5",
+    "less": "^2.6.0",
+    "less-loader": "^2.2.3",
+    "rimraf": "^2.3.4",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.12.15",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
