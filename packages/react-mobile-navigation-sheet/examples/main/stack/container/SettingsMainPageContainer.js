@@ -1,19 +1,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SettingsMainPageComponent } from '../components/SettingsMainPageComponent';
-import { internalPagingActions, systemPagesTypesEnum } from '../../stack-action-pages';
+import { actionSheetInternalPagingActions, ACTION_SHEET_PAGE_ID } from '../../stack-action-pages';
 
 function mapStateToProps(state) {
   return {
-    actionSheet: state.mainPageReducers[systemPagesTypesEnum.ACTION_SHEET_PAGE_ID],
-    comboBox: state.mainPageReducers[systemPagesTypesEnum.COMBOBOX_PAGE_ID],
+    actionSheet: state.mainPageReducers[ACTION_SHEET_PAGE_ID],
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actionSheetActions: bindActionCreators(internalPagingActions, dispatch),
-    comboBoxActions: bindActionCreators(internalPagingActions, dispatch),
+    actionSheetActions: bindActionCreators(actionSheetInternalPagingActions, dispatch),
   };
 }
 

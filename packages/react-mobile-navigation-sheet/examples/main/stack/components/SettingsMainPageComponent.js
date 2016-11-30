@@ -7,21 +7,14 @@ import {
 } from 'react-mobile-navigation-core';
 import {
   ActionSheetPage,
-  systemPagesTypesEnum,
+  ACTION_SHEET_PAGE_ID,
 } from '../../stack-action-pages';
 
 export class SettingsMainPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.actionSheetItems = [];
-    this.comboBoxItems = [];
-    this.comboBoxInputPlaceholder = 'Type Here (Hardcoded)';
-
-    this.state = {
-      comboBoxTextFilter: '',
-    }
   }
 
   @autobind
@@ -30,23 +23,8 @@ export class SettingsMainPageComponent extends React.Component {
     this.props.actionSheetActions.openPage(
       this.props.stackId,
       this.props.pageId,
-      systemPagesTypesEnum.ACTION_SHEET_PAGE_ID,
+      ACTION_SHEET_PAGE_ID,
       DirectionEnum.VERTICAL,
-      this.props.pageState.zIndex
-    );
-  }
-
-  @autobind
-  openCombobox() {
-    this.comboBoxItems = [];
-    this.setState({
-      comboBoxTextFilter: '',
-    });
-    this.props.comboBoxActions.openPage(
-      this.props.stackId,
-      this.props.pageId,
-      systemPagesTypesEnum.COMBOBOX_PAGE_ID,
-      DirectionEnum.HORIZONTAL,
       this.props.pageState.zIndex
     );
   }
@@ -63,35 +41,7 @@ export class SettingsMainPageComponent extends React.Component {
     this.props.actionSheetActions.goBack(
       this.props.stackId,
       this.props.pageId,
-      systemPagesTypesEnum.ACTION_SHEET_PAGE_ID
-    );
-  }
-
-  @autobind
-  onComboBoxSelect(selectedItem) {
-    if (selectedItem.key === 'first') {
-      this.onComboBoxCancel();
-    }
-  }
-
-  @autobind
-  onComboBoxSelectCustom(text) {
-    console.log(text, text.handler());
-  }
-
-  @autobind
-  onComboBoxSetFilter(comboBoxTextFilter) {
-    this.setState({
-      comboBoxTextFilter,
-    });
-  }
-
-  @autobind
-  onComboBoxCancel() {
-    this.props.comboBoxActions.goBack(
-      this.props.stackId,
-      this.props.pageId,
-      systemPagesTypesEnum.COMBOBOX_PAGE_ID
+      ACTION_SHEET_PAGE_ID
     );
   }
 
@@ -129,9 +79,7 @@ SettingsMainPageComponent.defaultProps = {
   stackId: undefined,
   pageId: undefined,
   actionSheet: undefined,
-  comboBox: undefined,
   actionSheetActions: undefined,
-  comboBoxActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
@@ -139,7 +87,5 @@ SettingsMainPageComponent.propTypes = {
   stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   actionSheet: React.PropTypes.any,
-  comboBox: React.PropTypes.any,
   actionSheetActions: React.PropTypes.any,
-  comboBoxActions: React.PropTypes.any,
 };

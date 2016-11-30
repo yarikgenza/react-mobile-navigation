@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import autobind from 'autobind-decorator';
 import invariant from 'invariant';
-import { ActionSheetListComponent } from './ActionSheetListComponent';
 import ShadowPageComponent from 'react-mobile-navigation-sheet';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
-import * as systemPagesTypesEnum from '../../enums/system-pages-types-enum';
+import { ActionSheetListComponent } from './ActionSheetListComponent';
+import { ACTION_SHEET_PAGE_ID } from '../../enums/system-pages-types-enum';
 
 const propTypes = {
   onCancel: React.PropTypes.func,
@@ -50,7 +50,7 @@ export class ActionSheetPage extends React.Component {
         stackData.pagingActions.openingPage(
           stackData.stackId,
           stackData.pageId,
-          systemPagesTypesEnum.ACTION_SHEET_PAGE_ID
+          ACTION_SHEET_PAGE_ID
         );
         return;
       case PageStatusTypesEnum.PREPARE_TO_CLOSE:
@@ -58,7 +58,7 @@ export class ActionSheetPage extends React.Component {
         stackData.pagingActions.goingBack(
           stackData.stackId,
           stackData.pageId,
-          systemPagesTypesEnum.ACTION_SHEET_PAGE_ID
+          ACTION_SHEET_PAGE_ID
         );
         return;
       default:
@@ -73,14 +73,14 @@ export class ActionSheetPage extends React.Component {
         this.props.pagingActions.openingPageDone(
           this.props.stackId,
           this.props.pageId,
-          systemPagesTypesEnum.ACTION_SHEET_PAGE_ID
+          ACTION_SHEET_PAGE_ID
         );
         return;
       case PageStatusTypesEnum.CLOSING:
         this.props.pagingActions.goingBackDone(
           this.props.stackId,
           this.props.pageId,
-          systemPagesTypesEnum.ACTION_SHEET_PAGE_ID
+          ACTION_SHEET_PAGE_ID
         );
         return;
       default:

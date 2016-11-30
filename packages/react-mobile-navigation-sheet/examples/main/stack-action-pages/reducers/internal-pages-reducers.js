@@ -1,16 +1,16 @@
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import * as InternalPagingActionTypes from '../constants/internal-paging-action-types';
+import * as ActionSheetInternalPagingActionTypes from '../constants/internal-paging-action-types';
 import { internalPagingReducers } from '../reducers/internal-page-reducers';
 
 /**
  * @example
- *  [systemPagesTypesEnum.ACTION_SHEET_PAGE_ID]: actionPageStoreModel(PageStatusTypesEnum.CLOSED),
+ *  [ACTION_SHEET_PAGE_ID]: actionPageStoreModel(PageStatusTypesEnum.CLOSED),
  */
 const initialState = {};
 
-export function internalPagesReducers(state = initialState, action) {
+export function actionSheetInternalPagesReducers(state = initialState, action) {
   switch (action.type) {
-    case InternalPagingActionTypes.INTERNAL_OPEN_PAGE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_OPEN_PAGE:
       return Object.assign({}, state, {
         [action.internalPageName]: internalPagingReducers(
           state[action.internalPageName],
@@ -19,7 +19,7 @@ export function internalPagesReducers(state = initialState, action) {
           action.direction
         ),
       });
-    case InternalPagingActionTypes.INTERNAL_OPENING_PAGE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_OPENING_PAGE:
       return Object.assign({}, state, {
         [action.internalPageName]: internalPagingReducers(
           state[action.internalPageName],
@@ -27,7 +27,7 @@ export function internalPagesReducers(state = initialState, action) {
           state[action.internalPageName].zIndex
         ),
       });
-    case InternalPagingActionTypes.INTERNAL_OPENING_PAGE_DONE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_OPENING_PAGE_DONE:
       return Object.assign({}, state, {
         [action.internalPageName]: internalPagingReducers(
           state[action.internalPageName],
@@ -35,7 +35,7 @@ export function internalPagesReducers(state = initialState, action) {
           state[action.internalPageName].zIndex
         ),
       });
-    case InternalPagingActionTypes.INTERNAL_GOING_BACK:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_GOING_BACK:
       return Object.assign({}, state, {
         [action.internalPageName]: internalPagingReducers(
           state[action.internalPageName],
@@ -43,7 +43,7 @@ export function internalPagesReducers(state = initialState, action) {
           state[action.internalPageName].zIndex
         ),
       });
-    case InternalPagingActionTypes.INTERNAL_GO_BACK:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_GO_BACK:
       return Object.assign({}, state, {
         [action.internalPageName]: internalPagingReducers(
           state[action.internalPageName],
@@ -51,7 +51,7 @@ export function internalPagesReducers(state = initialState, action) {
           state[action.internalPageName].zIndex
         ),
       });
-    case InternalPagingActionTypes.INTERNAL_GOING_BACK_DONE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_GOING_BACK_DONE:
       return Object.assign({}, state, {
         [action.internalPageName]: internalPagingReducers(
           state[action.internalPageName],

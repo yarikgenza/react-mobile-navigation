@@ -3,26 +3,25 @@ import {
   PageStatusTypesEnum,
 } from 'react-mobile-navigation-core';
 import {
-  InternalPagingActionTypes,
-  systemPagesTypesEnum,
-  internalPagesReducers,
+  ActionSheetInternalPagingActionTypes,
+  ACTION_SHEET_PAGE_ID,
+  actionSheetInternalPagesReducers,
 } from '../../stack-action-pages';
 
 const initialState = {
-  [systemPagesTypesEnum.ACTION_SHEET_PAGE_ID]: actionPageStoreModel(PageStatusTypesEnum.CLOSED),
-  [systemPagesTypesEnum.COMBOBOX_PAGE_ID]: actionPageStoreModel(PageStatusTypesEnum.CLOSED),
+  [ACTION_SHEET_PAGE_ID]: actionPageStoreModel(PageStatusTypesEnum.CLOSED),
 };
 
 // TODO: simplify?
 export function mainPageReducers(state = initialState, action) {
   switch (action.type) {
-    case InternalPagingActionTypes.INTERNAL_OPEN_PAGE:
-    case InternalPagingActionTypes.INTERNAL_OPENING_PAGE:
-    case InternalPagingActionTypes.INTERNAL_OPENING_PAGE_DONE:
-    case InternalPagingActionTypes.INTERNAL_GOING_BACK:
-    case InternalPagingActionTypes.INTERNAL_GO_BACK:
-    case InternalPagingActionTypes.INTERNAL_GOING_BACK_DONE:
-      return Object.assign({}, state, internalPagesReducers(state, action));
+    case ActionSheetInternalPagingActionTypes.INTERNAL_OPEN_PAGE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_OPENING_PAGE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_OPENING_PAGE_DONE:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_GOING_BACK:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_GO_BACK:
+    case ActionSheetInternalPagingActionTypes.INTERNAL_GOING_BACK_DONE:
+      return Object.assign({}, state, actionSheetInternalPagesReducers(state, action));
     default:
       return state;
   }
