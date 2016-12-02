@@ -1,5 +1,4 @@
 import React from 'react';
-import autobind from 'autobind-decorator';
 import {
   DirectionEnum,
   CustomPageBody,
@@ -15,9 +14,11 @@ export class SettingsMainPageComponent extends React.Component {
   constructor(props) {
     super(props);
     this.actionSheetItems = [];
+    this.openActionsheet = this.openActionsheet.bind(this);
+    this.onActionSheetSelect = this.onActionSheetSelect.bind(this);
+    this.onActionSheetCancel = this.onActionSheetCancel.bind(this);
   }
 
-  @autobind
   openActionsheet() {
     this.actionSheetItems = [];
     this.props.actionSheetActions.openPage(
@@ -29,14 +30,12 @@ export class SettingsMainPageComponent extends React.Component {
     );
   }
 
-  @autobind
   onActionSheetSelect(selectedItem) {
     if (selectedItem.key === 'licenses') {
       this.onActionSheetCancel();
     }
   }
 
-  @autobind
   onActionSheetCancel() {
     this.props.actionSheetActions.goBack(
       this.props.stackId,

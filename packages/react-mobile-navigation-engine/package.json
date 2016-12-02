@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-engine",
-  "version": "0.0.1-rc.0",
+  "version": "0.0.1-rc.1",
   "description": "React mobile navigation",
   "author": {
     "name": "Rostyslav Khanas",
@@ -27,7 +27,7 @@
     "react": "^15.3.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.1",
-    "styled-components": "^1.0.11"
+    "styled-components": "^1.1.2"
   },
   "devDependencies": {
     "babel": "^6.3.26",
@@ -44,7 +44,13 @@
     "eslint-plugin-import": "^1.11.0",
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.1.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-motion": "^0.4.4",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.1",
     "rimraf": "^2.5.4",
+    "styled-components": "^1.1.2",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
