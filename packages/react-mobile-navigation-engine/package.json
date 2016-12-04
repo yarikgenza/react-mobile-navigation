@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-engine",
-  "version": "0.0.1-rc.1",
+  "version": "0.0.1-rc.2",
   "description": "React mobile navigation",
   "author": {
     "name": "Rostyslav Khanas",
@@ -12,8 +12,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint src",
-    "build": "npm run lint && npm run clean && babel src --out-dir lib",
-    "start": "cd examples/main && webpack-dev-server --inline --hot"
+    "build": "npm run lint && npm run clean && babel src --out-dir lib"
   },
   "files": [
     "lib"
@@ -21,7 +20,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "invariant": "^2.2.1",
-    "react-mobile-navigation-core": "^0.0.1-rc.0"
+    "react-mobile-navigation-core": "^0.0.1-rc.1"
   },
   "peerDependencies": {
     "react": "^15.3.2",
@@ -45,13 +44,9 @@
     "eslint-plugin-jsx-a11y": "^1.5.3",
     "eslint-plugin-react": "^5.1.1",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2",
-    "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
     "redux": "^3.5.1",
     "rimraf": "^2.5.4",
-    "styled-components": "^1.1.2",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "styled-components": "^1.1.2"
   }
 }

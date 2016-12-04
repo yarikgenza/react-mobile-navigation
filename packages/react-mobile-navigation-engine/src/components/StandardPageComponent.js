@@ -1,5 +1,6 @@
 import React from 'react';
 import { getTranslate3dByDirection, BASE_CONTAINER_STYLE } from 'react-mobile-navigation-core';
+import StandardPageWrapper from '../components-styled/StandardPageWrapper';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
@@ -30,7 +31,7 @@ const StandardPageComponent = ({
     zIndex,
   }, transform);
   return (
-    <div style={standardPageStyle} >
+    <StandardPageWrapper style={standardPageStyle} >
       {React.cloneElement(React.Children.only(children), {
         pageState,
         stackId,
@@ -39,7 +40,7 @@ const StandardPageComponent = ({
         pageHeight,
         pageWidth,
       })}
-    </div>
+    </StandardPageWrapper>
   );
 };
 
