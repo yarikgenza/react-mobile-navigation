@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { stackSystemDataReducers } from '../../../../lib/react-mobile-navigation-engine/src';
+import { stackSystemDataReducers } from 'react-mobile-navigation-engine';
 
 const rootReducer = combineReducers({
 	stackSystemDataReducers,

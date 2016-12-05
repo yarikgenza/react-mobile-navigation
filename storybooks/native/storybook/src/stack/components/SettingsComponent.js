@@ -1,5 +1,5 @@
 import React from 'react';
-import { StandardPageComponent, PageManagerContainer } from '../../../../lib/react-mobile-navigation-engine/src';
+import { StandardPageComponent, PageManagerContainer } from 'react-mobile-navigation-engine';
 import { SettingsMainPageComponent } from './pages/SettingsMainPageComponent';
 import { SettingsLicencesPageComponent } from './pages/SettingsLicencesPageComponent';
 import { SettingsHelpPageComponent } from './pages/SettingsHelpPageComponent';

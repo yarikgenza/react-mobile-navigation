@@ -1,3 +1,12 @@
 {
-"presets": ["react-native"]
+  "presets": ["react-native"],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./storybook"],
+      "alias": {
+        "react-mobile-navigation-core": "./lib/react-mobile-navigation-core/src",
+        "react-mobile-navigation-engine": "./lib/react-mobile-navigation-engine/src"
+      }
+    }]
+  ]
 }
