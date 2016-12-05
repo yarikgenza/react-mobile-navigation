@@ -1,23 +1,23 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { storiesOf, action, linkTo } from '@kadira/react-native-storybook';
-
 import { Provider } from 'react-redux';
-import SettingsContainer from '../src/stack/container/SettingsContainer';
-import configureStore from '../src/stack/store/configure-store';
+
+import SettingsContainer2 from '../src/react-mobile-navigation-engine/stack/container/SettingsContainer';
+import configureStore2 from '../src/react-mobile-navigation-engine/stack/store/configure-store';
+
+const store2 = configureStore2();
+
+storiesOf('examples', module)
+  .add('react-mobile-navigation-engine', () => (
+    <Provider store={store2} >
+      <SettingsContainer2 />
+    </Provider>
+  ));
 
 import Button from './Button';
 import CenterView from './CenterView';
 import Welcome from './Welcome';
-
-const store = configureStore();
-
-storiesOf('Examples', module)
-  .add('Cards Page', () => (
-    <Provider store={store} >
-      <SettingsContainer />
-    </Provider>
-  ));
 
 storiesOf('Welcome', module)
   .add('to Storybook', () => (

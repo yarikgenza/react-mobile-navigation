@@ -1,5 +1,4 @@
-﻿import autobind from 'autobind-decorator';
-import React from 'react';
+﻿import React from 'react';
 import { actionAreaBlockHOC } from 'react-action-hoc';
 import {
   ACTION_SHEET_ITEM_STYLE,
@@ -28,16 +27,16 @@ export class ActionSheetListItemComponent extends React.Component {
     this.state = {
       isHover: false,
     };
+    this.onSetHoverStatus = this.onSetHoverStatus.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
-  @autobind
   onSetHoverStatus(isHover) {
     this.setState({
       isHover,
     });
   }
 
-  @autobind
   onSelect() {
     const { onSelect, item } = this.props;
     onSelect(item);

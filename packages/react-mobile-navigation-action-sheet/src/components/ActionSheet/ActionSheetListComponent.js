@@ -1,5 +1,4 @@
 ﻿import React from 'react';
-import autobind from 'autobind-decorator';
 import { ActionSheetListItemComponent } from './ActionSheetListItemComponent';
 import { ActionSheetOptionModel } from './ActionSheetOptionModel';
 import { ACTION_SHEET_STYLE } from '../../utils/styles';
@@ -18,7 +17,11 @@ const defaultProps = {
 
 export class ActionSheetListComponent extends React.Component {
 
-  @autobind
+  constructor(props) {
+    super(props);
+    this.onSelect = this.onSelect.bind(this);
+  }
+
   onSelect() {
     const { onCancel } = this.props;
     onCancel();

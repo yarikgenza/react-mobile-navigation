@@ -1,4 +1,3 @@
-import autobind from 'autobind-decorator';
 import React from 'react';
 import { DirectionEnum, CustomPageBody, PageWrapper } from 'react-mobile-navigation-core';
 import {
@@ -12,9 +11,11 @@ export class SettingsMainPageComponent extends React.Component {
   constructor(props) {
     super(props);
     this.actionSheetItems = [];
+    this.openActionsheet = this.openActionsheet.bind(this);
+    this.onActionSheetSelect = this.onActionSheetSelect.bind(this);
+    this.onActionSheetCancel = this.onActionSheetCancel.bind(this);
   }
 
-  @autobind
   openActionsheet() {
     this.actionSheetItems = [
       new ActionSheetOptionModel('licenses', 'Licenses', () => { console.log('licenses'); }),
@@ -28,14 +29,12 @@ export class SettingsMainPageComponent extends React.Component {
     );
   }
 
-  @autobind
   onActionSheetSelect(selectedItem) {
     if (selectedItem.key === 'licenses') {
       console.log('onActionSheetSelect', selectedItem.key);
     }
   }
 
-  @autobind
   onActionSheetCancel() {
     console.log('onActionSheetCancel');
   }

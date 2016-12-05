@@ -1,5 +1,4 @@
-﻿import autobind from 'autobind-decorator';
-import invariant from 'invariant';
+﻿import invariant from 'invariant';
 import React from 'react';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 import ShadowPage from 'react-mobile-navigation-sheet';
@@ -35,9 +34,13 @@ export class ActionSheetPage extends React.Component {
     this.state = {
       selectedOption: undefined,
     };
+    this.onSelect = this.onSelect.bind(this);
+    this.onCancel = this.onCancel.bind(this);
+    this.onShadowClick = this.onShadowClick.bind(this);
+    this.setPageStatus = this.setPageStatus.bind(this);
+    this.pageActionTransitionEndHandler = this.pageActionTransitionEndHandler.bind(this);
   }
 
-  @autobind
   onSelect(selectedOption) {
     this.setState({
       selectedOption,
@@ -45,7 +48,6 @@ export class ActionSheetPage extends React.Component {
     this.closeActionSheet();
   }
 
-  @autobind
   onCancel() {
     if (this.props.onCancel) {
       this.props.onCancel();
@@ -53,7 +55,6 @@ export class ActionSheetPage extends React.Component {
     this.closeActionSheet();
   }
 
-  @autobind
   onShadowClick() {
     if (this.props.onShadowClick) {
       this.props.onShadowClick();
@@ -62,7 +63,6 @@ export class ActionSheetPage extends React.Component {
     this.onCancel();
   }
 
-  @autobind
   setPageStatus() {
     const stackData = {
       status: this.props.pageState.status,
@@ -104,7 +104,6 @@ export class ActionSheetPage extends React.Component {
     );
   }
 
-  @autobind
   pageActionTransitionEndHandler() {
     switch (this.props.pageState.status) {
       case PageStatusTypesEnum.OPENING:
