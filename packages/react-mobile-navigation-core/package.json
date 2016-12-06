@@ -12,8 +12,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint src",
-    "build": "npm run lint && npm run clean && babel src --out-dir lib",
-    "start": "cd examples/main && webpack-dev-server --inline --hot"
+    "build": "npm run lint && npm run clean && babel src --out-dir lib"
   },
   "files": [
     "lib"
