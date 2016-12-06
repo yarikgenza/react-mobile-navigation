@@ -1,4 +1,14 @@
 {
   "presets": ["react", "es2015"],
-  "plugins": ["transform-object-rest-spread", "transform-decorators-legacy"]
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./storybook"],
+      "alias": {
+        "react-mobile-navigation-action-sheet": "./lib/react-mobile-navigation-action-sheet/src",
+        "react-mobile-navigation-core": "./lib/react-mobile-navigation-core/src",
+        "react-mobile-navigation-engine": "./lib/react-mobile-navigation-engine/src",
+        "react-mobile-navigation-sheet": "./lib/react-mobile-navigation-sheet/src"
+      }
+    }]
+  ]
 }
