@@ -38,7 +38,7 @@ export class ActionSheetPage extends React.Component {
     this.onCancel = this.onCancel.bind(this);
     this.onShadowClick = this.onShadowClick.bind(this);
     this.setPageStatus = this.setPageStatus.bind(this);
-    this.pageActionTransitionEndHandler = this.pageActionTransitionEndHandler.bind(this);
+    this.onActionTransitionEnd = this.onActionTransitionEnd.bind(this);
   }
 
   onSelect(selectedOption) {
@@ -104,7 +104,7 @@ export class ActionSheetPage extends React.Component {
     );
   }
 
-  pageActionTransitionEndHandler() {
+  onActionTransitionEnd() {
     switch (this.props.pageState.status) {
       case PageStatusTypesEnum.OPENING:
         this.props.pagingActions.openingPageDone(
@@ -154,7 +154,7 @@ export class ActionSheetPage extends React.Component {
     return (
       <Interpolation
         setPageStatus={this.setPageStatus}
-        pageActionTransitionEndHandler={this.pageActionTransitionEndHandler}
+        pageActionTransitionEndHandler={this.onActionTransitionEnd}
         pageState={pageState}
       >
         <ShadowPage stackId={stackId} onShadowClick={this.onShadowClick} >

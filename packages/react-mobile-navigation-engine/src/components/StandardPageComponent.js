@@ -8,7 +8,8 @@ const propTypes = {
   pageState: React.PropTypes.any,
   pageHeight: React.PropTypes.number,
   pageWidth: React.PropTypes.number,
-  pagingActions: React.PropTypes.any,
+  pagingActions: React.PropTypes.object,
+  pagingCallbacks: React.PropTypes.object,
   stackId: React.PropTypes.any,
   translateValue: React.PropTypes.number,
 };
@@ -21,9 +22,10 @@ const StandardPageComponent = ({
   children,
   stackId,
   pageId,
-  pagingActions,
   pageHeight,
   pageWidth,
+  pagingActions,
+  pagingCallbacks,
 }) => {
   const { status, zIndex, direction } = pageState;
   const transform = getTranslate3dByDirection(status, direction, translateValue);
@@ -33,12 +35,13 @@ const StandardPageComponent = ({
   return (
     <StandardPageWrapper style={standardPageStyle} >
       {React.cloneElement(React.Children.only(children), {
-        pageState,
-        stackId,
-        pageId,
-        pagingActions,
         pageHeight,
+        pageId,
+        pageState,
         pageWidth,
+        pagingActions,
+        pagingCallbacks,
+        stackId,
       })}
     </StandardPageWrapper>
   );
