@@ -1,11 +1,11 @@
-import PageManagerContainer from './containers/PageManagerContainer';
-import StandardPageComponent from './components/StandardPageComponent';
-import { pageStoreModel } from './store-models/page-store-model';
-import { stackSystemDataReducers } from './reducers/index';
+import MobileNavigation from './containers/MobileNavigationContainer';
+import MobileNavigationPage from './components/MobileNavigationPage';
+import mobileNavigationReducers from './reducers/index';
+import mobileNavigationPageStoreModel from './store-models/page-store-model';
 
 export {
-  PageManagerContainer,
-  StandardPageComponent,
-  pageStoreModel,
-  stackSystemDataReducers,
+  MobileNavigation,
+  MobileNavigationPage,
+  mobileNavigationPageStoreModel,
+  mobileNavigationReducers,
 };

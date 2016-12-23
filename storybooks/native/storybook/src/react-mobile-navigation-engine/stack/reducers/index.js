@@ -1,9 +1,7 @@
 import { combineReducers } from 'redux';
-import { stackSystemDataReducers } from 'react-mobile-navigation-engine';
+import { mobileNavigationReducers } from 'react-mobile-navigation-engine';
 
-const rootReducer = combineReducers({
-	stackSystemDataReducers,
+export default combineReducers({
+	mobileNavigationReducers,
 	stackId: () => 'settingsId',
 });
-
-export default rootReducer;

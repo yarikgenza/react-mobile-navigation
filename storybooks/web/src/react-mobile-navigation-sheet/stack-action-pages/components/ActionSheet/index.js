@@ -1,5 +1,3 @@
-import { ActionSheetPage } from './ActionSheetPage';
+import ActionSheet from './ActionSheet';
 
-export {
-  ActionSheetPage,
-};
+export default ActionSheet;

@@ -1,3 +1,3 @@
-import ShadowPage from './components/ShadowPage';
+import MobileNavigationShadowPage from './components/MobileNavigationShadowPage';
 
-export default ShadowPage;
+export default MobileNavigationShadowPage;

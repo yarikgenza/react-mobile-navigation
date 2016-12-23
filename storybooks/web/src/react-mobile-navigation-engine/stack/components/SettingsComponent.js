@@ -1,5 +1,5 @@
 import React from 'react';
-import { StandardPageComponent, PageManagerContainer } from 'react-mobile-navigation-engine';
+import { MobileNavigation, MobileNavigationPage } from 'react-mobile-navigation-engine';
 import { SettingsMainPageComponent } from './pages/SettingsMainPageComponent';
 import { SettingsLicencesPageComponent } from './pages/SettingsLicencesPageComponent';
 import { SettingsHelpPageComponent } from './pages/SettingsHelpPageComponent';
@@ -9,19 +9,20 @@ const width = 400;
 const height = 500;
 
 export const SettingsComponent = () => (
-  <PageManagerContainer
+  <MobileNavigation
     defaultPageId={SettingsModeTypesEnum.MAIN}
     pageWidth={width}
     pageHeight={height}
+    stackId="Settings"
   >
-    <StandardPageComponent pageId={SettingsModeTypesEnum.MAIN} >
+    <MobileNavigationPage pageId={SettingsModeTypesEnum.MAIN}>
       <SettingsMainPageComponent />
-    </StandardPageComponent>
-    <StandardPageComponent pageId={SettingsModeTypesEnum.LICENSES} >
+    </MobileNavigationPage>
+    <MobileNavigationPage pageId={SettingsModeTypesEnum.LICENSES}>
       <SettingsLicencesPageComponent />
-    </StandardPageComponent>
-    <StandardPageComponent pageId={SettingsModeTypesEnum.HELP} >
+    </MobileNavigationPage>
+    <MobileNavigationPage pageId={SettingsModeTypesEnum.HELP}>
       <SettingsHelpPageComponent />
-    </StandardPageComponent>
-  </PageManagerContainer>
+    </MobileNavigationPage>
+  </MobileNavigation>
 );

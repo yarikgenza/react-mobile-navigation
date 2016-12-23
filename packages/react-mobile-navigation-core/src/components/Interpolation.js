@@ -1,19 +1,16 @@
 ﻿import React from 'react';
 import { Motion, spring } from 'react-motion';
-import { isPageOpen } from '../utils/visability-statuses';
 import { fadeSpringConfig } from '../utils/spring-configs';
+import { getSpringValue } from '../utils/visability-statuses';
 
 const propTypes = {
-  setPageStatus: React.PropTypes.any,
-  pageActionTransitionEndHandler: React.PropTypes.any,
-  pageState: React.PropTypes.any,
   children: React.PropTypes.element.isRequired,
+  pageState: React.PropTypes.object.isRequired,
+  setPageStatus: React.PropTypes.func.isRequired,
+  onPageTransitionEnd: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
-
-const INTERP_BEGIN = 0;
-const INTERP_END = 100;
 
 export default class Interpolation extends React.Component {
 
@@ -26,17 +23,18 @@ export default class Interpolation extends React.Component {
   }
 
   render() {
-    const { status } = this.props.pageState;
-    const springValue = isPageOpen(status) ? INTERP_BEGIN : INTERP_END;
+    const { children, pageState, onPageTransitionEnd } = this.props;
+    const { status } = pageState;
+    const springValue = getSpringValue(status);
     return (
       <Motion
         style={{ translateValue: spring(springValue, fadeSpringConfig) }}
-        onRest={this.props.pageActionTransitionEndHandler}
+        onRest={onPageTransitionEnd}
       >
-        {(interp) => (
-          React.cloneElement(React.Children.only(this.props.children), {
-            translateValue: interp.translateValue,
-            pageState: this.props.pageState,
+        {({ translateValue }) => (
+          React.cloneElement(React.Children.only(children), {
+            pageState,
+            translateValue,
           })
         )}
       </Motion>

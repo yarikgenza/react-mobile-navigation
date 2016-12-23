@@ -6,62 +6,105 @@ import {
   OPEN_PAGE,
   OPENING_PAGE,
   OPENING_PAGE_DONE,
-} from '../constants/paging-action-types';
-import { pagingReducers } from './page-reducers';
+} from '../action-types/paging-action-types';
 
-const initialState = {};
+const {
+  BACK_ANIMATING_IN,
+  BACK_ANIMATING_OUT,
+  BACK_ANIMATING_OUT_DONE,
+  OPEN_PREPARE,
+  OPEN_ANIMATING,
+  OPEN_DONE,
+  CLOSE_PREPARE,
+  CLOSE_ANIMATING,
+  CLOSE_DONE,
+} = PageStatusTypesEnum;
 
-export function stackPagingReducers(state = initialState, action, activePageId) {
+const initialState = {
+  direction: undefined,
+  prevPageId: undefined,
+  status: undefined,
+  zIndex: undefined,
+};
+
+export function getPagingPrevPageById(pages, activePageId) {
+  return pages[activePageId].prevPageId;
+}
+
+function getBackMovingOutPageId(pages) {
+  return Object.keys(pages).find(pageId => pages[pageId].status === BACK_ANIMATING_OUT);
+}
+
+export default (state = initialState, action, activePageId) => {
   switch (action.type) {
     case OPEN_PAGE: {
-      const pageName = action.pageName;
       const zIndex = state[activePageId].zIndex + 1;
-      const pageValue = pagingReducers(
-        state[pageName],
-        PageStatusTypesEnum.PREPARE_TO_OPEN,
-        zIndex,
-        activePageId,
-        action.direction
-      );
       return Object.assign({}, state, {
-        [pageName]: pageValue,
+        [action.pageName]: Object.assign({}, state[action.pageName], {
+          direction: action.direction,
+          prevPageId: activePageId,
+          status: OPEN_PREPARE,
+          zIndex,
+        }),
+        [activePageId]: Object.assign({}, state[activePageId], {
+          direction: action.direction,
+          status: BACK_ANIMATING_OUT,
+        }),
       });
     }
     case OPENING_PAGE: {
-      const pageName = action.pageName;
-      const pageValue = pagingReducers(state[pageName], PageStatusTypesEnum.OPENING);
       return Object.assign({}, state, {
-        [pageName]: pageValue,
+        [action.pageName]: Object.assign({}, state[action.pageName], {
+          status: OPEN_ANIMATING,
+        }),
       });
     }
     case OPENING_PAGE_DONE: {
-      const pageName = action.pageName;
-      const pageValue = pagingReducers(state[pageName], PageStatusTypesEnum.OPENED);
+      const backMovingOutId = getBackMovingOutPageId(state);
       return Object.assign({}, state, {
-        [pageName]: pageValue,
+        [action.pageName]: Object.assign({}, state[action.pageName], {
+          status: OPEN_DONE,
+        }),
+        [backMovingOutId]: Object.assign({}, state[backMovingOutId], {
+          direction: undefined,
+          status: BACK_ANIMATING_OUT_DONE,
+        }),
       });
     }
     case GO_BACK: {
-      const pageValue = pagingReducers(state[activePageId], PageStatusTypesEnum.PREPARE_TO_CLOSE);
+      const backMovingInId = getPagingPrevPageById(state, activePageId);
       return Object.assign({}, state, {
-        [activePageId]: pageValue,
+        [activePageId]: Object.assign({}, state[activePageId], {
+          status: CLOSE_PREPARE,
+        }),
+        [backMovingInId]: Object.assign({}, state[backMovingInId], {
+          direction: state[activePageId].direction,
+          status: BACK_ANIMATING_IN,
+        }),
       });
     }
     case GOING_BACK: {
-      const pageName = action.pageName;
-      const pageValue = pagingReducers(state[pageName], PageStatusTypesEnum.CLOSING);
       return Object.assign({}, state, {
-        [pageName]: pageValue,
+        [action.pageName]: Object.assign({}, state[action.pageName], {
+          status: CLOSE_ANIMATING,
+        }),
       });
     }
     case GOING_BACK_DONE: {
-      const pageName = action.pageName;
-      const pageValue = pagingReducers(state[pageName], PageStatusTypesEnum.CLOSED);
       return Object.assign({}, state, {
-        [pageName]: pageValue,
+        [action.pageName]: Object.assign({}, state[action.pageName], {
+          direction: undefined,
+          prevPageId: undefined,
+          status: CLOSE_DONE,
+          zIndex: 0,
+        }),
+        [activePageId]: Object.assign({}, state[activePageId], {
+          direction: undefined,
+          status: OPEN_DONE,
+        }),
       });
     }
     default:
       return state;
   }
-}
+};

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import {
   PageWrapper,
-  CustomPageBody,
+  PageContent,
 } from 'react-mobile-navigation-core';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 
@@ -29,13 +29,13 @@ export class SettingsHelpPageComponent extends React.Component {
   render() {
     return (
       <PageWrapper>
-        <CustomPageBody zIndex={this.props.pageState.zIndex} >
+        <PageContent>
           <View key="1" >
             <Text onClick={this.closePageClick} >
               Help
             </Text>
           </View>
-        </CustomPageBody>
+        </PageContent>
       </PageWrapper>
     );
   }

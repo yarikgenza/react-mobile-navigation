@@ -1,8 +1,8 @@
+import { mobileNavigationReducers } from 'react-mobile-navigation-engine';
 import { combineReducers } from 'redux';
 import { mainPageReducers } from './main-page-reducers';
 
-const rootReducer = combineReducers({
+export default combineReducers({
+	mobileNavigationReducers,
 	mainPageReducers,
 });
-
-export default rootReducer;

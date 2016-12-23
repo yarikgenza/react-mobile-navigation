@@ -1,13 +1,10 @@
 import React from 'react';
 import {
   DirectionEnum,
-  CustomPageBody,
+  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
-import {
-  ActionSheetPage,
-  ACTION_SHEET_PAGE_ID,
-} from '../../stack-action-pages';
+import { ActionSheet } from '../../stack-action-pages';
 
 export class SettingsMainPageComponent extends React.Component {
 
@@ -21,10 +18,9 @@ export class SettingsMainPageComponent extends React.Component {
 
   openActionsheet() {
     this.actionSheetItems = [];
-    this.props.actionSheetActions.openPage(
+    this.props.actionSheetPagingActions.openPage(
       this.props.stackId,
       this.props.pageId,
-      ACTION_SHEET_PAGE_ID,
       DirectionEnum.VERTICAL,
       this.props.pageState.zIndex
     );
@@ -37,15 +33,13 @@ export class SettingsMainPageComponent extends React.Component {
   }
 
   onActionSheetCancel() {
-    this.props.actionSheetActions.goBack(
+    this.props.actionSheetPagingActions.goBack(
       this.props.stackId,
-      this.props.pageId,
-      ACTION_SHEET_PAGE_ID
+      this.props.pageId
     );
   }
 
   render() {
-    const ACTION_SHEET = 'ACTION_SHEET';
     const actionSheetPageState = this.props.actionSheet;
     const mainPageStyle = {
       backgroundColor: 'white',
@@ -54,19 +48,19 @@ export class SettingsMainPageComponent extends React.Component {
     };
     return (
       <PageWrapper>
-        <CustomPageBody zIndex={this.props.pageState.zIndex} >
+        <PageContent>
           <div style={mainPageStyle}>
             <div onClick={this.openActionsheet} >
-              {ACTION_SHEET}
+              Action Sheet
             </div>
           </div>
-        </CustomPageBody>
-        <ActionSheetPage
+        </PageContent>
+        <ActionSheet
           onCancel={this.onActionSheetCancel}
           pageState={actionSheetPageState}
           stackId={this.props.stackId}
           pageId={this.props.pageId}
-          pagingActions={this.props.actionSheetActions}
+          pagingActions={this.props.actionSheetPagingActions}
         />
       </PageWrapper>
     );
@@ -78,7 +72,7 @@ SettingsMainPageComponent.defaultProps = {
   stackId: undefined,
   pageId: undefined,
   actionSheet: undefined,
-  actionSheetActions: undefined,
+  actionSheetPagingActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
@@ -86,5 +80,5 @@ SettingsMainPageComponent.propTypes = {
   stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   actionSheet: React.PropTypes.any,
-  actionSheetActions: React.PropTypes.any,
+  actionSheetPagingActions: React.PropTypes.any,
 };

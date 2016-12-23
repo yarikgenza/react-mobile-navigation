@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import {
   DirectionEnum,
-  CustomPageBody,
+  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
 
@@ -34,7 +34,7 @@ export class SettingsMainPageComponent extends React.Component {
   render() {
     return (
       <PageWrapper>
-        <CustomPageBody zIndex={this.props.pageState.zIndex} >
+        <PageContent>
           <View>
             <Text onClick={this.connectedListText} >
               LIST_TEXT
@@ -45,7 +45,7 @@ export class SettingsMainPageComponent extends React.Component {
               HELP_TEXT
             </Text>
           </View>
-        </CustomPageBody>
+        </PageContent>
       </PageWrapper>
     );
   }

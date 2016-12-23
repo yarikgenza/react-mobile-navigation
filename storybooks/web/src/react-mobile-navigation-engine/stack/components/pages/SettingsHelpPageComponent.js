@@ -1,9 +1,7 @@
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import {
-  PageWrapper,
-  CustomPageBody,
-} from 'react-mobile-navigation-core';
+import { PageContent, PageWrapper } from 'react-mobile-navigation-core';
+import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export class SettingsHelpPageComponent extends React.Component {
 
@@ -29,13 +27,13 @@ export class SettingsHelpPageComponent extends React.Component {
     const LIST_TEXT = 'Help';
     return (
       <PageWrapper>
-        <CustomPageBody zIndex={ this.props.pageState.zIndex }>
+        <PageContent>
           <div key={ '1' }>
             <div onClick={this.closePageClick} >
               {LIST_TEXT}
             </div>
           </div>
-        </CustomPageBody>
+        </PageContent>
       </PageWrapper>
     );
   }

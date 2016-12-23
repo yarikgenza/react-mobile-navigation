@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { Provider } from 'react-redux';
 import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import { StandardPageComponent } from 'react-mobile-navigation-engine';
+import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 import configureStore1 from '../src/react-mobile-navigation-action-sheet/stack/store/configure-store';
-import SettingsMainPageContainer1 from '../src/react-mobile-navigation-action-sheet/stack/container/SettingsMainPageContainer';
+import SettingsContainer1 from '../src/react-mobile-navigation-action-sheet/stack/container/SettingsContainer';
 import configureStore2 from '../src/react-mobile-navigation-engine/stack/store/configure-store';
 import SettingsContainer2 from '../src/react-mobile-navigation-engine/stack/container/SettingsContainer';
 import configureStore3 from '../src/react-mobile-navigation-sheet/stack/store/configure-store';
@@ -19,8 +19,8 @@ const style = {
 };
 const MAIN_PAGE_ID = 'MAIN_PAGE_ID';
 const stackId = 'stackId';
-const pageState = pageStoreModel(PageStatusTypesEnum.OPENED, 1, undefined);
-function pageStoreModel(status, zIndex, prevPageId) {
+const pageState = mobileNavigationPageStoreModel(PageStatusTypesEnum.OPEN_DONE, 1, undefined);
+function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
   return Object.assign({}, actionPageStoreModel(status, zIndex), {
     prevPageId,
     direction: undefined,
@@ -45,14 +45,7 @@ storiesOf('examples', module)
             background-color: #eeeae5;
           }`}
         </style>
-        <StandardPageComponent
-          pageState={pageState}
-          stackId={stackId}
-          pagingActions={{}}
-          pageId={MAIN_PAGE_ID}
-        >
-          <SettingsMainPageContainer1 />
-        </StandardPageComponent>
+        <SettingsContainer1 />
       </div>
     </Provider>
   ))

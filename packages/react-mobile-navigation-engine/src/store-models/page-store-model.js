@@ -1,7 +1,7 @@
 import { actionPageStoreModel } from 'react-mobile-navigation-core';
 
-export function pageStoreModel(status, zIndex, prevPageId) {
-  return Object.assign({}, actionPageStoreModel(status, zIndex), {
+export default (status, zIndex, prevPageId) => (
+  Object.assign({}, actionPageStoreModel(status, zIndex), {
     prevPageId,
-  });
-}
+  })
+);

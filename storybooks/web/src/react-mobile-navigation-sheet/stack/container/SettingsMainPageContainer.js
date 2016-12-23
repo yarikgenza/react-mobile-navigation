@@ -1,17 +1,17 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SettingsMainPageComponent } from '../components/SettingsMainPageComponent';
-import { actionSheetInternalPagingActions, ACTION_SHEET_PAGE_ID } from '../../stack-action-pages';
+import { actionSheetPagingActions } from '../../stack-action-pages';
 
 function mapStateToProps(state) {
   return {
-    actionSheet: state.mainPageReducers[ACTION_SHEET_PAGE_ID],
+    actionSheet: state.mainPageReducers,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actionSheetActions: bindActionCreators(actionSheetInternalPagingActions, dispatch),
+    actionSheetPagingActions: bindActionCreators(actionSheetPagingActions, dispatch),
   };
 }
 

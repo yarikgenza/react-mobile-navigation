@@ -1,32 +1,30 @@
-import CustomPageBody from './components/CustomPageBody';
 import Interpolation from './components/Interpolation';
+import MobileNavigationPageRender from './components-styled/MobileNavigationPageRender';
+import PageContent from './components-styled/PageContent';
 import PageWrapper from './components-styled/PageWrapper';
 import DirectionEnum from './constants/direction-types';
 import PageStatusTypesEnum from './constants/page-status-types';
-import { actionPageStoreModel } from './store-models/action-page-store-model';
-import { BASE_CONTAINER_STYLE, BASE_CONTAINER_CSS } from './utils/styles';
+import actionPageStoreModel from './store-models/action-page-store-model';
 import getTranslate3dByDirection from './utils/animation-position';
 
 export {
-  CustomPageBody,
   Interpolation,
+  MobileNavigationPageRender,
+  PageContent,
   PageWrapper,
   DirectionEnum,
   PageStatusTypesEnum,
   actionPageStoreModel,
-  BASE_CONTAINER_STYLE,
-  BASE_CONTAINER_CSS,
   getTranslate3dByDirection,
 };
 
 export default {
-  CustomPageBody,
   Interpolation,
+  MobileNavigationPageRender,
+  PageContent,
   PageWrapper,
   DirectionEnum,
   PageStatusTypesEnum,
   actionPageStoreModel,
-  BASE_CONTAINER_STYLE,
-  BASE_CONTAINER_CSS,
   getTranslate3dByDirection,
 };

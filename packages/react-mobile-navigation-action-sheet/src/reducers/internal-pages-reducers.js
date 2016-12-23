@@ -1,65 +1,46 @@
-import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import * as ActionSheetInternalPagingActionTypes from '../constants/internal-paging-action-types';
-import { internalPagingReducers } from '../reducers/internal-page-reducers';
+import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
+import {
+  ACTION_SHEET_GO_BACK,
+  ACTION_SHEET_GOING_BACK,
+  ACTION_SHEET_GOING_BACK_DONE,
+  ACTION_SHEET_OPEN_PAGE,
+  ACTION_SHEET_OPENING_PAGE,
+  ACTION_SHEET_OPENING_PAGE_DONE,
+} from '../action-types/internal-paging-action-types';
 
-/**
- * @example
- *  [ACTION_SHEET_PAGE_ID]: actionPageStoreModel(PageStatusTypesEnum.CLOSED),
- */
-const initialState = {};
+const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
 
-export function actionSheetInternalPagesReducers(state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
-    case ActionSheetInternalPagingActionTypes.INTERNAL_OPEN_PAGE:
+    case ACTION_SHEET_OPEN_PAGE:
       return Object.assign({}, state, {
-        [action.internalPageName]: internalPagingReducers(
-          state[action.internalPageName],
-          PageStatusTypesEnum.PREPARE_TO_OPEN,
-          action.zIndex,
-          action.direction
-        ),
+        status: PageStatusTypesEnum.OPEN_PREPARE,
+        zIndex: action.zIndex,
+        direction: action.direction,
       });
-    case ActionSheetInternalPagingActionTypes.INTERNAL_OPENING_PAGE:
+    case ACTION_SHEET_OPENING_PAGE:
       return Object.assign({}, state, {
-        [action.internalPageName]: internalPagingReducers(
-          state[action.internalPageName],
-          PageStatusTypesEnum.OPENING,
-          state[action.internalPageName].zIndex
-        ),
+        status: PageStatusTypesEnum.OPEN_ANIMATING,
       });
-    case ActionSheetInternalPagingActionTypes.INTERNAL_OPENING_PAGE_DONE:
+    case ACTION_SHEET_OPENING_PAGE_DONE:
       return Object.assign({}, state, {
-        [action.internalPageName]: internalPagingReducers(
-          state[action.internalPageName],
-          PageStatusTypesEnum.OPENED,
-          state[action.internalPageName].zIndex
-        ),
+        status: PageStatusTypesEnum.OPEN_DONE,
       });
-    case ActionSheetInternalPagingActionTypes.INTERNAL_GOING_BACK:
+    case ACTION_SHEET_GOING_BACK:
       return Object.assign({}, state, {
-        [action.internalPageName]: internalPagingReducers(
-          state[action.internalPageName],
-          PageStatusTypesEnum.CLOSING,
-          state[action.internalPageName].zIndex
-        ),
+        status: PageStatusTypesEnum.CLOSE_ANIMATING,
       });
-    case ActionSheetInternalPagingActionTypes.INTERNAL_GO_BACK:
+    case ACTION_SHEET_GO_BACK:
       return Object.assign({}, state, {
-        [action.internalPageName]: internalPagingReducers(
-          state[action.internalPageName],
-          PageStatusTypesEnum.PREPARE_TO_CLOSE,
-          state[action.internalPageName].zIndex
-        ),
+        status: PageStatusTypesEnum.CLOSE_PREPARE,
       });
-    case ActionSheetInternalPagingActionTypes.INTERNAL_GOING_BACK_DONE:
+    case ACTION_SHEET_GOING_BACK_DONE:
       return Object.assign({}, state, {
-        [action.internalPageName]: internalPagingReducers(
-          state[action.internalPageName],
-          PageStatusTypesEnum.CLOSED,
-          0
-        ),
+        status: PageStatusTypesEnum.CLOSE_DONE,
+        zIndex: 0,
+        direction: undefined,
       });
     default:
       return state;
   }
-}
+};

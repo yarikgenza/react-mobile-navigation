@@ -1,6 +1,7 @@
 import invariant from 'invariant';
 import PageStatusTypesEnum from '../constants/page-status-types';
 import DirectionEnum from '../constants/direction-types';
+import { INTERP_OUT, INTERP_BEGIN, INTERP_END } from '../constants/interpolation-values';
 
 function getTransform(transform) {
   return {
@@ -11,12 +12,14 @@ function getTransform(transform) {
 
 export default (status, direction, value) => {
   switch (status) {
-    case PageStatusTypesEnum.OPENED:
-      return getTransform('translate3d(0, 0, 0)');
-    case PageStatusTypesEnum.PREPARE_TO_OPEN:
-    case PageStatusTypesEnum.OPENING:
-    case PageStatusTypesEnum.PREPARE_TO_CLOSE:
-    case PageStatusTypesEnum.CLOSING:
+    case PageStatusTypesEnum.OPEN_DONE:
+      return getTransform(`translate3d(${INTERP_BEGIN}, ${INTERP_BEGIN}, 0)`);
+    case PageStatusTypesEnum.OPEN_PREPARE:
+    case PageStatusTypesEnum.OPEN_ANIMATING:
+    case PageStatusTypesEnum.CLOSE_PREPARE:
+    case PageStatusTypesEnum.CLOSE_ANIMATING:
+    case PageStatusTypesEnum.BACK_ANIMATING_OUT:
+    case PageStatusTypesEnum.BACK_ANIMATING_IN:
       switch (direction) {
         case DirectionEnum.HORIZONTAL:
           return getTransform(`translate3d(${value}%, 0, 0)`);
@@ -28,8 +31,11 @@ export default (status, direction, value) => {
           }
           return getTransform('translate3d(0, 0, 0)');
       }
-    case PageStatusTypesEnum.CLOSED:
-      return getTransform('translate3d(100%, 0, 0)');
+    case PageStatusTypesEnum.CLOSE_DONE:
+      return getTransform(`translate3d(${INTERP_END}%, 0, 0)`);
+    case PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE:
+      // TODO: get constant
+      return getTransform(`translate3d(${INTERP_OUT}%, 0, 0)`);
     default:
       if (process.env.NODE_ENV !== 'production') {
         invariant(true, 'Property "status" is out of range.');

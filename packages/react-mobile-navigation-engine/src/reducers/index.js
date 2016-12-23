@@ -1,48 +1,66 @@
-import * as StackSystemDataActionTypes from '../constants/stack-system-data-action-types';
-import * as PagingActionTypes from '../constants/paging-action-types';
-import { stackPagingReducers } from './stack-pages-reducers';
+import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
+import { INIT_STACK } from '../constants/stack-system-data-action-types';
+import {
+  OPEN_PAGE,
+  OPENING_PAGE,
+  OPENING_PAGE_DONE,
+  GO_BACK,
+  GOING_BACK,
+  GOING_BACK_DONE,
+} from '../action-types/paging-action-types';
+import stackPagingReducers, { getPagingPrevPageById } from './stack-pages-reducers';
+
+const { CLOSE_ANIMATING } = PageStatusTypesEnum;
 
 const initialState = {
-  stackId: undefined,
   activePageId: undefined,
   pages: {},
+  stackId: undefined,
 };
 
 function getPrevPageById(state) {
-  return state.pages[state.activePageId].prevPageId;
+  return getPagingPrevPageById(state.pages, state.activePageId);
 }
 
-function getPrevPageId(state, action) {
-  return action.pageName !== state.activePageId ? state.activePageId : getPrevPageById(state);
+function isCurrentPageActive(state, pageName) {
+  return pageName === state.activePageId;
 }
 
-function initStack(action) {
-  return Object.assign({}, {
-    stackId: action.stackId,
-    activePageId: action.defaultPageId,
-    pages: action.pages,
-  });
+function getPrevPageId(state, pageName) {
+  return isCurrentPageActive(state, pageName) ? getPrevPageById(state) : state.activePageId;
 }
 
-export function stackSystemDataReducers(state = initialState, action) {
+function isClosingAnimation(pages) {
+  return Object.keys(pages).find(pageId => pages[pageId].status === CLOSE_ANIMATING) !== undefined;
+}
+
+export default (state = initialState, action) => {
   switch (action.type) {
-    case StackSystemDataActionTypes.INIT_STACK: {
-      return initStack(action);
+    case INIT_STACK: {
+      return Object.assign({}, {
+        stackId: action.stackId,
+        activePageId: action.defaultPageId,
+        pages: action.pages,
+      });
     }
-    case PagingActionTypes.OPEN_PAGE: {
-      const activePageId = getPrevPageId(state, action);
+    case OPEN_PAGE: {
+      // prevent opening new page until current closing is not finished
+      if (isClosingAnimation(state.pages)) {
+        return state;
+      }
+      const activePageId = getPrevPageId(state, action.pageName);
       return Object.assign({}, state, {
         activePageId: action.pageName,
         pages: stackPagingReducers(state.pages, action, activePageId),
       });
     }
-    case PagingActionTypes.OPENING_PAGE:
-    case PagingActionTypes.OPENING_PAGE_DONE:
-    case PagingActionTypes.GOING_BACK:
+    case OPENING_PAGE:
+    case OPENING_PAGE_DONE:
+    case GOING_BACK:
       return Object.assign({}, state, {
         pages: stackPagingReducers(state.pages, action),
       });
-    case PagingActionTypes.GO_BACK:
+    case GO_BACK:
       // prevent closing main page
       if (!getPrevPageById(state)) {
         return state;
@@ -50,14 +68,14 @@ export function stackSystemDataReducers(state = initialState, action) {
       return Object.assign({}, state, {
         pages: stackPagingReducers(state.pages, action, state.activePageId),
       });
-    case PagingActionTypes.GOING_BACK_DONE: {
+    case GOING_BACK_DONE: {
       const newActivePageId = getPrevPageById(state);
       return Object.assign({}, state, {
         activePageId: newActivePageId,
-        pages: stackPagingReducers(state.pages, action),
+        pages: stackPagingReducers(state.pages, action, newActivePageId),
       });
     }
     default:
       return state;
   }
-}
+};

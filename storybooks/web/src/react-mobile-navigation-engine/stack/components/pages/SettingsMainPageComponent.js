@@ -2,9 +2,10 @@ import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import {
   DirectionEnum,
-  CustomPageBody,
+  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
+import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export class SettingsMainPageComponent extends React.Component {
 
@@ -35,7 +36,7 @@ export class SettingsMainPageComponent extends React.Component {
     const HELP_TEXT = 'HELP_TEXT';
     return (
       <PageWrapper>
-        <CustomPageBody zIndex={ this.props.pageState.zIndex } >
+        <PageContent>
           <div>
             <div onClick={this.connectedListText} >
               {LIST_TEXT}
@@ -46,7 +47,7 @@ export class SettingsMainPageComponent extends React.Component {
               {HELP_TEXT}
             </div>
           </div>
-        </CustomPageBody>
+        </PageContent>
       </PageWrapper>
     );
   }
