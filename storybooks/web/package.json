@@ -7,7 +7,7 @@
     "build-storybook": "build-storybook -o ../../docs"
   },
   "dependencies": {
-    "binary-ui-styles": "^0.0.1-rc.3",
+    "binary-ui-styles": "^0.1.0-rc.2",
     "invariant": "^2.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
