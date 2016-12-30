@@ -10,7 +10,6 @@
     "binary-ui-styles": "^0.0.1-rc.3",
     "invariant": "^2.2.1",
     "react": "^15.3.2",
-    "react-action-hoc": "^0.0.1-rc.10",
     "react-dom": "^15.3.2",
     "react-motion": "^0.4.4",
     "react-redux": "^4.4.5",
