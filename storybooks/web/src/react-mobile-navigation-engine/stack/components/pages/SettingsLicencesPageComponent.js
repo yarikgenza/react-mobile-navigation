@@ -18,7 +18,7 @@ export class SettingsLicencesPageComponent extends React.Component {
   render() {
     const LIST_TEXT = 'Licences';
     return (
-      <PageWrapper>
+      <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
           <div>
             <div onClick={this.closePageClick} >

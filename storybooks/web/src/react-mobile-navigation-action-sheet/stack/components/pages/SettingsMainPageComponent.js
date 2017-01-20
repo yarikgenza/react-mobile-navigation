@@ -39,7 +39,7 @@ export class SettingsMainPageComponent extends React.Component {
 
   render() {
     return (
-      <PageWrapper>
+      <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
           <div onClick={this.openActionSheet}>
             Action Sheet

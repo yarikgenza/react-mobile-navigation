@@ -1,5 +1,4 @@
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import { INIT_STACK } from '../constants/stack-system-data-action-types';
 import {
   OPEN_PAGE,
   OPENING_PAGE,
@@ -8,27 +7,15 @@ import {
   GOING_BACK,
   GOING_BACK_DONE,
 } from '../action-types/paging-action-types';
-import stackPagingReducers, { getPagingPrevPageById } from './stack-pages-reducers';
+import stackPagingReducers from './stack-pages-reducers';
+import { getPrevPageById, getPrevPageId } from '../utils/page-manager';
 
 const { CLOSE_ANIMATING } = PageStatusTypesEnum;
 
 const initialState = {
   activePageId: undefined,
   pages: {},
-  stackId: undefined,
 };
-
-function getPrevPageById(state) {
-  return getPagingPrevPageById(state.pages, state.activePageId);
-}
-
-function isCurrentPageActive(state, pageName) {
-  return pageName === state.activePageId;
-}
-
-function getPrevPageId(state, pageName) {
-  return isCurrentPageActive(state, pageName) ? getPrevPageById(state) : state.activePageId;
-}
 
 function isClosingAnimation(pages) {
   return Object.keys(pages).find(pageId => pages[pageId].status === CLOSE_ANIMATING) !== undefined;
@@ -36,13 +23,6 @@ function isClosingAnimation(pages) {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case INIT_STACK: {
-      return Object.assign({}, {
-        stackId: action.stackId,
-        activePageId: action.defaultPageId,
-        pages: action.pages,
-      });
-    }
     case OPEN_PAGE: {
       // prevent opening new page until current closing is not finished
       if (isClosingAnimation(state.pages)) {

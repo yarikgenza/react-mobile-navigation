@@ -7,6 +7,7 @@ import {
   OPENING_PAGE,
   OPENING_PAGE_DONE,
 } from '../action-types/paging-action-types';
+import { getPagingPrevPageById } from '../utils/page-manager';
 
 const {
   BACK_ANIMATING_IN,
@@ -26,10 +27,6 @@ const initialState = {
   status: undefined,
   zIndex: undefined,
 };
-
-export function getPagingPrevPageById(pages, activePageId) {
-  return pages[activePageId].prevPageId;
-}
 
 function getBackMovingOutPageId(pages) {
   return Object.keys(pages).find(pageId => pages[pageId].status === BACK_ANIMATING_OUT);

@@ -26,7 +26,7 @@ export class SettingsHelpPageComponent extends React.Component {
   render() {
     const LIST_TEXT = 'Help';
     return (
-      <PageWrapper>
+      <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
           <div key={ '1' }>
             <div onClick={this.closePageClick} >

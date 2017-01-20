@@ -10,7 +10,6 @@ const height = 500;
 
 export const SettingsComponent = () => (
   <MobileNavigation
-    defaultPageId={SettingsModeTypesEnum.MAIN}
     pageWidth={width}
     pageHeight={height}
   >

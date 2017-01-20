@@ -35,7 +35,7 @@ export class SettingsMainPageComponent extends React.Component {
     const LIST_TEXT = 'LIST_TEXT';
     const HELP_TEXT = 'HELP_TEXT';
     return (
-      <PageWrapper>
+      <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
           <div>
             <div onClick={this.connectedListText} >

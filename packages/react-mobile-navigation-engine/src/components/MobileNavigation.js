@@ -1,14 +1,10 @@
 import React from 'react';
 import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 import MobileNavigationRender from '../components-styled/MobileNavigationRender';
-import { getActivePageId, getPageById, getPageState, initStack } from '../utils/page-manager';
+import { getPageById } from '../utils/page-manager';
 
 const propTypes = {
   children: React.PropTypes.any,
-  defaultPageId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]).isRequired,
   pageHeight: React.PropTypes.number,
   pageWidth: React.PropTypes.number,
   pagingActions: React.PropTypes.object.isRequired,
@@ -17,25 +13,17 @@ const propTypes = {
     React.PropTypes.string,
   ]).isRequired,
   mobileNavigationData: React.PropTypes.object,
-  mobileNavigationActions: React.PropTypes.object,
 };
 
 const defaultProps = {};
 
 export default class MobileNavigation extends React.Component {
 
-  componentDidMount() {
-    const { children, defaultPageId, mobileNavigationActions, stackId } = this.props;
-    const childrenArray = React.Children.toArray(children);
-    initStack(childrenArray, defaultPageId, mobileNavigationActions, stackId);
-  }
-
   getVisiblePageData(prevPageId) {
-    const { defaultPageId, mobileNavigationData } = this.props;
-    const prevPageState = getPageState(mobileNavigationData, defaultPageId, prevPageId);
+    const { mobileNavigationData } = this.props;
     return {
       pageId: prevPageId,
-      pageState: prevPageState,
+      pageState: mobileNavigationData.pages[prevPageId],
     };
   }
 
@@ -69,9 +57,8 @@ export default class MobileNavigation extends React.Component {
   }
 
   renderVisiblePages() {
-    const { defaultPageId, mobileNavigationData } = this.props;
-    const activePageId = getActivePageId(mobileNavigationData, defaultPageId);
-    const visiblePages = this.getVisiblePages(activePageId);
+    const { mobileNavigationData } = this.props;
+    const visiblePages = this.getVisiblePages(mobileNavigationData.activePageId);
     return visiblePages.map(page => (
       this.renderPage(page.pageId, page.pageState)
     ));

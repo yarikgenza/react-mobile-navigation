@@ -2,13 +2,20 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import { Provider } from 'react-redux';
 import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import { MobileNavigationPage } from 'react-mobile-navigation-engine';
+import {
+  MobileNavigationPage,
+  mobileNavigationCreateInitState,
+  mobileNavigationInitStatePseudoActions,
+} from 'react-mobile-navigation-engine';
 import configureStore1 from '../src/react-mobile-navigation-action-sheet/stack/store/configure-store';
 import SettingsContainer1 from '../src/react-mobile-navigation-action-sheet/stack/container/SettingsContainer';
+import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
 import configureStore2 from '../src/react-mobile-navigation-engine/stack/store/configure-store';
 import SettingsContainer2 from '../src/react-mobile-navigation-engine/stack/container/SettingsContainer';
+import * as Settings2ModeTypesEnum from '../src/react-mobile-navigation-engine/stack/enum/settings-mode-types-enum';
 import configureStore3 from '../src/react-mobile-navigation-sheet/stack/store/configure-store';
 import SettingsMainPageContainer3 from '../src/react-mobile-navigation-sheet/stack/container/SettingsMainPageContainer';
+// import * as Settings3ModeTypesEnum from '../src/react-mobile-navigation-sheet/stack/enum/settings-mode-types-enum';
 
 const width = 400;
 const height = 500;
@@ -27,8 +34,21 @@ function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
   });
 }
 
-const store1 = configureStore1();
-const store2 = configureStore2();
+const store1 = configureStore1({
+  mobileNavigationReducers: mobileNavigationCreateInitState(Settings1ModeTypesEnum.MAIN, [
+    Settings1ModeTypesEnum.MAIN,
+  ]),
+  mainPageReducers: undefined,
+});
+const store2 = configureStore2({
+  mobileNavigationReducers: mobileNavigationCreateInitState(Settings2ModeTypesEnum.MAIN, [
+    Settings2ModeTypesEnum.MAIN,
+    Settings2ModeTypesEnum.LICENSES,
+    Settings2ModeTypesEnum.HELP
+  ], [
+    mobileNavigationInitStatePseudoActions.openPageHorizontal(Settings2ModeTypesEnum.HELP),
+  ]),
+});
 const store3 = configureStore3();
 
 storiesOf('examples', module)
