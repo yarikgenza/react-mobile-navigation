@@ -1,7 +1,7 @@
 {
-  "name": "react-mobile-navigation-action-sheet",
+  "name": "react-mobile-navigation-combobox",
   "version": "0.1.0-rc.1",
-  "description": "React mobile navigation action sheet.",
+  "description": "React mobile navigation combobox.",
   "author": {
     "name": "Rostyslav Khanas",
     "email": "rk@try.cards"
@@ -19,20 +19,22 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
+    "binary-ui-icons": "^0.1.0-rc.3",
+    "binary-ui-stack": "^0.0.1-rc.0",
     "binary-ui-styles": "^0.1.0-rc.3",
     "invariant": "^2.2.1",
+    "js-search": "^1.3.7",
+    "js-search-no-filter": "^0.0.1-rc.0",
     "react-mobile-navigation-core": "^0.1.0-rc.1",
-    "react-mobile-navigation-sheet": "^0.1.0-rc.1",
-    "styled-components": "^1.1.2"
+    "react-mobile-navigation-engine": "^0.1.0-rc.1"
   },
   "peerDependencies": {
-    "react": "~15.3.2",
-    "react-native": "^0.39.0"
+    "react": "~15.3.2"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.21.0",
+    "babel": "^6.3.26",
+    "babel-cli": "^6.7.7",
+    "babel-core": "^6.7.7",
     "babel-eslint": "^6.0.3",
     "babel-loader": "^6.2.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -45,12 +47,15 @@
     "eslint-plugin-import": "^1.5.0",
     "eslint-plugin-jsx-a11y": "^1.0.2",
     "eslint-plugin-react": "^5.0.1",
+    "node-uuid": "^1.4.7",
     "react": "~15.3.2",
     "react-art": "^0.15.1",
     "react-dom": "~15.3.2",
-    "react-motion": "^0.4.4",
-    "react-native": "^0.38.0",
+    "react-motion": "^0.4.7",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5",
     "rimraf": "^2.3.4",
-    "styled-components": "^1.1.2"
+    "webpack": "^1.12.15",
+    "webpack-dev-server": "^1.14.1"
   }
 }

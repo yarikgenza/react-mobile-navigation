@@ -15,7 +15,8 @@ import SettingsContainer2 from '../src/react-mobile-navigation-engine/stack/cont
 import * as Settings2ModeTypesEnum from '../src/react-mobile-navigation-engine/stack/enum/settings-mode-types-enum';
 import configureStore3 from '../src/react-mobile-navigation-sheet/stack/store/configure-store';
 import SettingsMainPageContainer3 from '../src/react-mobile-navigation-sheet/stack/container/SettingsMainPageContainer';
-// import * as Settings3ModeTypesEnum from '../src/react-mobile-navigation-sheet/stack/enum/settings-mode-types-enum';
+import configureStore4 from '../src/react-mobile-navigation-combobox/stack/store/configure-store';
+import ComboboxContainer from '../src/react-mobile-navigation-combobox/stack/container/SettingsMainPageContainer';
 
 const width = 400;
 const height = 500;
@@ -51,6 +52,8 @@ const store2 = configureStore2({
 });
 const store3 = configureStore3();
 
+const store4 = configureStore4();
+
 storiesOf('examples', module)
   .add('react-mobile-navigation-action-sheet', () => (
     <Provider store={store1} >
@@ -66,6 +69,22 @@ storiesOf('examples', module)
           }`}
         </style>
         <SettingsContainer1 />
+      </div>
+    </Provider>
+  )).add('react-mobile-navigation-combobox', () => (
+    <Provider store={store4} >
+      <div style={style} >
+        <style>
+          {`html, body, #CardsApp {
+            width: 100%;
+            height: 100%;
+          }
+          body {
+            margin: 0;
+            background-color: #eeeae5;
+          }`}
+        </style>
+        <ComboboxContainer pageState={{ zIndex: 1 }} />
       </div>
     </Provider>
   ))
