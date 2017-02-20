@@ -2,6 +2,6 @@
 
 A set of React mobile navigation modules.
 
-## License
+### License
 
 MIT
