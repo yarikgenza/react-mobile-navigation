@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-engine",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "React mobile navigation.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -20,13 +20,13 @@
   "main": "lib/index.js",
   "dependencies": {
     "invariant": "^2.2.1",
-    "react-mobile-navigation-core": "^0.1.0-rc.1"
+    "react-mobile-navigation-core": "^0.1.0-rc.2"
   },
   "peerDependencies": {
     "react": "~15.3.2",
     "react-redux": "^4.4.5",
     "redux": "^3.5.1",
-    "styled-components": "^1.1.2"
+    "styled-components": "^1.4.3"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -47,6 +47,6 @@
     "react-redux": "^4.4.5",
     "redux": "^3.5.1",
     "rimraf": "^2.5.4",
-    "styled-components": "^1.1.2"
+    "styled-components": "^1.4.3"
   }
 }

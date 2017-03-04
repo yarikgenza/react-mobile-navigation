@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-core",
-  "version": "0.1.0-rc.1",
+  "version": "0.1.0-rc.2",
   "description": "React mobile mavigation core.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -24,7 +24,7 @@
   "peerDependencies": {
     "react": "~15.3.2",
     "react-motion": "^0.4.4",
-    "styled-components": "^1.1.2"
+    "styled-components": "^1.4.3"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -44,6 +44,6 @@
     "react": "~15.3.2",
     "react-motion": "^0.4.4",
     "rimraf": "^2.5.4",
-    "styled-components": "^1.1.2"
+    "styled-components": "^1.4.3"
   }
 }
