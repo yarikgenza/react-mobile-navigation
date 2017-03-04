@@ -1,8 +1,10 @@
+import { BINARY_COLOR_GRAY_90 } from 'binary-ui-styles';
+
 export default {
   main: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: BINARY_COLOR_GRAY_90,
   },
 };
