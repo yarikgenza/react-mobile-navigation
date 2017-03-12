@@ -9,4 +9,5 @@ export default styled.div`
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  cursor: default;
 `;

@@ -13,4 +13,5 @@ export default styled.div`
   vertical-align: middle;
   width: 100%;
   zIndex: 1000;
+  cursor: default;
 `;

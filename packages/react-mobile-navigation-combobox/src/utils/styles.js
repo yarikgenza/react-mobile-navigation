@@ -48,6 +48,7 @@ export const ACTION_SHEET_ITEM_STYLE = Object.assign(
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
+    cursor: 'default',
   }
 );
 
@@ -84,6 +85,7 @@ export const COMBOBOX_OPTION_STYLE = Object.assign(
     lineHeight: `${LIST_ITEM_HEIGHT}px`,
     borderBottom: `1px solid ${BINARY_COLOR_SAND_90}`,
     paddingLeft: '10px',
+    cursor: 'default',
   }
 );
 
