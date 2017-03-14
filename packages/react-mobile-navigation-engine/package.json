@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-engine",
-  "version": "0.1.0-rc.2",
+  "version": "0.1.0-rc.3",
   "description": "React mobile navigation.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -20,7 +20,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "invariant": "^2.2.1",
-    "react-mobile-navigation-core": "^0.1.0-rc.2"
+    "react-mobile-navigation-core": "^0.1.0-rc.3"
   },
   "peerDependencies": {
     "react": "~15.3.2",
