@@ -71,21 +71,21 @@ export default class ComboBox extends React.Component {
     this.setState({
       selectedOption,
     });
-    this.closeActionSheet();
+    this.closeComboBox();
   }
 
   onSelectCustom(selectedCustomOption) {
     this.setState({
       selectedCustomOption,
     });
-    this.closeActionSheet();
+    this.closeComboBox();
   }
 
   onCancel() {
     if (this.props.onCancel) {
       this.props.onCancel();
     }
-    this.closeActionSheet();
+    this.closeComboBox();
   }
 
   onTrySelectCustom() {
@@ -204,12 +204,9 @@ export default class ComboBox extends React.Component {
     return getFilteredComboboxOptions(textFilter, items);
   }
 
-  closeActionSheet() {
+  closeComboBox() {
     const { pageId, pagingActions, stackId } = this.props;
-    pagingActions.goBack(
-      stackId,
-      pageId
-    );
+    pagingActions.goBack(stackId, pageId);
   }
 
   render() {

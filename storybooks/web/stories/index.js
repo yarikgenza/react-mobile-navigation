@@ -17,6 +17,8 @@ import configureStore3 from '../src/react-mobile-navigation-sheet/stack/store/co
 import SettingsMainPageContainer3 from '../src/react-mobile-navigation-sheet/stack/container/SettingsMainPageContainer';
 import configureStore4 from '../src/react-mobile-navigation-combobox/stack/store/configure-store';
 import ComboboxContainer from '../src/react-mobile-navigation-combobox/stack/container/SettingsMainPageContainer';
+import configureStore5 from '../src/react-mobile-navigation-modal/stack/store/configure-store';
+import ModalContainer from '../src/react-mobile-navigation-modal/stack/container/SettingsMainPageContainer';
 
 const width = 400;
 const height = 500;
@@ -54,6 +56,8 @@ const store3 = configureStore3();
 
 const store4 = configureStore4();
 
+const store5 = configureStore5();
+
 storiesOf('examples', module)
   .add('react-mobile-navigation-action-sheet', () => (
     <Provider store={store1} >
@@ -71,7 +75,8 @@ storiesOf('examples', module)
         <SettingsContainer1 />
       </div>
     </Provider>
-  )).add('react-mobile-navigation-combobox', () => (
+  ))
+  .add('react-mobile-navigation-combobox', () => (
     <Provider store={store4} >
       <div style={style} >
         <style>
@@ -102,6 +107,25 @@ storiesOf('examples', module)
           }`}
         </style>
         <SettingsContainer2 />
+      </div>
+    </Provider>
+  ))
+  .add('react-mobile-navigation-modal', () => (
+    <Provider store={store5} >
+      <div style={style} >
+        <style>
+          {`html, body, #CardsApp {
+            width: 100%;
+            height: 100%;
+          }
+          body {
+            margin: 0;
+            background-color: #eeeae5;
+          }`}
+        </style>
+        <ModalContainer pageState={{ zIndex: 1 }} >
+          Here is my text
+        </ModalContainer>
       </div>
     </Provider>
   ))
