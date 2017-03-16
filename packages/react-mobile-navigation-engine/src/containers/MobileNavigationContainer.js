@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import MobileNavigation from '../components/MobileNavigation';
 import * as pagingActions from '../actions/paging-actions';
 
-function mapStateToProps(state) {
-  return {
-    mobileNavigationData: state.mobileNavigationReducers,
-  };
+function mapStateToProps() {
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {

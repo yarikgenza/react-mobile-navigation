@@ -6,8 +6,9 @@ import * as SettingsModeTypesEnum from '../enum/settings-mode-types-enum';
 const width = 400;
 const height = 500;
 
-export const SettingsComponent = () => (
+export const SettingsComponent = ({ mobileNavigationData }) => (
   <MobileNavigation
+    mobileNavigationData={mobileNavigationData}
     pageWidth={width}
     pageHeight={height}
     stackId="Settings"
