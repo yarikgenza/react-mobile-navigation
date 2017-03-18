@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import { mobileNavigationReducers } from 'react-mobile-navigation-engine';
+import { createMobileNavigationReducers } from 'react-mobile-navigation-engine';
 
 export default combineReducers({
-	mobileNavigationReducers,
-	stackId: () => 'settingsId',
+  mobileNavigationReducers: createMobileNavigationReducers('stack-id'),
+  stackId: () => 'stack-id',
 });

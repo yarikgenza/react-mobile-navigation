@@ -28,7 +28,7 @@ const style = {
   width: width,
 };
 const MAIN_PAGE_ID = 'MAIN_PAGE_ID';
-const stackId = 'stackId';
+const stackId = 'stack-id';
 const pageState = mobileNavigationPageStoreModel(PageStatusTypesEnum.OPEN_DONE, 1, undefined);
 function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
   return Object.assign({}, actionPageStoreModel(status, zIndex), {
@@ -72,7 +72,7 @@ storiesOf('examples', module)
             background-color: #eeeae5;
           }`}
         </style>
-        <SettingsContainer1 />
+        <SettingsContainer1 stackId={stackId} />
       </div>
     </Provider>
   ))
@@ -89,7 +89,7 @@ storiesOf('examples', module)
             background-color: #eeeae5;
           }`}
         </style>
-        <ComboboxContainer pageState={{ zIndex: 1 }} />
+        <ComboboxContainer pageState={{ zIndex: 1 }} stackId={stackId} />
       </div>
     </Provider>
   ))
@@ -106,7 +106,7 @@ storiesOf('examples', module)
             background-color: #eeeae5;
           }`}
         </style>
-        <SettingsContainer2 />
+        <SettingsContainer2 stackId={stackId} />
       </div>
     </Provider>
   ))
@@ -123,7 +123,7 @@ storiesOf('examples', module)
             background-color: #eeeae5;
           }`}
         </style>
-        <ModalContainer pageState={{ zIndex: 1 }} >
+        <ModalContainer pageState={{ zIndex: 1 }} stackId={stackId} >
           Here is my text
         </ModalContainer>
       </div>
@@ -144,12 +144,12 @@ storiesOf('examples', module)
         </style>
         <SettingsMainPageContainer3
           pageState={pageState}
-          stackId={stackId}
           pageId="pageId"
           pagingActions={{}}
           pageId={MAIN_PAGE_ID}
           pageWidth={width}
           pageHeight={height}
+          stackId={stackId}
         />
       </div>
     </Provider>

@@ -10,7 +10,8 @@ import {
 export function openPage(stackId, pageName, direction, zIndex) {
   return {
     type: ACTION_SHEET_OPEN_PAGE,
-    stackId, pageName,
+    stackId,
+    pageName,
     direction,
     zIndex,
   };
