@@ -35,7 +35,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-export default class ComboBox extends React.Component {
+export default class Modal extends React.Component {
 
   constructor(props) {
     super(props);
@@ -161,5 +161,5 @@ export default class ComboBox extends React.Component {
   }
 }
 
-ComboBox.propTypes = propTypes;
-ComboBox.defaultProps = defaultProps;
+Modal.propTypes = propTypes;
+Modal.defaultProps = defaultProps;

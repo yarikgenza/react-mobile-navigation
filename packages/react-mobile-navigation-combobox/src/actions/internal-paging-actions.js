@@ -1,32 +1,32 @@
 import {
-  INTERNAL_GO_BACK,
-  INTERNAL_GOING_BACK,
-  INTERNAL_GOING_BACK_DONE,
-  INTERNAL_OPEN_PAGE,
-  INTERNAL_OPENING_PAGE,
-  INTERNAL_OPENING_PAGE_DONE,
-} from '../constants/internal-paging-action-types';
+  COMBO_BOX_GO_BACK,
+  COMBO_BOX_GOING_BACK,
+  COMBO_BOX_GOING_BACK_DONE,
+  COMBO_BOX_OPEN_PAGE,
+  COMBO_BOX_OPENING_PAGE,
+  COMBO_BOX_OPENING_PAGE_DONE,
+} from '../action-types/internal-paging-action-types';
 
 export function openPage(stackId, pageName, direction, zIndex) {
-  return { type: INTERNAL_OPEN_PAGE, stackId, pageName, direction, zIndex };
+  return { type: COMBO_BOX_OPEN_PAGE, stackId, pageName, direction, zIndex };
 }
 
 export function openingPage(stackId, pageName) {
-  return { type: INTERNAL_OPENING_PAGE, stackId, pageName };
+  return { type: COMBO_BOX_OPENING_PAGE, stackId, pageName };
 }
 
 export function openingPageDone(stackId, pageName) {
-  return { type: INTERNAL_OPENING_PAGE_DONE, stackId, pageName };
+  return { type: COMBO_BOX_OPENING_PAGE_DONE, stackId, pageName };
 }
 
 export function goBack(stackId, pageName) {
-  return { type: INTERNAL_GO_BACK, stackId, pageName };
+  return { type: COMBO_BOX_GO_BACK, stackId, pageName };
 }
 
 export function goingBack(stackId, pageName) {
-  return { type: INTERNAL_GOING_BACK, stackId, pageName };
+  return { type: COMBO_BOX_GOING_BACK, stackId, pageName };
 }
 
 export function goingBackDone(stackId, pageName) {
-  return { type: INTERNAL_GOING_BACK_DONE, stackId, pageName };
+  return { type: COMBO_BOX_GOING_BACK_DONE, stackId, pageName };
 }
