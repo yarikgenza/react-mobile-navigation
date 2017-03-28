@@ -63,7 +63,6 @@ export default (state = initialState, action, activePageId) => {
           status: OPEN_DONE,
         }),
         [backMovingOutId]: Object.assign({}, state[backMovingOutId], {
-          direction: undefined,
           status: BACK_ANIMATING_OUT_DONE,
         }),
       });
@@ -96,7 +95,6 @@ export default (state = initialState, action, activePageId) => {
           zIndex: 0,
         }),
         [activePageId]: Object.assign({}, state[activePageId], {
-          direction: undefined,
           status: OPEN_DONE,
         }),
       });
