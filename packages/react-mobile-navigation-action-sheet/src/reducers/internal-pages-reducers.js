@@ -26,13 +26,13 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.OPEN_DONE,
       });
-    case ACTION_SHEET_GOING_BACK:
-      return Object.assign({}, state, {
-        status: PageStatusTypesEnum.CLOSE_ANIMATING,
-      });
     case ACTION_SHEET_GO_BACK:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.CLOSE_PREPARE,
+      });
+    case ACTION_SHEET_GOING_BACK:
+      return Object.assign({}, state, {
+        status: PageStatusTypesEnum.CLOSE_ANIMATING,
       });
     case ACTION_SHEET_GOING_BACK_DONE:
       return Object.assign({}, state, {
