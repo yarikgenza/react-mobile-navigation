@@ -1,6 +1,10 @@
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import { PageContent, PageWrapper } from 'react-mobile-navigation-core';
+import {
+  DirectionEnum,
+  PageContent,
+  PageWrapper,
+} from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export class SettingsHelpPageComponent extends React.Component {
@@ -9,6 +13,7 @@ export class SettingsHelpPageComponent extends React.Component {
     super(props);
     this.cache = '1';
     this.closePageClick = this.closePageClick.bind(this);
+    this.connectedHelpText = this.connectedHelpText.bind(this);
   }
 
   componentOpeningDone() {
@@ -19,19 +24,27 @@ export class SettingsHelpPageComponent extends React.Component {
     console.log('componentClosingDone', this.cache);
   }
 
+  connectedHelpText() {
+    this.props.pagingActions.openPage(
+      this.props.stackId,
+      SettingsModeTypesEnum.LICENSES,
+      DirectionEnum.HORIZONTAL
+    );
+  }
+
   closePageClick(e) {
     this.props.pagingActions.goBack(this.props.stackId);
   }
 
   render() {
-    const LIST_TEXT = 'Help';
     return (
       <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
-          <div key={ '1' }>
-            <div onClick={this.closePageClick} >
-              {LIST_TEXT}
-            </div>
+          <div onClick={this.connectedHelpText} >
+            Open licenses
+          </div>
+          <div onClick={this.closePageClick} >
+            Go back
           </div>
         </PageContent>
       </PageWrapper>
