@@ -26,11 +26,11 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.OPEN_DONE,
       });
-    case MODAL_GOING_BACK:
+    case MODAL_GO_BACK:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.CLOSE_PREPARE,
       });
-    case MODAL_GO_BACK:
+    case MODAL_GOING_BACK:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.CLOSE_ANIMATING,
       });
