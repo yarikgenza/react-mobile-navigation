@@ -1,7 +1,7 @@
 import { NO_SELECT_STYLE } from 'binary-ui-styles/web';
 import {
   BINARY_COLOR_SAND_90,
-  BINARY_COLOR_GRAY_60,
+  BINARY_COLOR_GRAY_20,
   BINARY_COLOR_GRAY_70,
   BINARY_COLOR_RED_40,
   BINARY_COLOR_BLUE_40,
@@ -22,7 +22,7 @@ export const FIELD_NAME_FONT = Object.assign(
   LETTER_SPACING_SMALL, {
     fontFamily: 'Fira Sans',
     fontSize: '13px',
-    color: BINARY_COLOR_GRAY_60,
+    color: BINARY_COLOR_GRAY_20,
   }
 );
 
