@@ -1,4 +1,5 @@
-﻿import { CardsIconCancel, CardsIconDone } from 'binary-ui-icons';
+﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
+import IconDone from 'binary-ui-icons/binary/Done';
 import { StackPage } from 'binary-ui-stack';
 import invariant from 'invariant';
 import React from 'react';
@@ -230,12 +231,12 @@ export default class ComboBox extends React.Component {
     }
     const titleLeftButton = {
       onClick: this.onCancel,
-      IconComponent: CardsIconCancel,
+      IconComponent: IconCancel,
     };
     const titleRightButton = allowCustomValue
       ? {
         onClick: this.onTrySelectCustom,
-        IconComponent: CardsIconDone,
+        IconComponent: IconDone,
       }
       : undefined;
     return (

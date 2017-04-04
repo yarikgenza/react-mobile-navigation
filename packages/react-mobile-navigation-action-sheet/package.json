@@ -19,7 +19,7 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "binary-ui-styles": "^0.1.0-rc.8",
+    "binary-ui-styles": "^0.1.0-rc.9",
     "invariant": "^2.2.1",
     "react-mobile-navigation-core": "^0.1.0-rc.4",
     "react-mobile-navigation-sheet": "^0.1.0-rc.4",

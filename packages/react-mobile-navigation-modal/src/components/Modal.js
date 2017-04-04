@@ -1,4 +1,5 @@
-﻿import { CardsIconCancel, CardsIconDone } from 'binary-ui-icons';
+﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
+import IconDone from 'binary-ui-icons/binary/Done';
 import { StackPage } from 'binary-ui-stack';
 import invariant from 'invariant';
 import React from 'react';
@@ -145,9 +146,9 @@ export default class Modal extends React.Component {
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
-            leftButton={{ onClick: this.onCancel, IconComponent: CardsIconCancel }}
+            leftButton={{ onClick: this.onCancel, IconComponent: IconCancel }}
             pageHeight={pageHeight}
-            rightButton={{ onClick: this.onConfirm, IconComponent: CardsIconDone }}
+            rightButton={{ onClick: this.onConfirm, IconComponent: IconDone }}
             stackTitle={stackTitle}
             stackTitleEditable={false}
             titleIcon={undefined}
