@@ -2714,18 +2714,18 @@ react-dom@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
-react-mobile-navigation-core@^0.1.0-rc.4:
-  version "0.1.0-rc.4"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-0.1.0-rc.4.tgz#369934708c83cb4f8142eecf23191cf83b19585d"
+react-mobile-navigation-core@^0.1.0-rc.7:
+  version "0.1.0-rc.7"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-0.1.0-rc.7.tgz#df730faabcbfb6a878ede3c0b3716083cad7b38f"
   dependencies:
     invariant "^2.2.1"
 
-react-mobile-navigation-engine@^0.1.0-rc.6:
-  version "0.1.0-rc.6"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-engine/-/react-mobile-navigation-engine-0.1.0-rc.6.tgz#2779e91c98ac56d287151a494dee42da645bff33"
+react-mobile-navigation-engine@^0.1.0-rc.7:
+  version "0.1.0-rc.7"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-engine/-/react-mobile-navigation-engine-0.1.0-rc.7.tgz#b2b5110d95e4b5c007ceb93065b93b799af53657"
   dependencies:
     invariant "^2.2.1"
-    react-mobile-navigation-core "^0.1.0-rc.4"
+    react-mobile-navigation-core "^0.1.0-rc.7"
 
 react-motion@^0.4.7:
   version "0.4.7"

@@ -1754,7 +1754,11 @@ dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
-domelementtype@1, domelementtype@~1.1.1:
+domelementtype@1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.0.tgz#b17aed82e8ab59e52dd9c19b1756e0fc187204c2"
+
+domelementtype@~1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.1.3.tgz#bd28773e2642881aec51544924299c5cd822185b"
 
@@ -4120,18 +4124,18 @@ react-dom@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
-react-mobile-navigation-core@^0.1.0-rc.4:
-  version "0.1.0-rc.4"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-0.1.0-rc.4.tgz#369934708c83cb4f8142eecf23191cf83b19585d"
+react-mobile-navigation-core@^0.1.0-rc.7:
+  version "0.1.0-rc.7"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-0.1.0-rc.7.tgz#df730faabcbfb6a878ede3c0b3716083cad7b38f"
   dependencies:
     invariant "^2.2.1"
 
-react-mobile-navigation-sheet@^0.1.0-rc.4:
-  version "0.1.0-rc.4"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-0.1.0-rc.4.tgz#ac47e91894ba96f9b459ba6ab88c59127c1d6f45"
+react-mobile-navigation-sheet@^0.1.0-rc.7:
+  version "0.1.0-rc.7"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-0.1.0-rc.7.tgz#8739e53b9785f8368d2fe7d168775e416f7233e5"
   dependencies:
     invariant "^2.2.1"
-    react-mobile-navigation-core "^0.1.0-rc.4"
+    react-mobile-navigation-core "^0.1.0-rc.7"
 
 react-motion@^0.4.4:
   version "0.4.7"
