@@ -1,17 +1,15 @@
 ﻿import React from 'react';
-import {
-  COMBOBOX_OPTION_STYLE,
-  COMBOBOX_OPTION_HOVER_EXT_STYLE,
-} from '../utils/styles';
+import ComboboxOptionStyled from '../components-styled/ComboboxOptionStyled';
 
 const propTypes = {
+  isBold: React.PropTypes.bool.isRequired,
   item: React.PropTypes.object.isRequired,
   handleItemSelect: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
 
-export default class ComboboxListItemComponent extends React.Component {
+export default class ComboboxOption extends React.Component {
 
   constructor(props) {
     super(props);
@@ -32,26 +30,20 @@ export default class ComboboxListItemComponent extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
-    const { isHover } = this.state;
-    const style = Object.assign(
-      {},
-      COMBOBOX_OPTION_STYLE,
-      item.style,
-      isHover ? COMBOBOX_OPTION_HOVER_EXT_STYLE : undefined
-    );
+    const { item, isBold } = this.props;
     return (
-      <div
-        style={style}
+      <ComboboxOptionStyled
+        isBold={isBold}
+        style={item.style}
         onClick={this.onItemSelect}
         onMouseEnter={() => { this.onSetHoverStatus(true); }}
         onMouseLeave={() => { this.onSetHoverStatus(false); }}
       >
         {item.label}
-      </div>
+      </ComboboxOptionStyled>
     );
   }
 }
 
-ComboboxListItemComponent.propTypes = propTypes;
-ComboboxListItemComponent.defaultProps = defaultProps;
+ComboboxOption.propTypes = propTypes;
+ComboboxOption.defaultProps = defaultProps;

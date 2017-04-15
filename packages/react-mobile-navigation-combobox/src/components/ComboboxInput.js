@@ -1,25 +1,28 @@
 ﻿import React from 'react';
 import {
-  COMBOBOX_INPUT_STYLE,
   COMBOBOX_INPUT_ACTIVE_EXT_STYLE,
   COMBOBOX_INPUT_INVALID_EXT_STYLE,
 } from '../utils/styles';
 
+import ComboboxInputStyled from '../components-styled/ComboboxInputStyled';
+
 const propTypes = {
   textFilter: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
+  isBold: React.PropTypes.bool.isRequired,
   isValid: React.PropTypes.bool,
-  styleExt: React.PropTypes.object,
-  onSetFilter: React.PropTypes.func,
+  placeholder: React.PropTypes.string,
+  onSetFilter: React.PropTypes.func.isRequired,
   onFilterOnKeyUp: React.PropTypes.func,
 };
 
 const defaultProps = {
+  isValid: true,
   textFilter: '',
-  placeholder: 'Search Here',
+  placeholder: '',
+  onFilterOnKeyUp: undefined,
 };
 
-export default class ComboboxCustomItem extends React.Component {
+export default class ComboboxInput extends React.Component {
 
   constructor(props) {
     super(props);
@@ -39,19 +42,17 @@ export default class ComboboxCustomItem extends React.Component {
   }
 
   render() {
-    const { isValid, styleExt } = this.props;
+    const { isBold, isValid } = this.props;
     const { isActive } = this.state;
-    const style = Object.assign(
-      {},
-      styleExt,
-      COMBOBOX_INPUT_STYLE,
-      isValid ? undefined : COMBOBOX_INPUT_INVALID_EXT_STYLE,
-      isActive ? COMBOBOX_INPUT_ACTIVE_EXT_STYLE : undefined
-    );
     return (
-      <input
+      <ComboboxInputStyled
+        isBold={isBold}
         placeholder={this.props.placeholder}
-        style={style}
+        style={Object.assign(
+          {},
+          isActive ? COMBOBOX_INPUT_ACTIVE_EXT_STYLE : undefined,
+          isValid ? undefined : COMBOBOX_INPUT_INVALID_EXT_STYLE
+        )}
         value={this.props.textFilter}
         onBlur={() => { this.onSetActiveStatus(false); }}
         onFocus={() => { this.onSetActiveStatus(true); }}
@@ -62,5 +63,5 @@ export default class ComboboxCustomItem extends React.Component {
   }
 }
 
-ComboboxCustomItem.propTypes = propTypes;
-ComboboxCustomItem.defaultProps = defaultProps;
+ComboboxInput.propTypes = propTypes;
+ComboboxInput.defaultProps = defaultProps;

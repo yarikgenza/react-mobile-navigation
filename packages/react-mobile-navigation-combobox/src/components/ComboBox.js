@@ -15,6 +15,7 @@ const propTypes = {
   customOptionModel: React.PropTypes.object,
   itemStyleValue: React.PropTypes.bool,
   inputPlaceholder: React.PropTypes.string,
+  isBold: React.PropTypes.bool,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   headerStyle: React.PropTypes.object.isRequired,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
@@ -38,9 +39,10 @@ const propTypes = {
 };
 
 const defaultProps = {
-  items: [],
   allowCustomValue: false,
   inputPlaceholder: '',
+  isBold: undefined,
+  items: [],
 };
 
 export default class ComboBox extends React.Component {
@@ -217,6 +219,7 @@ export default class ComboBox extends React.Component {
       customOptionModel,
       headerStyle,
       inputPlaceholder,
+      isBold,
       noOptionsMatchingInputLabel,
       pageHeight,
       pageWidth,
@@ -229,16 +232,6 @@ export default class ComboBox extends React.Component {
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
     }
-    const titleLeftButton = {
-      onClick: this.onCancel,
-      IconComponent: IconCancel,
-    };
-    const titleRightButton = allowCustomValue
-      ? {
-        onClick: this.onTrySelectCustom,
-        IconComponent: IconDone,
-      }
-      : undefined;
     return (
       <Interpolation
         setPageStatus={this.setPageStatus}
@@ -249,9 +242,17 @@ export default class ComboBox extends React.Component {
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
-            leftButton={titleLeftButton}
+            leftButton={{
+              onClick: this.onCancel,
+              renderIcon: () => (<IconCancel />),
+            }}
             pageHeight={pageHeight}
-            rightButton={titleRightButton}
+            rightButton={(allowCustomValue
+              ? {
+                onClick: this.onTrySelectCustom,
+                renderIcon: () => (<IconDone />),
+              } : undefined
+            )}
             stackTitle={stackTitle}
             stackTitleEditable={false}
             titleIcon={undefined}
@@ -263,6 +264,7 @@ export default class ComboBox extends React.Component {
               filteredItems={this.filteredItems}
               itemStyleValue={itemStyleValue}
               inputPlaceholder={inputPlaceholder}
+              isBold={isBold}
               noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
               pageHeight={pageHeight}
               pageWidth={pageWidth}

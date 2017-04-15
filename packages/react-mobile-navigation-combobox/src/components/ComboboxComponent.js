@@ -1,16 +1,9 @@
 ﻿import React from 'react';
 import { StackBodyCustomContent } from 'binary-ui-stack';
-import ComboboxListItemComponent from './ComboboxListItemComponent';
-import ComboboxCustomItem from './ComboboxCustomItem';
+import ComboboxNoOptionsStyled from '../components-styled/ComboboxNoOptionsStyled';
+import ComboboxOption from './ComboboxOption';
+import ComboboxInput from './ComboboxInput';
 import { ENTER, ESCAPE } from '../constants/key-events';
-import {
-  COMBOBOX_OPTION_STYLE,
-  COMBOBOX_OPTION_HOVER_EXT_STYLE,
-  COMBOBOX_OPTION_DISABLED_EXT_STYLE,
-  COMBOBOX_OPTION_DISABLED_HOVER_EXT_STYLE,
-  FIELD_NAME_FONT,
-  FIELD_VALUE_FONT,
-} from '../utils/styles';
 
 const propTypes = {
   customOptionModel: React.PropTypes.object,
@@ -19,6 +12,7 @@ const propTypes = {
   allowCustomValue: React.PropTypes.bool,
   textFilter: React.PropTypes.string,
   inputPlaceholder: React.PropTypes.string,
+  isBold: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
@@ -81,73 +75,51 @@ export class ComboboxComponent extends React.Component {
     return this.props.filteredItems.length > 0 || this.props.allowCustomValue;
   }
 
-  renderOptions(compoboxCustomItemStyleExt) {
-    const filteredItems = this.props.filteredItems.map((item) => (
-      <ComboboxListItemComponent
+  renderOptions(isBold) {
+    return this.props.filteredItems.map((item) => (
+      <ComboboxOption
+        isBold={isBold}
         item={item}
         key={item.key}
         handleItemSelect={this.props.onSelect}
       />
     ));
-    return (
-      <div style={compoboxCustomItemStyleExt} >
-        {filteredItems}
-      </div>
-    );
   }
 
-  renderNoOptions(compoboxCustomItemStyleExt) {
-    const { isHover } = this.state;
-    const styleHoverExt = Object.assign(
-      {},
-      COMBOBOX_OPTION_HOVER_EXT_STYLE,
-      COMBOBOX_OPTION_DISABLED_HOVER_EXT_STYLE
-    );
-    const style = Object.assign(
-      {},
-      COMBOBOX_OPTION_STYLE,
-      COMBOBOX_OPTION_DISABLED_EXT_STYLE,
-      compoboxCustomItemStyleExt,
-      isHover ? styleHoverExt : undefined
-    );
+  renderNoOptions() {
     return (
-      <div
-        style={style}
-        onMouseEnter={() => { this.onSetHoverStatus(true); }}
-        onMouseLeave={() => { this.onSetHoverStatus(false); }}
-      >
+      <ComboboxNoOptionsStyled>
         {this.getNoOptionsText()}
-      </div>
+      </ComboboxNoOptionsStyled>
     );
   }
 
-  renderFilteredItems(compoboxCustomItemStyleExt) {
+  renderFilteredItems(isBold) {
     return this.props.filteredItems.length
-      ? this.renderOptions(compoboxCustomItemStyleExt)
-      : this.renderNoOptions(compoboxCustomItemStyleExt);
+      ? this.renderOptions(isBold)
+      : this.renderNoOptions();
   }
 
   render() {
     const {
       inputPlaceholder,
-      itemStyleValue,
+      isBold,
       pageHeight,
       pageWidth,
       textFilter,
       onSetFilter,
     } = this.props;
-    const compoboxCustomItemStyleExt = itemStyleValue ? FIELD_VALUE_FONT : FIELD_NAME_FONT;
     return (
       <StackBodyCustomContent pageHeight={pageHeight} pageWidth={pageWidth} >
-        <ComboboxCustomItem
+        <ComboboxInput
+          isBold={isBold}
           isValid={this.isValid()}
           placeholder={inputPlaceholder}
           textFilter={textFilter}
-          styleExt={compoboxCustomItemStyleExt}
           onSetFilter={onSetFilter}
           onFilterOnKeyUp={this.onFilterOnKeyUp}
         />
-        {this.renderFilteredItems(compoboxCustomItemStyleExt)}
+        {this.renderFilteredItems(isBold)}
       </StackBodyCustomContent>
     );
   }

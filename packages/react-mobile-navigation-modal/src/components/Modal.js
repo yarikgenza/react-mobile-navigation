@@ -146,9 +146,9 @@ export default class Modal extends React.Component {
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
-            leftButton={{ onClick: this.onCancel, IconComponent: IconCancel }}
+            leftButton={{ onClick: this.onCancel, renderIcon: () => (<IconCancel />) }}
             pageHeight={pageHeight}
-            rightButton={{ onClick: this.onConfirm, IconComponent: IconDone }}
+            rightButton={{ onClick: this.onConfirm, renderIcon: () => (<IconDone />) }}
             stackTitle={stackTitle}
             stackTitleEditable={false}
             titleIcon={undefined}

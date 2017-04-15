@@ -19,9 +19,9 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "binary-ui-icons": "^0.1.0-rc.9",
-    "binary-ui-stack": "^0.0.1-rc.8",
-    "binary-ui-styles": "^0.1.0-rc.9",
+    "binary-ui-icons": "^0.2.0-rc.1",
+    "binary-ui-stack": "^0.1.0-rc.1",
+    "binary-ui-styles": "^0.2.0-rc.1",
     "invariant": "^2.2.1",
     "react-mobile-navigation-core": "^0.1.0-rc.7",
     "react-mobile-navigation-engine": "^0.1.0-rc.7"

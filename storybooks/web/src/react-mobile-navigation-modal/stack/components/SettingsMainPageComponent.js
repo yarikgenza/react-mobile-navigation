@@ -1,10 +1,8 @@
 import React from 'react';
-import {
-  ListItem,
-  ListItemNameText,
-  Button,
-  ButtonTypes,
-} from 'binary-ui-components';
+import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
+import Button from 'binary-ui-components/mobile/Button';
+import Group from 'binary-ui-components/mobile/Group';
+import Text from 'binary-ui-components/mobile/Text';
 import {
   DirectionEnum,
   PageContent,
@@ -43,11 +41,6 @@ export class SettingsMainPageComponent extends React.Component {
 
   render() {
     const COMBOBOX = 'COMBOBOX';
-    const comboboxData = {
-      text: COMBOBOX,
-      type: ButtonTypes.DOWN,
-      onClick: this.openCombobox,
-    };
     const comboBoxPageState = this.props.comboBox;
     const SIDE_MENU_HEADER_STYLE = {
       backgroundColor: '#eeeae5',
@@ -62,12 +55,16 @@ export class SettingsMainPageComponent extends React.Component {
       <PageWrapper>
         <PageContent zIndex={this.props.pageState.zIndex} >
           <div key={'section 1'}>
-            <ListItem>
-              <ListItemNameText>
-                {COMBOBOX}
-              </ListItemNameText>
-              <Button {...comboboxData} />
-            </ListItem>
+            <Group
+              renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
+              renderRight={() => (
+                <Button
+                  label={COMBOBOX}
+                  onClick={this.openCombobox}
+                  renderIcon={() => (<ArrowDown />)}
+                />
+              )}
+            />
           </div>
         </PageContent>
         <Modal
