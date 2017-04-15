@@ -1,3 +1,1 @@
-import MobileNavigationShadowPage from './components/MobileNavigationShadowPage';
-
-export default MobileNavigationShadowPage;
+export { default } from './components/MobileNavigationShadowPage';

@@ -42,10 +42,6 @@ export const ACTION_SHEET_ITEM_STYLE = Object.assign(
   }
 );
 
-export const ACTION_SHEET_ITEM_HOVER_EXT_STYLE = {
-  backgroundColor: BINARY_COLOR_SAND_90,
-};
-
 export const LIST_ITEM_HEIGHT = 44;
 
 export const COMBOBOX_INPUT_ACTIVE_EXT_STYLE = {

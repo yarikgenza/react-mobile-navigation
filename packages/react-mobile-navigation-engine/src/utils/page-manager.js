@@ -1,5 +1,4 @@
-import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import mobileNavigationPageStoreModel from '../store-models/page-store-model';
+import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 const { OPEN_DONE, CLOSE_DONE } = PageStatusTypesEnum;
 
@@ -24,9 +23,8 @@ export function getPageById(children, pageId) {
 }
 
 export function getInitPage(isDefaultPage) {
-  return mobileNavigationPageStoreModel(
+  return actionPageStoreModel(
     isDefaultPage ? OPEN_DONE : CLOSE_DONE,
-    isDefaultPage ? 1 : 0,
-    undefined
+    isDefaultPage ? 1 : 0
   );
 }
