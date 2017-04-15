@@ -106,7 +106,6 @@ export class SettingsMainPageComponent extends React.Component {
           customOptionModel={customOptionModel}
           isBold={false}
           items={this.comboBoxItems}
-          itemStyleValue={false}
           inputPlaceholder={this.comboBoxInputPlaceholder}
           allowCustomValue={false}
           bodyStyle={SIDE_MENU_BODY_STYLE}

@@ -13,7 +13,6 @@ const propTypes = {
   allowCustomValue: React.PropTypes.bool,
   bodyStyle: React.PropTypes.object.isRequired,
   customOptionModel: React.PropTypes.object,
-  itemStyleValue: React.PropTypes.bool,
   inputPlaceholder: React.PropTypes.string,
   isBold: React.PropTypes.bool,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
@@ -227,7 +226,6 @@ export default class ComboBox extends React.Component {
       pressEnterToSaveCustomFieldLabel,
       stackId,
       stackTitle,
-      itemStyleValue,
     } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
@@ -262,7 +260,6 @@ export default class ComboBox extends React.Component {
               allowCustomValue={allowCustomValue}
               customOptionModel={customOptionModel}
               filteredItems={this.filteredItems}
-              itemStyleValue={itemStyleValue}
               inputPlaceholder={inputPlaceholder}
               isBold={isBold}
               noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}

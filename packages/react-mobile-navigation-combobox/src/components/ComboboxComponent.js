@@ -8,7 +8,6 @@ import { ENTER, ESCAPE } from '../constants/key-events';
 const propTypes = {
   customOptionModel: React.PropTypes.object,
   filteredItems: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  itemStyleValue: React.PropTypes.bool,
   allowCustomValue: React.PropTypes.bool,
   textFilter: React.PropTypes.string,
   inputPlaceholder: React.PropTypes.string,
@@ -27,7 +26,6 @@ const propTypes = {
 const defaultProps = {
   customOptionModel: {},
   filteredItems: [],
-  itemStyleValue: true,
   allowCustomValue: false,
   textFilter: '',
   inputPlaceholder: '',
