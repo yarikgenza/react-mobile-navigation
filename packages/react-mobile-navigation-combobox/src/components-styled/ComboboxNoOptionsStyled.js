@@ -1,6 +1,6 @@
+import { LIST_ITEM_HEIGHT } from 'binary-ui-styles';
 import { NO_SELECT_CSS } from 'binary-ui-styles/web';
 import styled from 'styled-components';
-import { LIST_ITEM_HEIGHT, BINARY_COLOR_SAND_80, BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
 import {
   FIELD_VALUE_FONT_CSS,
   FIELD_NAME_FONT_CSS,
