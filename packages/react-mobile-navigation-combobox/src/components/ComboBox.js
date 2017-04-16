@@ -40,7 +40,7 @@ const propTypes = {
 const defaultProps = {
   allowCustomValue: false,
   inputPlaceholder: '',
-  isBold: undefined,
+  isBold: false,
   items: [],
 };
 
