@@ -19,10 +19,6 @@ export default class ActionSheetListItem extends React.Component {
     this.onSelect = this.onSelect.bind(this);
   }
 
-  onSetHover(isHover) {
-    this.setState({ isHover });
-  }
-
   onSelect() {
     const { onSelect, item } = this.props;
     onSelect(item);

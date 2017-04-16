@@ -1,4 +1,4 @@
-import { BINARY_COLOR_SAND_80, BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
+import { BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
 import { NO_SELECT_CSS } from 'binary-ui-styles/web';
 import styled from 'styled-components';
 
@@ -10,10 +10,7 @@ export default styled.div`
   justify-content: center;
   width: 100%;
   cursor: default;
-  &:hover {
-    background-color: ${BINARY_COLOR_SAND_90};
-  }
   &:active {
-    background-color: ${BINARY_COLOR_SAND_80};
+    background-color: ${BINARY_COLOR_SAND_90};
   }
 `;

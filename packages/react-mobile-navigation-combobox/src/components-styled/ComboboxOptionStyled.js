@@ -1,6 +1,6 @@
 import { NO_SELECT_CSS } from 'binary-ui-styles/web';
 import styled from 'styled-components';
-import { LIST_ITEM_HEIGHT, BINARY_COLOR_SAND_80, BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
+import { LIST_ITEM_HEIGHT, BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
 import {
   FIELD_VALUE_FONT_CSS,
   FIELD_NAME_FONT_CSS,
@@ -17,10 +17,7 @@ export default styled.div`
   line-height: ${LIST_ITEM_HEIGHT}px;
   vertical-align: middle;
   padding-left: 10px;
-  &:hover {
-    background-color: ${BINARY_COLOR_SAND_90};
-  }
   &:active {
-    background-color: ${BINARY_COLOR_SAND_80};
+    background-color: ${BINARY_COLOR_SAND_90};
   }
 `;

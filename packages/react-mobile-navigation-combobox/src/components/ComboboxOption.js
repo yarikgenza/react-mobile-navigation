@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import ComboboxOptionStyled from '../components-styled/ComboboxOptionStyled';
+import ComboBoxOptionStyled from '../components-styled/ComboboxOptionStyled';
 
 const propTypes = {
   isBold: React.PropTypes.bool.isRequired,
@@ -13,15 +13,7 @@ export default class ComboboxOption extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isHover: false,
-    };
-    this.onSetHoverStatus = this.onSetHoverStatus.bind(this);
     this.onItemSelect = this.onItemSelect.bind(this);
-  }
-
-  onSetHoverStatus(isHover) {
-    this.setState({ isHover });
   }
 
   onItemSelect() {
@@ -32,15 +24,13 @@ export default class ComboboxOption extends React.Component {
   render() {
     const { item, isBold } = this.props;
     return (
-      <ComboboxOptionStyled
+      <ComboBoxOptionStyled
         isBold={isBold}
         style={item.style}
         onClick={this.onItemSelect}
-        onMouseEnter={() => { this.onSetHoverStatus(true); }}
-        onMouseLeave={() => { this.onSetHoverStatus(false); }}
       >
         {item.label}
-      </ComboboxOptionStyled>
+      </ComboBoxOptionStyled>
     );
   }
 }

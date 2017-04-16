@@ -37,17 +37,7 @@ export class ComboboxComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      isHover: false,
-    };
-    this.onSetHoverStatus = this.onSetHoverStatus.bind(this);
     this.onFilterOnKeyUp = this.onFilterOnKeyUp.bind(this);
-  }
-
-  onSetHoverStatus(isHover) {
-    this.setState({
-      isHover,
-    });
   }
 
   onFilterOnKeyUp(e) {
