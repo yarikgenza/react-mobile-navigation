@@ -1,5 +1,4 @@
-﻿import invariant from 'invariant';
-import React from 'react';
+﻿import React from 'react';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 import MobileNavigationShadowPage from 'react-mobile-navigation-sheet';
 import ActionSheetList from './ActionSheetList';
@@ -44,104 +43,73 @@ export default class ActionSheet extends React.Component {
   }
 
   onSelect(selectedOption) {
-    this.setState({
-      selectedOption,
-    });
+    this.setState(() => ({ selectedOption }));
     this.closeActionSheet();
   }
 
   onCancel() {
-    if (this.props.onCancel) {
-      this.props.onCancel();
+    const { onCancel } = this.props;
+    if (onCancel) {
+      onCancel();
     }
     this.closeActionSheet();
   }
 
   onShadowClick() {
-    if (this.props.onShadowClick) {
-      this.props.onShadowClick();
+    const { onShadowClick } = this.props;
+    if (onShadowClick) {
+      onShadowClick();
       return;
     }
     this.onCancel();
   }
 
   onPageTransitionEnd() {
-    switch (this.props.pageState.status) {
+    const { pageId, pageState, pagingActions, stackId, onSelect } = this.props;
+    switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        this.props.pagingActions.openingPageDone(
-          this.props.stackId,
-          this.props.pageId
-        );
+        pagingActions.openingPageDone(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        this.props.pagingActions.goingBackDone(
-          this.props.stackId,
-          this.props.pageId
-        );
         const { selectedOption } = this.state;
+        // set state until use does actions which can possibly unmount the component
+        this.setState(() => ({ selectedOption: undefined }));
+        pagingActions.goingBackDone(stackId, pageId);
         if (selectedOption && selectedOption.handler) {
           selectedOption.handler();
         }
-        const { onSelect } = this.props;
         if (onSelect && selectedOption) {
           onSelect(selectedOption);
         }
-        this.setState({
-          selectedOption: undefined,
-        });
         return;
       }
       default:
-        invariant(
-          true,
-          'Property "status" in setPageStatus function is out of range'
-        );
         return;
     }
   }
 
   setPageStatus() {
-    const stackData = {
-      status: this.props.pageState.status,
-      pagingActions: this.props.pagingActions,
-      stackId: this.props.stackId,
-      pageId: this.props.pageId,
-    };
-    switch (stackData.status) {
+    const { pageId, pageState, pagingActions, stackId } = this.props;
+    switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
-        stackData.pagingActions.openingPage(
-          stackData.stackId,
-          stackData.pageId
-        );
+        pagingActions.openingPage(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
-        stackData.pagingActions.goingBack(
-          stackData.stackId,
-          stackData.pageId
-        );
+        pagingActions.goingBack(stackId, pageId);
         return;
       default:
-        invariant(
-          true,
-          'Property "status" in setPageStatus function is out of range'
-        );
         return;
     }
   }
 
   closeActionSheet() {
-    this.props.pagingActions.goBack(
-      this.props.stackId,
-      this.props.pageId
-    );
+    const { pageId, pagingActions, stackId } = this.props;
+    pagingActions.goBack(stackId, pageId);
   }
 
   render() {
-    if (this.props.pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
-      return null;
-    }
     const {
       cancelLabel,
       items,
@@ -150,6 +118,9 @@ export default class ActionSheet extends React.Component {
       pagingActions,
       stackId,
     } = this.props;
+    if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
+      return null;
+    }
     return (
       <Interpolation
         pageState={pageState}

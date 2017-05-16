@@ -24,11 +24,7 @@ export default class ComboboxOption extends React.Component {
   render() {
     const { item, isBold } = this.props;
     return (
-      <ComboBoxOptionStyled
-        isBold={isBold}
-        style={item.style}
-        onClick={this.onItemSelect}
-      >
+      <ComboBoxOptionStyled isBold={isBold} style={item.style} onClick={this.onItemSelect} >
         {item.label}
       </ComboBoxOptionStyled>
     );

@@ -1,7 +1,6 @@
 ﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
 import { StackPage } from 'binary-ui-stack';
-import invariant from 'invariant';
 import React from 'react';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
@@ -50,70 +49,48 @@ export default class Modal extends React.Component {
   }
 
   onCancel() {
-    if (this.props.onCancel) {
-      this.props.onCancel();
+    const { onCancel } = this.props;
+    if (onCancel) {
+      onCancel();
     }
     this.closeModal();
   }
 
   onConfirm() {
-    if (this.props.onConfirm) {
-      this.props.onConfirm();
+    const { onConfirm } = this.props;
+    if (onConfirm) {
+      onConfirm();
     }
     this.closeModal();
   }
 
   onPageTransitionEnd() {
-    switch (this.props.pageState.status) {
+    const { pageId, pageState, pagingActions, stackId } = this.props;
+    switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        this.props.pagingActions.openingPageDone(
-          this.props.stackId,
-          this.props.pageId
-        );
+        pagingActions.openingPageDone(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        this.props.pagingActions.goingBackDone(
-          this.props.stackId,
-          this.props.pageId
-        );
+        pagingActions.goingBackDone(stackId, pageId);
         return;
       }
       default:
-        invariant(
-          true,
-          'Property "status" in onPageTransitionEnd function is out of range'
-        );
         return;
     }
   }
 
   setPageStatus() {
-    const stackData = {
-      status: this.props.pageState.status,
-      pagingActions: this.props.pagingActions,
-      stackId: this.props.stackId,
-      pageId: this.props.pageId,
-    };
-    switch (stackData.status) {
+    const { pageId, pageState, pagingActions, stackId } = this.props;
+    switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
-        stackData.pagingActions.openingPage(
-          stackData.stackId,
-          stackData.pageId
-        );
+        pagingActions.openingPage(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
-        stackData.pagingActions.goingBack(
-          stackData.stackId,
-          stackData.pageId
-        );
+        pagingActions.goingBack(stackId, pageId);
         return;
       default:
-        invariant(
-          true,
-          'Property "status" in setPageStatus function is out of range'
-        );
         return;
     }
   }

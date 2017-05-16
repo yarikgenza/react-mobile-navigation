@@ -27,47 +27,49 @@ export default class MobileNavigation extends React.Component {
     };
   }
 
+  /**
+   * Render only visible and the previous pages.
+   * @param {*} activePageId
+   */
   getVisiblePages(activePageId) {
     const visiblePagesData = [];
     let pageData = this.getVisiblePageData(activePageId);
     visiblePagesData.push(pageData);
-    while (pageData.pageState.prevPageId) {
+    if (pageData.pageState.prevPageId) {
       pageData = this.getVisiblePageData(pageData.pageState.prevPageId);
       visiblePagesData.push(pageData);
     }
     return visiblePagesData;
   }
 
-  renderPage(pageId, pageState) {
-    const { children, pageHeight, pageWidth, pagingActions, stackId } = this.props;
+  render() {
+    const {
+      children,
+      mobileNavigationData,
+      pageHeight,
+      pageWidth,
+      pagingActions,
+      stackId,
+    } = this.props;
     const childrenArray = React.Children.toArray(children);
     return (
-      <MobileNavigationPageEngine
-        key={pageId}
-        pageHeight={pageHeight}
-        pageId={pageId}
-        pageState={pageState}
-        pageWidth={pageWidth}
-        pagingActions={pagingActions}
-        stackId={stackId}
-      >
-        {getPageById(childrenArray, pageId)}
-      </MobileNavigationPageEngine>
-    );
-  }
-
-  renderVisiblePages() {
-    const { mobileNavigationData } = this.props;
-    const visiblePages = this.getVisiblePages(mobileNavigationData.activePageId);
-    return visiblePages.map(page => (
-      this.renderPage(page.pageId, page.pageState)
-    ));
-  }
-
-  render() {
-    return (
       <MobileNavigationRender>
-        {this.renderVisiblePages()}
+        {this.getVisiblePages(mobileNavigationData.activePageId).map(page => {
+          const pageId = page.pageId;
+          return (
+            <MobileNavigationPageEngine
+              key={pageId}
+              pageHeight={pageHeight}
+              pageId={pageId}
+              pageState={page.pageState}
+              pageWidth={pageWidth}
+              pagingActions={pagingActions}
+              stackId={stackId}
+            >
+              {getPageById(childrenArray, pageId)}
+            </MobileNavigationPageEngine>
+          );
+        })}
       </MobileNavigationRender>
     );
   }

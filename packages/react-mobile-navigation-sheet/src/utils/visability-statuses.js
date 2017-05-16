@@ -1,4 +1,3 @@
-import invariant from 'invariant';
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 export function isActionSheetVisible(status) {
@@ -12,7 +11,6 @@ export function isActionSheetVisible(status) {
     case PageStatusTypesEnum.OPEN_PREPARE:
       return false;
     default:
-      invariant(true, 'Property "status" in "isActionSheetVisible" function is out of range');
       return true;
   }
 }

@@ -1,4 +1,3 @@
-import invariant from 'invariant';
 import PageStatusTypesEnum from '../constants/page-status-types';
 import DirectionEnum from '../constants/direction-types';
 import { INTERP_OUT, INTERP_BEGIN, INTERP_END } from '../constants/interpolation-values';
@@ -26,9 +25,6 @@ export default (status, direction, value) => {
         case DirectionEnum.VERTICAL:
           return getTransform(`translate3d(0, ${value}%, 0)`);
         default:
-          if (process.env.NODE_ENV !== 'production') {
-            invariant(true, 'Property "direction" should be "HORIZONTAL" or "VERTICAL"');
-          }
           return getTransform('translate3d(0, 0, 0)');
       }
     case PageStatusTypesEnum.CLOSE_DONE:
@@ -37,9 +33,6 @@ export default (status, direction, value) => {
       // TODO: get constant
       return getTransform(`translate3d(${INTERP_OUT}%, 0, 0)`);
     default:
-      if (process.env.NODE_ENV !== 'production') {
-        invariant(true, 'Property "status" is out of range.');
-      }
       return getTransform('translate3d(0, 0, 0)');
   }
 };

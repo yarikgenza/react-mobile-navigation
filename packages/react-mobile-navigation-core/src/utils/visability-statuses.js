@@ -1,4 +1,3 @@
-import invariant from 'invariant';
 import PageStatusTypesEnum from '../constants/page-status-types';
 import { INTERP_OUT, INTERP_BEGIN, INTERP_END } from '../constants/interpolation-values';
 
@@ -17,7 +16,6 @@ export function getSpringValue(status) {
     case PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE:
       return INTERP_OUT;
     default:
-      invariant(true, 'Property "status" in "isPageOpen" function is out of range');
       return INTERP_BEGIN;
   }
 }

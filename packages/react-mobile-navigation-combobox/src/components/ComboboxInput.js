@@ -34,7 +34,7 @@ export default class ComboboxInput extends React.Component {
   }
 
   onSetActiveStatus(isActive) {
-    this.setState({ isActive });
+    this.setState(() => ({ isActive }));
   }
 
   onFilterOnInput(e) {
@@ -42,22 +42,22 @@ export default class ComboboxInput extends React.Component {
   }
 
   render() {
-    const { isBold, isValid } = this.props;
+    const { isBold, isValid, placeholder, textFilter, onFilterOnKeyUp } = this.props;
     const { isActive } = this.state;
     return (
       <ComboboxInputStyled
         isBold={isBold}
-        placeholder={this.props.placeholder}
+        placeholder={placeholder}
         style={Object.assign(
           {},
           isActive ? COMBOBOX_INPUT_ACTIVE_EXT_STYLE : undefined,
           isValid ? undefined : COMBOBOX_INPUT_INVALID_EXT_STYLE
         )}
-        value={this.props.textFilter}
+        value={textFilter}
         onBlur={() => { this.onSetActiveStatus(false); }}
         onFocus={() => { this.onSetActiveStatus(true); }}
         onInput={this.onFilterOnInput}
-        onKeyUp={this.props.onFilterOnKeyUp}
+        onKeyUp={onFilterOnKeyUp}
       />
     );
   }

@@ -1,5 +1,4 @@
 import React from 'react';
-import invariant from 'invariant';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 
 const {
@@ -62,10 +61,6 @@ export default class MobileNavigationPageEngine extends React.Component {
         this.cache.onCloseCallback();
         return;
       default:
-        invariant(
-          true,
-          `Page status should be ${OPEN_ANIMATING} or ${CLOSE_ANIMATING}`
-        );
         return;
     }
   }

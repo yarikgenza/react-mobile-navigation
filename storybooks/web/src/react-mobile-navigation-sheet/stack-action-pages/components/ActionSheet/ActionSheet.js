@@ -1,5 +1,4 @@
-﻿import invariant from 'invariant';
-import React from 'react';
+﻿import React from 'react';
 import MobileNavigationShadowPage from 'react-mobile-navigation-sheet';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 import { ActionSheetListComponent } from './ActionSheetListComponent';
@@ -82,7 +81,6 @@ export default class ActionSheet extends React.Component {
         );
         return;
       default:
-        invariant(true, 'ERROR');
         return;
     }
   }
