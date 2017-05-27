@@ -30,10 +30,15 @@ const MobileNavigationPage = ({
   translateValue,
 }) => {
   const { status, zIndex, direction } = pageState;
-  const transformStyle = getTranslate3dByDirection(status, direction, translateValue);
-  const standardPageStyle = Object.assign({ zIndex }, transformStyle);
   return (
-    <MobileNavigationPageRender style={standardPageStyle} >
+    <MobileNavigationPageRender
+      zIndex={zIndex}
+      style={Object.assign(
+        {},
+        getTranslate3dByDirection(status, direction, translateValue),
+        { zIndex }
+      )}
+    >
       {React.cloneElement(React.Children.only(children), {
         pageHeight,
         pageId,
