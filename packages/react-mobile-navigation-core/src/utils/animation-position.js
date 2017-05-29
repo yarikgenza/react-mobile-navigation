@@ -30,7 +30,6 @@ export default (status, direction, value) => {
     case PageStatusTypesEnum.CLOSE_DONE:
       return getTransform(`translate3d(${INTERP_END}%, 0, 0)`);
     case PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE:
-      // TODO: get constant
       return getTransform(`translate3d(${INTERP_OUT}%, 0, 0)`);
     default:
       return getTransform('translate3d(0, 0, 0)');
