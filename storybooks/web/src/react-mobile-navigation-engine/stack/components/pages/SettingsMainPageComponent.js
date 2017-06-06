@@ -18,7 +18,8 @@ export class SettingsMainPageComponent extends React.Component {
   connectedListText() {
     this.props.pagingActions.openPage(
       this.props.stackId,
-      SettingsModeTypesEnum.LICENSES
+      SettingsModeTypesEnum.LICENSES,
+      DirectionEnum.VERTICAL
     );
   }
 

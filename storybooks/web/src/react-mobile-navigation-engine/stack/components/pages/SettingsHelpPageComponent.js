@@ -32,7 +32,8 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   closePageClick(e) {
-    this.props.pagingActions.goBackForce(this.props.stackId);
+    this.props.pagingActions.goBack(this.props.stackId);
+    // this.props.pagingActions.goBackForce(this.props.stackId);
   }
 
   render() {

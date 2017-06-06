@@ -92,7 +92,9 @@ export default (state = initialState, action, activePageId) => {
           direction: state[activePageId].direction,
           status: BACK_ANIMATING_IN,
         }) : Object.assign({}, state[backMovingInId], {
-          direction: undefined,
+          direction: state[backMovingInId].prevPageId
+            ? state[state[backMovingInId].prevPageId].direction
+            : undefined,
           status: OPEN_DONE,
         }),
       });
@@ -113,7 +115,9 @@ export default (state = initialState, action, activePageId) => {
           zIndex: 0,
         }),
         [activePageId]: Object.assign({}, state[activePageId], {
-          direction: undefined,
+          direction: state[activePageId].prevPageId
+            ? state[state[activePageId].prevPageId].direction
+            : undefined,
           status: OPEN_DONE,
         }),
       });
