@@ -12,7 +12,7 @@ const defaultProps = {
   isRed: false,
 };
 
-export default class ActionSheetListItem extends React.Component {
+export default class ActionSheetListItem extends React.PureComponent {
 
   constructor(props) {
     super(props);

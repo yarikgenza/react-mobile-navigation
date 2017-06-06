@@ -115,11 +115,11 @@ export default class ComboBox extends React.Component {
     const { pageId, pageState, pagingActions, stackId, onSelectCustom, onSelect } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openingPageDone(stackId, pageId);
+        pagingActions.openPageDone(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
         const { selectedCustomOption, selectedOption } = this.state;
-        pagingActions.goingBackDone(stackId, pageId);
+        pagingActions.goBackDone(stackId, pageId);
         // set state until use does actions which can possibly unmount the component
         this.setState(() => ({
           selectedCustomOption: undefined,

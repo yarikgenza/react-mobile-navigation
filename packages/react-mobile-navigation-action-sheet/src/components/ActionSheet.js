@@ -68,13 +68,13 @@ export default class ActionSheet extends React.Component {
     const { pageId, pageState, pagingActions, stackId, onSelect } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openingPageDone(stackId, pageId);
+        pagingActions.openPageDone(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
         const { selectedOption } = this.state;
         // set state until use does actions which can possibly unmount the component
         this.setState(() => ({ selectedOption: undefined }));
-        pagingActions.goingBackDone(stackId, pageId);
+        pagingActions.goBackDone(stackId, pageId);
         if (selectedOption && selectedOption.handler) {
           selectedOption.handler();
         }

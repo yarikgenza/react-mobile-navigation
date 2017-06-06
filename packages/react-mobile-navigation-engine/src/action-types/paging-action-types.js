@@ -1,6 +1,8 @@
-export const OPEN_PAGE = 'OPEN_PAGE';
-export const OPENING_PAGE = 'OPENING_PAGE';
-export const OPENING_PAGE_DONE = 'OPENING_PAGE_DONE';
-export const GO_BACK = 'GO_BACK';
-export const GOING_BACK = 'GOING_BACK';
-export const GOING_BACK_DONE = 'GOING_BACK_DONE';
+
+export const PAGE_OPEN_START = 'PAGE_OPEN_START';
+export const PAGE_OPENING = 'PAGE_OPENING';
+export const PAGE_OPEN_DONE = 'PAGE_OPEN_DONE';
+export const PAGE_CLOSE_START = 'PAGE_CLOSE_START';
+export const PAGE_CLOSING = 'PAGE_CLOSING';
+export const PAGE_CLOSE_DONE = 'PAGE_CLOSE_DONE';
+export const PAGE_CLOSE_FORCE = 'PAGE_CLOSE_FORCE';

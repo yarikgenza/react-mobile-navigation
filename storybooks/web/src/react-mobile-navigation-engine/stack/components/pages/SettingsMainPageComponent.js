@@ -18,8 +18,7 @@ export class SettingsMainPageComponent extends React.Component {
   connectedListText() {
     this.props.pagingActions.openPage(
       this.props.stackId,
-      SettingsModeTypesEnum.LICENSES,
-      DirectionEnum.HORIZONTAL
+      SettingsModeTypesEnum.LICENSES
     );
   }
 
@@ -35,6 +34,7 @@ export class SettingsMainPageComponent extends React.Component {
     return (
       <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
+          <div style={{ textAlign: 'center' }} >Main</div>
           <div onClick={this.connectedListText} >
             Open Licenses
           </div>

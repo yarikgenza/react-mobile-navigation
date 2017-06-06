@@ -47,14 +47,14 @@ export default class MobileNavigationPageEngine extends React.Component {
     const { pageId, pageState, pagingActions, stackId } = this.props;
     switch (pageState.status) {
       case OPEN_ANIMATING:
-        pagingActions.openingPageDone(stackId, pageId);
+        pagingActions.openPageDone(stackId, pageId);
         if (typeof this.cache.onOpenCallback !== 'function') {
           return;
         }
         this.cache.onOpenCallback();
         return;
       case CLOSE_ANIMATING:
-        pagingActions.goingBackDone(stackId, pageId);
+        pagingActions.goBackDone(stackId, pageId);
         if (typeof this.cache.onCloseCallback !== 'function') {
           return;
         }
@@ -113,6 +113,7 @@ export default class MobileNavigationPageEngine extends React.Component {
             openPageHorizontal: pagingActions.openPageHorizontal,
             openPageVertical: pagingActions.openPageVertical,
             goBack: pagingActions.goBack,
+            goBackForce: pagingActions.goBackForce,
           },
           pagingCallbacks: {
             setOnOpen: this.setOnOpen,

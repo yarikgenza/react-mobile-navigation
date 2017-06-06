@@ -15,7 +15,7 @@ const defaultProps = {
   cancelLabel: 'Cancel',
 };
 
-export default class ActionSheetList extends React.Component {
+export default class ActionSheetList extends React.PureComponent {
 
   constructor(props) {
     super(props);

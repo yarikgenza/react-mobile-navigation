@@ -27,19 +27,19 @@ export class SettingsHelpPageComponent extends React.Component {
   connectedHelpText() {
     this.props.pagingActions.openPage(
       this.props.stackId,
-      SettingsModeTypesEnum.LICENSES,
-      DirectionEnum.HORIZONTAL
+      SettingsModeTypesEnum.LICENSES
     );
   }
 
   closePageClick(e) {
-    this.props.pagingActions.goBack(this.props.stackId);
+    this.props.pagingActions.goBackForce(this.props.stackId);
   }
 
   render() {
     return (
       <PageWrapper style={{ backgroundColor: 'white' }} >
         <PageContent>
+          <div style={{ textAlign: 'center' }} >Help</div>
           <div onClick={this.connectedHelpText} >
             Open licenses
           </div>

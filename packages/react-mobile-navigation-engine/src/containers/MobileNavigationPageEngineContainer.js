@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MobileNavigation from '../components/MobileNavigation';
 import * as pagingActions from '../actions/paging-actions';
+import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 
 function mapStateToProps() {
   return {};
@@ -16,4 +16,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MobileNavigation);
+)(MobileNavigationPageEngine);

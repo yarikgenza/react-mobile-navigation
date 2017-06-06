@@ -1,11 +1,12 @@
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 import {
-  GO_BACK,
-  GOING_BACK,
-  GOING_BACK_DONE,
-  OPEN_PAGE,
-  OPENING_PAGE,
-  OPENING_PAGE_DONE,
+  PAGE_CLOSE_START,
+  PAGE_CLOSING,
+  PAGE_CLOSE_DONE,
+  PAGE_CLOSE_FORCE,
+  PAGE_OPEN_START,
+  PAGE_OPENING,
+  PAGE_OPEN_DONE,
 } from '../action-types/paging-action-types';
 import { getPagingPrevPageById } from '../utils/page-manager';
 
@@ -34,29 +35,37 @@ function getBackMovingOutPageId(pages) {
 
 export default (state = initialState, action, activePageId) => {
   switch (action.type) {
-    case OPEN_PAGE: {
+    case PAGE_OPEN_START: {
       const zIndex = state[activePageId].zIndex + 1;
       return Object.assign({}, state, {
-        [action.pageName]: Object.assign({}, state[action.pageName], {
+        [action.pageName]: action.direction ? Object.assign({}, state[action.pageName], {
           direction: action.direction,
           prevPageId: activePageId,
           status: OPEN_PREPARE,
           zIndex,
+        }) : Object.assign({}, state[action.pageName], {
+          direction: undefined,
+          prevPageId: activePageId,
+          status: OPEN_DONE,
+          zIndex,
         }),
-        [activePageId]: Object.assign({}, state[activePageId], {
+        [activePageId]: action.direction ? Object.assign({}, state[activePageId], {
           direction: action.direction,
           status: BACK_ANIMATING_OUT,
+        }) : Object.assign({}, state[activePageId], {
+          direction: undefined,
+          status: CLOSE_DONE,
         }),
       });
     }
-    case OPENING_PAGE: {
+    case PAGE_OPENING: {
       return Object.assign({}, state, {
         [action.pageName]: Object.assign({}, state[action.pageName], {
           status: OPEN_ANIMATING,
         }),
       });
     }
-    case OPENING_PAGE_DONE: {
+    case PAGE_OPEN_DONE: {
       const backMovingOutId = getBackMovingOutPageId(state);
       return Object.assign({}, state, {
         [action.pageName]: Object.assign({}, state[action.pageName], {
@@ -67,26 +76,35 @@ export default (state = initialState, action, activePageId) => {
         }),
       });
     }
-    case GO_BACK: {
+    case PAGE_CLOSE_START: {
       const backMovingInId = getPagingPrevPageById(state, activePageId);
+      const { direction } = state[activePageId];
       return Object.assign({}, state, {
-        [activePageId]: Object.assign({}, state[activePageId], {
+        [activePageId]: direction ? Object.assign({}, state[activePageId], {
           status: CLOSE_PREPARE,
+        }) : Object.assign({}, state[activePageId], {
+          direction: undefined,
+          prevPageId: undefined,
+          status: CLOSE_DONE,
+          zIndex: 0,
         }),
-        [backMovingInId]: Object.assign({}, state[backMovingInId], {
+        [backMovingInId]: direction ? Object.assign({}, state[backMovingInId], {
           direction: state[activePageId].direction,
           status: BACK_ANIMATING_IN,
+        }) : Object.assign({}, state[backMovingInId], {
+          direction: undefined,
+          status: OPEN_DONE,
         }),
       });
     }
-    case GOING_BACK: {
+    case PAGE_CLOSING: {
       return Object.assign({}, state, {
         [action.pageName]: Object.assign({}, state[action.pageName], {
           status: CLOSE_ANIMATING,
         }),
       });
     }
-    case GOING_BACK_DONE: {
+    case PAGE_CLOSE_DONE: {
       return Object.assign({}, state, {
         [action.pageName]: Object.assign({}, state[action.pageName], {
           direction: undefined,
@@ -95,6 +113,22 @@ export default (state = initialState, action, activePageId) => {
           zIndex: 0,
         }),
         [activePageId]: Object.assign({}, state[activePageId], {
+          direction: undefined,
+          status: OPEN_DONE,
+        }),
+      });
+    }
+    case PAGE_CLOSE_FORCE: {
+      const backMovingInId = getPagingPrevPageById(state, activePageId);
+      return Object.assign({}, state, {
+        [activePageId]: Object.assign({}, state[activePageId], {
+          direction: undefined,
+          prevPageId: undefined,
+          status: CLOSE_DONE,
+          zIndex: 0,
+        }),
+        [backMovingInId]: Object.assign({}, state[backMovingInId], {
+          direction: undefined,
           status: OPEN_DONE,
         }),
       });

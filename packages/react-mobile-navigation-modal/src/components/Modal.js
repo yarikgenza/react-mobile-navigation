@@ -68,10 +68,10 @@ export default class Modal extends React.Component {
     const { pageId, pageState, pagingActions, stackId } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openingPageDone(stackId, pageId);
+        pagingActions.openPageDone(stackId, pageId);
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        pagingActions.goingBackDone(stackId, pageId);
+        pagingActions.goBackDone(stackId, pageId);
         return;
       }
       default:

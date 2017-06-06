@@ -69,13 +69,13 @@ export default class ActionSheet extends React.Component {
   onPageTransitionEnd() {
     switch (this.props.pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        this.props.pagingActions.openingPageDone(
+        this.props.pagingActions.openPageDone(
           this.props.stackId,
           this.props.pageId
         );
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING:
-        this.props.pagingActions.goingBackDone(
+        this.props.pagingActions.goBackDone(
           this.props.stackId,
           this.props.pageId
         );

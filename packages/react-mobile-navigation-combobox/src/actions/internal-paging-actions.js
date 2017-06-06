@@ -15,7 +15,7 @@ export function openingPage(stackId, pageName) {
   return { type: COMBO_BOX_OPENING_PAGE, stackId, pageName };
 }
 
-export function openingPageDone(stackId, pageName) {
+export function openPageDone(stackId, pageName) {
   return { type: COMBO_BOX_OPENING_PAGE_DONE, stackId, pageName };
 }
 
@@ -27,6 +27,6 @@ export function goingBack(stackId, pageName) {
   return { type: COMBO_BOX_GOING_BACK, stackId, pageName };
 }
 
-export function goingBackDone(stackId, pageName) {
+export function goBackDone(stackId, pageName) {
   return { type: COMBO_BOX_GOING_BACK_DONE, stackId, pageName };
 }

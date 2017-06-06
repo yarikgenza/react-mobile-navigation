@@ -1,13 +1,12 @@
 import React from 'react';
-import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 import MobileNavigationRender from '../components-styled/MobileNavigationRender';
 import { getPageById } from '../utils/page-manager';
+import MobileNavigationPageEngineContainer from '../containers/MobileNavigationPageEngineContainer';
 
 const propTypes = {
   children: React.PropTypes.any,
   pageHeight: React.PropTypes.number,
   pageWidth: React.PropTypes.number,
-  pagingActions: React.PropTypes.object.isRequired,
   stackId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
@@ -48,26 +47,23 @@ export default class MobileNavigation extends React.Component {
       mobileNavigationData,
       pageHeight,
       pageWidth,
-      pagingActions,
       stackId,
     } = this.props;
-    const childrenArray = React.Children.toArray(children);
     return (
       <MobileNavigationRender>
         {this.getVisiblePages(mobileNavigationData.activePageId).map(page => {
           const pageId = page.pageId;
           return (
-            <MobileNavigationPageEngine
+            <MobileNavigationPageEngineContainer
               key={pageId}
               pageHeight={pageHeight}
               pageId={pageId}
               pageState={page.pageState}
               pageWidth={pageWidth}
-              pagingActions={pagingActions}
               stackId={stackId}
             >
-              {getPageById(childrenArray, pageId)}
-            </MobileNavigationPageEngine>
+              {getPageById(React.Children.toArray(children), pageId)}
+            </MobileNavigationPageEngineContainer>
           );
         })}
       </MobileNavigationRender>
