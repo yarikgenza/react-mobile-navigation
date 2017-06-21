@@ -1,10 +1,5 @@
 ﻿import React from 'react';
-import {
-  COMBOBOX_INPUT_ACTIVE_EXT_STYLE,
-  COMBOBOX_INPUT_INVALID_EXT_STYLE,
-} from '../utils/styles';
-
-import ComboboxInputStyled from '../components-styled/ComboboxInputStyled';
+import ComboBoxInputStyled from '../components-styled/ComboboxInputStyled';
 
 const propTypes = {
   textFilter: React.PropTypes.string,
@@ -29,33 +24,36 @@ export default class ComboboxInput extends React.Component {
     this.state = {
       isActive: false,
     };
-    this.onSetActiveStatus = this.onSetActiveStatus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
+    this.onFocus = this.onFocus.bind(this);
     this.onFilterOnInput = this.onFilterOnInput.bind(this);
   }
 
-  onSetActiveStatus(isActive) {
-    this.setState(() => ({ isActive }));
+  onFilterOnInput(e) {
+    const { onSetFilter } = this.props;
+    onSetFilter(e.target.value);
   }
 
-  onFilterOnInput(e) {
-    this.props.onSetFilter(e.target.value);
+  onBlur() {
+    this.setState(() => ({ isActive: false }));
+  }
+
+  onFocus() {
+    this.setState(() => ({ isActive: true }));
   }
 
   render() {
     const { isBold, isValid, placeholder, textFilter, onFilterOnKeyUp } = this.props;
     const { isActive } = this.state;
     return (
-      <ComboboxInputStyled
+      <ComboBoxInputStyled
+        isActive={isActive}
         isBold={isBold}
+        isValid={isValid}
         placeholder={placeholder}
-        style={Object.assign(
-          {},
-          isActive ? COMBOBOX_INPUT_ACTIVE_EXT_STYLE : undefined,
-          isValid ? undefined : COMBOBOX_INPUT_INVALID_EXT_STYLE
-        )}
         value={textFilter}
-        onBlur={() => { this.onSetActiveStatus(false); }}
-        onFocus={() => { this.onSetActiveStatus(true); }}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
         onInput={this.onFilterOnInput}
         onKeyUp={onFilterOnKeyUp}
       />

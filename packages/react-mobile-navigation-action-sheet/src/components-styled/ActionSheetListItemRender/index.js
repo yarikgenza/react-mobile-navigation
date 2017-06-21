@@ -1,4 +1,4 @@
-import { BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
+import { BINARY_COLOR_RED_40, BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
 import { NO_SELECT_CSS } from 'binary-ui-styles/web';
 import styled from 'styled-components';
 
@@ -13,4 +13,5 @@ export default styled.div`
   &:active {
     background-color: ${BINARY_COLOR_SAND_90};
   }
+  ${props => (props.isRed ? `color: ${BINARY_COLOR_RED_40}; font-weight: 400;` : '')}
 `;

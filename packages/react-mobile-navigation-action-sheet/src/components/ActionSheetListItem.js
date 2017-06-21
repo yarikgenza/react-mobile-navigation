@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import ActionSheetListItemRender from '../components-styled/ActionSheetListItemRender';
-import { RED_EXT } from '../utils/styles';
 
 const propTypes = {
   isRed: React.PropTypes.bool,
@@ -27,7 +26,7 @@ export default class ActionSheetListItem extends React.PureComponent {
   render() {
     const { isRed, item } = this.props;
     return (
-      <ActionSheetListItemRender style={isRed ? RED_EXT : undefined} onClick={this.onSelect} >
+      <ActionSheetListItemRender isRed={isRed} onClick={this.onSelect} >
         {item.label}
       </ActionSheetListItemRender>
     );

@@ -41,12 +41,13 @@ export class ComboboxComponent extends React.Component {
   }
 
   onFilterOnKeyUp(e) {
+    const { onCancel, onTrySelectCustom } = this.props;
     switch (e.keyCode) {
       case ENTER:
-        this.props.onTrySelectCustom();
+        onTrySelectCustom();
         return;
       case ESCAPE:
-        this.props.onCancel();
+        onCancel();
         return;
       default:
         return;
@@ -54,22 +55,27 @@ export class ComboboxComponent extends React.Component {
   }
 
   getNoOptionsText() {
-    return this.props.allowCustomValue
-      ? this.props.pressEnterToSaveCustomFieldLabel
-      : this.props.noOptionsMatchingInputLabel;
+    const {
+      allowCustomValue,
+      noOptionsMatchingInputLabel,
+      pressEnterToSaveCustomFieldLabel,
+    } = this.props;
+    return allowCustomValue ? pressEnterToSaveCustomFieldLabel : noOptionsMatchingInputLabel;
   }
 
   isValid() {
-    return this.props.filteredItems.length > 0 || this.props.allowCustomValue;
+    const { allowCustomValue, filteredItems } = this.props;
+    return filteredItems.length > 0 || allowCustomValue;
   }
 
   renderOptions(isBold) {
-    return this.props.filteredItems.map((item) => (
+    const { filteredItems, onSelect } = this.props;
+    return filteredItems.map((item) => (
       <ComboboxOption
         isBold={isBold}
         item={item}
         key={item.key}
-        handleItemSelect={this.props.onSelect}
+        handleItemSelect={onSelect}
       />
     ));
   }
@@ -83,9 +89,8 @@ export class ComboboxComponent extends React.Component {
   }
 
   renderFilteredItems(isBold) {
-    return this.props.filteredItems.length
-      ? this.renderOptions(isBold)
-      : this.renderNoOptions();
+    const { filteredItems } = this.props;
+    return filteredItems.length ? this.renderOptions(isBold) : this.renderNoOptions();
   }
 
   render() {

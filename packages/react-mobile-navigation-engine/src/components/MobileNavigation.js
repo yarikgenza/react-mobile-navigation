@@ -1,7 +1,9 @@
 import React from 'react';
+import * as pagingActions from '../actions/paging-actions';
+import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 import MobileNavigationRender from '../components-styled/MobileNavigationRender';
+import mobileNavigationReducers from '../reducers/index';
 import { getPageById } from '../utils/page-manager';
-import MobileNavigationPageEngineContainer from '../containers/MobileNavigationPageEngineContainer';
 
 const propTypes = {
   children: React.PropTypes.any,
@@ -11,18 +13,27 @@ const propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,
-  mobileNavigationData: React.PropTypes.object,
+  initState: React.PropTypes.object,
 };
 
 const defaultProps = {};
 
 export default class MobileNavigation extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      navigation: Object.assign({}, props.initState),
+    };
+    this.dispatch = this.dispatch.bind(this);
+    this.pagingActions = this.bindActionCreators(pagingActions, this.dispatch);
+  }
+
   getVisiblePageData(prevPageId) {
-    const { mobileNavigationData } = this.props;
+    const { navigation } = this.state;
     return {
       pageId: prevPageId,
-      pageState: mobileNavigationData.pages[prevPageId],
+      pageState: navigation.pages[prevPageId],
     };
   }
 
@@ -41,29 +52,40 @@ export default class MobileNavigation extends React.Component {
     return visiblePagesData;
   }
 
+  bindActionCreators(actionCreator, dispatch) {
+    return Object.keys(actionCreator)
+      .reduce((accumulator, value) => (
+        Object.assign(accumulator, {
+          [value]: (...props) => { dispatch(actionCreator[value](...props)); },
+        })
+      ), {});
+  }
+
+  dispatch(action) {
+    this.setState(prevState => ({
+      navigation: mobileNavigationReducers(prevState.navigation, action),
+    }));
+  }
+
   render() {
-    const {
-      children,
-      mobileNavigationData,
-      pageHeight,
-      pageWidth,
-      stackId,
-    } = this.props;
+    const { children, pageHeight, pageWidth, stackId } = this.props;
+    const { navigation } = this.state;
     return (
       <MobileNavigationRender>
-        {this.getVisiblePages(mobileNavigationData.activePageId).map(page => {
+        {this.getVisiblePages(navigation.activePageId).map(page => {
           const pageId = page.pageId;
           return (
-            <MobileNavigationPageEngineContainer
+            <MobileNavigationPageEngine
               key={pageId}
               pageHeight={pageHeight}
+              pagingActions={this.pagingActions}
               pageId={pageId}
               pageState={page.pageState}
               pageWidth={pageWidth}
               stackId={stackId}
             >
               {getPageById(React.Children.toArray(children), pageId)}
-            </MobileNavigationPageEngineContainer>
+            </MobileNavigationPageEngine>
           );
         })}
       </MobileNavigationRender>

@@ -15,11 +15,13 @@ const defaultProps = {};
 export default class Interpolation extends React.Component {
 
   componentDidMount() {
-    this.props.setPageStatus();
+    const { setPageStatus } = this.props;
+    setPageStatus();
   }
 
   componentDidUpdate() {
-    this.props.setPageStatus();
+    const { setPageStatus } = this.props;
+    setPageStatus();
   }
 
   render() {

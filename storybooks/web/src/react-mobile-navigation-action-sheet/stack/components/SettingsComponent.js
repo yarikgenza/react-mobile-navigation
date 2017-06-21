@@ -1,14 +1,21 @@
 import React from 'react';
-import { MobileNavigation, MobileNavigationPage } from 'react-mobile-navigation-engine';
+import {
+  MobileNavigation,
+  MobileNavigationPage,
+  mobileNavigationCreateInitState,
+  mobileNavigationInitStatePseudoActions,
+} from 'react-mobile-navigation-engine';
 import SettingsMainPageContainer from '../container/pages/SettingsMainPageContainer';
 import * as SettingsModeTypesEnum from '../enum/settings-mode-types-enum';
 
 const width = 400;
 const height = 500;
 
-export const SettingsComponent = ({ mobileNavigationData, stackId }) => (
+export const SettingsComponent = ({ initState, stackId }) => (
   <MobileNavigation
-    mobileNavigationData={mobileNavigationData}
+    initState={mobileNavigationCreateInitState(SettingsModeTypesEnum.MAIN, [
+      SettingsModeTypesEnum.MAIN,
+    ])}
     pageWidth={width}
     pageHeight={height}
     stackId={stackId}

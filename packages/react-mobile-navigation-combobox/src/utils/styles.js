@@ -1,9 +1,4 @@
-import {
-  BINARY_COLOR_SAND_90,
-  BINARY_COLOR_RED_40,
-  BINARY_COLOR_BLUE_40,
-} from 'binary-ui-styles';
-import { FONT_FAMILY_MAIN, NO_SELECT_CSS } from 'binary-ui-styles/web';
+import { FONT_FAMILY_MAIN } from 'binary-ui-styles/web';
 
 export const FIELD_VALUE_FONT_CSS = `
   font-family: ${FONT_FAMILY_MAIN};
@@ -27,27 +22,3 @@ export const LIST_ITEM_CONTENTS_BASE_CSS = `
   display: inline-block;
   outline: 0;
 `;
-
-export const RED_EXT = { color: BINARY_COLOR_RED_40, fontWeight: 400 };
-
-export const ACTION_SHEET_ITEM_STYLE = Object.assign(
-  {},
-  NO_SELECT_CSS, {
-    borderBottom: `1px solid ${BINARY_COLOR_SAND_90}`,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '100%',
-    cursor: 'default',
-  }
-);
-
-export const LIST_ITEM_HEIGHT = 44;
-
-export const COMBOBOX_INPUT_ACTIVE_EXT_STYLE = {
-  borderBottom: `1px solid ${BINARY_COLOR_BLUE_40}`,
-};
-
-export const COMBOBOX_INPUT_INVALID_EXT_STYLE = {
-  borderBottom: `1px solid ${BINARY_COLOR_RED_40}`,
-};

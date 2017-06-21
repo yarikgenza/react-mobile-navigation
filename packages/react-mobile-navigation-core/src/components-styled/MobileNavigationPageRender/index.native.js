@@ -1,4 +1,3 @@
-import { BASE_CONTAINER_CSS } from '../../utils/styles';
 import styled from 'styled-components/native';
 
 export default styled.View.attrs({
@@ -6,5 +5,5 @@ export default styled.View.attrs({
     zIndex: props.zIndex,
   }),
 })`
-  ${BASE_CONTAINER_CSS}
+  position: absolute;
 `;

@@ -38,20 +38,9 @@ function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
 }
 
 const store1 = configureStore1({
-  mobileNavigationReducers: mobileNavigationCreateInitState(Settings1ModeTypesEnum.MAIN, [
-    Settings1ModeTypesEnum.MAIN,
-  ]),
   mainPageReducers: undefined,
 });
-const store2 = configureStore2({
-  mobileNavigationReducers: mobileNavigationCreateInitState(Settings2ModeTypesEnum.MAIN, [
-    Settings2ModeTypesEnum.MAIN,
-    Settings2ModeTypesEnum.LICENSES,
-    Settings2ModeTypesEnum.HELP
-  ], [
-    mobileNavigationInitStatePseudoActions.openPageHorizontal(Settings2ModeTypesEnum.HELP),
-  ]),
-});
+const store2 = configureStore2({});
 const store3 = configureStore3();
 
 const store4 = configureStore4();
