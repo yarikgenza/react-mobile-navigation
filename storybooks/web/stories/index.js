@@ -42,9 +42,7 @@ const store1 = configureStore1({
 });
 const store2 = configureStore2({});
 const store3 = configureStore3();
-
 const store4 = configureStore4();
-
 const store5 = configureStore5();
 
 storiesOf('examples', module)

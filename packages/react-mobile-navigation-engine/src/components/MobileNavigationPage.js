@@ -7,7 +7,7 @@ import {
 const propTypes = {
   children: React.PropTypes.element.isRequired,
   pageId: React.PropTypes.any,
-  pageState: React.PropTypes.any,
+  pageState: React.PropTypes.object,
   pageHeight: React.PropTypes.number,
   pageWidth: React.PropTypes.number,
   pagingActions: React.PropTypes.object,
