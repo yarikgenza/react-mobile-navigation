@@ -24,7 +24,7 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   openAlert() {
-    this.props.alertOpen('text', ALERT_TYPES.CRITICAL, () => { console.log(1); });
+    this.props.alertOpen('text', ALERT_TYPES.CRITICAL, 1000, () => { console.log(1); });
   }
 
   componentOpeningDone() {
@@ -44,7 +44,6 @@ export class SettingsHelpPageComponent extends React.Component {
 
   closePageClick(e) {
     this.props.pagingActions.goBack(this.props.stackId);
-    // this.props.pagingActions.goBackForce(this.props.stackId);
   }
 
   render() {

@@ -1,6 +1,10 @@
 import React from 'react';
 import AlertBox from './AlertBox';
-import { ALERT_OPEN_PAGE, ALERT_GOING_BACK_DONE } from '../action-types/alert-paging-action-types';
+import {
+  ALERT_OPEN_PAGE,
+  ALERT_GO_BACK_FORCE,
+  ALERT_GOING_BACK_DONE,
+} from '../action-types/alert-paging-action-types';
 import * as alertActions from '../actions/alert-paging-actions';
 import * as pagingActions from '../actions/paging-actions';
 import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
@@ -28,12 +32,7 @@ export default class MobileNavigation extends React.Component {
 
   constructor(props) {
     super(props);
-    this.memoizedAlert = {
-      autoHideDuration: undefined,
-      text: undefined,
-      type: undefined,
-      onClick: undefined,
-    };
+    this.memoizedAlert = undefined;
     this.state = {
       alert: alertPagesInitialState,
       navigation: props.initState,
@@ -88,12 +87,8 @@ export default class MobileNavigation extends React.Component {
         };
         break;
       case ALERT_GOING_BACK_DONE:
-        this.memoizedAlert = {
-          autoHideDuration: undefined,
-          text: undefined,
-          type: undefined,
-          onClick: undefined,
-        };
+      case ALERT_GO_BACK_FORCE:
+        this.memoizedAlert = undefined;
         break;
       default:
         break;
@@ -131,15 +126,16 @@ export default class MobileNavigation extends React.Component {
             </MobileNavigationPageEngine>
           );
         })}
-        <AlertBox
-          autoHideDuration={this.memoizedAlert.autoHideDuration}
-          pageState={alert}
-          pagingActions={this.alertActions}
-          stackId={stackId}
-          text={this.memoizedAlert.text}
-          type={this.memoizedAlert.type}
-          onClick={this.memoizedAlert.onClick}
-        />
+        {this.memoizedAlert && (
+          <AlertBox
+            autoHideDuration={this.memoizedAlert.autoHideDuration}
+            pageState={alert}
+            pagingActions={this.alertActions}
+            text={this.memoizedAlert.text}
+            type={this.memoizedAlert.type}
+            onClick={this.memoizedAlert.onClick}
+          />
+        )}
       </MobileNavigationRender>
     );
   }

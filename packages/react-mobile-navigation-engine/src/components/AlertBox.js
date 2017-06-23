@@ -6,15 +6,7 @@ import MobileNavigationView from './MobileNavigationView';
 const propTypes = {
   autoHideDuration: React.PropTypes.number.isRequired,
   pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
-  pageId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   pageState: React.PropTypes.object,
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   text: React.PropTypes.string,
   type: React.PropTypes.string,
   onClick: React.PropTypes.func,
@@ -42,15 +34,15 @@ export default class AlertBox extends React.Component {
   }
 
   onPageTransitionEnd() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING: {
-        pagingActions.openPageDone(stackId, pageId);
+        pagingActions.openPageDone();
         this.closeAlert();
         return;
       }
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        pagingActions.goBackDone(stackId, pageId);
+        pagingActions.goBackDone();
         return;
       }
       default:
@@ -59,15 +51,15 @@ export default class AlertBox extends React.Component {
   }
 
   setPageStatus() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage(stackId, pageId);
+        pagingActions.openingPage();
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack(stackId, pageId);
+        pagingActions.goingBack();
         return;
       default:
         return;
@@ -75,18 +67,23 @@ export default class AlertBox extends React.Component {
   }
 
   closeAlert() {
-    const { autoHideDuration, pageId, pagingActions, stackId } = this.props;
+    const { autoHideDuration, pagingActions } = this.props;
+    clearTimeout(this.timerAutoHideId);
     if (autoHideDuration > 0) {
-      clearTimeout(this.timerAutoHideId);
       this.timerAutoHideId = setTimeout(() => {
-        pagingActions.goBack(stackId, pageId);
+        pagingActions.goBack();
       }, autoHideDuration);
+      return;
     }
+    // close right away
+    this.timerAutoHideId = setTimeout(() => {
+      pagingActions.goBack();
+    }, 0);
   }
 
   closeAlertForce() {
-    const { pageId, pagingActions, stackId } = this.props;
-    pagingActions.goBackForce(stackId, pageId);
+    const { pagingActions } = this.props;
+    pagingActions.goBackForce();
   }
 
   render() {

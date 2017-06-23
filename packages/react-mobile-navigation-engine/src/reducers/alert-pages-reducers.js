@@ -9,6 +9,7 @@ import {
   ALERT_OPENING_PAGE_DONE,
   ALERT_GOING_BACK,
   ALERT_GO_BACK,
+  ALERT_GO_BACK_FORCE,
   ALERT_GOING_BACK_DONE,
 } from '../action-types/alert-paging-action-types';
 
@@ -34,6 +35,12 @@ export default (state = initialState, action) => {
     case ALERT_GO_BACK:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.CLOSE_PREPARE,
+      });
+    case ALERT_GO_BACK_FORCE:
+      return Object.assign({}, state, {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+        zIndex: 0,
+        direction: undefined,
       });
     case ALERT_GOING_BACK:
       return Object.assign({}, state, {

@@ -1,5 +1,6 @@
 import {
   ALERT_GO_BACK,
+  ALERT_GO_BACK_FORCE,
   ALERT_GOING_BACK,
   ALERT_GOING_BACK_DONE,
   ALERT_OPEN_PAGE,
@@ -21,6 +22,10 @@ export function openPageDone() {
 
 export function goBack() {
   return { type: ALERT_GO_BACK };
+}
+
+export function goBackForce() {
+  return { type: ALERT_GO_BACK_FORCE };
 }
 
 export function goingBack() {
