@@ -5,6 +5,7 @@ import {
 } from 'react-mobile-navigation-core';
 
 const propTypes = {
+  alertOpen: React.PropTypes.func,
   children: React.PropTypes.element.isRequired,
   pageId: React.PropTypes.any,
   pageState: React.PropTypes.object,
@@ -19,6 +20,7 @@ const propTypes = {
 const defaultProps = {};
 
 const MobileNavigationPage = ({
+  alertOpen,
   children,
   pageHeight,
   pageId,
@@ -40,6 +42,7 @@ const MobileNavigationPage = ({
       )}
     >
       {React.cloneElement(React.Children.only(children), {
+        alertOpen,
         pageHeight,
         pageId,
         pageState,

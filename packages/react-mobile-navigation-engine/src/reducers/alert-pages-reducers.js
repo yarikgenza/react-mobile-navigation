@@ -1,4 +1,8 @@
-import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
+import {
+  actionPageStoreModel,
+  DirectionEnum,
+  PageStatusTypesEnum,
+} from 'react-mobile-navigation-core';
 import {
   ALERT_OPEN_PAGE,
   ALERT_OPENING_PAGE,
@@ -6,17 +10,18 @@ import {
   ALERT_GOING_BACK,
   ALERT_GO_BACK,
   ALERT_GOING_BACK_DONE,
-} from '../action-types/internal-paging-action-types';
+} from '../action-types/alert-paging-action-types';
 
-const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
+export const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
 
+// NOTE: set zIndex 999 to be on a top of everything, but not action sheet
 export default (state = initialState, action) => {
   switch (action.type) {
     case ALERT_OPEN_PAGE:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.OPEN_PREPARE,
-        zIndex: action.zIndex,
-        direction: action.direction,
+        zIndex: 999,
+        direction: DirectionEnum.VERTICAL,
       });
     case ALERT_OPENING_PAGE:
       return Object.assign({}, state, {

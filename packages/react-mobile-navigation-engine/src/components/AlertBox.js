@@ -1,7 +1,7 @@
 ﻿import Alert from 'binary-ui-components/mobile/Alert';
 import React from 'react';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
-import { MobileNavigationView } from 'react-mobile-navigation-engine';
+import MobileNavigationView from './MobileNavigationView';
 
 const propTypes = {
   autoHideDuration: React.PropTypes.number.isRequired,
@@ -17,12 +17,14 @@ const propTypes = {
   ]),
   text: React.PropTypes.string,
   type: React.PropTypes.string,
+  onClick: React.PropTypes.func,
 };
 
 const defaultProps = {
   autoHideDuration: 1000,
   text: '',
   type: undefined,
+  onClick: undefined,
 };
 
 export default class AlertBox extends React.Component {
@@ -36,19 +38,15 @@ export default class AlertBox extends React.Component {
 
   componentWillUnmount() {
     clearTimeout(this.timerAutoHideId);
+    this.closeAlertForce();
   }
 
   onPageTransitionEnd() {
-    const { autoHideDuration, pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageId, pageState, pagingActions, stackId } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING: {
         pagingActions.openPageDone(stackId, pageId);
-        if (autoHideDuration > 0) {
-          clearTimeout(this.timerAutoHideId);
-          this.timerAutoHideId = setTimeout(() => {
-            pagingActions.goBack(stackId, pageId);
-          }, autoHideDuration);
-        }
+        this.closeAlert();
         return;
       }
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
@@ -76,12 +74,23 @@ export default class AlertBox extends React.Component {
     }
   }
 
+  closeAlert() {
+    const { autoHideDuration, pageId, pagingActions, stackId } = this.props;
+    if (autoHideDuration > 0) {
+      clearTimeout(this.timerAutoHideId);
+      this.timerAutoHideId = setTimeout(() => {
+        pagingActions.goBack(stackId, pageId);
+      }, autoHideDuration);
+    }
+  }
+
+  closeAlertForce() {
+    const { pageId, pagingActions, stackId } = this.props;
+    pagingActions.goBackForce(stackId, pageId);
+  }
+
   render() {
-    const {
-      pageState,
-      text,
-      type,
-    } = this.props;
+    const { pageState, text, type, onClick } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
     }
@@ -92,7 +101,7 @@ export default class AlertBox extends React.Component {
         pageState={pageState}
       >
         <MobileNavigationView>
-          <Alert text={text} type={type} />
+          <Alert text={text} type={type} onClick={onClick} />
         </MobileNavigationView>
       </Interpolation>
     );

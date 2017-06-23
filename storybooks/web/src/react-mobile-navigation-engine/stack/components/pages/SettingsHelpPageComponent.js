@@ -1,3 +1,4 @@
+import { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import {
@@ -6,25 +7,24 @@ import {
   PageWrapper,
 } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
-import { AlertBox } from 'react-mobile-navigation-alert';
 
 export class SettingsHelpPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
     this.cache = '1';
+    this.onClick = this.onClick.bind(this);
     this.openAlert = this.openAlert.bind(this);
     this.closePageClick = this.closePageClick.bind(this);
     this.connectedHelpText = this.connectedHelpText.bind(this);
   }
 
+  onClick() {
+    console.log(1);
+  }
+
   openAlert() {
-    this.props.alertActions.openPage(
-      this.props.stackId,
-      this.props.pageId,
-      DirectionEnum.VERTICAL,
-      this.props.alert.zIndex
-    );
+    this.props.alertOpen('text', ALERT_TYPES.CRITICAL, () => { console.log(1); });
   }
 
   componentOpeningDone() {
@@ -62,29 +62,19 @@ export class SettingsHelpPageComponent extends React.Component {
             Show alert
           </div>
         </PageContent>
-        <AlertBox
-          pageHeight={200}
-          pageState={this.props.alert}
-          pagingActions={this.props.alertActions}
-          stackId={this.props.stackId}
-          text="Text here"
-          type={undefined}
-        />
       </PageWrapper>
     );
   }
 }
 
 SettingsHelpPageComponent.defaultProps = {
-  alert: undefined,
+  alertOpen: undefined,
   pagingActions: undefined,
   stackId: undefined,
-  alertActions: undefined,
 };
 
 SettingsHelpPageComponent.propTypes = {
-  alert: React.PropTypes.any,
+  alertOpen: React.PropTypes.func,
   pagingActions: React.PropTypes.any,
   stackId: React.PropTypes.any,
-  alertActions: React.PropTypes.any,
 };

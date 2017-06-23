@@ -1,19 +1,25 @@
 import React from 'react';
+import AlertBox from './AlertBox';
+import { ALERT_OPEN_PAGE, ALERT_GOING_BACK_DONE } from '../action-types/alert-paging-action-types';
+import * as alertActions from '../actions/alert-paging-actions';
 import * as pagingActions from '../actions/paging-actions';
 import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 import MobileNavigationRender from '../components-styled/MobileNavigationRender';
 import mobileNavigationReducers from '../reducers/index';
+import alertPagesReducers, {
+  initialState as alertPagesInitialState,
+} from '../reducers/alert-pages-reducers';
 import { getPageById } from '../utils/page-manager';
 
 const propTypes = {
   children: React.PropTypes.any,
+  initState: React.PropTypes.object,
   pageHeight: React.PropTypes.number,
   pageWidth: React.PropTypes.number,
   stackId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,
-  initState: React.PropTypes.object,
 };
 
 const defaultProps = {};
@@ -22,11 +28,20 @@ export default class MobileNavigation extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      navigation: Object.assign({}, props.initState),
+    this.memoizedAlert = {
+      autoHideDuration: undefined,
+      text: undefined,
+      type: undefined,
+      onClick: undefined,
     };
-    this.dispatch = this.dispatch.bind(this);
-    this.pagingActions = this.bindActionCreators(pagingActions, this.dispatch);
+    this.state = {
+      alert: alertPagesInitialState,
+      navigation: props.initState,
+    };
+    this.dispatchAlertActions = this.dispatchAlertActions.bind(this);
+    this.dispatchPagingActions = this.dispatchPagingActions.bind(this);
+    this.pagingActions = this.bindActionCreators(pagingActions, this.dispatchPagingActions);
+    this.alertActions = this.bindActionCreators(alertActions, this.dispatchAlertActions);
   }
 
   getVisiblePageData(prevPageId) {
@@ -61,7 +76,34 @@ export default class MobileNavigation extends React.Component {
       ), {});
   }
 
-  dispatch(action) {
+  dispatchAlertActions(action) {
+    // do not store alert info in a state
+    switch (action.type) {
+      case ALERT_OPEN_PAGE:
+        this.memoizedAlert = {
+          autoHideDuration: action.alertAutoHideDuration,
+          text: action.alertText,
+          type: action.alertType,
+          onClick: action.alertOnClick,
+        };
+        break;
+      case ALERT_GOING_BACK_DONE:
+        this.memoizedAlert = {
+          autoHideDuration: undefined,
+          text: undefined,
+          type: undefined,
+          onClick: undefined,
+        };
+        break;
+      default:
+        break;
+    }
+    this.setState(prevState => ({
+      alert: alertPagesReducers(prevState.alert, action),
+    }));
+  }
+
+  dispatchPagingActions(action) {
     this.setState(prevState => ({
       navigation: mobileNavigationReducers(prevState.navigation, action),
     }));
@@ -69,13 +111,14 @@ export default class MobileNavigation extends React.Component {
 
   render() {
     const { children, pageHeight, pageWidth, stackId } = this.props;
-    const { navigation } = this.state;
+    const { alert, navigation } = this.state;
     return (
       <MobileNavigationRender>
         {this.getVisiblePages(navigation.activePageId).map(page => {
           const pageId = page.pageId;
           return (
             <MobileNavigationPageEngine
+              alertActions={this.alertActions}
               key={pageId}
               pageHeight={pageHeight}
               pagingActions={this.pagingActions}
@@ -88,6 +131,15 @@ export default class MobileNavigation extends React.Component {
             </MobileNavigationPageEngine>
           );
         })}
+        <AlertBox
+          autoHideDuration={this.memoizedAlert.autoHideDuration}
+          pageState={alert}
+          pagingActions={this.alertActions}
+          stackId={stackId}
+          text={this.memoizedAlert.text}
+          type={this.memoizedAlert.type}
+          onClick={this.memoizedAlert.onClick}
+        />
       </MobileNavigationRender>
     );
   }

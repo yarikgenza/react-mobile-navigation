@@ -9,6 +9,7 @@ const {
 } = PageStatusTypesEnum;
 
 const propTypes = {
+  alertActions: React.PropTypes.object.isRequired,
   children: React.PropTypes.any.isRequired,
   pageHeight: React.PropTypes.number,
   pageId: React.PropTypes.oneOfType([
@@ -89,6 +90,7 @@ export default class MobileNavigationPageEngine extends React.Component {
 
   render() {
     const {
+      alertActions,
       children,
       pageHeight,
       pageId,
@@ -104,6 +106,7 @@ export default class MobileNavigationPageEngine extends React.Component {
         onPageTransitionEnd={this.onPageTransitionEnd}
       >
         {React.cloneElement(children, {
+          alertOpen: alertActions.openPage,
           pageHeight,
           pageId,
           pageState,
