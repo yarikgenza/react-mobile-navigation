@@ -8,14 +8,15 @@ import {
   ACTION_SHEET_OPEN_DONE,
 } from '../action-types/internal-paging-action-types';
 
-const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
+export const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
 
+// NOTE: set zIndex 1003 to be on a top of everything
 export default (state = initialState, action) => {
   switch (action.type) {
     case ACTION_SHEET_OPEN_START:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.OPEN_PREPARE,
-        zIndex: action.zIndex,
+        zIndex: 1003,
         direction: action.direction,
       });
     case ACTION_SHEET_OPENING:

@@ -1,16 +1,12 @@
 import React from 'react';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 
-const {
-  OPEN_PREPARE,
-  OPEN_ANIMATING,
-  CLOSE_PREPARE,
-  CLOSE_ANIMATING,
-} = PageStatusTypesEnum;
-
 const propTypes = {
+  actionSheetActions: React.PropTypes.object.isRequired,
   alertActions: React.PropTypes.object.isRequired,
   children: React.PropTypes.any.isRequired,
+  comboBoxActions: React.PropTypes.object.isRequired,
+  modalActions: React.PropTypes.object.isRequired,
   pageHeight: React.PropTypes.number,
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
@@ -47,14 +43,14 @@ export default class MobileNavigationPageEngine extends React.Component {
   onPageTransitionEnd() {
     const { pageId, pageState, pagingActions, stackId } = this.props;
     switch (pageState.status) {
-      case OPEN_ANIMATING:
+      case PageStatusTypesEnum.OPEN_ANIMATING:
         pagingActions.openPageDone(stackId, pageId);
         if (typeof this.cache.onOpenCallback !== 'function') {
           return;
         }
         this.cache.onOpenCallback();
         return;
-      case CLOSE_ANIMATING:
+      case PageStatusTypesEnum.CLOSE_ANIMATING:
         pagingActions.goBackDone(stackId, pageId);
         if (typeof this.cache.onCloseCallback !== 'function') {
           return;
@@ -69,10 +65,10 @@ export default class MobileNavigationPageEngine extends React.Component {
   onPageStatusChanged() {
     const { pageState, stackId, pageId, pagingActions } = this.props;
     switch (pageState.status) {
-      case OPEN_PREPARE:
+      case PageStatusTypesEnum.OPEN_PREPARE:
         pagingActions.openingPage(stackId, pageId);
         return;
-      case CLOSE_PREPARE:
+      case PageStatusTypesEnum.CLOSE_PREPARE:
         pagingActions.goingBack(stackId, pageId);
         return;
       default:
@@ -90,8 +86,11 @@ export default class MobileNavigationPageEngine extends React.Component {
 
   render() {
     const {
+      actionSheetActions,
       alertActions,
       children,
+      comboBoxActions,
+      modalActions,
       pageHeight,
       pageId,
       pageState,
@@ -106,7 +105,13 @@ export default class MobileNavigationPageEngine extends React.Component {
         onPageTransitionEnd={this.onPageTransitionEnd}
       >
         {React.cloneElement(children, {
+          actionSheetOpen: actionSheetActions.openPage,
+          actionSheetClose: actionSheetActions.goBack,
           alertOpen: alertActions.openPage,
+          comboBoxOpen: comboBoxActions.openPage,
+          comboBoxClose: comboBoxActions.goBack,
+          modalOpen: modalActions.openPage,
+          modalClose: modalActions.goBack,
           pageHeight,
           pageId,
           pageState,

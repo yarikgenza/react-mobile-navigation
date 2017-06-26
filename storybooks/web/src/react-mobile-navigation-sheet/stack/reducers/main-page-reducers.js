@@ -1,5 +1,5 @@
-import { actionSheetPagingReducers } from '../../stack-action-pages';
+import { actionSheetPagesReducers } from '../../stack-action-pages';
 
 export function mainPageReducers(state, action) {
-  return actionSheetPagingReducers(state, action);
+  return actionSheetPagesReducers(state, action);
 }

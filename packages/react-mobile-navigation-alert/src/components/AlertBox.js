@@ -1,7 +1,10 @@
 ﻿import Alert from 'binary-ui-components/mobile/Alert';
 import React from 'react';
-import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
-import MobileNavigationView from './MobileNavigationView';
+import {
+  PageStatusTypesEnum,
+  Interpolation,
+  MobileNavigationView,
+} from 'react-mobile-navigation-core';
 
 const propTypes = {
   autoHideDuration: React.PropTypes.number.isRequired,

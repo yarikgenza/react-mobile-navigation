@@ -19,7 +19,7 @@ export class SettingsMainPageComponent extends React.Component {
     this.actionSheetItems = [
       actionSheetOptionModel('licenses', 'Licenses', () => { console.log('licenses'); }),
     ];
-    this.props.actionSheetPagingActions.openPage(
+    this.props.actionSheetActions.openPage(
       this.props.stackId,
       this.props.pageId,
       DirectionEnum.VERTICAL,
@@ -45,15 +45,6 @@ export class SettingsMainPageComponent extends React.Component {
             Action Sheet
           </div>
         </PageContent>
-        <ActionSheet
-          items={this.actionSheetItems}
-          pageId={this.props.pageId}
-          pageState={this.props.actionSheet}
-          pagingActions={this.props.actionSheetPagingActions}
-          stackId={this.props.stackId}
-          onSelect={this.onActionSheetSelect}
-          onCancel={this.onActionSheetCancel}
-        />
       </PageWrapper>
     );
   }
@@ -64,7 +55,7 @@ SettingsMainPageComponent.defaultProps = {
   stackId: undefined,
   pageId: undefined,
   actionSheet: undefined,
-  actionSheetPagingActions: undefined,
+  actionSheetActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
@@ -72,5 +63,5 @@ SettingsMainPageComponent.propTypes = {
   stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   actionSheet: React.PropTypes.any,
-  actionSheetPagingActions: React.PropTypes.any,
+  actionSheetActions: React.PropTypes.any,
 };

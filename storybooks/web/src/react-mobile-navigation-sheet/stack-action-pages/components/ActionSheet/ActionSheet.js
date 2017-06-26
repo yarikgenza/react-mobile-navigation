@@ -5,7 +5,6 @@ import { ActionSheetListComponent } from './ActionSheetListComponent';
 
 const propTypes = {
   onCancel: React.PropTypes.func,
-
   pageState: React.PropTypes.object,
   stackId: React.PropTypes.oneOfType([
     React.PropTypes.number,
@@ -92,12 +91,7 @@ export default class ActionSheet extends React.Component {
         pageState={this.props.pageState}
         setPageStatus={this.setPageStatus}
       >
-        <MobileNavigationShadowPage
-          pageId={this.props.pageId}
-          pagingActions={this.props.pagingActions}
-          stackId={this.props.stackId}
-          onShadowClick={this.onShadowClick}
-        >
+        <MobileNavigationShadowPage onShadowClick={this.onShadowClick} >
           <ActionSheetListComponent />
         </MobileNavigationShadowPage>
       </Interpolation>

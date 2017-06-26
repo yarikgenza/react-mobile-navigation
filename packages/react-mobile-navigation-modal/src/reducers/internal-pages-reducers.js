@@ -8,14 +8,15 @@ import {
   MODAL_GOING_BACK_DONE,
 } from '../action-types/internal-paging-action-types';
 
-const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
+export const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
 
+// NOTE: set zIndex 1001 to be on a top of everything, but not action sheet and combobox
 export default (state = initialState, action) => {
   switch (action.type) {
     case MODAL_OPEN_PAGE:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.OPEN_PREPARE,
-        zIndex: action.zIndex,
+        zIndex: 1001,
         direction: action.direction,
       });
     case MODAL_OPENING_PAGE:

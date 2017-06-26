@@ -7,26 +7,26 @@ import {
   ACTION_SHEET_OPEN_DONE,
 } from '../action-types/internal-paging-action-types';
 
-export function openPage(stackId, pageName, direction, zIndex) {
-  return { type: ACTION_SHEET_OPEN_START, stackId, pageName, direction, zIndex };
+export function openPage(props, direction) {
+  return { type: ACTION_SHEET_OPEN_START, props, direction };
 }
 
-export function openingPage(stackId, pageName) {
-  return { type: ACTION_SHEET_OPENING, stackId, pageName };
+export function openingPage() {
+  return { type: ACTION_SHEET_OPENING };
 }
 
-export function openPageDone(stackId, pageName) {
-  return { type: ACTION_SHEET_OPEN_DONE, stackId, pageName };
+export function openPageDone() {
+  return { type: ACTION_SHEET_OPEN_DONE };
 }
 
-export function goBack(stackId, pageName) {
-  return { type: ACTION_SHEET_CLOSE_START, stackId, pageName };
+export function goBack() {
+  return { type: ACTION_SHEET_CLOSE_START };
 }
 
-export function goingBack(stackId, pageName) {
-  return { type: ACTION_SHEET_CLOSING, stackId, pageName };
+export function goingBack() {
+  return { type: ACTION_SHEET_CLOSING };
 }
 
-export function goBackDone(stackId, pageName) {
-  return { type: ACTION_SHEET_CLOSE_DONE, stackId, pageName };
+export function goBackDone() {
+  return { type: ACTION_SHEET_CLOSE_DONE };
 }

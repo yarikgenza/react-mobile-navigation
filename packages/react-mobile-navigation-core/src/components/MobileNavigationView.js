@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  MobileNavigationViewRender,
-  getTranslate3dByDirection,
-} from 'react-mobile-navigation-core';
+import MobileNavigationViewRender from '../components-styled/MobileNavigationViewRender';
+import getTranslate3dByDirection from '../utils/animation-position';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
@@ -12,20 +10,12 @@ const propTypes = {
 
 const defaultProps = {};
 
-const MobileNavigationView = ({
-  children,
-  pageState,
-  translateValue,
-}) => {
+const MobileNavigationView = ({ children, pageState, translateValue }) => {
   const { status, zIndex, direction } = pageState;
   return (
     <MobileNavigationViewRender
-      zIndex={zIndex}
-      style={Object.assign(
-        {},
-        getTranslate3dByDirection(status, direction, translateValue),
-        { zIndex }
-      )}
+      styleIndex={zIndex}
+      styleTranslate={getTranslate3dByDirection(status, direction, translateValue)}
     >
       {children}
     </MobileNavigationViewRender>

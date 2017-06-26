@@ -101,25 +101,6 @@ export class SettingsMainPageComponent extends React.Component {
               )}
             />
         </PageContent>
-        <ComboBox
-          stackTitle="Title"
-          customOptionModel={customOptionModel}
-          isBold={false}
-          items={this.comboBoxItems}
-          inputPlaceholder={this.comboBoxInputPlaceholder}
-          allowCustomValue={false}
-          bodyStyle={SIDE_MENU_BODY_STYLE}
-          headerStyle={SIDE_MENU_HEADER_STYLE}
-          pageHeight={500}
-          pageWidth={400}
-          onCancel={this.onComboBoxCancel}
-          onSelect={this.onComboBoxSelect}
-          onSelectCustom={this.onComboBoxSelectCustom}
-          pageState={comboBoxPageState}
-          stackId={this.props.stackId}
-          pageId={this.props.pageId}
-          pagingActions={this.props.comboBoxActions}
-        />
       </PageWrapper>
     );
   }

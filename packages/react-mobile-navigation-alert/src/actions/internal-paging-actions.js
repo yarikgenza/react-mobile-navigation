@@ -6,10 +6,10 @@ import {
   ALERT_OPEN_PAGE,
   ALERT_OPENING_PAGE,
   ALERT_OPENING_PAGE_DONE,
-} from '../action-types/alert-paging-action-types';
+} from '../action-types/internal-paging-action-types';
 
-export function openPage(alertText, alertType, alertAutoHideDuration, alertOnClick) {
-  return { type: ALERT_OPEN_PAGE, alertText, alertType, alertAutoHideDuration, alertOnClick };
+export function openPage(props) {
+  return { type: ALERT_OPEN_PAGE, props };
 }
 
 export function openingPage() {

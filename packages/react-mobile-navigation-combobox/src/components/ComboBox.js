@@ -2,8 +2,11 @@
 import IconDone from 'binary-ui-icons/binary/Done';
 import { StackPage } from 'binary-ui-stack';
 import React from 'react';
-import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
-import { MobileNavigationPage } from 'react-mobile-navigation-engine';
+import {
+  PageStatusTypesEnum,
+  Interpolation,
+  MobileNavigationPage,
+} from 'react-mobile-navigation-core';
 import { ComboboxComponent } from './ComboboxComponent';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
@@ -21,16 +24,8 @@ const propTypes = {
   pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
   pageHeight: React.PropTypes.number.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
-  pageId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   pageState: React.PropTypes.object,
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
-  stackTitle: React.PropTypes.string,
+  title: React.PropTypes.string,
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
   onSelectCustom: React.PropTypes.func,
@@ -112,15 +107,14 @@ export default class ComboBox extends React.Component {
   }
 
   onPageTransitionEnd() {
-    const { pageId, pageState, pagingActions, stackId, onSelectCustom, onSelect } = this.props;
+    const { pageState, pagingActions, onSelectCustom, onSelect } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone(stackId, pageId);
+        pagingActions.openPageDone();
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
         const { selectedCustomOption, selectedOption } = this.state;
-        pagingActions.goBackDone(stackId, pageId);
-        // set state until use does actions which can possibly unmount the component
+        // set state until a user does actions which can possibly unmount the component
         this.setState(() => ({
           selectedCustomOption: undefined,
           selectedOption: undefined,
@@ -140,6 +134,7 @@ export default class ComboBox extends React.Component {
         if (onSelectCustom && selectedCustomOption) {
           onSelectCustom(selectedCustomOption);
         }
+        pagingActions.goBackDone();
         return;
       }
       default:
@@ -148,15 +143,15 @@ export default class ComboBox extends React.Component {
   }
 
   setPageStatus() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage(stackId, pageId);
+        pagingActions.openingPage();
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack(stackId, pageId);
+        pagingActions.goingBack();
         return;
       default:
         return;
@@ -169,8 +164,8 @@ export default class ComboBox extends React.Component {
   }
 
   closeComboBox() {
-    const { pageId, pagingActions, stackId } = this.props;
-    pagingActions.goBack(stackId, pageId);
+    const { pagingActions } = this.props;
+    pagingActions.goBack();
   }
 
   render() {
@@ -186,8 +181,7 @@ export default class ComboBox extends React.Component {
       pageWidth,
       pageState,
       pressEnterToSaveCustomFieldLabel,
-      stackId,
-      stackTitle,
+      title,
     } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
@@ -198,7 +192,7 @@ export default class ComboBox extends React.Component {
         onPageTransitionEnd={this.onPageTransitionEnd}
         pageState={pageState}
       >
-        <MobileNavigationPage stackId={stackId} pageHeight={pageHeight} >
+        <MobileNavigationPage pageHeight={pageHeight} >
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
@@ -213,7 +207,7 @@ export default class ComboBox extends React.Component {
                 renderIcon: () => (<IconDone />),
               } : undefined
             )}
-            stackTitle={stackTitle}
+            stackTitle={title}
             stackTitleEditable={false}
             titleIcon={undefined}
             useSearch={false}

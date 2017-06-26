@@ -7,26 +7,26 @@ import {
   COMBO_BOX_OPENING_PAGE_DONE,
 } from '../action-types/internal-paging-action-types';
 
-export function openPage(stackId, pageName, direction, zIndex) {
-  return { type: COMBO_BOX_OPEN_PAGE, stackId, pageName, direction, zIndex };
+export function openPage(props, direction) {
+  return { type: COMBO_BOX_OPEN_PAGE, props, direction };
 }
 
-export function openingPage(stackId, pageName) {
-  return { type: COMBO_BOX_OPENING_PAGE, stackId, pageName };
+export function openingPage() {
+  return { type: COMBO_BOX_OPENING_PAGE };
 }
 
-export function openPageDone(stackId, pageName) {
-  return { type: COMBO_BOX_OPENING_PAGE_DONE, stackId, pageName };
+export function openPageDone() {
+  return { type: COMBO_BOX_OPENING_PAGE_DONE };
 }
 
-export function goBack(stackId, pageName) {
-  return { type: COMBO_BOX_GO_BACK, stackId, pageName };
+export function goBack() {
+  return { type: COMBO_BOX_GO_BACK };
 }
 
-export function goingBack(stackId, pageName) {
-  return { type: COMBO_BOX_GOING_BACK, stackId, pageName };
+export function goingBack() {
+  return { type: COMBO_BOX_GOING_BACK };
 }
 
-export function goBackDone(stackId, pageName) {
-  return { type: COMBO_BOX_GOING_BACK_DONE, stackId, pageName };
+export function goBackDone() {
+  return { type: COMBO_BOX_GOING_BACK_DONE };
 }

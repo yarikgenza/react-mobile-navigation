@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SettingsMainPageComponent } from '../../components/pages/SettingsMainPageComponent';
-import { actionSheetPagingActions } from 'react-mobile-navigation-action-sheet';
+import { actionSheetActions } from 'react-mobile-navigation-action-sheet';
 
 function mapStateToProps(state) {
   return {
@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actionSheetPagingActions: bindActionCreators(actionSheetPagingActions, dispatch),
+    actionSheetActions: bindActionCreators(actionSheetActions, dispatch),
   };
 }
 

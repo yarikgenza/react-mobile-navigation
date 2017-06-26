@@ -1,11 +1,16 @@
-import * as actionSheetPagingActions from './actions/internal-paging-actions';
+import * as actionSheetActionTypes from './action-types/internal-paging-action-types';
+import * as actionSheetActions from './actions/internal-paging-actions';
 import ActionSheet from './components/ActionSheet';
 import actionSheetOptionModel from './models/action-sheet-option-model';
-import actionSheetPagingReducers from './reducers/internal-pages-reducers';
+import actionSheetPagesReducers, {
+  initialState as actionSheetPagesInitialState,
+} from './reducers/internal-pages-reducers';
 
 export {
   ActionSheet,
+  actionSheetActionTypes,
   actionSheetOptionModel,
-  actionSheetPagingActions,
-  actionSheetPagingReducers,
+  actionSheetActions,
+  actionSheetPagesInitialState,
+  actionSheetPagesReducers,
 };

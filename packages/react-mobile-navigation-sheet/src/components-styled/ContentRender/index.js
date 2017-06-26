@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
-export default styled.div`
+export default styled.div.attrs({
+  style: props => props.styleTranslate,
+})`
   position: absolute;
   bottom: 0;
-  boxSizing: border-box;
+  box-sizing: border-box;
   width: 100%;
   z-index: 2;
 `;

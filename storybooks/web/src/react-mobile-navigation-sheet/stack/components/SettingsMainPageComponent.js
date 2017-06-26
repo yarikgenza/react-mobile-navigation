@@ -18,7 +18,7 @@ export class SettingsMainPageComponent extends React.Component {
 
   openActionsheet() {
     this.actionSheetItems = [];
-    this.props.actionSheetPagingActions.openPage(
+    this.props.actionSheetActions.openPage(
       this.props.stackId,
       this.props.pageId,
       DirectionEnum.VERTICAL,
@@ -33,7 +33,7 @@ export class SettingsMainPageComponent extends React.Component {
   }
 
   onActionSheetCancel() {
-    this.props.actionSheetPagingActions.goBack(
+    this.props.actionSheetActions.goBack(
       this.props.stackId,
       this.props.pageId
     );
@@ -55,13 +55,6 @@ export class SettingsMainPageComponent extends React.Component {
             </div>
           </div>
         </PageContent>
-        <ActionSheet
-          onCancel={this.onActionSheetCancel}
-          pageState={actionSheetPageState}
-          stackId={this.props.stackId}
-          pageId={this.props.pageId}
-          pagingActions={this.props.actionSheetPagingActions}
-        />
       </PageWrapper>
     );
   }
@@ -72,7 +65,7 @@ SettingsMainPageComponent.defaultProps = {
   stackId: undefined,
   pageId: undefined,
   actionSheet: undefined,
-  actionSheetPagingActions: undefined,
+  actionSheetActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
@@ -80,5 +73,5 @@ SettingsMainPageComponent.propTypes = {
   stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   actionSheet: React.PropTypes.any,
-  actionSheetPagingActions: React.PropTypes.any,
+  actionSheetActions: React.PropTypes.any,
 };

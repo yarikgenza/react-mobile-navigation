@@ -6,16 +6,8 @@ import ActionSheetList from './ActionSheetList';
 const propTypes = {
   cancelLabel: React.PropTypes.string,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  pageId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   pageState: React.PropTypes.object,
   pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
   onShadowClick: React.PropTypes.func,
@@ -65,16 +57,16 @@ export default class ActionSheet extends React.Component {
   }
 
   onPageTransitionEnd() {
-    const { pageId, pageState, pagingActions, stackId, onSelect } = this.props;
+    const { pageState, pagingActions, onSelect } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone(stackId, pageId);
+        pagingActions.openPageDone();
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
         const { selectedOption } = this.state;
         // set state until use does actions which can possibly unmount the component
         this.setState(() => ({ selectedOption: undefined }));
-        pagingActions.goBackDone(stackId, pageId);
+        pagingActions.goBackDone();
         if (selectedOption && selectedOption.handler) {
           selectedOption.handler();
         }
@@ -89,15 +81,15 @@ export default class ActionSheet extends React.Component {
   }
 
   setPageStatus() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage(stackId, pageId);
+        pagingActions.openingPage();
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack(stackId, pageId);
+        pagingActions.goingBack();
         return;
       default:
         return;
@@ -105,19 +97,12 @@ export default class ActionSheet extends React.Component {
   }
 
   closeActionSheet() {
-    const { pageId, pagingActions, stackId } = this.props;
-    pagingActions.goBack(stackId, pageId);
+    const { pagingActions } = this.props;
+    pagingActions.goBack();
   }
 
   render() {
-    const {
-      cancelLabel,
-      items,
-      pageId,
-      pageState,
-      pagingActions,
-      stackId,
-    } = this.props;
+    const { cancelLabel, items, pageState } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
     }
@@ -127,15 +112,11 @@ export default class ActionSheet extends React.Component {
         setPageStatus={this.setPageStatus}
         onPageTransitionEnd={this.onPageTransitionEnd}
       >
-        <MobileNavigationShadowPage
-          pageId={pageId}
-          pagingActions={pagingActions}
-          stackId={stackId}
-          onShadowClick={this.onShadowClick}
-        >
+        <MobileNavigationShadowPage onShadowClick={this.onShadowClick} >
           <ActionSheetList
             cancelLabel={cancelLabel}
             items={items}
+            pageStateIndex={pageState.zIndex}
             onCancel={this.onCancel}
             onSelect={this.onSelect}
           />

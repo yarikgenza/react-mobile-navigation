@@ -1,4 +1,6 @@
 import Interpolation from './components/Interpolation';
+import MobileNavigationPage from './components/MobileNavigationPage';
+import MobileNavigationView from './components/MobileNavigationView';
 import MobileNavigationPageRender from './components-styled/MobileNavigationPageRender';
 import MobileNavigationViewRender from './components-styled/MobileNavigationViewRender';
 import PageContent from './components-styled/PageContent';
@@ -10,6 +12,8 @@ import getTranslate3dByDirection from './utils/animation-position';
 
 export {
   Interpolation,
+  MobileNavigationPage,
+  MobileNavigationView,
   MobileNavigationPageRender,
   MobileNavigationViewRender,
   PageContent,
@@ -22,6 +26,8 @@ export {
 
 export default {
   Interpolation,
+  MobileNavigationPage,
+  MobileNavigationView,
   MobileNavigationPageRender,
   MobileNavigationViewRender,
   PageContent,

@@ -20,7 +20,11 @@
   "main": "lib/index.js",
   "dependencies": {
     "binary-ui-components": "^0.2.6",
-    "react-mobile-navigation-core": "^0.1.4"
+    "react-mobile-navigation-action-sheet": "^0.1.4",
+    "react-mobile-navigation-alert": "^0.1.4",
+    "react-mobile-navigation-combobox": "^0.1.4",
+    "react-mobile-navigation-core": "^0.1.4",
+    "react-mobile-navigation-modal": "^0.1.4"
   },
   "peerDependencies": {
     "react": "^15.3.2",

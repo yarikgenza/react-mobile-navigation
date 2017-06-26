@@ -2,8 +2,11 @@
 import IconDone from 'binary-ui-icons/binary/Done';
 import { StackPage } from 'binary-ui-stack';
 import React from 'react';
-import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
-import { MobileNavigationPage } from 'react-mobile-navigation-engine';
+import {
+  PageStatusTypesEnum,
+  Interpolation,
+  MobileNavigationPage,
+} from 'react-mobile-navigation-core';
 
 const propTypes = {
   bodyStyle: React.PropTypes.object.isRequired,
@@ -19,16 +22,8 @@ const propTypes = {
   pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
   pageHeight: React.PropTypes.number.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
-  pageId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   pageState: React.PropTypes.object,
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
-  stackTitle: React.PropTypes.string,
+  title: React.PropTypes.string,
   onCancel: React.PropTypes.func,
   onConfirm: React.PropTypes.func,
 };
@@ -65,13 +60,13 @@ export default class Modal extends React.Component {
   }
 
   onPageTransitionEnd() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone(stackId, pageId);
+        pagingActions.openPageDone();
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        pagingActions.goBackDone(stackId, pageId);
+        pagingActions.goBackDone();
         return;
       }
       default:
@@ -80,15 +75,15 @@ export default class Modal extends React.Component {
   }
 
   setPageStatus() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage(stackId, pageId);
+        pagingActions.openingPage();
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack(stackId, pageId);
+        pagingActions.goingBack();
         return;
       default:
         return;
@@ -96,8 +91,8 @@ export default class Modal extends React.Component {
   }
 
   closeModal() {
-    const { pageId, pagingActions, stackId } = this.props;
-    pagingActions.goBack(stackId, pageId);
+    const { pagingActions } = this.props;
+    pagingActions.goBack();
   }
 
   render() {
@@ -107,8 +102,7 @@ export default class Modal extends React.Component {
       headerStyle,
       pageHeight,
       pageState,
-      stackId,
-      stackTitle,
+      title,
     } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
@@ -119,14 +113,14 @@ export default class Modal extends React.Component {
         onPageTransitionEnd={this.onPageTransitionEnd}
         pageState={pageState}
       >
-        <MobileNavigationPage stackId={stackId} pageHeight={pageHeight} >
+        <MobileNavigationPage pageHeight={pageHeight} >
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
             leftButton={{ onClick: this.onCancel, renderIcon: () => (<IconCancel />) }}
             pageHeight={pageHeight}
             rightButton={{ onClick: this.onConfirm, renderIcon: () => (<IconDone />) }}
-            stackTitle={stackTitle}
+            stackTitle={title}
             stackTitleEditable={false}
             titleIcon={undefined}
             useSearch={false}

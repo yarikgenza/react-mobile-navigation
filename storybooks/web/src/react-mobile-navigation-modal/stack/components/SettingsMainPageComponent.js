@@ -67,19 +67,6 @@ export class SettingsMainPageComponent extends React.Component {
             />
           </div>
         </PageContent>
-        <Modal
-          bodyStyle={SIDE_MENU_BODY_STYLE}
-          headerStyle={SIDE_MENU_HEADER_STYLE}
-          pageHeight={500}
-          pageWidth={400}
-          pageId={this.props.pageId}
-          pageState={comboBoxPageState}
-          pagingActions={this.props.comboBoxActions}
-          stackId={this.props.stackId}
-          stackTitle="Title"
-          onCancel={this.onComboBoxCancel}
-          onConfirm={this.onComboBoxConfirm}
-        />
       </PageWrapper>
     );
   }

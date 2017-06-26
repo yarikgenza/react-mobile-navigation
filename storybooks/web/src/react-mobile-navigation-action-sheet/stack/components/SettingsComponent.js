@@ -1,7 +1,7 @@
 import React from 'react';
+import { MobileNavigationPage } from 'react-mobile-navigation-core';
 import {
   MobileNavigation,
-  MobileNavigationPage,
   mobileNavigationCreateInitState,
   mobileNavigationInitStatePseudoActions,
 } from 'react-mobile-navigation-engine';

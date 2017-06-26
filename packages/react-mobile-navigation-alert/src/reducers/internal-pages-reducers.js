@@ -11,17 +11,17 @@ import {
   ALERT_GO_BACK,
   ALERT_GO_BACK_FORCE,
   ALERT_GOING_BACK_DONE,
-} from '../action-types/alert-paging-action-types';
+} from '../action-types/internal-paging-action-types';
 
 export const initialState = actionPageStoreModel(PageStatusTypesEnum.CLOSE_DONE);
 
-// NOTE: set zIndex 999 to be on a top of everything, but not action sheet
+// NOTE: set zIndex 1002 to be on a top of everything, but not action sheet and combobox and modal
 export default (state = initialState, action) => {
   switch (action.type) {
     case ALERT_OPEN_PAGE:
       return Object.assign({}, state, {
         status: PageStatusTypesEnum.OPEN_PREPARE,
-        zIndex: 999,
+        zIndex: 1002,
         direction: DirectionEnum.VERTICAL,
       });
     case ALERT_OPENING_PAGE:
