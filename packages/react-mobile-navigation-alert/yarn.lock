@@ -691,7 +691,7 @@ babel-register@^6.24.1:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0:
+babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
   dependencies:
@@ -765,7 +765,7 @@ binary-extensions@^1.0.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.8.0.tgz#48ec8d16df4377eae5fa5884682480af4d95c774"
 
-binary-ui-components@^0.2.5:
+binary-ui-components@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/binary-ui-components/-/binary-ui-components-0.2.6.tgz#8475797a1118df337915bdfa665634f2991b5055"
   dependencies:
@@ -776,24 +776,13 @@ binary-ui-components@^0.2.5:
     styled-components "^2.0.0"
     uuid "^3.0.1"
 
-binary-ui-icons@^0.2.5, binary-ui-icons@^0.2.6:
+binary-ui-icons@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/binary-ui-icons/-/binary-ui-icons-0.2.6.tgz#89491445362b30ee625760929a232c664639f48a"
   dependencies:
     prop-types "^15.5.10"
 
-binary-ui-stack@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.1.9.tgz#9056078d9d47453f09571bf8394ce9b2450ca3f4"
-  dependencies:
-    binary-ui-components "^0.2.5"
-    binary-ui-icons "^0.2.5"
-    binary-ui-styles "^0.2.5"
-    prop-types "^15.5.10"
-    react-virtualized "^9.7.6"
-    styled-components "^2.0.1"
-
-binary-ui-styles@^0.2.5, binary-ui-styles@^0.2.6:
+binary-ui-styles@^0.2.6:
   version "0.2.6"
   resolved "https://registry.yarnpkg.com/binary-ui-styles/-/binary-ui-styles-0.2.6.tgz#e7c8789876081cbfb5eaf68cb6e9d547fd077d5f"
 
@@ -916,10 +905,6 @@ chokidar@^1.0.0, chokidar@^1.6.1:
 circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
-
-classnames@^2.2.3:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
 cli-cursor@^1.0.1:
   version "1.0.2"
@@ -1167,10 +1152,6 @@ doctrine@1.3.x, doctrine@^1.2.2:
   dependencies:
     esutils "^2.0.2"
     isarray "^1.0.0"
-
-"dom-helpers@^2.4.0 || ^3.0.0":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
 
 domain-browser@^1.1.1:
   version "1.1.7"
@@ -2174,7 +2155,7 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.0, loose-envify@^1.3.1:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -2666,16 +2647,6 @@ react-mobile-navigation-engine@^0.1.4:
   dependencies:
     react-mobile-navigation-core "^0.1.4"
 
-react-virtualized@^9.7.6:
-  version "9.8.0"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.8.0.tgz#7c1fe9b723ce39a1c4916cabe1c4f1bda5dbc04b"
-  dependencies:
-    babel-runtime "^6.11.6"
-    classnames "^2.2.3"
-    dom-helpers "^2.4.0 || ^3.0.0"
-    loose-envify "^1.3.0"
-    prop-types "^15.5.4"
-
 react@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react/-/react-15.3.2.tgz#a7bccd2fee8af126b0317e222c28d1d54528d09e"
@@ -3066,7 +3037,7 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
-styled-components@^2.0.0, styled-components@^2.0.1:
+styled-components@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.1.0.tgz#425805fca7efa5880aad2171f986bfd8a2f0808f"
   dependencies:

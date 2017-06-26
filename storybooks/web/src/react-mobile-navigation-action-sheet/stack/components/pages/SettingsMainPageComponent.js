@@ -1,5 +1,5 @@
 import React from 'react';
-import { DirectionEnum, PageContent, PageWrapper } from 'react-mobile-navigation-core';
+import { DirectionEnum, PageWrapper } from 'react-mobile-navigation-core';
 import {
   ActionSheet,
   actionSheetOptionModel,
@@ -40,11 +40,9 @@ export class SettingsMainPageComponent extends React.Component {
   render() {
     return (
       <PageWrapper style={{ backgroundColor: 'white' }} >
-        <PageContent>
-          <div onClick={this.openActionSheet}>
-            Action Sheet
-          </div>
-        </PageContent>
+        <div onClick={this.openActionSheet}>
+          Action Sheet
+        </div>
       </PageWrapper>
     );
   }

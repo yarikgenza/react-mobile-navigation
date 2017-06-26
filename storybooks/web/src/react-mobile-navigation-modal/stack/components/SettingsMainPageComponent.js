@@ -5,7 +5,6 @@ import Group from 'binary-ui-components/mobile/Group';
 import Text from 'binary-ui-components/mobile/Text';
 import {
   DirectionEnum,
-  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
 import { Modal } from 'react-mobile-navigation-modal';
@@ -53,20 +52,18 @@ export class SettingsMainPageComponent extends React.Component {
     };
     return (
       <PageWrapper>
-        <PageContent zIndex={this.props.pageState.zIndex} >
-          <div key={'section 1'}>
-            <Group
-              renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
-              renderRight={() => (
-                <Button
-                  label={COMBOBOX}
-                  onClick={this.openCombobox}
-                  renderIcon={() => (<ArrowDown />)}
-                />
-              )}
-            />
-          </div>
-        </PageContent>
+        <div key={'section 1'}>
+          <Group
+            renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
+            renderRight={() => (
+              <Button
+                label={COMBOBOX}
+                onClick={this.openCombobox}
+                renderIcon={() => (<ArrowDown />)}
+              />
+            )}
+          />
+        </div>
       </PageWrapper>
     );
   }

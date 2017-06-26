@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-sheet",
-  "version": "0.1.4",
+  "version": "1.0.0-0",
   "description": "React mobile navigation sheet.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -19,7 +19,7 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "react-mobile-navigation-core": "^0.1.4"
+    "react-mobile-navigation-core": "^1.0.0-0"
   },
   "peerDependencies": {
     "react": "^15.3.2",

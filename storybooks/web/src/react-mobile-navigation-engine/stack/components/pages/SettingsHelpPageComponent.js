@@ -3,7 +3,6 @@ import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import {
   DirectionEnum,
-  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
@@ -109,27 +108,25 @@ export class SettingsHelpPageComponent extends React.Component {
   render() {
     return (
       <PageWrapper style={{ backgroundColor: 'white' }} >
-        <PageContent>
-          <div style={{ textAlign: 'center' }} >Help</div>
-          <div onClick={this.connectedHelpText} >
-            Open licenses
-          </div>
-          <div onClick={this.closePageClick} >
-            Go back
-          </div>
-          <div onClick={this.openActionSheet} >
-            Show action sheet
-          </div>
-          <div onClick={this.openComboBox} >
-            Show combobox
-          </div>
-          <div onClick={this.openAlert} >
-            Show alert
-          </div>
-          <div onClick={this.openModal} >
-            Show modal
-          </div>
-        </PageContent>
+        <div style={{ textAlign: 'center' }} >Help</div>
+        <div onClick={this.connectedHelpText} >
+          Open licenses
+        </div>
+        <div onClick={this.closePageClick} >
+          Go back
+        </div>
+        <div onClick={this.openActionSheet} >
+          Show action sheet
+        </div>
+        <div onClick={this.openComboBox} >
+          Show combobox
+        </div>
+        <div onClick={this.openAlert} >
+          Show alert
+        </div>
+        <div onClick={this.openModal} >
+          Show modal
+        </div>
       </PageWrapper>
     );
   }

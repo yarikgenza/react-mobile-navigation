@@ -2,7 +2,6 @@ import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import {
   DirectionEnum,
-  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
@@ -30,15 +29,13 @@ export class SettingsLicencesPageComponent extends React.Component {
   render() {
     return (
       <PageWrapper style={{ backgroundColor: 'white' }} >
-        <PageContent>
-          <div style={{ textAlign: 'center' }} >Licenses</div>
-          <div onClick={this.connectedHelpText} >
-            Open help
-          </div>
-          <div onClick={this.closePageClick} >
-            Go back
-          </div>
-        </PageContent>
+        <div style={{ textAlign: 'center' }} >Licenses</div>
+        <div onClick={this.connectedHelpText} >
+          Open help
+        </div>
+        <div onClick={this.closePageClick} >
+          Go back
+        </div>
       </PageWrapper>
     );
   }

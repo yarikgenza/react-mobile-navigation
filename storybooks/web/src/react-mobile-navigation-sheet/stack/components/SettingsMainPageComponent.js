@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   DirectionEnum,
-  PageContent,
   PageWrapper,
 } from 'react-mobile-navigation-core';
 import { ActionSheet } from '../../stack-action-pages';
@@ -48,13 +47,11 @@ export class SettingsMainPageComponent extends React.Component {
     };
     return (
       <PageWrapper>
-        <PageContent>
-          <div style={mainPageStyle}>
-            <div onClick={this.openActionsheet} >
-              Action Sheet
-            </div>
+        <div style={mainPageStyle}>
+          <div onClick={this.openActionsheet} >
+            Action Sheet
           </div>
-        </PageContent>
+        </div>
       </PageWrapper>
     );
   }
