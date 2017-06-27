@@ -248,15 +248,9 @@ export default class MobileNavigation extends React.Component {
         )}
         {this.memoizedModal && (
           <Modal
-            bodyStyle={this.memoizedModal.bodyStyle}
-            headerStyle={this.memoizedModal.headerStyle}
             pageHeight={pageHeight}
-            pageWidth={pageWidth}
             pageState={modal}
             pagingActions={this.modalActions}
-            title={this.memoizedModal.title}
-            onCancel={this.memoizedModal.onCancel}
-            onConfirm={this.memoizedModal.onConfirm}
           >
             {this.memoizedModal.render()}
           </Modal>

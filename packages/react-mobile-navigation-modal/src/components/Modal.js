@@ -1,7 +1,4 @@
-﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
-import IconDone from 'binary-ui-icons/binary/Done';
-import { StackPage } from 'binary-ui-stack';
-import React from 'react';
+﻿import React from 'react';
 import {
   PageStatusTypesEnum,
   Interpolation,
@@ -9,7 +6,6 @@ import {
 } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  bodyStyle: React.PropTypes.object.isRequired,
   children: React.PropTypes.oneOfType([
     React.PropTypes.arrayOf(React.PropTypes.node),
     React.PropTypes.arrayOf(React.PropTypes.number),
@@ -18,14 +14,9 @@ const propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]),
-  headerStyle: React.PropTypes.object.isRequired,
   pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
   pageHeight: React.PropTypes.number.isRequired,
-  pageWidth: React.PropTypes.number.isRequired,
   pageState: React.PropTypes.object,
-  title: React.PropTypes.string,
-  onCancel: React.PropTypes.func,
-  onConfirm: React.PropTypes.func,
 };
 
 const defaultProps = {};
@@ -37,26 +28,8 @@ export default class Modal extends React.Component {
     this.state = {
       selectedOption: undefined,
     };
-    this.onCancel = this.onCancel.bind(this);
-    this.onConfirm = this.onConfirm.bind(this);
     this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
     this.setPageStatus = this.setPageStatus.bind(this);
-  }
-
-  onCancel() {
-    const { onCancel } = this.props;
-    if (onCancel) {
-      onCancel();
-    }
-    this.closeModal();
-  }
-
-  onConfirm() {
-    const { onConfirm } = this.props;
-    if (onConfirm) {
-      onConfirm();
-    }
-    this.closeModal();
   }
 
   onPageTransitionEnd() {
@@ -90,20 +63,8 @@ export default class Modal extends React.Component {
     }
   }
 
-  closeModal() {
-    const { pagingActions } = this.props;
-    pagingActions.goBack();
-  }
-
   render() {
-    const {
-      bodyStyle,
-      children,
-      headerStyle,
-      pageHeight,
-      pageState,
-      title,
-    } = this.props;
+    const { children, pageHeight, pageState } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
     }
@@ -114,19 +75,7 @@ export default class Modal extends React.Component {
         pageState={pageState}
       >
         <MobileNavigationPage pageHeight={pageHeight} >
-          <StackPage
-            bodyStyle={bodyStyle}
-            headerStyle={headerStyle}
-            leftButton={{ onClick: this.onCancel, renderIcon: () => (<IconCancel />) }}
-            pageHeight={pageHeight}
-            rightButton={{ onClick: this.onConfirm, renderIcon: () => (<IconDone />) }}
-            stackTitle={title}
-            stackTitleEditable={false}
-            titleIcon={undefined}
-            useSearch={false}
-          >
-            {children}
-          </StackPage>
+          {children}
         </MobileNavigationPage>
       </Interpolation>
     );

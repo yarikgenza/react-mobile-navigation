@@ -1,4 +1,7 @@
+import IconCancel from 'binary-ui-icons/binary/Cancel';
+import IconDone from 'binary-ui-icons/binary/Done';
 import { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
+import { StackPage } from 'binary-ui-stack';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { DirectionEnum } from 'react-mobile-navigation-core';
@@ -66,20 +69,38 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   openModal() {
-    this.props.modalOpen({
-      bodyStyle: {
-        backgroundColor: 'white',
-        borderRadius: '5px',
-        overflowX: 'hidden',
-        overflowY: 'auto',
+    const { modalOpen, modalClose, pageHeight } = this.props;
+    modalOpen({
+      render: () => {
+        return (
+          <StackPage
+            bodyStyle={{
+              backgroundColor: 'white',
+              borderRadius: '5px',
+              overflowX: 'hidden',
+              overflowY: 'auto',
+            }}
+            headerStyle={{
+              backgroundColor: '#eeeae5',
+            }}
+            leftButton={{ onClick: () => { modalClose() }, renderIcon: () => (<IconCancel />) }}
+            pageHeight={pageHeight}
+            rightButton={{ onClick: () => { modalClose() }, renderIcon: () => (<IconDone />) }}
+            stackTitle="Modal Title"
+            stackTitleEditable={false}
+            titleIcon={undefined}
+            useSearch={false}
+          >
+            <div style={{ fontSize: '64px' }} >Content Here 1</div>
+            <div style={{ fontSize: '64px' }} >Content Here 2</div>
+            <div style={{ fontSize: '64px' }} >Content Here 3</div>
+            <div style={{ fontSize: '64px' }} >Content Here 4</div>
+            <div style={{ fontSize: '64px' }} >Content Here 5</div>
+            <div style={{ fontSize: '64px' }} >Content Here 6</div>
+            <div style={{ fontSize: '64px' }} >Content Here 7</div>
+          </StackPage>
+        );
       },
-      headerStyle: {
-        backgroundColor: '#eeeae5',
-      },
-      title: 'Modal Title',
-      render: () => { return 'Content Here'; },
-      onCancel: () => {},
-      onConfirm: () => {},
     }, DirectionEnum.VERTICAL);
   }
 
@@ -132,6 +153,7 @@ SettingsHelpPageComponent.defaultProps = {
   actionSheetOpen: undefined,
   alertOpen: undefined,
   modalOpen: undefined,
+  modalClose: undefined,
   pagingActions: undefined,
 };
 
@@ -139,5 +161,6 @@ SettingsHelpPageComponent.propTypes = {
   actionSheetOpen: React.PropTypes.func,
   alertOpen: React.PropTypes.func,
   modalOpen: React.PropTypes.func,
+  modalClose: React.PropTypes.func,
   pagingActions: React.PropTypes.any,
 };
