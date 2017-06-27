@@ -3,10 +3,7 @@ import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
 import Button from 'binary-ui-components/mobile/Button';
 import Group from 'binary-ui-components/mobile/Group';
 import Text from 'binary-ui-components/mobile/Text';
-import {
-  DirectionEnum,
-  PageWrapper,
-} from 'react-mobile-navigation-core';
+import { DirectionEnum } from 'react-mobile-navigation-core';
 import {
   ComboBox,
   comboBoxOptionModel,
@@ -52,7 +49,6 @@ export class SettingsMainPageComponent extends React.Component {
       comboBoxOptionModel('first22', 'Twenty third', () => { console.log('23'); }),
     ];
     this.props.comboBoxActions.openPage(
-      this.props.stackId,
       this.props.pageId,
       DirectionEnum.VERTICAL,
       this.props.pageState.zIndex
@@ -87,25 +83,22 @@ export class SettingsMainPageComponent extends React.Component {
       overflowY: 'auto',
     };
     return (
-      <PageWrapper>
-        <Group
-          renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
-          renderRight={() => (
-            <Button
-              label={COMBOBOX}
-              onClick={this.openCombobox}
-              renderIcon={() => (<ArrowDown />)}
-            />
-          )}
-        />
-      </PageWrapper>
+      <Group
+        renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
+        renderRight={() => (
+          <Button
+            label={COMBOBOX}
+            onClick={this.openCombobox}
+            renderIcon={() => (<ArrowDown />)}
+          />
+        )}
+      />
     );
   }
 }
 
 SettingsMainPageComponent.defaultProps = {
   pagingActions: undefined,
-  stackId: undefined,
   pageId: undefined,
   comboBox: undefined,
   comboBoxActions: undefined,
@@ -113,7 +106,6 @@ SettingsMainPageComponent.defaultProps = {
 
 SettingsMainPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
-  stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   comboBox: React.PropTypes.any,
   comboBoxActions: React.PropTypes.any,

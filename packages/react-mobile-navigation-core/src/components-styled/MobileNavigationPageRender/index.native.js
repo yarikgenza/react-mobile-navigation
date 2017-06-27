@@ -7,4 +7,5 @@ export default styled.View.attrs({
   }),
 })`
   position: absolute;
+  overflow: hidden;
 `;

@@ -1,9 +1,6 @@
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import {
-  DirectionEnum,
-  PageWrapper,
-} from 'react-mobile-navigation-core';
+import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export class SettingsMainPageComponent extends React.Component {
@@ -16,7 +13,6 @@ export class SettingsMainPageComponent extends React.Component {
 
   connectedListText() {
     this.props.pagingActions.openPage(
-      this.props.stackId,
       SettingsModeTypesEnum.LICENSES,
       DirectionEnum.VERTICAL
     );
@@ -24,7 +20,6 @@ export class SettingsMainPageComponent extends React.Component {
 
   connectedHelpText() {
     this.props.pagingActions.openPage(
-      this.props.stackId,
       SettingsModeTypesEnum.HELP,
       DirectionEnum.HORIZONTAL
     );
@@ -32,7 +27,7 @@ export class SettingsMainPageComponent extends React.Component {
 
   render() {
     return (
-      <PageWrapper style={{ backgroundColor: 'white' }} >
+      <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Main</div>
         <div onClick={this.connectedListText} >
           Open Licenses
@@ -40,17 +35,15 @@ export class SettingsMainPageComponent extends React.Component {
         <div onClick={this.connectedHelpText} >
           Open Help
         </div>
-      </PageWrapper>
+      </div>
     );
   }
 }
 
 SettingsMainPageComponent.defaultProps = {
   pagingActions: undefined,
-  stackId: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
-  stackId: React.PropTypes.any,
 };

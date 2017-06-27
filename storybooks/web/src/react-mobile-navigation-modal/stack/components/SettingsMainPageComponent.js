@@ -3,10 +3,7 @@ import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
 import Button from 'binary-ui-components/mobile/Button';
 import Group from 'binary-ui-components/mobile/Group';
 import Text from 'binary-ui-components/mobile/Text';
-import {
-  DirectionEnum,
-  PageWrapper,
-} from 'react-mobile-navigation-core';
+import { DirectionEnum } from 'react-mobile-navigation-core';
 import { Modal } from 'react-mobile-navigation-modal';
 
 export class SettingsMainPageComponent extends React.Component {
@@ -23,7 +20,6 @@ export class SettingsMainPageComponent extends React.Component {
   openCombobox() {
     this.comboBoxItems = [];
     this.props.comboBoxActions.openPage(
-      this.props.stackId,
       this.props.pageId,
       DirectionEnum.VERTICAL,
       this.props.pageState.zIndex
@@ -51,27 +47,24 @@ export class SettingsMainPageComponent extends React.Component {
       overflowY: 'auto',
     };
     return (
-      <PageWrapper>
-        <div key={'section 1'}>
-          <Group
-            renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
-            renderRight={() => (
-              <Button
-                label={COMBOBOX}
-                onClick={this.openCombobox}
-                renderIcon={() => (<ArrowDown />)}
-              />
-            )}
-          />
-        </div>
-      </PageWrapper>
+      <div key={'section 1'}>
+        <Group
+          renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
+          renderRight={() => (
+            <Button
+              label={COMBOBOX}
+              onClick={this.openCombobox}
+              renderIcon={() => (<ArrowDown />)}
+            />
+          )}
+        />
+      </div>
     );
   }
 }
 
 SettingsMainPageComponent.defaultProps = {
   pagingActions: undefined,
-  stackId: undefined,
   pageId: undefined,
   comboBox: undefined,
   comboBoxActions: undefined,
@@ -79,7 +72,6 @@ SettingsMainPageComponent.defaultProps = {
 
 SettingsMainPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
-  stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   comboBox: React.PropTypes.any,
   comboBoxActions: React.PropTypes.any,

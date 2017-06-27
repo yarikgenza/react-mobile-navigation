@@ -1,5 +1,5 @@
 import React from 'react';
-import { DirectionEnum, PageWrapper } from 'react-mobile-navigation-core';
+import { DirectionEnum } from 'react-mobile-navigation-core';
 import {
   ActionSheet,
   actionSheetOptionModel,
@@ -20,7 +20,6 @@ export class SettingsMainPageComponent extends React.Component {
       actionSheetOptionModel('licenses', 'Licenses', () => { console.log('licenses'); }),
     ];
     this.props.actionSheetActions.openPage(
-      this.props.stackId,
       this.props.pageId,
       DirectionEnum.VERTICAL,
       2
@@ -39,18 +38,15 @@ export class SettingsMainPageComponent extends React.Component {
 
   render() {
     return (
-      <PageWrapper style={{ backgroundColor: 'white' }} >
-        <div onClick={this.openActionSheet}>
-          Action Sheet
-        </div>
-      </PageWrapper>
+      <div onClick={this.openActionSheet}>
+        Action Sheet
+      </div>
     );
   }
 }
 
 SettingsMainPageComponent.defaultProps = {
   pagingActions: undefined,
-  stackId: undefined,
   pageId: undefined,
   actionSheet: undefined,
   actionSheetActions: undefined,
@@ -58,7 +54,6 @@ SettingsMainPageComponent.defaultProps = {
 
 SettingsMainPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
-  stackId: React.PropTypes.any,
   pageId: React.PropTypes.any,
   actionSheet: React.PropTypes.any,
   actionSheetActions: React.PropTypes.any,

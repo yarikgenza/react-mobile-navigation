@@ -38,10 +38,6 @@ const propTypes = {
   initState: React.PropTypes.object,
   pageHeight: React.PropTypes.number,
   pageWidth: React.PropTypes.number,
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]).isRequired,
 };
 
 const defaultProps = {};
@@ -184,7 +180,7 @@ export default class MobileNavigation extends React.Component {
   }
 
   render() {
-    const { children, pageHeight, pageWidth, stackId } = this.props;
+    const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
     return (
       <MobileNavigationRender>
@@ -202,7 +198,6 @@ export default class MobileNavigation extends React.Component {
               pageId={pageId}
               pageState={page.pageState}
               pageWidth={pageWidth}
-              stackId={stackId}
             >
               {getPageById(React.Children.toArray(children), pageId)}
             </MobileNavigationPageEngine>

@@ -11,14 +11,13 @@ import * as SettingsModeTypesEnum from '../enum/settings-mode-types-enum';
 const width = 400;
 const height = 500;
 
-export const SettingsComponent = ({ initState, stackId }) => (
+export const SettingsComponent = ({ initState }) => (
   <MobileNavigation
     initState={mobileNavigationCreateInitState(SettingsModeTypesEnum.MAIN, [
       SettingsModeTypesEnum.MAIN,
     ])}
     pageWidth={width}
     pageHeight={height}
-    stackId={stackId}
   >
     <MobileNavigationPage pageId={SettingsModeTypesEnum.MAIN}>
       <SettingsMainPageContainer />

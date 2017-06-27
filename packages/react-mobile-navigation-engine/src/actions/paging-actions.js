@@ -9,38 +9,38 @@ import {
   PAGE_OPEN_DONE,
 } from '../action-types/paging-action-types';
 
-export function openPage(stackId, pageName, direction) {
-  return { type: PAGE_OPEN_START, stackId, pageName, direction };
+export function openPage(pageName, direction) {
+  return { type: PAGE_OPEN_START, pageName, direction };
 }
 
-export function openPageHorizontal(stackId, pageName) {
-  return { type: PAGE_OPEN_START, stackId, pageName, direction: DirectionEnum.HORIZONTAL };
+export function openPageHorizontal(pageName) {
+  return { type: PAGE_OPEN_START, pageName, direction: DirectionEnum.HORIZONTAL };
 }
 
-export function openPageVertical(stackId, pageName) {
-  return { type: PAGE_OPEN_START, stackId, pageName, direction: DirectionEnum.VERTICAL };
+export function openPageVertical(pageName) {
+  return { type: PAGE_OPEN_START, pageName, direction: DirectionEnum.VERTICAL };
 }
 
-export function openingPage(stackId, pageName) {
-  return { type: PAGE_OPENING, stackId, pageName };
+export function openingPage(pageName) {
+  return { type: PAGE_OPENING, pageName };
 }
 
-export function openPageDone(stackId, pageName) {
-  return { type: PAGE_OPEN_DONE, stackId, pageName };
+export function openPageDone(pageName) {
+  return { type: PAGE_OPEN_DONE, pageName };
 }
 
-export function goBack(stackId) {
-  return { type: PAGE_CLOSE_START, stackId };
+export function goBack() {
+  return { type: PAGE_CLOSE_START };
 }
 
-export function goBackForce(stackId) {
-  return { type: PAGE_CLOSE_FORCE, stackId };
+export function goBackForce() {
+  return { type: PAGE_CLOSE_FORCE };
 }
 
-export function goingBack(stackId, pageName) {
-  return { type: PAGE_CLOSING, stackId, pageName };
+export function goingBack(pageName) {
+  return { type: PAGE_CLOSING, pageName };
 }
 
-export function goBackDone(stackId, pageName) {
-  return { type: PAGE_CLOSE_DONE, stackId, pageName };
+export function goBackDone(pageName) {
+  return { type: PAGE_CLOSE_DONE, pageName };
 }

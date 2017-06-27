@@ -15,10 +15,6 @@ const propTypes = {
   pageState: React.PropTypes.object.isRequired,
   pageWidth: React.PropTypes.number,
   pagingActions: React.PropTypes.object.isRequired,
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]).isRequired,
 };
 
 const defaultProps = {};
@@ -41,17 +37,17 @@ export default class MobileNavigationPageEngine extends React.Component {
   }
 
   onPageTransitionEnd() {
-    const { pageId, pageState, pagingActions, stackId } = this.props;
+    const { pageId, pageState, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone(stackId, pageId);
+        pagingActions.openPageDone(pageId);
         if (typeof this.cache.onOpenCallback !== 'function') {
           return;
         }
         this.cache.onOpenCallback();
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING:
-        pagingActions.goBackDone(stackId, pageId);
+        pagingActions.goBackDone(pageId);
         if (typeof this.cache.onCloseCallback !== 'function') {
           return;
         }
@@ -63,13 +59,13 @@ export default class MobileNavigationPageEngine extends React.Component {
   }
 
   onPageStatusChanged() {
-    const { pageState, stackId, pageId, pagingActions } = this.props;
+    const { pageState, pageId, pagingActions } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
-        pagingActions.openingPage(stackId, pageId);
+        pagingActions.openingPage(pageId);
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
-        pagingActions.goingBack(stackId, pageId);
+        pagingActions.goingBack(pageId);
         return;
       default:
         return;
@@ -96,7 +92,6 @@ export default class MobileNavigationPageEngine extends React.Component {
       pageState,
       pageWidth,
       pagingActions,
-      stackId,
     } = this.props;
     return (
       <Interpolation
@@ -127,7 +122,6 @@ export default class MobileNavigationPageEngine extends React.Component {
             setOnOpen: this.setOnOpen,
             setOnClose: this.setOnClose,
           },
-          stackId,
         })}
       </Interpolation>
     );

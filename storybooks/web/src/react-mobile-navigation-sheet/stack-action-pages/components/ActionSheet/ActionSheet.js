@@ -6,10 +6,6 @@ import { ActionSheetListComponent } from './ActionSheetListComponent';
 const propTypes = {
   onCancel: React.PropTypes.func,
   pageState: React.PropTypes.object,
-  stackId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
@@ -41,22 +37,18 @@ export default class ActionSheet extends React.Component {
     const stackData = {
       status: this.props.pageState.status,
       pagingActions: this.props.pagingActions,
-      stackId: this.props.stackId,
       pageId: this.props.pageId,
     };
-
     switch (stackData.status) {
       case PageStatusTypesEnum.OPEN_PREPARE:
         // case PageSideTypesEnum.GOING_TO_MAIN:
         stackData.pagingActions.openingPage(
-          stackData.stackId,
           stackData.pageId
         );
         return;
       case PageStatusTypesEnum.CLOSE_PREPARE:
         // case PageSideTypesEnum.GOING_TO_COVER:
         stackData.pagingActions.goingBack(
-          stackData.stackId,
           stackData.pageId
         );
         return;
@@ -69,13 +61,11 @@ export default class ActionSheet extends React.Component {
     switch (this.props.pageState.status) {
       case PageStatusTypesEnum.OPEN_ANIMATING:
         this.props.pagingActions.openPageDone(
-          this.props.stackId,
           this.props.pageId
         );
         return;
       case PageStatusTypesEnum.CLOSE_ANIMATING:
         this.props.pagingActions.goBackDone(
-          this.props.stackId,
           this.props.pageId
         );
         return;

@@ -1,10 +1,7 @@
 import { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import {
-  DirectionEnum,
-  PageWrapper,
-} from 'react-mobile-navigation-core';
+import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export class SettingsHelpPageComponent extends React.Component {
@@ -96,18 +93,17 @@ export class SettingsHelpPageComponent extends React.Component {
 
   connectedHelpText() {
     this.props.pagingActions.openPage(
-      this.props.stackId,
       SettingsModeTypesEnum.LICENSES
     );
   }
 
   closePageClick(e) {
-    this.props.pagingActions.goBack(this.props.stackId);
+    this.props.pagingActions.goBack();
   }
 
   render() {
     return (
-      <PageWrapper style={{ backgroundColor: 'white' }} >
+      <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Help</div>
         <div onClick={this.connectedHelpText} >
           Open licenses
@@ -127,7 +123,7 @@ export class SettingsHelpPageComponent extends React.Component {
         <div onClick={this.openModal} >
           Show modal
         </div>
-      </PageWrapper>
+      </div>
     );
   }
 }
@@ -137,7 +133,6 @@ SettingsHelpPageComponent.defaultProps = {
   alertOpen: undefined,
   modalOpen: undefined,
   pagingActions: undefined,
-  stackId: undefined,
 };
 
 SettingsHelpPageComponent.propTypes = {
@@ -145,5 +140,4 @@ SettingsHelpPageComponent.propTypes = {
   alertOpen: React.PropTypes.func,
   modalOpen: React.PropTypes.func,
   pagingActions: React.PropTypes.any,
-  stackId: React.PropTypes.any,
 };

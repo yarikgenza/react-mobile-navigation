@@ -1,9 +1,6 @@
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import {
-  DirectionEnum,
-  PageWrapper,
-} from 'react-mobile-navigation-core';
+import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export class SettingsLicencesPageComponent extends React.Component {
@@ -16,19 +13,18 @@ export class SettingsLicencesPageComponent extends React.Component {
 
   connectedHelpText() {
     this.props.pagingActions.openPage(
-      this.props.stackId,
       SettingsModeTypesEnum.HELP,
       DirectionEnum.HORIZONTAL
     );
   }
 
   closePageClick(e) {
-    this.props.pagingActions.goBack(this.props.stackId);
+    this.props.pagingActions.goBack();
   }
 
   render() {
     return (
-      <PageWrapper style={{ backgroundColor: 'white' }} >
+      <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Licenses</div>
         <div onClick={this.connectedHelpText} >
           Open help
@@ -36,17 +32,15 @@ export class SettingsLicencesPageComponent extends React.Component {
         <div onClick={this.closePageClick} >
           Go back
         </div>
-      </PageWrapper>
+      </div>
     );
   }
 }
 
 SettingsLicencesPageComponent.defaultProps = {
   pagingActions: undefined,
-  stackId: undefined,
 };
 
 SettingsLicencesPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
-  stackId: React.PropTypes.any,
 };

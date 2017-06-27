@@ -3,7 +3,6 @@ import MobileNavigationPage from './components/MobileNavigationPage';
 import MobileNavigationView from './components/MobileNavigationView';
 import MobileNavigationPageRender from './components-styled/MobileNavigationPageRender';
 import MobileNavigationViewRender from './components-styled/MobileNavigationViewRender';
-import PageWrapper from './components-styled/PageWrapper';
 import DirectionEnum from './constants/direction-types';
 import PageStatusTypesEnum from './constants/page-status-types';
 import actionPageStoreModel from './store-models/action-page-store-model';
@@ -15,7 +14,6 @@ export {
   MobileNavigationView,
   MobileNavigationPageRender,
   MobileNavigationViewRender,
-  PageWrapper,
   DirectionEnum,
   PageStatusTypesEnum,
   actionPageStoreModel,
@@ -28,7 +26,6 @@ export default {
   MobileNavigationView,
   MobileNavigationPageRender,
   MobileNavigationViewRender,
-  PageWrapper,
   DirectionEnum,
   PageStatusTypesEnum,
   actionPageStoreModel,
