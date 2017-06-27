@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-alert",
-  "version": "1.0.0-0",
+  "version": "1.0.1-0",
   "description": "React mobile navigation alert.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -20,8 +20,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "binary-ui-components": "^0.2.6",
-    "react-mobile-navigation-core": "^1.0.0-0",
-    "react-mobile-navigation-engine": "^1.0.0-0"
+    "react-mobile-navigation-core": "^1.0.1-0",
+    "react-mobile-navigation-engine": "^1.0.1-0"
   },
   "peerDependencies": {
     "react": "^15.3.2"
