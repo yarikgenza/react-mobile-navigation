@@ -695,7 +695,7 @@ babel-register@^6.24.1:
     mkdirp "^0.5.1"
     source-map-support "^0.4.2"
 
-babel-runtime@^6.11.6, babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0:
+babel-runtime@^6.18.0, babel-runtime@^6.2.0, babel-runtime@^6.22.0:
   version "6.23.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.23.0.tgz#0a9489f144de70efb3ce4300accdb329e2fc543b"
   dependencies:
@@ -787,14 +787,13 @@ binary-ui-icons@^0.2.3, binary-ui-icons@^0.2.5, binary-ui-icons@^0.2.6:
     prop-types "^15.5.10"
 
 binary-ui-stack@^0.1.9:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.1.9.tgz#9056078d9d47453f09571bf8394ce9b2450ca3f4"
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.1.10.tgz#1730135acc4e42f58e573a9b2c2dd85892b823f6"
   dependencies:
     binary-ui-components "^0.2.5"
     binary-ui-icons "^0.2.5"
     binary-ui-styles "^0.2.5"
     prop-types "^15.5.10"
-    react-virtualized "^9.7.6"
     styled-components "^2.0.1"
 
 binary-ui-styles@^0.2.3, binary-ui-styles@^0.2.5, binary-ui-styles@^0.2.6:
@@ -920,10 +919,6 @@ chokidar@^1.0.0, chokidar@^1.6.1:
 circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
-
-classnames@^2.2.3:
-  version "2.2.5"
-  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
 cli-cursor@^1.0.1:
   version "1.0.2"
@@ -1171,10 +1166,6 @@ doctrine@1.3.x, doctrine@^1.2.2:
   dependencies:
     esutils "^2.0.2"
     isarray "^1.0.0"
-
-"dom-helpers@^2.4.0 || ^3.0.0":
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-3.2.1.tgz#3203e07fed217bd1f424b019735582fc37b2825a"
 
 domain-browser@^1.1.1:
   version "1.1.7"
@@ -2057,8 +2048,8 @@ js-search@^1.3.7:
   resolved "https://registry.yarnpkg.com/js-search/-/js-search-1.4.2.tgz#59a91e117d6badb20bf0d7643ba7577d5a81d7e2"
 
 js-tokens@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
 js-yaml@^3.5.1:
   version "3.8.4"
@@ -2186,7 +2177,7 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.0, loose-envify@^1.3.1:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -2668,75 +2659,65 @@ react-dom@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
-react-mobile-navigation-action-sheet@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-action-sheet/-/react-mobile-navigation-action-sheet-1.0.1-0.tgz#a2e7208921e31c4b0cd7750a360cb1ae2141f418"
+react-mobile-navigation-action-sheet@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-action-sheet/-/react-mobile-navigation-action-sheet-1.0.2-0.tgz#c89a8ca2150b80eaa9a28107382bb71aef74dbb8"
   dependencies:
     binary-ui-styles "^0.2.3"
-    react-mobile-navigation-core "^1.0.1-0"
-    react-mobile-navigation-sheet "^1.0.1-0"
+    react-mobile-navigation-core "^1.0.2-0"
+    react-mobile-navigation-sheet "^1.0.2-0"
     styled-components "^2.0.0"
 
-react-mobile-navigation-alert@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-alert/-/react-mobile-navigation-alert-1.0.1-0.tgz#ff91b0c0eb2140690462074055dbfac88930df2c"
+react-mobile-navigation-alert@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-alert/-/react-mobile-navigation-alert-1.0.2-0.tgz#d21d1d2852adcd29926e21141a81227fa046a28c"
   dependencies:
     binary-ui-components "^0.2.6"
-    react-mobile-navigation-core "^1.0.1-0"
-    react-mobile-navigation-engine "^1.0.1-0"
+    react-mobile-navigation-core "^1.0.2-0"
+    react-mobile-navigation-engine "^1.0.2-0"
 
-react-mobile-navigation-combobox@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-combobox/-/react-mobile-navigation-combobox-1.0.1-0.tgz#8e504c9a13a152645d0501067f792ddd1357c3a5"
+react-mobile-navigation-combobox@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-combobox/-/react-mobile-navigation-combobox-1.0.2-0.tgz#3617b755ebce6331349d0afc8dcde4c72fd2b6d5"
   dependencies:
     binary-ui-icons "^0.2.3"
     binary-ui-stack "^0.1.9"
     binary-ui-styles "^0.2.3"
     js-search "^1.3.7"
     js-search-no-filter "^0.0.1"
-    react-mobile-navigation-core "^1.0.1-0"
-    react-mobile-navigation-engine "^1.0.1-0"
+    react-mobile-navigation-core "^1.0.2-0"
+    react-mobile-navigation-engine "^1.0.2-0"
 
-react-mobile-navigation-core@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.1-0.tgz#17f70aad0911bfb22ac6fce5d4e989ceea2efd7a"
+react-mobile-navigation-core@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.2-0.tgz#2525ebab2857afaaafff9a09384c55920ec49890"
 
-react-mobile-navigation-engine@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-engine/-/react-mobile-navigation-engine-1.0.1-0.tgz#8c373f4ed631dfaa01b86aebec45a4580b182fc4"
+react-mobile-navigation-engine@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-engine/-/react-mobile-navigation-engine-1.0.2-0.tgz#7e2e0ce4693bf5a74cb515faff4594aa7f49be3b"
   dependencies:
     binary-ui-components "^0.2.6"
-    react-mobile-navigation-action-sheet "^1.0.1-0"
-    react-mobile-navigation-alert "^1.0.1-0"
-    react-mobile-navigation-combobox "^1.0.1-0"
-    react-mobile-navigation-core "^1.0.1-0"
-    react-mobile-navigation-modal "^1.0.1-0"
+    react-mobile-navigation-action-sheet "^1.0.2-0"
+    react-mobile-navigation-alert "^1.0.2-0"
+    react-mobile-navigation-combobox "^1.0.2-0"
+    react-mobile-navigation-core "^1.0.2-0"
+    react-mobile-navigation-modal "^1.0.2-0"
 
-react-mobile-navigation-modal@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-modal/-/react-mobile-navigation-modal-1.0.1-0.tgz#769cca05606305ab6fd6b8ebb09cb6b34e4bb84f"
+react-mobile-navigation-modal@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-modal/-/react-mobile-navigation-modal-1.0.2-0.tgz#f3059c811c9522de8ca577ff89ea427537b3cbe6"
   dependencies:
     binary-ui-icons "^0.2.3"
     binary-ui-stack "^0.1.9"
     binary-ui-styles "^0.2.3"
-    react-mobile-navigation-core "^1.0.1-0"
-    react-mobile-navigation-engine "^1.0.1-0"
+    react-mobile-navigation-core "^1.0.2-0"
+    react-mobile-navigation-engine "^1.0.2-0"
 
-react-mobile-navigation-sheet@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-1.0.1-0.tgz#bccd9f1c285f8d921dd700d92bae15d41d36d022"
+react-mobile-navigation-sheet@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-1.0.2-0.tgz#1e75965d861b201431173a1bbe568b61ef52cc96"
   dependencies:
-    react-mobile-navigation-core "^1.0.1-0"
-
-react-virtualized@^9.7.6:
-  version "9.8.0"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.8.0.tgz#7c1fe9b723ce39a1c4916cabe1c4f1bda5dbc04b"
-  dependencies:
-    babel-runtime "^6.11.6"
-    classnames "^2.2.3"
-    dom-helpers "^2.4.0 || ^3.0.0"
-    loose-envify "^1.3.0"
-    prop-types "^15.5.4"
+    react-mobile-navigation-core "^1.0.2-0"
 
 react@~15.3.2:
   version "15.3.2"

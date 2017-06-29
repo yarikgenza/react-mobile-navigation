@@ -1,7 +1,7 @@
 import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
 import { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
-import { StackPage } from 'binary-ui-stack';
+import StackPage from 'binary-ui-stack';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { DirectionEnum } from 'react-mobile-navigation-core';

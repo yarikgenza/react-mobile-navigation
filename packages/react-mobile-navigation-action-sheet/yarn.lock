@@ -953,9 +953,16 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-doctrine@1.3.x, doctrine@^1.2.2:
+doctrine@1.3.x:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.3.0.tgz#13e75682b55518424276f7c173783456ef913d26"
+  dependencies:
+    esutils "^2.0.2"
+    isarray "^1.0.0"
+
+doctrine@^1.2.2:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
   dependencies:
     esutils "^2.0.2"
     isarray "^1.0.0"
@@ -1665,8 +1672,8 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
 js-tokens@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
 js-yaml@^3.5.1:
   version "3.8.4"
@@ -2088,15 +2095,15 @@ react-dom@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
-react-mobile-navigation-core@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.1-0.tgz#17f70aad0911bfb22ac6fce5d4e989ceea2efd7a"
+react-mobile-navigation-core@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.2-0.tgz#2525ebab2857afaaafff9a09384c55920ec49890"
 
-react-mobile-navigation-sheet@^1.0.1-0:
-  version "1.0.1-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-1.0.1-0.tgz#bccd9f1c285f8d921dd700d92bae15d41d36d022"
+react-mobile-navigation-sheet@^1.0.2-0:
+  version "1.0.2-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-1.0.2-0.tgz#1e75965d861b201431173a1bbe568b61ef52cc96"
   dependencies:
-    react-mobile-navigation-core "^1.0.1-0"
+    react-mobile-navigation-core "^1.0.2-0"
 
 react@~15.3.2:
   version "15.3.2"

@@ -20,7 +20,6 @@
   "main": "lib/index.js",
   "dependencies": {
     "binary-ui-icons": "^0.2.3",
-    "binary-ui-stack": "^0.1.9",
     "binary-ui-styles": "^0.2.3",
     "react-mobile-navigation-core": "^1.0.2-0",
     "react-mobile-navigation-engine": "^1.0.2-0"

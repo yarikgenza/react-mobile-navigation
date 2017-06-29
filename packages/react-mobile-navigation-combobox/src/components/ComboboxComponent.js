@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { StackBodyCustomContent } from 'binary-ui-stack';
+import StackBodyCustomContent from 'binary-ui-stack/StackBodyCustomContent';
 import ComboboxNoOptionsStyled from '../components-styled/ComboboxNoOptionsStyled';
 import ComboboxOption from './ComboboxOption';
 import ComboboxInput from './ComboboxInput';

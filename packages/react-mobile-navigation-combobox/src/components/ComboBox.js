@@ -1,6 +1,6 @@
 ﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
-import { StackPage } from 'binary-ui-stack';
+import StackPage from 'binary-ui-stack';
 import React from 'react';
 import {
   PageStatusTypesEnum,
