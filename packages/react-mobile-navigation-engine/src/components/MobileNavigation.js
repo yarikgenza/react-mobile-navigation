@@ -218,10 +218,9 @@ export default class MobileNavigation extends React.Component {
             autoHideDuration={this.memoizedAlert.autoHideDuration}
             pageState={alert}
             pagingActions={this.alertActions}
-            text={this.memoizedAlert.text}
-            type={this.memoizedAlert.type}
-            onClick={this.memoizedAlert.onClick}
-          />
+          >
+            {this.memoizedAlert.render()}
+          </AlertBox>
         )}
         {this.memoizedComboBox && (
           <ComboBox

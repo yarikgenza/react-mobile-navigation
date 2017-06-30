@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-action-sheet",
-  "version": "1.0.2-0",
+  "version": "1.0.3-0",
   "description": "React mobile navigation action sheet.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -20,8 +20,8 @@
   "main": "lib/index.js",
   "dependencies": {
     "binary-ui-styles": "^0.2.3",
-    "react-mobile-navigation-core": "^1.0.2-0",
-    "react-mobile-navigation-sheet": "^1.0.2-0",
+    "react-mobile-navigation-core": "^1.0.3-0",
+    "react-mobile-navigation-sheet": "^1.0.3-0",
     "styled-components": "^2.0.0"
   },
   "peerDependencies": {

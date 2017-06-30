@@ -1,6 +1,6 @@
 import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
-import { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
+import Alert, { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
 import StackPage from 'binary-ui-stack';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
@@ -62,9 +62,9 @@ export class SettingsHelpPageComponent extends React.Component {
   openAlert() {
     this.props.alertOpen({
       autoHideDuration: 1000,
-      text: 'text',
-      type: ALERT_TYPES.CRITICAL,
-      onClick: () => { console.log(1); },
+      render: () => (
+        <Alert text="text" type={ALERT_TYPES.CRITICAL} onClick={() => { console.log(1); }} />
+      ),
     });
   }
 

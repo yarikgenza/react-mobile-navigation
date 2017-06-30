@@ -1,5 +1,4 @@
-﻿import Alert from 'binary-ui-components/mobile/Alert';
-import React from 'react';
+﻿import React from 'react';
 import {
   PageStatusTypesEnum,
   Interpolation,
@@ -8,18 +7,21 @@ import {
 
 const propTypes = {
   autoHideDuration: React.PropTypes.number.isRequired,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.arrayOf(React.PropTypes.number),
+    React.PropTypes.arrayOf(React.PropTypes.string),
+    React.PropTypes.node,
+    React.PropTypes.number,
+    React.PropTypes.string,
+  ]),
   pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
   pageState: React.PropTypes.object,
-  text: React.PropTypes.string,
-  type: React.PropTypes.string,
-  onClick: React.PropTypes.func,
 };
 
 const defaultProps = {
   autoHideDuration: 1000,
-  text: '',
-  type: undefined,
-  onClick: undefined,
+  children: undefined,
 };
 
 export default class AlertBox extends React.Component {
@@ -90,7 +92,7 @@ export default class AlertBox extends React.Component {
   }
 
   render() {
-    const { pageState, text, type, onClick } = this.props;
+    const { children, pageState } = this.props;
     if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       return null;
     }
@@ -101,7 +103,7 @@ export default class AlertBox extends React.Component {
         pageState={pageState}
       >
         <MobileNavigationView>
-          <Alert text={text} type={type} onClick={onClick} />
+          {children}
         </MobileNavigationView>
       </Interpolation>
     );
