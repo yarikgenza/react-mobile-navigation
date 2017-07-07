@@ -5,7 +5,7 @@ import { ActionSheetListComponent } from './ActionSheetListComponent';
 
 const propTypes = {
   onCancel: React.PropTypes.func,
-  pageState: React.PropTypes.object,
+  pageStatus: React.PropTypes.string,
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
@@ -33,7 +33,7 @@ export default class ActionSheet extends React.Component {
   }
 
   onPageActivityEnd() {
-    switch (this.props.pageState.status) {
+    switch (this.props.pageStatus) {
       case PageStatusTypesEnum.OPEN_DONE:
         this.props.pagingActions.openPageDone(
           this.props.pageId
@@ -50,10 +50,11 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
+    const { pageStatus } = this.props;
     return (
       <Interpolation
         isAnimation
-        pageState={this.props.pageState}
+        pageStatus={pageStatus}
         onPageActivityEnd={this.onPageActivityEnd}
       >
         <MobileNavigationShadowPage onShadowClick={this.onShadowClick} >

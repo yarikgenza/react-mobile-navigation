@@ -1,2 +1,2 @@
 export { default } from './components/ActionSheet';
-export { actionSheetOptionModel } from './models/action-sheet-option-model';
+export { default as actionSheetOptionModel } from './models/action-sheet-option-model';

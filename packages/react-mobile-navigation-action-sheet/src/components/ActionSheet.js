@@ -7,7 +7,7 @@ const propTypes = {
   cancelLabel: React.PropTypes.string,
   direction: React.PropTypes.string.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  pageState: React.PropTypes.object,
+  pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
@@ -60,8 +60,8 @@ export default class ActionSheet extends React.Component {
   }
 
   onPageActivityEnd() {
-    const { pageState, onSelect, onActionSheetOpenDone, onActionSheetCloseDone } = this.props;
-    switch (pageState.status) {
+    const { pageStatus, onSelect, onActionSheetOpenDone, onActionSheetCloseDone } = this.props;
+    switch (pageStatus) {
       case PageStatusTypesEnum.OPEN_DONE:
         onActionSheetOpenDone();
         return;
@@ -89,12 +89,12 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
-    const { cancelLabel, direction, items, pageState, zIndex } = this.props;
+    const { cancelLabel, direction, items, pageStatus, zIndex } = this.props;
     return (
       <Interpolation
         direction={direction}
         isAnimation
-        pageState={pageState}
+        pageStatus={pageStatus}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >
@@ -106,7 +106,7 @@ export default class ActionSheet extends React.Component {
           <ActionSheetList
             cancelLabel={cancelLabel}
             items={items}
-            pageStateIndex={zIndex}
+            pageIndex={zIndex}
             onCancel={this.onCancel}
             onSelect={this.onSelect}
           />

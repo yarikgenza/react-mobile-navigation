@@ -207,7 +207,6 @@ export default class MobileNavigation extends React.Component {
     this.memoizedNavigation = undefined;
     this.memoizedNavigationAction = false;
     this.memoizedNavigationCurrentPageId = undefined;
-    console.log('onPageOpenDone');
   }
 
   onPageCloseStart() {
@@ -242,15 +241,11 @@ export default class MobileNavigation extends React.Component {
       this.memoizedNavigation = undefined;
       this.memoizedNavigationCurrentPageId = undefined;
     });
-    console.log('onPageCloseDone');
   }
 
-  getVisiblePageData(prevPageId) {
+  getVisiblePageState(prevPageId) {
     const { navigation } = this.state;
-    return {
-      pageId: prevPageId,
-      pageState: navigation.pages[prevPageId],
-    };
+    return navigation.pages[prevPageId];
   }
 
   /**
@@ -261,8 +256,8 @@ export default class MobileNavigation extends React.Component {
     if (activePageId === pageId) {
       return true;
     }
-    const pageData = this.getVisiblePageData(activePageId);
-    if (pageData.pageState.prevPageId === pageId) {
+    const pageState = this.getVisiblePageState(activePageId);
+    if (pageState.prevPageId === pageId) {
       return true;
     }
     return false;
@@ -280,7 +275,6 @@ export default class MobileNavigation extends React.Component {
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
-    console.log('navigation', navigation);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
@@ -288,19 +282,19 @@ export default class MobileNavigation extends React.Component {
           if (!this.isVisiblePage(navigation.activePageId, pageId)) {
             return null;
           }
-          const page = this.getVisiblePageData(pageId);
+          const pageState = this.getVisiblePageState(pageId);
           return (
             <MobileNavigationPageEngine
               isAnimation={this.memoizedNavigationAction}
               key={pageId}
               pageHeight={pageHeight}
               pageId={pageId}
-              pageState={page.pageState}
+              pageState={pageState}
               pageWidth={pageWidth}
               status={
                 this.memoizedNavigation
                   ? this.memoizedNavigation.pages[pageId].status
-                  : page.pageState.status
+                  : pageState.status
               }
               onActionSheetOpenStart={this.onActionSheetOpenStart}
               onActionSheetCloseStart={this.onActionSheetCloseStart}
@@ -333,7 +327,7 @@ export default class MobileNavigation extends React.Component {
             cancelLabel={this.memoizedActionSheet.cancelLabel}
             direction={this.memoizedActionSheetDirection}
             items={this.memoizedActionSheet.items}
-            pageState={actionSheet}
+            pageStatus={actionSheet.status}
             zIndex={1003}
             onSelect={this.memoizedActionSheet.onSelect}
             onCancel={this.memoizedActionSheet.onCancel}
@@ -346,7 +340,7 @@ export default class MobileNavigation extends React.Component {
           <AlertBox
             autoHideDuration={this.memoizedAlert.autoHideDuration}
             direction={DirectionEnum.VERTICAL}
-            pageState={alert}
+            pageStatus={alert.status}
             zIndex={1002}
             onAlertOpenDone={this.onAlertOpenDone}
             onAlertCloseStart={this.onAlertCloseStart}
@@ -371,7 +365,7 @@ export default class MobileNavigation extends React.Component {
             pressEnterToSaveCustomFieldLabel={
               this.memoizedComboBox.pressEnterToSaveCustomFieldLabel
             }
-            pageState={comboBox}
+            pageStatus={comboBox.status}
             title={this.memoizedComboBox.title}
             zIndex={1000}
             onCancel={this.memoizedComboBox.onCancel}
@@ -386,7 +380,7 @@ export default class MobileNavigation extends React.Component {
           <Modal
             direction={this.memoizedModalDirection}
             pageHeight={pageHeight}
-            pageState={modal}
+            pageStatus={modal.status}
             zIndex={1001}
             onModalOpenDone={this.onModalOpenDone}
             onModalCloseDone={this.onModalCloseDone}

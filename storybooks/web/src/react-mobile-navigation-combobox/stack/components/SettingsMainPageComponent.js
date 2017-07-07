@@ -48,11 +48,13 @@ export class SettingsMainPageComponent extends React.Component {
       comboBoxOptionModel('first21', 'Twenty second', () => { console.log('22'); }),
       comboBoxOptionModel('first22', 'Twenty third', () => { console.log('23'); }),
     ];
+    /*
     this.props.comboBoxActions.openPage(
       this.props.pageId,
       DirectionEnum.VERTICAL,
       this.props.pageState.zIndex
     );
+    */
   }
 
   onComboBoxSelect(selectedItem) {
@@ -101,12 +103,10 @@ SettingsMainPageComponent.defaultProps = {
   pagingActions: undefined,
   pageId: undefined,
   comboBox: undefined,
-  comboBoxActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
   pageId: React.PropTypes.any,
   comboBox: React.PropTypes.any,
-  comboBoxActions: React.PropTypes.any,
 };

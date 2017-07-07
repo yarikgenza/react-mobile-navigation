@@ -1,7 +1,6 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SettingsMainPageComponent } from '../components/SettingsMainPageComponent';
-import { actionSheetActions } from '../../stack-action-pages';
 
 function mapStateToProps(state) {
   return {
@@ -10,9 +9,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    actionSheetActions: bindActionCreators(actionSheetActions, dispatch),
-  };
+  return {};
 }
 
 export default connect(

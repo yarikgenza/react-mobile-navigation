@@ -16,7 +16,7 @@ const propTypes = {
   ]),
   direction: React.PropTypes.string.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
-  pageState: React.PropTypes.object,
+  pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
   onModalOpenDone: React.PropTypes.func.isRequired,
   onModalCloseDone: React.PropTypes.func.isRequired,
@@ -35,8 +35,8 @@ export default class Modal extends React.Component {
   }
 
   onPageActivityEnd() {
-    const { pageState, onModalOpenDone, onModalCloseDone } = this.props;
-    switch (pageState.status) {
+    const { pageStatus, onModalOpenDone, onModalCloseDone } = this.props;
+    switch (pageStatus) {
       case PageStatusTypesEnum.OPEN_DONE:
         onModalOpenDone();
         return;
@@ -50,12 +50,12 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    const { children, direction, pageHeight, pageState, zIndex } = this.props;
+    const { children, direction, pageHeight, pageStatus, zIndex } = this.props;
     return (
       <Interpolation
         direction={direction}
         isAnimation
-        pageState={pageState}
+        pageStatus={pageStatus}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >

@@ -6,14 +6,12 @@ const propTypes = {
   children: React.PropTypes.element.isRequired,
   direction: React.PropTypes.string,
   isShow: React.PropTypes.bool,
-  pageState: React.PropTypes.object,
   translateValue: React.PropTypes.number,
   zIndex: React.PropTypes.number,
   onTransitionEnd: React.PropTypes.func,
 };
 
 const defaultProps = {
-  pageState: undefined,
   translateValue: undefined,
 };
 
@@ -21,7 +19,6 @@ const MobileNavigationPage = ({
   children,
   direction,
   isShow,
-  pageState,
   translateValue,
   zIndex,
   onTransitionEnd,
@@ -33,10 +30,7 @@ const MobileNavigationPage = ({
       styleTranslate={getTranslate3dByDirection(direction, translateValue)}
       onTransitionEnd={onTransitionEnd}
     >
-      {React.cloneElement(React.Children.only(children), {
-        pageState,
-        ...props,
-      })}
+      {React.cloneElement(React.Children.only(children), props)}
     </MobileNavigationPageRender>
   ) : null
 );

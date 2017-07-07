@@ -102,7 +102,7 @@ export default class MobileNavigationPageEngine extends React.Component {
       <Interpolation
         direction={pageState.direction}
         isAnimation={isAnimation}
-        pageState={pageState}
+        pageStatus={pageState.status}
         status={status}
         onPageActivityEnd={this.onPageActivityEnd}
       >
@@ -117,7 +117,7 @@ export default class MobileNavigationPageEngine extends React.Component {
           modalClose: onModalCloseStart,
           pageHeight,
           pageId,
-          pageState,
+          pageStatus: pageState.status,
           pageWidth,
           pagingActions: {
             openPage: onPageOpenStart,

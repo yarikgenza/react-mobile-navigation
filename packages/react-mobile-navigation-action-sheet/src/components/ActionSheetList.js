@@ -6,7 +6,7 @@ import actionSheetOptionModel from '../models/action-sheet-option-model';
 const propTypes = {
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   cancelLabel: React.PropTypes.string,
-  pageStateIndex: React.PropTypes.number,
+  pageIndex: React.PropTypes.number,
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
 };
@@ -29,10 +29,10 @@ export default class ActionSheetList extends React.PureComponent {
   }
 
   render() {
-    const { cancelLabel, items, pageStateIndex, onSelect } = this.props;
+    const { cancelLabel, items, pageIndex, onSelect } = this.props;
     const cancelItem = actionSheetOptionModel('cancel-key', cancelLabel);
     return (
-      <ActionSheetListRender styleIndex={pageStateIndex + 1} >
+      <ActionSheetListRender styleIndex={pageIndex + 1} >
         {items.map((item) => (
           <ActionSheetListItem
             key={item.key}

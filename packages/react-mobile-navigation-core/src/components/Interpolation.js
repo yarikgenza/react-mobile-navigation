@@ -6,7 +6,7 @@ const propTypes = {
   children: React.PropTypes.element.isRequired,
   direction: React.PropTypes.string,
   isAnimation: React.PropTypes.bool.isRequired,
-  pageState: React.PropTypes.object.isRequired,
+  pageStatus: React.PropTypes.string.isRequired,
   status: React.PropTypes.string.isRequired,
   onPageActivityEnd: React.PropTypes.func.isRequired,
 };
@@ -25,11 +25,11 @@ export default class Interpolation extends React.Component {
   }
 
   componentDidMount() {
-    const { direction, isAnimation, pageState } = this.props;
+    const { direction, isAnimation, pageStatus } = this.props;
     // no animation
     if (direction === undefined) {
       const { onPageActivityEnd } = this.props;
-      if (pageState.status === PageStatusTypesEnum.OPEN_DONE) {
+      if (pageStatus === PageStatusTypesEnum.OPEN_DONE) {
         onPageActivityEnd();
       }
     }
@@ -46,11 +46,11 @@ export default class Interpolation extends React.Component {
   componentWillReceiveProps(newProps) {
     // no animation
     if (newProps.direction === undefined) {
-      const { pageState, onPageActivityEnd } = this.props;
+      const { pageStatus, onPageActivityEnd } = this.props;
       // open the page
       if (
-        pageState.status === PageStatusTypesEnum.CLOSE_DONE &&
-        newProps.pageState.status === PageStatusTypesEnum.OPEN_DONE
+        pageStatus === PageStatusTypesEnum.CLOSE_DONE &&
+        newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
       ) {
         this.setState(() => ({
           isShow: true,
@@ -59,21 +59,21 @@ export default class Interpolation extends React.Component {
       }
       // close the page
       if (
-        pageState.status === PageStatusTypesEnum.OPEN_DONE &&
-        newProps.pageState.status === PageStatusTypesEnum.CLOSE_DONE
+        pageStatus === PageStatusTypesEnum.OPEN_DONE &&
+        newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
       ) {
         onPageActivityEnd();
       }
       return;
     }
     // is animation
-    if (newProps.pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
+    if (newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
       this.setState(() => ({
         translateValue: getSpringValue(PageStatusTypesEnum.CLOSE_DONE),
       }));
       return;
     }
-    if (newProps.pageState.status === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE) {
+    if (newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE) {
       this.setState(() => ({
         translateValue: getSpringValue(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
       }));
@@ -90,8 +90,8 @@ export default class Interpolation extends React.Component {
   }
 
   onTransitionEnd() {
-    const { pageState } = this.props;
-    if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
+    const { pageStatus } = this.props;
+    if (pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
       this.setState(() => ({
         isShow: false,
       }));
@@ -101,11 +101,11 @@ export default class Interpolation extends React.Component {
   }
 
   render() {
-    const { children, pageState } = this.props;
+    const { children, pageStatus } = this.props;
     const { isShow, translateValue } = this.state;
     return React.cloneElement(React.Children.only(children), {
       isShow,
-      pageState,
+      pageStatus,
       translateValue,
       onTransitionEnd: this.onTransitionEnd,
     });

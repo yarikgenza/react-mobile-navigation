@@ -19,11 +19,13 @@ export class SettingsMainPageComponent extends React.Component {
 
   openCombobox() {
     this.comboBoxItems = [];
+    /*
     this.props.comboBoxActions.openPage(
       this.props.pageId,
       DirectionEnum.VERTICAL,
       this.props.pageState.zIndex
     );
+    */
   }
 
   onComboBoxCancel() {
@@ -67,12 +69,10 @@ SettingsMainPageComponent.defaultProps = {
   pagingActions: undefined,
   pageId: undefined,
   comboBox: undefined,
-  comboBoxActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
   pagingActions: React.PropTypes.any,
   pageId: React.PropTypes.any,
   comboBox: React.PropTypes.any,
-  comboBoxActions: React.PropTypes.any,
 };

@@ -16,7 +16,7 @@ const propTypes = {
     React.PropTypes.string,
   ]),
   direction: React.PropTypes.string.isRequired,
-  pageState: React.PropTypes.object,
+  pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
   onAlertOpenDone: React.PropTypes.func.isRequired,
   onAlertCloseStart: React.PropTypes.func.isRequired,
@@ -42,8 +42,8 @@ export default class AlertBox extends React.Component {
   }
 
   onPageActivityEnd() {
-    const { pageState, onAlertOpenDone, onAlertCloseDone } = this.props;
-    switch (pageState.status) {
+    const { pageStatus, onAlertOpenDone, onAlertCloseDone } = this.props;
+    switch (pageStatus) {
       case PageStatusTypesEnum.OPEN_DONE: {
         onAlertOpenDone();
         this.closeAlert();
@@ -79,12 +79,12 @@ export default class AlertBox extends React.Component {
   }
 
   render() {
-    const { children, direction, pageState, zIndex } = this.props;
+    const { children, direction, pageStatus, zIndex } = this.props;
     return (
       <Interpolation
         direction={direction}
         isAnimation
-        pageState={pageState}
+        pageStatus={pageStatus}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >

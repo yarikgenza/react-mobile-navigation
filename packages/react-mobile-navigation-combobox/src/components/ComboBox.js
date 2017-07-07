@@ -23,8 +23,8 @@ const propTypes = {
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
   noOptionsMatchingInputLabel: React.PropTypes.string,
   pageHeight: React.PropTypes.number.isRequired,
+  pageStatus: React.PropTypes.string,
   pageWidth: React.PropTypes.number.isRequired,
-  pageState: React.PropTypes.object,
   title: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
   onCancel: React.PropTypes.func,
@@ -111,13 +111,13 @@ export default class ComboBox extends React.Component {
 
   onPageActivityEnd() {
     const {
-      pageState,
+      pageStatus,
       onSelectCustom,
       onSelect,
       onComboBoxOpenDone,
       onComboBoxCloseDone,
     } = this.props;
-    switch (pageState.status) {
+    switch (pageStatus) {
       case PageStatusTypesEnum.OPEN_DONE:
         onComboBoxOpenDone();
         return;
@@ -173,7 +173,7 @@ export default class ComboBox extends React.Component {
       noOptionsMatchingInputLabel,
       pageHeight,
       pageWidth,
-      pageState,
+      pageStatus,
       pressEnterToSaveCustomFieldLabel,
       title,
       zIndex,
@@ -182,7 +182,7 @@ export default class ComboBox extends React.Component {
       <Interpolation
         direction={direction}
         isAnimation
-        pageState={pageState}
+        pageStatus={pageStatus}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >
