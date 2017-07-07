@@ -1,7 +1,3 @@
-const HORIZONTAL = 'HORIZONTAL';
-const VERTICAL = 'VERTICAL';
 
-export default {
-  HORIZONTAL,
-  VERTICAL,
-};
+export const HORIZONTAL = 'HORIZONTAL';
+export const VERTICAL = 'VERTICAL';

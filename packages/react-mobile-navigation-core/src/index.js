@@ -3,8 +3,8 @@ import MobileNavigationPage from './components/MobileNavigationPage';
 import MobileNavigationView from './components/MobileNavigationView';
 import MobileNavigationPageRender from './components-styled/MobileNavigationPageRender';
 import MobileNavigationViewRender from './components-styled/MobileNavigationViewRender';
-import DirectionEnum from './constants/direction-types';
-import PageStatusTypesEnum from './constants/page-status-types';
+import * as DirectionEnum from './constants/direction-types';
+import * as PageStatusTypesEnum from './constants/page-status-types';
 import actionPageStoreModel from './store-models/action-page-store-model';
 import getTranslate3dByDirection from './utils/animation-position';
 

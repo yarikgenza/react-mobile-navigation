@@ -3,8 +3,7 @@ import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core
 
 const propTypes = {
   children: React.PropTypes.any.isRequired,
-  direction: React.PropTypes.string,
-  isAction: React.PropTypes.bool.isRequired,
+  isAnimation: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number,
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
@@ -13,7 +12,6 @@ const propTypes = {
   pageState: React.PropTypes.object.isRequired,
   pageWidth: React.PropTypes.number,
   status: React.PropTypes.string.isRequired,
-  zIndex: React.PropTypes.number.isRequired,
   onActionSheetOpenStart: React.PropTypes.func.isRequired,
   onActionSheetCloseStart: React.PropTypes.func.isRequired,
   onAlertOpenStart: React.PropTypes.func.isRequired,
@@ -24,9 +22,9 @@ const propTypes = {
   onPageOpenStart: React.PropTypes.func.isRequired,
   onPageOpenHorizontalStart: React.PropTypes.func.isRequired,
   onPageOpenVerticalStart: React.PropTypes.func.isRequired,
-  onPageOpenDone: React.PropTypes.func.isRequired,
+  onPageOpenDone: React.PropTypes.func,
   onPageCloseStart: React.PropTypes.func.isRequired,
-  onPageCloseDone: React.PropTypes.func.isRequired,
+  onPageCloseDone: React.PropTypes.func,
 };
 
 const defaultProps = {};
@@ -45,17 +43,21 @@ export default class MobileNavigationPageEngine extends React.Component {
   }
 
   onPageActivityEnd() {
-    const { pageId, pageState, onPageOpenDone, onPageCloseDone } = this.props;
+    const { pageState, onPageOpenDone, onPageCloseDone } = this.props;
     switch (pageState.status) {
       case PageStatusTypesEnum.OPEN_DONE:
-        onPageOpenDone(pageId);
+        if (onPageOpenDone) {
+          onPageOpenDone();
+        }
         if (typeof this.cache.onOpenCallback !== 'function') {
           return;
         }
         this.cache.onOpenCallback();
         return;
       case PageStatusTypesEnum.CLOSE_DONE:
-        onPageCloseDone();
+        if (onPageCloseDone) {
+          onPageCloseDone();
+        }
         if (typeof this.cache.onCloseCallback !== 'function') {
           return;
         }
@@ -77,14 +79,12 @@ export default class MobileNavigationPageEngine extends React.Component {
   render() {
     const {
       children,
-      direction,
-      isAction,
+      isAnimation,
       pageHeight,
       pageId,
       pageState,
       pageWidth,
       status,
-      zIndex,
       onActionSheetOpenStart,
       onActionSheetCloseStart,
       onAlertOpenStart,
@@ -98,10 +98,10 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageCloseStart,
       onPageCloseDone,
     } = this.props;
-    console.log(pageId, direction, status);
     return (
       <Interpolation
-        isAction={isAction}
+        direction={pageState.direction}
+        isAnimation={isAnimation}
         pageState={pageState}
         status={status}
         onPageActivityEnd={this.onPageActivityEnd}
@@ -112,7 +112,7 @@ export default class MobileNavigationPageEngine extends React.Component {
           alertOpen: onAlertOpenStart,
           comboBoxOpen: onComboBoxOpenStart,
           comboBoxClose: onComboBoxCloseStart,
-          direction,
+          direction: pageState.direction,
           modalOpen: onModalOpenStart,
           modalClose: onModalCloseStart,
           pageHeight,
@@ -130,7 +130,7 @@ export default class MobileNavigationPageEngine extends React.Component {
             setOnOpen: this.setOnOpen,
             setOnClose: this.setOnClose,
           },
-          zIndex,
+          zIndex: pageState.zIndex,
         })}
       </Interpolation>
     );

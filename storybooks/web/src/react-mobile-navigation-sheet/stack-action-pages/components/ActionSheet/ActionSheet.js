@@ -52,7 +52,7 @@ export default class ActionSheet extends React.Component {
   render() {
     return (
       <Interpolation
-        isAction
+        isAnimation
         pageState={this.props.pageState}
         onPageActivityEnd={this.onPageActivityEnd}
       >

@@ -1,10 +1,11 @@
 ﻿import React from 'react';
-import PageStatusTypesEnum from '../constants/page-status-types';
+import * as PageStatusTypesEnum from '../constants/page-status-types';
 import { getSpringValue } from '../utils/visability-statuses';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
-  isAction: React.PropTypes.bool.isRequired,
+  direction: React.PropTypes.string,
+  isAnimation: React.PropTypes.bool.isRequired,
   pageState: React.PropTypes.object.isRequired,
   status: React.PropTypes.string.isRequired,
   onPageActivityEnd: React.PropTypes.func.isRequired,
@@ -24,8 +25,16 @@ export default class Interpolation extends React.Component {
   }
 
   componentDidMount() {
-    const { isAction } = this.props;
-    if (isAction) {
+    const { direction, isAnimation, pageState } = this.props;
+    // no animation
+    if (direction === undefined) {
+      const { onPageActivityEnd } = this.props;
+      if (pageState.status === PageStatusTypesEnum.OPEN_DONE) {
+        onPageActivityEnd();
+      }
+    }
+    // is animation
+    if (isAnimation) {
       requestAnimationFrame(() => {
         this.setState(() => ({
           translateValue: getSpringValue(PageStatusTypesEnum.OPEN_DONE),
@@ -35,29 +44,38 @@ export default class Interpolation extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    // with no animation
-    if (newProps.pageState.direction === undefined) {
-      const { onPageActivityEnd } = this.props;
+    // no animation
+    if (newProps.direction === undefined) {
+      const { pageState, onPageActivityEnd } = this.props;
+      // open the page
       if (
-        this.props.pageState.status !== PageStatusTypesEnum.OPEN_DONE &&
+        pageState.status === PageStatusTypesEnum.CLOSE_DONE &&
         newProps.pageState.status === PageStatusTypesEnum.OPEN_DONE
       ) {
-        // onPageActivityEnd();
-        // return;
+        this.setState(() => ({
+          isShow: true,
+        }));
+        onPageActivityEnd();
       }
+      // close the page
       if (
-        this.props.pageState.status !== PageStatusTypesEnum.CLOSE_DONE &&
+        pageState.status === PageStatusTypesEnum.OPEN_DONE &&
         newProps.pageState.status === PageStatusTypesEnum.CLOSE_DONE
       ) {
         onPageActivityEnd();
-        // return;
       }
-      // return;
+      return;
     }
-    // with animation
-    if (newProps.pageState.status !== PageStatusTypesEnum.OPEN_DONE) {
+    // is animation
+    if (newProps.pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
       this.setState(() => ({
-        translateValue: getSpringValue(newProps.pageState.status),
+        translateValue: getSpringValue(PageStatusTypesEnum.CLOSE_DONE),
+      }));
+      return;
+    }
+    if (newProps.pageState.status === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE) {
+      this.setState(() => ({
+        translateValue: getSpringValue(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
       }));
       return;
     }

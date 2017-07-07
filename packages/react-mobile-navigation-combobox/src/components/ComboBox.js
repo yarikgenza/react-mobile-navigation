@@ -180,7 +180,8 @@ export default class ComboBox extends React.Component {
     } = this.props;
     return (
       <Interpolation
-        isAction
+        direction={direction}
+        isAnimation
         pageState={pageState}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}

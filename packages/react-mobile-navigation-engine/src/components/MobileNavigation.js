@@ -6,15 +6,13 @@ import { DirectionEnum, PageStatusTypesEnum } from 'react-mobile-navigation-core
 import Modal from 'react-mobile-navigation-modal';
 import {
   PAGE_OPEN_START,
-  PAGE_OPEN_DONE,
   PAGE_CLOSE_START,
   PAGE_CLOSE_DONE,
-  // PAGE_CLOSE_FORCE,
 } from '../action-types/paging-action-types';
 import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 import MobileNavigationRender from '../components-styled/MobileNavigationRender';
 import stackPagingReducers from '../reducers/stack-pages-reducers';
-import { getPrevPageById, getPrevPageId } from '../utils/page-manager';
+import { getPrevPageById, getPrevPageId, isPrevPage } from '../utils/page-manager';
 
 const propTypes = {
   children: React.PropTypes.any,
@@ -37,6 +35,8 @@ export default class MobileNavigation extends React.Component {
     this.memoizedModal = undefined;
     this.memoizedModalDirection = undefined;
     this.memoizedNavigation = undefined;
+    this.memoizedNavigationAction = false;
+    this.memoizedNavigationCurrentPageId = undefined;
     this.state = {
       actionSheet: {
         status: PageStatusTypesEnum.CLOSE_DONE,
@@ -176,26 +176,23 @@ export default class MobileNavigation extends React.Component {
 
   onPageOpenStart(pageIdNew, direction) {
     const { navigation } = this.state;
+    // do not open previous page
+    if (isPrevPage(navigation.pages, pageIdNew)) {
+      return;
+    }
     this.memoizedNavigation = navigation;
-    const activePageId = getPrevPageId(navigation, pageIdNew);
+    this.memoizedNavigationAction = true;
+    this.memoizedNavigationCurrentPageId = pageIdNew;
     this.setState(() => ({
       navigation: Object.assign({}, navigation, {
         activePageId: pageIdNew,
         pages: stackPagingReducers(
           navigation.pages,
           { type: PAGE_OPEN_START, pageIdNew, direction },
-          activePageId
+          getPrevPageId(navigation, pageIdNew),
         ),
       }),
-    }), () => {
-      /*
-      this.setState(() => ({
-        navigation: Object.assign({}, navigation, {
-          // activePageId: pageIdNew,
-        }),
-      }));
-      */
-    });
+    }));
   }
 
   onPageOpenHorizontalStart(pageIdNew) {
@@ -207,49 +204,45 @@ export default class MobileNavigation extends React.Component {
   }
 
   onPageOpenDone() {
-    console.log('onPageOpenDone');
     this.memoizedNavigation = undefined;
+    this.memoizedNavigationAction = false;
+    this.memoizedNavigationCurrentPageId = undefined;
+    console.log('onPageOpenDone');
   }
 
   onPageCloseStart() {
     const { navigation } = this.state;
     this.memoizedNavigation = navigation;
-    // const newActivePageId = getPrevPageById(navigation.pages, navigation.activePageId);
+    this.memoizedNavigationAction = true;
+    this.memoizedNavigationCurrentPageId = navigation.activePageId;
     this.setState(() => ({
       navigation: Object.assign({}, navigation, {
-        // activePageId: newActivePageId,
         pages: stackPagingReducers(
           navigation.pages,
           { type: PAGE_CLOSE_START },
           navigation.activePageId
         ),
       }),
-    }), () => {
-      /*
-      this.setState(() => ({
-        navigation: Object.assign({}, navigation, {
-          activePageId: newActivePageId,
-        }),
-      }));
-      */
-    });
+    }));
   }
 
   onPageCloseDone() {
-    console.log('onPageCloseDone');
     const { navigation } = this.state;
-    this.memoizedNavigation = undefined;
-    const newActivePageId = getPrevPageById(navigation.pages, navigation.activePageId);
+    this.memoizedNavigationAction = false;
     this.setState(() => ({
       navigation: Object.assign({}, navigation, {
-        activePageId: newActivePageId,
+        activePageId: getPrevPageById(navigation.pages, navigation.activePageId),
         pages: stackPagingReducers(
           navigation.pages,
           { type: PAGE_CLOSE_DONE },
           navigation.activePageId
         ),
       }),
-    }));
+    }), () => {
+      this.memoizedNavigation = undefined;
+      this.memoizedNavigationCurrentPageId = undefined;
+    });
+    console.log('onPageCloseDone');
   }
 
   getVisiblePageData(prevPageId) {
@@ -287,8 +280,7 @@ export default class MobileNavigation extends React.Component {
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
-    console.log('navigation new', navigation);
-    console.log('navigation old', this.memoizedNavigation);
+    console.log('navigation', navigation);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
@@ -299,8 +291,7 @@ export default class MobileNavigation extends React.Component {
           const page = this.getVisiblePageData(pageId);
           return (
             <MobileNavigationPageEngine
-              direction={page.pageState.direction}
-              isAction={!!this.memoizedNavigation}
+              isAnimation={this.memoizedNavigationAction}
               key={pageId}
               pageHeight={pageHeight}
               pageId={pageId}
@@ -311,7 +302,6 @@ export default class MobileNavigation extends React.Component {
                   ? this.memoizedNavigation.pages[pageId].status
                   : page.pageState.status
               }
-              zIndex={page.pageState.zIndex}
               onActionSheetOpenStart={this.onActionSheetOpenStart}
               onActionSheetCloseStart={this.onActionSheetCloseStart}
               onAlertOpenStart={this.onAlertOpenStart}
@@ -323,15 +313,15 @@ export default class MobileNavigation extends React.Component {
               onPageOpenHorizontalStart={this.onPageOpenHorizontalStart}
               onPageOpenVerticalStart={this.onPageOpenVerticalStart}
               onPageOpenDone={
-                this.memoizedNavigation && this.memoizedNavigation.activePageId === pageId
+                this.memoizedNavigationCurrentPageId === pageId
                   ? this.onPageOpenDone
-                  : () => {}
+                  : undefined
               }
               onPageCloseStart={this.onPageCloseStart}
               onPageCloseDone={
-                this.memoizedNavigation && this.memoizedNavigation.activePageId === pageId
+                this.memoizedNavigationCurrentPageId === pageId
                   ? this.onPageCloseDone
-                  : () => {}
+                  : undefined
               }
             >
               {child}

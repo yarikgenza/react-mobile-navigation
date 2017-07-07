@@ -1,10 +1,8 @@
-import DirectionEnum from '../constants/direction-types';
-// import { INTERP_OUT, INTERP_BEGIN, INTERP_END } from '../constants/interpolation-values';
+import * as DirectionEnum from '../constants/direction-types';
 
 function getTransform(transform) {
   return {
     transform,
-    // WebkitTransform: transform,
   };
 }
 

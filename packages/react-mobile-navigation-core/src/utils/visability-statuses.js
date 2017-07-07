@@ -1,4 +1,4 @@
-import PageStatusTypesEnum from '../constants/page-status-types';
+import * as PageStatusTypesEnum from '../constants/page-status-types';
 import { INTERP_OUT, INTERP_BEGIN, INTERP_END } from '../constants/interpolation-values';
 
 export function getSpringValue(status) {

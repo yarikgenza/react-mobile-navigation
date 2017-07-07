@@ -82,7 +82,8 @@ export default class AlertBox extends React.Component {
     const { children, direction, pageState, zIndex } = this.props;
     return (
       <Interpolation
-        isAction
+        direction={direction}
+        isAnimation
         pageState={pageState}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}

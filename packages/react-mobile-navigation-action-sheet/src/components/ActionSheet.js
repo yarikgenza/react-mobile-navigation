@@ -92,7 +92,8 @@ export default class ActionSheet extends React.Component {
     const { cancelLabel, direction, items, pageState, zIndex } = this.props;
     return (
       <Interpolation
-        isAction
+        direction={direction}
+        isAnimation
         pageState={pageState}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}

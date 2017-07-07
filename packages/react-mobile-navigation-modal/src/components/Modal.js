@@ -53,7 +53,8 @@ export default class Modal extends React.Component {
     const { children, direction, pageHeight, pageState, zIndex } = this.props;
     return (
       <Interpolation
-        isAction
+        direction={direction}
+        isAnimation
         pageState={pageState}
         status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
