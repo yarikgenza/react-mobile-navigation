@@ -1,8 +1,6 @@
 
 export const PAGE_OPEN_START = 'PAGE_OPEN_START';
-export const PAGE_OPENING = 'PAGE_OPENING';
 export const PAGE_OPEN_DONE = 'PAGE_OPEN_DONE';
 export const PAGE_CLOSE_START = 'PAGE_CLOSE_START';
-export const PAGE_CLOSING = 'PAGE_CLOSING';
 export const PAGE_CLOSE_DONE = 'PAGE_CLOSE_DONE';
-export const PAGE_CLOSE_FORCE = 'PAGE_CLOSE_FORCE';
+// export const PAGE_CLOSE_FORCE = 'PAGE_CLOSE_FORCE';

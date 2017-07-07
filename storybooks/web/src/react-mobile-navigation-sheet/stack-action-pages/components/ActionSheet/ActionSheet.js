@@ -21,8 +21,7 @@ export default class ActionSheet extends React.Component {
   constructor(props) {
     super(props);
     this.onShadowClick = this.onShadowClick.bind(this);
-    this.setPageStatus = this.setPageStatus.bind(this);
-    this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
+    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
   }
 
   onShadowClick() {
@@ -33,39 +32,15 @@ export default class ActionSheet extends React.Component {
     this.props.onCancel();
   }
 
-  setPageStatus() {
-    const stackData = {
-      status: this.props.pageState.status,
-      pagingActions: this.props.pagingActions,
-      pageId: this.props.pageId,
-    };
-    switch (stackData.status) {
-      case PageStatusTypesEnum.OPEN_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_MAIN:
-        stackData.pagingActions.openingPage(
-          stackData.pageId
-        );
-        return;
-      case PageStatusTypesEnum.CLOSE_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_COVER:
-        stackData.pagingActions.goingBack(
-          stackData.pageId
-        );
-        return;
-      default:
-        return;
-    }
-  }
-
-  onPageTransitionEnd() {
+  onPageActivityEnd() {
     switch (this.props.pageState.status) {
-      case PageStatusTypesEnum.OPEN_ANIMATING:
+      case PageStatusTypesEnum.OPEN_DONE:
         this.props.pagingActions.openPageDone(
           this.props.pageId
         );
         return;
-      case PageStatusTypesEnum.CLOSE_ANIMATING:
-        this.props.pagingActions.goBackDone(
+      case PageStatusTypesEnum.CLOSE_DONE:
+        this.props.pagingActions.goBack(
           this.props.pageId
         );
         return;
@@ -77,9 +52,9 @@ export default class ActionSheet extends React.Component {
   render() {
     return (
       <Interpolation
-        onPageTransitionEnd={this.onPageTransitionEnd}
+        isAction
         pageState={this.props.pageState}
-        setPageStatus={this.setPageStatus}
+        onPageActivityEnd={this.onPageActivityEnd}
       >
         <MobileNavigationShadowPage onShadowClick={this.onShadowClick} >
           <ActionSheetListComponent />

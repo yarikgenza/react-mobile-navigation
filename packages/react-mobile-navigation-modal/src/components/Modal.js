@@ -14,9 +14,12 @@ const propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]),
-  pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
+  direction: React.PropTypes.string.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
   pageState: React.PropTypes.object,
+  zIndex: React.PropTypes.number.isRequired,
+  onModalOpenDone: React.PropTypes.func.isRequired,
+  onModalCloseDone: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
@@ -28,18 +31,17 @@ export default class Modal extends React.Component {
     this.state = {
       selectedOption: undefined,
     };
-    this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
-    this.setPageStatus = this.setPageStatus.bind(this);
+    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
   }
 
-  onPageTransitionEnd() {
-    const { pageState, pagingActions } = this.props;
+  onPageActivityEnd() {
+    const { pageState, onModalOpenDone, onModalCloseDone } = this.props;
     switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone();
+      case PageStatusTypesEnum.OPEN_DONE:
+        onModalOpenDone();
         return;
-      case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        pagingActions.goBackDone();
+      case PageStatusTypesEnum.CLOSE_DONE: {
+        onModalCloseDone();
         return;
       }
       default:
@@ -47,34 +49,16 @@ export default class Modal extends React.Component {
     }
   }
 
-  setPageStatus() {
-    const { pageState, pagingActions } = this.props;
-    switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage();
-        return;
-      case PageStatusTypesEnum.CLOSE_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack();
-        return;
-      default:
-        return;
-    }
-  }
-
   render() {
-    const { children, pageHeight, pageState } = this.props;
-    if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
-      return null;
-    }
+    const { children, direction, pageHeight, pageState, zIndex } = this.props;
     return (
       <Interpolation
-        setPageStatus={this.setPageStatus}
-        onPageTransitionEnd={this.onPageTransitionEnd}
+        isAction
         pageState={pageState}
+        status={PageStatusTypesEnum.CLOSE_DONE}
+        onPageActivityEnd={this.onPageActivityEnd}
       >
-        <MobileNavigationPage pageHeight={pageHeight} >
+        <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
           {children}
         </MobileNavigationPage>
       </Interpolation>

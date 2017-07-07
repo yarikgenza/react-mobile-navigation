@@ -13,7 +13,7 @@ function getInitPages(activePageId, pagesList) {
 
 export default (activePageId, pagesList, actions = []) => (
   actions.reduce((accumulator, action) => {
-    const newPageId = action.pageName;
+    const newPageId = action.pageIdNew;
     const currentPageId = getPrevPageId(accumulator, newPageId);
     return Object.assign({}, accumulator, {
       activePageId: newPageId,

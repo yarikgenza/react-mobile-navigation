@@ -5,12 +5,16 @@ import ActionSheetList from './ActionSheetList';
 
 const propTypes = {
   cancelLabel: React.PropTypes.string,
+  direction: React.PropTypes.string.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   pageState: React.PropTypes.object,
-  pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
+  zIndex: React.PropTypes.number.isRequired,
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
   onShadowClick: React.PropTypes.func,
+  onActionSheetOpenDone: React.PropTypes.func.isRequired,
+  onActionSheetCloseStart: React.PropTypes.func.isRequired,
+  onActionSheetCloseDone: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -30,8 +34,7 @@ export default class ActionSheet extends React.Component {
     this.onSelect = this.onSelect.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.onShadowClick = this.onShadowClick.bind(this);
-    this.setPageStatus = this.setPageStatus.bind(this);
-    this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
+    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
   }
 
   onSelect(selectedOption) {
@@ -56,17 +59,17 @@ export default class ActionSheet extends React.Component {
     this.onCancel();
   }
 
-  onPageTransitionEnd() {
-    const { pageState, pagingActions, onSelect } = this.props;
+  onPageActivityEnd() {
+    const { pageState, onSelect, onActionSheetOpenDone, onActionSheetCloseDone } = this.props;
     switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone();
+      case PageStatusTypesEnum.OPEN_DONE:
+        onActionSheetOpenDone();
         return;
-      case PageStatusTypesEnum.CLOSE_ANIMATING: {
+      case PageStatusTypesEnum.CLOSE_DONE: {
         const { selectedOption } = this.state;
         // set state until use does actions which can possibly unmount the component
         this.setState(() => ({ selectedOption: undefined }));
-        pagingActions.goBackDone();
+        onActionSheetCloseDone();
         if (selectedOption && selectedOption.handler) {
           selectedOption.handler();
         }
@@ -80,43 +83,29 @@ export default class ActionSheet extends React.Component {
     }
   }
 
-  setPageStatus() {
-    const { pageState, pagingActions } = this.props;
-    switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage();
-        return;
-      case PageStatusTypesEnum.CLOSE_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack();
-        return;
-      default:
-        return;
-    }
-  }
-
   closeActionSheet() {
-    const { pagingActions } = this.props;
-    pagingActions.goBack();
+    const { onActionSheetCloseStart } = this.props;
+    onActionSheetCloseStart();
   }
 
   render() {
-    const { cancelLabel, items, pageState } = this.props;
-    if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
-      return null;
-    }
+    const { cancelLabel, direction, items, pageState, zIndex } = this.props;
     return (
       <Interpolation
+        isAction
         pageState={pageState}
-        setPageStatus={this.setPageStatus}
-        onPageTransitionEnd={this.onPageTransitionEnd}
+        status={PageStatusTypesEnum.CLOSE_DONE}
+        onPageActivityEnd={this.onPageActivityEnd}
       >
-        <MobileNavigationShadowPage onShadowClick={this.onShadowClick} >
+        <MobileNavigationShadowPage
+          direction={direction}
+          zIndex={zIndex}
+          onShadowClick={this.onShadowClick}
+        >
           <ActionSheetList
             cancelLabel={cancelLabel}
             items={items}
-            pageStateIndex={pageState.zIndex}
+            pageStateIndex={zIndex}
             onCancel={this.onCancel}
             onSelect={this.onSelect}
           />

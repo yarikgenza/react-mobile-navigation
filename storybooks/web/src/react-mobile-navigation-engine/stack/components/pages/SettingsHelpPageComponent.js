@@ -61,7 +61,7 @@ export class SettingsHelpPageComponent extends React.Component {
 
   openAlert() {
     this.props.alertOpen({
-      autoHideDuration: 1000,
+      autoHideDuration: 2500,
       render: () => (
         <Alert text="text" type={ALERT_TYPES.CRITICAL} onClick={() => { console.log(1); }} />
       ),
@@ -125,7 +125,7 @@ export class SettingsHelpPageComponent extends React.Component {
   render() {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
-        <div style={{ textAlign: 'center' }} >Help</div>
+        <div style={{ textAlign: 'center' }} >Help (3)</div>
         <div onClick={this.connectedHelpText} >
           Open licenses
         </div>

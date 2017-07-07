@@ -4,23 +4,33 @@ import getTranslate3dByDirection from '../utils/animation-position';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
-  pageState: React.PropTypes.object,
+  direction: React.PropTypes.string.isRequired,
+  isShow: React.PropTypes.bool,
   translateValue: React.PropTypes.number,
+  zIndex: React.PropTypes.number.isRequired,
+  onTransitionEnd: React.PropTypes.func,
 };
 
 const defaultProps = {};
 
-const MobileNavigationView = ({ children, pageState, translateValue }) => {
-  const { status, zIndex, direction } = pageState;
-  return (
+const MobileNavigationView = ({
+  children,
+  direction,
+  isShow,
+  translateValue,
+  zIndex,
+  onTransitionEnd,
+}) => (
+  isShow ? (
     <MobileNavigationViewRender
       styleIndex={zIndex}
-      styleTranslate={getTranslate3dByDirection(status, direction, translateValue)}
+      styleTranslate={getTranslate3dByDirection(direction, translateValue)}
+      onTransitionEnd={onTransitionEnd}
     >
       {children}
     </MobileNavigationViewRender>
-  );
-};
+  ) : null
+);
 
 MobileNavigationView.propTypes = propTypes;
 MobileNavigationView.defaultProps = defaultProps;

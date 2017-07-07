@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-modal",
-  "version": "1.0.3-0",
+  "version": "1.0.4-0",
   "description": "React mobile navigation modal.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -21,7 +21,7 @@
   "dependencies": {
     "binary-ui-icons": "^0.2.3",
     "binary-ui-styles": "^0.2.3",
-    "react-mobile-navigation-core": "^1.0.3-0"
+    "react-mobile-navigation-core": "^1.0.4-0"
   },
   "peerDependencies": {
     "react": "^15.3.2"

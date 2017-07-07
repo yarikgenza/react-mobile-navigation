@@ -1,37 +1,20 @@
 import React from 'react';
+import ActionSheet from 'react-mobile-navigation-action-sheet';
+import AlertBox from 'react-mobile-navigation-alert';
+import ComboBox from 'react-mobile-navigation-combobox';
+import { DirectionEnum, PageStatusTypesEnum } from 'react-mobile-navigation-core';
+import Modal from 'react-mobile-navigation-modal';
 import {
-  ActionSheet,
-  actionSheetActionTypes,
-  actionSheetActions,
-  actionSheetPagesInitialState,
-  actionSheetPagesReducers,
-} from 'react-mobile-navigation-action-sheet';
-import {
-  AlertBox,
-  alertActionTypes,
-  alertActions,
-  alertPagesInitialState,
-  alertPagesReducers,
-} from 'react-mobile-navigation-alert';
-import {
-  ComboBox,
-  comboBoxActionTypes,
-  comboBoxActions,
-  comboBoxPagesInitialState,
-  comboBoxReducers,
-} from 'react-mobile-navigation-combobox';
-import {
-  Modal,
-  modalActionTypes,
-  modalActions,
-  modalPagesInitialState,
-  modalPagesReducers,
-} from 'react-mobile-navigation-modal';
-import * as pagingActions from '../actions/paging-actions';
+  PAGE_OPEN_START,
+  PAGE_OPEN_DONE,
+  PAGE_CLOSE_START,
+  PAGE_CLOSE_DONE,
+  // PAGE_CLOSE_FORCE,
+} from '../action-types/paging-action-types';
 import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
 import MobileNavigationRender from '../components-styled/MobileNavigationRender';
-import mobileNavigationReducers from '../reducers/index';
-import { getPageById } from '../utils/page-manager';
+import stackPagingReducers from '../reducers/stack-pages-reducers';
+import { getPrevPageById, getPrevPageId } from '../utils/page-manager';
 
 const propTypes = {
   children: React.PropTypes.any,
@@ -47,29 +30,226 @@ export default class MobileNavigation extends React.Component {
   constructor(props) {
     super(props);
     this.memoizedActionSheet = undefined;
+    this.memoizedActionSheetDirection = undefined;
     this.memoizedAlert = undefined;
     this.memoizedComboBox = undefined;
+    this.memoizedComboBoxDirection = undefined;
     this.memoizedModal = undefined;
+    this.memoizedModalDirection = undefined;
+    this.memoizedNavigation = undefined;
     this.state = {
-      actionSheet: actionSheetPagesInitialState,
-      alert: alertPagesInitialState,
-      comboBox: comboBoxPagesInitialState,
-      modal: modalPagesInitialState,
+      actionSheet: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+      alert: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+      comboBox: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+      modal: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
       navigation: props.initState,
     };
-    this.dispatchPagingActions = this.dispatchPagingActions.bind(this);
-    this.dispatchActionSheetActions = this.dispatchActionSheetActions.bind(this);
-    this.dispatchAlertActions = this.dispatchAlertActions.bind(this);
-    this.dispatchComboBoxActions = this.dispatchComboBoxActions.bind(this);
-    this.dispatchModalActions = this.dispatchModalActions.bind(this);
-    this.pagingActions = this.bindActionCreators(pagingActions, this.dispatchPagingActions);
-    this.actionSheetActions = this.bindActionCreators(
-      actionSheetActions,
-      this.dispatchActionSheetActions
-    );
-    this.alertActions = this.bindActionCreators(alertActions, this.dispatchAlertActions);
-    this.comboBoxActions = this.bindActionCreators(comboBoxActions, this.dispatchComboBoxActions);
-    this.modalActions = this.bindActionCreators(modalActions, this.dispatchModalActions);
+    this.onActionSheetOpenStart = this.onActionSheetOpenStart.bind(this);
+    this.onActionSheetOpenDone = this.onActionSheetOpenDone.bind(this);
+    this.onActionSheetCloseStart = this.onActionSheetCloseStart.bind(this);
+    this.onActionSheetCloseDone = this.onActionSheetCloseDone.bind(this);
+    this.onAlertOpenStart = this.onAlertOpenStart.bind(this);
+    this.onAlertOpenDone = this.onAlertOpenDone.bind(this);
+    this.onAlertCloseStart = this.onAlertCloseStart.bind(this);
+    this.onAlertCloseDone = this.onAlertCloseDone.bind(this);
+    this.onComboBoxOpenStart = this.onComboBoxOpenStart.bind(this);
+    this.onComboBoxOpenDone = this.onComboBoxOpenDone.bind(this);
+    this.onComboBoxCloseStart = this.onComboBoxCloseStart.bind(this);
+    this.onComboBoxCloseDone = this.onComboBoxCloseDone.bind(this);
+    this.onModalOpenStart = this.onModalOpenStart.bind(this);
+    this.onModalOpenDone = this.onModalOpenDone.bind(this);
+    this.onModalCloseStart = this.onModalCloseStart.bind(this);
+    this.onModalCloseDone = this.onModalCloseDone.bind(this);
+    this.onPageOpenStart = this.onPageOpenStart.bind(this);
+    this.onPageOpenHorizontalStart = this.onPageOpenHorizontalStart.bind(this);
+    this.onPageOpenVerticalStart = this.onPageOpenVerticalStart.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseStart = this.onPageCloseStart.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
+  }
+
+  onActionSheetOpenStart(props, direction) {
+    this.memoizedActionSheet = props;
+    this.memoizedActionSheetDirection = direction;
+    this.setState(() => ({
+      actionSheet: {
+        status: PageStatusTypesEnum.OPEN_DONE,
+      },
+    }));
+  }
+
+  onActionSheetOpenDone() {}
+
+  onActionSheetCloseStart() {
+    this.setState(() => ({
+      actionSheet: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+    }));
+  }
+
+  onActionSheetCloseDone() {
+    this.memoizedActionSheet = undefined;
+    this.memoizedActionSheetDirection = undefined;
+  }
+
+  onAlertOpenStart(props) {
+    this.memoizedAlert = props;
+    this.setState(() => ({
+      alert: {
+        status: PageStatusTypesEnum.OPEN_DONE,
+      },
+    }));
+  }
+
+  onAlertOpenDone() { }
+
+  onAlertCloseStart() {
+    this.setState(() => ({
+      alert: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+    }));
+  }
+
+  onAlertCloseDone() {
+    this.memoizedAlert = undefined;
+  }
+
+  onComboBoxOpenStart(props, direction) {
+    this.memoizedComboBox = props;
+    this.memoizedComboBoxDirection = direction;
+    this.setState(() => ({
+      comboBox: {
+        status: PageStatusTypesEnum.OPEN_DONE,
+      },
+    }));
+  }
+
+  onComboBoxOpenDone() { }
+
+  onComboBoxCloseStart() {
+    this.setState(() => ({
+      comboBox: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+    }));
+  }
+
+  onComboBoxCloseDone() {
+    this.memoizedComboBox = undefined;
+    this.memoizedComboBoxDirection = undefined;
+  }
+
+  onModalOpenStart(props, direction) {
+    this.memoizedModal = props;
+    this.memoizedModalDirection = direction;
+    this.setState(() => ({
+      modal: {
+        status: PageStatusTypesEnum.OPEN_DONE,
+      },
+    }));
+  }
+
+  onModalOpenDone() { }
+
+  onModalCloseStart() {
+    this.setState(() => ({
+      modal: {
+        status: PageStatusTypesEnum.CLOSE_DONE,
+      },
+    }));
+  }
+
+  onModalCloseDone() {
+    this.memoizedModal = undefined;
+    this.memoizedModalDirection = undefined;
+  }
+
+  onPageOpenStart(pageIdNew, direction) {
+    const { navigation } = this.state;
+    this.memoizedNavigation = navigation;
+    const activePageId = getPrevPageId(navigation, pageIdNew);
+    this.setState(() => ({
+      navigation: Object.assign({}, navigation, {
+        activePageId: pageIdNew,
+        pages: stackPagingReducers(
+          navigation.pages,
+          { type: PAGE_OPEN_START, pageIdNew, direction },
+          activePageId
+        ),
+      }),
+    }), () => {
+      /*
+      this.setState(() => ({
+        navigation: Object.assign({}, navigation, {
+          // activePageId: pageIdNew,
+        }),
+      }));
+      */
+    });
+  }
+
+  onPageOpenHorizontalStart(pageIdNew) {
+    this.onPageOpenStart(pageIdNew, DirectionEnum.HORIZONTAL);
+  }
+
+  onPageOpenVerticalStart(pageIdNew) {
+    this.onPageOpenStart(pageIdNew, DirectionEnum.VERTICAL);
+  }
+
+  onPageOpenDone() {
+    console.log('onPageOpenDone');
+    this.memoizedNavigation = undefined;
+  }
+
+  onPageCloseStart() {
+    const { navigation } = this.state;
+    this.memoizedNavigation = navigation;
+    // const newActivePageId = getPrevPageById(navigation.pages, navigation.activePageId);
+    this.setState(() => ({
+      navigation: Object.assign({}, navigation, {
+        // activePageId: newActivePageId,
+        pages: stackPagingReducers(
+          navigation.pages,
+          { type: PAGE_CLOSE_START },
+          navigation.activePageId
+        ),
+      }),
+    }), () => {
+      /*
+      this.setState(() => ({
+        navigation: Object.assign({}, navigation, {
+          activePageId: newActivePageId,
+        }),
+      }));
+      */
+    });
+  }
+
+  onPageCloseDone() {
+    console.log('onPageCloseDone');
+    const { navigation } = this.state;
+    this.memoizedNavigation = undefined;
+    const newActivePageId = getPrevPageById(navigation.pages, navigation.activePageId);
+    this.setState(() => ({
+      navigation: Object.assign({}, navigation, {
+        activePageId: newActivePageId,
+        pages: stackPagingReducers(
+          navigation.pages,
+          { type: PAGE_CLOSE_DONE },
+          navigation.activePageId
+        ),
+      }),
+    }));
   }
 
   getVisiblePageData(prevPageId) {
@@ -84,15 +264,15 @@ export default class MobileNavigation extends React.Component {
    * Render only visible and the previous pages.
    * @param {*} activePageId
    */
-  getVisiblePages(activePageId) {
-    const visiblePagesData = [];
-    let pageData = this.getVisiblePageData(activePageId);
-    visiblePagesData.push(pageData);
-    if (pageData.pageState.prevPageId) {
-      pageData = this.getVisiblePageData(pageData.pageState.prevPageId);
-      visiblePagesData.push(pageData);
+  isVisiblePage(activePageId, pageId) {
+    if (activePageId === pageId) {
+      return true;
     }
-    return visiblePagesData;
+    const pageData = this.getVisiblePageData(activePageId);
+    if (pageData.pageState.prevPageId === pageId) {
+      return true;
+    }
+    return false;
   }
 
   bindActionCreators(actionCreator, dispatch) {
@@ -104,120 +284,83 @@ export default class MobileNavigation extends React.Component {
       ), {});
   }
 
-  dispatchActionSheetActions(action) {
-    // do not store alert info in a state
-    switch (action.type) {
-      case actionSheetActionTypes.ACTION_SHEET_OPEN_START:
-        this.memoizedActionSheet = action.props;
-        break;
-      case actionSheetActionTypes.ACTION_SHEET_CLOSE_DONE:
-        this.memoizedActionSheet = undefined;
-        break;
-      default:
-        break;
-    }
-    this.setState(prevState => ({
-      actionSheet: actionSheetPagesReducers(prevState.actionSheet, action),
-    }));
-  }
-
-  dispatchAlertActions(action) {
-    // do not store alert info in a state
-    switch (action.type) {
-      case alertActionTypes.ALERT_OPEN_PAGE:
-        this.memoizedAlert = action.props;
-        break;
-      case alertActionTypes.ALERT_GOING_BACK_DONE:
-      case alertActionTypes.ALERT_GO_BACK_FORCE:
-        this.memoizedAlert = undefined;
-        break;
-      default:
-        break;
-    }
-    this.setState(prevState => ({
-      alert: alertPagesReducers(prevState.alert, action),
-    }));
-  }
-
-  dispatchComboBoxActions(action) {
-    // do not store alert info in a state
-    switch (action.type) {
-      case comboBoxActionTypes.COMBO_BOX_OPEN_PAGE:
-        this.memoizedComboBox = action.props;
-        break;
-      case comboBoxActionTypes.COMBO_BOX_GOING_BACK_DONE:
-        this.memoizedComboBox = undefined;
-        break;
-      default:
-        break;
-    }
-    this.setState(prevState => ({
-      comboBox: comboBoxReducers(prevState.comboBox, action),
-    }));
-  }
-
-  dispatchModalActions(action) {
-    // do not store modal info in a state
-    switch (action.type) {
-      case modalActionTypes.MODAL_OPEN_PAGE:
-        this.memoizedModal = action.props;
-        break;
-      case modalActionTypes.MODAL_GOING_BACK_DONE:
-        this.memoizedModal = undefined;
-        break;
-      default:
-        break;
-    }
-    this.setState(prevState => ({
-      modal: modalPagesReducers(prevState.modal, action),
-    }));
-  }
-
-  dispatchPagingActions(action) {
-    this.setState(prevState => ({
-      navigation: mobileNavigationReducers(prevState.navigation, action),
-    }));
-  }
-
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
+    console.log('navigation new', navigation);
+    console.log('navigation old', this.memoizedNavigation);
     return (
       <MobileNavigationRender>
-        {this.getVisiblePages(navigation.activePageId).map(page => {
-          const pageId = page.pageId;
+        {React.Children.toArray(children).map(child => {
+          const pageId = child.props.pageId;
+          if (!this.isVisiblePage(navigation.activePageId, pageId)) {
+            return null;
+          }
+          const page = this.getVisiblePageData(pageId);
           return (
             <MobileNavigationPageEngine
-              actionSheetActions={this.actionSheetActions}
-              alertActions={this.alertActions}
-              comboBoxActions={this.comboBoxActions}
+              direction={page.pageState.direction}
+              isAction={!!this.memoizedNavigation}
               key={pageId}
-              modalActions={this.modalActions}
               pageHeight={pageHeight}
-              pagingActions={this.pagingActions}
               pageId={pageId}
               pageState={page.pageState}
               pageWidth={pageWidth}
+              status={
+                this.memoizedNavigation
+                  ? this.memoizedNavigation.pages[pageId].status
+                  : page.pageState.status
+              }
+              zIndex={page.pageState.zIndex}
+              onActionSheetOpenStart={this.onActionSheetOpenStart}
+              onActionSheetCloseStart={this.onActionSheetCloseStart}
+              onAlertOpenStart={this.onAlertOpenStart}
+              onComboBoxOpenStart={this.onComboBoxOpenStart}
+              onComboBoxCloseStart={this.onComboBoxCloseStart}
+              onModalOpenStart={this.onModalOpenStart}
+              onModalCloseStart={this.onModalCloseStart}
+              onPageOpenStart={this.onPageOpenStart}
+              onPageOpenHorizontalStart={this.onPageOpenHorizontalStart}
+              onPageOpenVerticalStart={this.onPageOpenVerticalStart}
+              onPageOpenDone={
+                this.memoizedNavigation && this.memoizedNavigation.activePageId === pageId
+                  ? this.onPageOpenDone
+                  : () => {}
+              }
+              onPageCloseStart={this.onPageCloseStart}
+              onPageCloseDone={
+                this.memoizedNavigation && this.memoizedNavigation.activePageId === pageId
+                  ? this.onPageCloseDone
+                  : () => {}
+              }
             >
-              {getPageById(React.Children.toArray(children), pageId)}
+              {child}
             </MobileNavigationPageEngine>
           );
         })}
         {this.memoizedActionSheet && (
           <ActionSheet
             cancelLabel={this.memoizedActionSheet.cancelLabel}
+            direction={this.memoizedActionSheetDirection}
             items={this.memoizedActionSheet.items}
             pageState={actionSheet}
-            pagingActions={this.actionSheetActions}
+            zIndex={1003}
             onSelect={this.memoizedActionSheet.onSelect}
             onCancel={this.memoizedActionSheet.onCancel}
+            onActionSheetOpenDone={this.onActionSheetOpenDone}
+            onActionSheetCloseStart={this.onActionSheetCloseStart}
+            onActionSheetCloseDone={this.onActionSheetCloseDone}
           />
         )}
         {this.memoizedAlert && (
           <AlertBox
             autoHideDuration={this.memoizedAlert.autoHideDuration}
+            direction={DirectionEnum.VERTICAL}
             pageState={alert}
-            pagingActions={this.alertActions}
+            zIndex={1002}
+            onAlertOpenDone={this.onAlertOpenDone}
+            onAlertCloseStart={this.onAlertCloseStart}
+            onAlertCloseDone={this.onAlertCloseDone}
           >
             {this.memoizedAlert.render()}
           </AlertBox>
@@ -227,6 +370,7 @@ export default class MobileNavigation extends React.Component {
             allowCustomValue={this.memoizedComboBox.allowCustomValue}
             bodyStyle={this.memoizedComboBox.bodyStyle}
             customOptionModel={this.memoizedComboBox.customOptionModel}
+            direction={this.memoizedComboBoxDirection}
             headerStyle={this.memoizedComboBox.headerStyle}
             items={this.memoizedComboBox.items}
             inputPlaceholder={this.memoizedComboBox.inputPlaceholder}
@@ -238,18 +382,24 @@ export default class MobileNavigation extends React.Component {
               this.memoizedComboBox.pressEnterToSaveCustomFieldLabel
             }
             pageState={comboBox}
-            pagingActions={this.comboBoxActions}
             title={this.memoizedComboBox.title}
+            zIndex={1000}
             onCancel={this.memoizedComboBox.onCancel}
             onSelect={this.memoizedComboBox.onSelect}
             onSelectCustom={this.memoizedComboBox.onSelectCustom}
+            onComboBoxOpenDone={this.onComboBoxOpenDone}
+            onComboBoxCloseStart={this.onComboBoxCloseStart}
+            onComboBoxCloseDone={this.onComboBoxCloseDone}
           />
         )}
         {this.memoizedModal && (
           <Modal
+            direction={this.memoizedModalDirection}
             pageHeight={pageHeight}
             pageState={modal}
-            pagingActions={this.modalActions}
+            zIndex={1001}
+            onModalOpenDone={this.onModalOpenDone}
+            onModalCloseDone={this.onModalCloseDone}
           >
             {this.memoizedModal.render()}
           </Modal>

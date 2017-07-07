@@ -10,16 +10,14 @@ function isCurrentPageActive(state, pageId) {
   return pageId === state.activePageId;
 }
 
-export function getPrevPageById(state) {
-  return getPagingPrevPageById(state.pages, state.activePageId);
+export function getPrevPageById(pages, activePageId) {
+  return getPagingPrevPageById(pages, activePageId);
 }
 
 export function getPrevPageId(state, pageId) {
-  return isCurrentPageActive(state, pageId) ? getPrevPageById(state) : state.activePageId;
-}
-
-export function getPageById(children, pageId) {
-  return children.find(child => child.props.pageId === pageId);
+  return isCurrentPageActive(state, pageId)
+    ? getPrevPageById(state.pages, state.activePageId)
+    : state.activePageId;
 }
 
 export function getInitPage(isDefaultPage) {

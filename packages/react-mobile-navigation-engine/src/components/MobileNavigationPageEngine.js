@@ -2,11 +2,9 @@ import React from 'react';
 import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  actionSheetActions: React.PropTypes.object.isRequired,
-  alertActions: React.PropTypes.object.isRequired,
   children: React.PropTypes.any.isRequired,
-  comboBoxActions: React.PropTypes.object.isRequired,
-  modalActions: React.PropTypes.object.isRequired,
+  direction: React.PropTypes.string,
+  isAction: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number,
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
@@ -14,7 +12,21 @@ const propTypes = {
   ]).isRequired,
   pageState: React.PropTypes.object.isRequired,
   pageWidth: React.PropTypes.number,
-  pagingActions: React.PropTypes.object.isRequired,
+  status: React.PropTypes.string.isRequired,
+  zIndex: React.PropTypes.number.isRequired,
+  onActionSheetOpenStart: React.PropTypes.func.isRequired,
+  onActionSheetCloseStart: React.PropTypes.func.isRequired,
+  onAlertOpenStart: React.PropTypes.func.isRequired,
+  onComboBoxOpenStart: React.PropTypes.func.isRequired,
+  onComboBoxCloseStart: React.PropTypes.func.isRequired,
+  onModalOpenStart: React.PropTypes.func.isRequired,
+  onModalCloseStart: React.PropTypes.func.isRequired,
+  onPageOpenStart: React.PropTypes.func.isRequired,
+  onPageOpenHorizontalStart: React.PropTypes.func.isRequired,
+  onPageOpenVerticalStart: React.PropTypes.func.isRequired,
+  onPageOpenDone: React.PropTypes.func.isRequired,
+  onPageCloseStart: React.PropTypes.func.isRequired,
+  onPageCloseDone: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
@@ -23,49 +35,31 @@ export default class MobileNavigationPageEngine extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      selectedOption: undefined,
-    };
     this.cache = {
       onOpenCallback: null,
       onCloseCallback: null,
     };
-    this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
-    this.onPageStatusChanged = this.onPageStatusChanged.bind(this);
+    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
     this.setOnOpen = this.setOnOpen.bind(this);
     this.setOnClose = this.setOnClose.bind(this);
   }
 
-  onPageTransitionEnd() {
-    const { pageId, pageState, pagingActions } = this.props;
+  onPageActivityEnd() {
+    const { pageId, pageState, onPageOpenDone, onPageCloseDone } = this.props;
     switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone(pageId);
+      case PageStatusTypesEnum.OPEN_DONE:
+        onPageOpenDone(pageId);
         if (typeof this.cache.onOpenCallback !== 'function') {
           return;
         }
         this.cache.onOpenCallback();
         return;
-      case PageStatusTypesEnum.CLOSE_ANIMATING:
-        pagingActions.goBackDone(pageId);
+      case PageStatusTypesEnum.CLOSE_DONE:
+        onPageCloseDone();
         if (typeof this.cache.onCloseCallback !== 'function') {
           return;
         }
         this.cache.onCloseCallback();
-        return;
-      default:
-        return;
-    }
-  }
-
-  onPageStatusChanged() {
-    const { pageState, pageId, pagingActions } = this.props;
-    switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_PREPARE:
-        pagingActions.openingPage(pageId);
-        return;
-      case PageStatusTypesEnum.CLOSE_PREPARE:
-        pagingActions.goingBack(pageId);
         return;
       default:
         return;
@@ -82,46 +76,61 @@ export default class MobileNavigationPageEngine extends React.Component {
 
   render() {
     const {
-      actionSheetActions,
-      alertActions,
       children,
-      comboBoxActions,
-      modalActions,
+      direction,
+      isAction,
       pageHeight,
       pageId,
       pageState,
       pageWidth,
-      pagingActions,
+      status,
+      zIndex,
+      onActionSheetOpenStart,
+      onActionSheetCloseStart,
+      onAlertOpenStart,
+      onComboBoxOpenStart,
+      onComboBoxCloseStart,
+      onModalOpenStart,
+      onModalCloseStart,
+      onPageOpenStart,
+      onPageOpenHorizontalStart,
+      onPageOpenVerticalStart,
+      onPageCloseStart,
+      onPageCloseDone,
     } = this.props;
+    console.log(pageId, direction, status);
     return (
       <Interpolation
+        isAction={isAction}
         pageState={pageState}
-        setPageStatus={this.onPageStatusChanged}
-        onPageTransitionEnd={this.onPageTransitionEnd}
+        status={status}
+        onPageActivityEnd={this.onPageActivityEnd}
       >
         {React.cloneElement(children, {
-          actionSheetOpen: actionSheetActions.openPage,
-          actionSheetClose: actionSheetActions.goBack,
-          alertOpen: alertActions.openPage,
-          comboBoxOpen: comboBoxActions.openPage,
-          comboBoxClose: comboBoxActions.goBack,
-          modalOpen: modalActions.openPage,
-          modalClose: modalActions.goBack,
+          actionSheetOpen: onActionSheetOpenStart,
+          actionSheetClose: onActionSheetCloseStart,
+          alertOpen: onAlertOpenStart,
+          comboBoxOpen: onComboBoxOpenStart,
+          comboBoxClose: onComboBoxCloseStart,
+          direction,
+          modalOpen: onModalOpenStart,
+          modalClose: onModalCloseStart,
           pageHeight,
           pageId,
           pageState,
           pageWidth,
           pagingActions: {
-            openPage: pagingActions.openPage,
-            openPageHorizontal: pagingActions.openPageHorizontal,
-            openPageVertical: pagingActions.openPageVertical,
-            goBack: pagingActions.goBack,
-            goBackForce: pagingActions.goBackForce,
+            openPage: onPageOpenStart,
+            openPageHorizontal: onPageOpenHorizontalStart,
+            openPageVertical: onPageOpenVerticalStart,
+            goBack: onPageCloseStart,
+            goBackForce: onPageCloseDone,
           },
           pagingCallbacks: {
             setOnOpen: this.setOnOpen,
             setOnClose: this.setOnClose,
           },
+          zIndex,
         })}
       </Interpolation>
     );

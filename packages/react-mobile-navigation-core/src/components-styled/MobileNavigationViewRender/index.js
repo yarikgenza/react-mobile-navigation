@@ -6,8 +6,9 @@ export default styled.div.attrs({
     ...props.styleTranslate,
   }),
 })`
+  bottom: 0;
+  height: auto;
   position: absolute;
   width: 100%;
-  height: auto;
-  bottom: 0;
+  transition: all 0.25s;
 `;

@@ -5,31 +5,43 @@ import {
 } from 'react-mobile-navigation-core';
 import BackgroundActiveRender from '../components-styled/BackgroundActiveRender';
 import ContentRender from '../components-styled/ContentRender';
-import { getDarkBackgroundStyle } from '../utils/shadow-page-styles';
 
 const propTypes = {
   children: React.PropTypes.element,
-  pageState: React.PropTypes.object,
+  direction: React.PropTypes.string.isRequired,
+  isShow: React.PropTypes.bool,
   translateValue: React.PropTypes.number,
+  zIndex: React.PropTypes.number.isRequired,
   onShadowClick: React.PropTypes.func,
+  onTransitionEnd: React.PropTypes.func,
 };
 
 const defaultProps = {};
 
-const MobileNavigationShadowPage = ({ children, pageState, translateValue, onShadowClick }) => {
-  const { direction, status, zIndex } = pageState;
-  return (
+const MobileNavigationShadowPage = ({
+  children,
+  direction,
+  isShow,
+  translateValue,
+  zIndex,
+  onShadowClick,
+  onTransitionEnd,
+}) => (
+  isShow ? (
     <MobileNavigationPageRender styleIndex={zIndex} >
       <BackgroundActiveRender
-        style={getDarkBackgroundStyle(status, translateValue)}
+        styleOpacity={0.3 * (1 - translateValue / 100)}
         onClick={onShadowClick}
       />
-      <ContentRender styleTranslate={getTranslate3dByDirection(status, direction, translateValue)} >
+      <ContentRender
+        styleTranslate={getTranslate3dByDirection(direction, translateValue)}
+        onTransitionEnd={onTransitionEnd}
+      >
         {children}
       </ContentRender>
     </MobileNavigationPageRender>
-  );
-};
+  ) : null
+);
 
 MobileNavigationShadowPage.propTypes = propTypes;
 MobileNavigationShadowPage.defaultProps = defaultProps;

@@ -28,7 +28,7 @@ export class SettingsMainPageComponent extends React.Component {
   render() {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
-        <div style={{ textAlign: 'center' }} >Main</div>
+        <div style={{ textAlign: 'center' }} >Main (1)</div>
         <div onClick={this.connectedListText} >
           Open Licenses
         </div>

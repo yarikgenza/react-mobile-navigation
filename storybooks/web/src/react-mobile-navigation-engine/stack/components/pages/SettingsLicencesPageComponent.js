@@ -25,7 +25,7 @@ export class SettingsLicencesPageComponent extends React.Component {
   render() {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
-        <div style={{ textAlign: 'center' }} >Licenses</div>
+        <div style={{ textAlign: 'center' }} >Licenses (2)</div>
         <div onClick={this.connectedHelpText} >
           Open help
         </div>

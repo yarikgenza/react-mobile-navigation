@@ -15,12 +15,16 @@ const propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]),
-  pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
+  direction: React.PropTypes.string.isRequired,
   pageState: React.PropTypes.object,
+  zIndex: React.PropTypes.number.isRequired,
+  onAlertOpenDone: React.PropTypes.func.isRequired,
+  onAlertCloseStart: React.PropTypes.func.isRequired,
+  onAlertCloseDone: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {
-  autoHideDuration: 1000,
+  autoHideDuration: 2500,
   children: undefined,
 };
 
@@ -29,8 +33,7 @@ export default class AlertBox extends React.Component {
   constructor(props) {
     super(props);
     this.timerAutoHideId = undefined;
-    this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
-    this.setPageStatus = this.setPageStatus.bind(this);
+    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
   }
 
   componentWillUnmount() {
@@ -38,71 +41,53 @@ export default class AlertBox extends React.Component {
     this.closeAlertForce();
   }
 
-  onPageTransitionEnd() {
-    const { pageState, pagingActions } = this.props;
+  onPageActivityEnd() {
+    const { pageState, onAlertOpenDone, onAlertCloseDone } = this.props;
     switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_ANIMATING: {
-        pagingActions.openPageDone();
+      case PageStatusTypesEnum.OPEN_DONE: {
+        onAlertOpenDone();
         this.closeAlert();
         return;
       }
-      case PageStatusTypesEnum.CLOSE_ANIMATING: {
-        pagingActions.goBackDone();
+      case PageStatusTypesEnum.CLOSE_DONE: {
+        onAlertCloseDone();
         return;
       }
-      default:
-        return;
-    }
-  }
-
-  setPageStatus() {
-    const { pageState, pagingActions } = this.props;
-    switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage();
-        return;
-      case PageStatusTypesEnum.CLOSE_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack();
-        return;
       default:
         return;
     }
   }
 
   closeAlert() {
-    const { autoHideDuration, pagingActions } = this.props;
+    const { autoHideDuration, onAlertCloseStart } = this.props;
     clearTimeout(this.timerAutoHideId);
     if (autoHideDuration > 0) {
       this.timerAutoHideId = setTimeout(() => {
-        pagingActions.goBack();
+        onAlertCloseStart();
       }, autoHideDuration);
       return;
     }
     // close right away
     this.timerAutoHideId = setTimeout(() => {
-      pagingActions.goBack();
+      onAlertCloseStart();
     }, 0);
   }
 
   closeAlertForce() {
-    const { pagingActions } = this.props;
-    pagingActions.goBackForce();
+    const { onAlertCloseDone } = this.props;
+    onAlertCloseDone();
   }
 
   render() {
-    const { children, pageState } = this.props;
-    if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
-      return null;
-    }
+    const { children, direction, pageState, zIndex } = this.props;
     return (
       <Interpolation
-        setPageStatus={this.setPageStatus}
-        onPageTransitionEnd={this.onPageTransitionEnd}
+        isAction
         pageState={pageState}
+        status={PageStatusTypesEnum.CLOSE_DONE}
+        onPageActivityEnd={this.onPageActivityEnd}
       >
-        <MobileNavigationView>
+        <MobileNavigationView direction={direction} zIndex={zIndex} >
           {children}
         </MobileNavigationView>
       </Interpolation>

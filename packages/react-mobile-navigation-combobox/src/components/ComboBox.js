@@ -15,20 +15,24 @@ const propTypes = {
   allowCustomValue: React.PropTypes.bool,
   bodyStyle: React.PropTypes.object.isRequired,
   customOptionModel: React.PropTypes.object,
+  direction: React.PropTypes.string.isRequired,
   inputPlaceholder: React.PropTypes.string,
   isBold: React.PropTypes.bool,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   headerStyle: React.PropTypes.object.isRequired,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
   noOptionsMatchingInputLabel: React.PropTypes.string,
-  pagingActions: React.PropTypes.objectOf(React.PropTypes.func),
   pageHeight: React.PropTypes.number.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
   pageState: React.PropTypes.object,
   title: React.PropTypes.string,
+  zIndex: React.PropTypes.number.isRequired,
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
   onSelectCustom: React.PropTypes.func,
+  onComboBoxOpenDone: React.PropTypes.func.isRequired,
+  onComboBoxCloseStart: React.PropTypes.func.isRequired,
+  onComboBoxCloseDone: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -54,8 +58,7 @@ export default class ComboBox extends React.Component {
     this.onCancel = this.onCancel.bind(this);
     this.onTrySelectCustom = this.onTrySelectCustom.bind(this);
     this.onSetFilter = this.onSetFilter.bind(this);
-    this.onPageTransitionEnd = this.onPageTransitionEnd.bind(this);
-    this.setPageStatus = this.setPageStatus.bind(this);
+    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
   }
 
   componentWillReceiveProps() {
@@ -106,13 +109,19 @@ export default class ComboBox extends React.Component {
     this.filteredItems = this.getFilteredItems(value);
   }
 
-  onPageTransitionEnd() {
-    const { pageState, pagingActions, onSelectCustom, onSelect } = this.props;
+  onPageActivityEnd() {
+    const {
+      pageState,
+      onSelectCustom,
+      onSelect,
+      onComboBoxOpenDone,
+      onComboBoxCloseDone,
+    } = this.props;
     switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_ANIMATING:
-        pagingActions.openPageDone();
+      case PageStatusTypesEnum.OPEN_DONE:
+        onComboBoxOpenDone();
         return;
-      case PageStatusTypesEnum.CLOSE_ANIMATING: {
+      case PageStatusTypesEnum.CLOSE_DONE: {
         const { selectedCustomOption, selectedOption } = this.state;
         // set state until a user does actions which can possibly unmount the component
         this.setState(() => ({
@@ -134,25 +143,9 @@ export default class ComboBox extends React.Component {
         if (onSelectCustom && selectedCustomOption) {
           onSelectCustom(selectedCustomOption);
         }
-        pagingActions.goBackDone();
+        onComboBoxCloseDone();
         return;
       }
-      default:
-        return;
-    }
-  }
-
-  setPageStatus() {
-    const { pageState, pagingActions } = this.props;
-    switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_MAIN:
-        pagingActions.openingPage();
-        return;
-      case PageStatusTypesEnum.CLOSE_PREPARE:
-        // case PageSideTypesEnum.GOING_TO_COVER:
-        pagingActions.goingBack();
-        return;
       default:
         return;
     }
@@ -164,8 +157,8 @@ export default class ComboBox extends React.Component {
   }
 
   closeComboBox() {
-    const { pagingActions } = this.props;
-    pagingActions.goBack();
+    const { onComboBoxCloseStart } = this.props;
+    onComboBoxCloseStart();
   }
 
   render() {
@@ -173,6 +166,7 @@ export default class ComboBox extends React.Component {
       allowCustomValue,
       bodyStyle,
       customOptionModel,
+      direction,
       headerStyle,
       inputPlaceholder,
       isBold,
@@ -182,17 +176,16 @@ export default class ComboBox extends React.Component {
       pageState,
       pressEnterToSaveCustomFieldLabel,
       title,
+      zIndex,
     } = this.props;
-    if (pageState.status === PageStatusTypesEnum.CLOSE_DONE) {
-      return null;
-    }
     return (
       <Interpolation
-        setPageStatus={this.setPageStatus}
-        onPageTransitionEnd={this.onPageTransitionEnd}
+        isAction
         pageState={pageState}
+        status={PageStatusTypesEnum.CLOSE_DONE}
+        onPageActivityEnd={this.onPageActivityEnd}
       >
-        <MobileNavigationPage pageHeight={pageHeight} >
+        <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
