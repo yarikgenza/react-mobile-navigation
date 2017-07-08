@@ -6,7 +6,7 @@ export default styled.div.attrs({
   bottom: 0;
   box-sizing: border-box;
   position: absolute;
-  transition: all 0.25s;
+  transition: transform 0.25s;
   width: 100%;
   z-index: 2;
 `;

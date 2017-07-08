@@ -94,8 +94,8 @@ export default class ActionSheet extends React.Component {
       <Interpolation
         direction={direction}
         isAnimation
+        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >
         <MobileNavigationShadowPage

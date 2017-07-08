@@ -54,6 +54,7 @@ export default class ActionSheet extends React.Component {
     return (
       <Interpolation
         isAnimation
+        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageActivityEnd={this.onPageActivityEnd}
       >

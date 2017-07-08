@@ -84,8 +84,8 @@ export default class AlertBox extends React.Component {
       <Interpolation
         direction={direction}
         isAnimation
+        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >
         <MobileNavigationView direction={direction} zIndex={zIndex} >

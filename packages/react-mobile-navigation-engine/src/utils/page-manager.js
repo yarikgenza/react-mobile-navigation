@@ -1,4 +1,4 @@
-import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
+import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 const { OPEN_DONE, CLOSE_DONE } = PageStatusTypesEnum;
 
@@ -21,10 +21,11 @@ export function getPrevPageId(state, pageId) {
 }
 
 export function getInitPage(isDefaultPage) {
-  return actionPageStoreModel(
-    isDefaultPage ? OPEN_DONE : CLOSE_DONE,
-    isDefaultPage ? 1 : 0
-  );
+  return {
+    status: isDefaultPage ? OPEN_DONE : CLOSE_DONE,
+    zIndex: isDefaultPage ? 1 : 0,
+    direction: undefined,
+  };
 }
 
 export function isPrevPage(pages, pageIdNew) {

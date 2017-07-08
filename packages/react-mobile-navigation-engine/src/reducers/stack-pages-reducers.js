@@ -1,9 +1,9 @@
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 import {
   PAGE_OPEN_START,
-  // PAGE_OPEN_DONE,
   PAGE_CLOSE_START,
   PAGE_CLOSE_DONE,
+  PAGE_CLOSE_DONE_FORCE,
 } from '../action-types/paging-action-types';
 import { getPagingPrevPageById } from '../utils/page-manager';
 
@@ -39,19 +39,6 @@ export default (state = initialState, action, activePageId) => {
         }),
       });
     }
-    /*
-    case PAGE_OPEN_DONE: {
-      const backMovingOutId = state[activePageId].prevPageId;
-      return Object.assign({}, state, {
-        [action.pageIdNew]: Object.assign({}, state[action.pageIdNew], {
-          // status: OPEN_DONE,
-        }),
-        [backMovingOutId]: Object.assign({}, state[backMovingOutId], {
-          // status: BACK_ANIMATING_OUT_DONE,
-        }),
-      });
-    }
-    */
     case PAGE_CLOSE_START: {
       const activePageIdPrev = getPagingPrevPageById(state, activePageId);
       return Object.assign({}, state, {
@@ -75,6 +62,21 @@ export default (state = initialState, action, activePageId) => {
           direction: state[activePageIdPrev].prevPageId
             ? state[state[activePageIdPrev].prevPageId].direction
             : undefined,
+        }),
+      });
+    }
+    case PAGE_CLOSE_DONE_FORCE: {
+      const activePageIdPrev = getPagingPrevPageById(state, activePageId);
+      return Object.assign({}, state, {
+        [activePageId]: Object.assign({}, state[activePageId], {
+          direction: undefined,
+          prevPageId: undefined,
+          status: PageStatusTypesEnum.CLOSE_DONE,
+          zIndex: 0,
+        }),
+        [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
+          direction: undefined,
+          status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });
     }

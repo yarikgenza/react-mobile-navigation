@@ -7,7 +7,7 @@ import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
-export class SettingsHelpPageComponent extends React.Component {
+export default class SettingsHelpPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -18,6 +18,7 @@ export class SettingsHelpPageComponent extends React.Component {
     this.openAlert = this.openAlert.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closePageClick = this.closePageClick.bind(this);
+    this.closePageForceClick = this.closePageForceClick.bind(this);
     this.connectedHelpText = this.connectedHelpText.bind(this);
   }
 
@@ -26,7 +27,7 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   openActionSheet() {
-    this.props.actionSheetOpen({
+    this.props.onActionSheetOpen({
       cancelLabel: 'Cancel',
       items: [],
       onCancel: () => {},
@@ -35,7 +36,7 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   openComboBox() {
-    this.props.comboBoxOpen({
+    this.props.onComboBoxOpen({
       bodyStyle: {
         backgroundColor: 'white',
         borderRadius: '5px',
@@ -60,7 +61,7 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   openAlert() {
-    this.props.alertOpen({
+    this.props.onAlertOpen({
       autoHideDuration: 2500,
       render: () => (
         <Alert text="text" type={ALERT_TYPES.CRITICAL} onClick={() => { console.log(1); }} />
@@ -69,8 +70,8 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   openModal() {
-    const { modalOpen, modalClose, pageHeight } = this.props;
-    modalOpen({
+    const { onModalOpen, onModalClose, pageHeight } = this.props;
+    onModalOpen({
       render: () => {
         return (
           <StackPage
@@ -83,9 +84,9 @@ export class SettingsHelpPageComponent extends React.Component {
             headerStyle={{
               backgroundColor: '#eeeae5',
             }}
-            leftButton={{ onClick: () => { modalClose() }, renderIcon: () => (<IconCancel />) }}
+            leftButton={{ onClick: () => { onModalClose() }, renderIcon: () => (<IconCancel />) }}
             pageHeight={pageHeight}
-            rightButton={{ onClick: () => { modalClose() }, renderIcon: () => (<IconDone />) }}
+            rightButton={{ onClick: () => { onModalClose() }, renderIcon: () => (<IconDone />) }}
             stackTitle="Modal Title"
             stackTitleEditable={false}
             titleIcon={undefined}
@@ -113,13 +114,17 @@ export class SettingsHelpPageComponent extends React.Component {
   }
 
   connectedHelpText() {
-    this.props.pagingActions.openPage(
+    this.props.onPageOpen(
       SettingsModeTypesEnum.LICENSES
     );
   }
 
   closePageClick(e) {
-    this.props.pagingActions.goBack();
+    this.props.onPageClose();
+  }
+
+  closePageForceClick(e) {
+    this.props.onPageCloseForce();
   }
 
   render() {
@@ -131,6 +136,9 @@ export class SettingsHelpPageComponent extends React.Component {
         </div>
         <div onClick={this.closePageClick} >
           Go back
+        </div>
+        <div onClick={this.closePageForceClick} >
+          Go back force
         </div>
         <div onClick={this.openActionSheet} >
           Show action sheet
@@ -150,17 +158,15 @@ export class SettingsHelpPageComponent extends React.Component {
 }
 
 SettingsHelpPageComponent.defaultProps = {
-  actionSheetOpen: undefined,
-  alertOpen: undefined,
-  modalOpen: undefined,
-  modalClose: undefined,
-  pagingActions: undefined,
+  onActionSheetOpen: undefined,
+  onAlertOpen: undefined,
+  onModalOpen: undefined,
+  onModalClose: undefined,
 };
 
 SettingsHelpPageComponent.propTypes = {
-  actionSheetOpen: React.PropTypes.func,
-  alertOpen: React.PropTypes.func,
-  modalOpen: React.PropTypes.func,
-  modalClose: React.PropTypes.func,
-  pagingActions: React.PropTypes.any,
+  onActionSheetOpen: React.PropTypes.func,
+  onAlertOpen: React.PropTypes.func,
+  onModalOpen: React.PropTypes.func,
+  onModalClose: React.PropTypes.func,
 };

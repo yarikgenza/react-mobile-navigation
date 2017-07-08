@@ -178,12 +178,13 @@ export default class ComboBox extends React.Component {
       title,
       zIndex,
     } = this.props;
+    const { textFilter } = this.state;
     return (
       <Interpolation
         direction={direction}
         isAnimation
+        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        status={PageStatusTypesEnum.CLOSE_DONE}
         onPageActivityEnd={this.onPageActivityEnd}
       >
         <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
@@ -216,7 +217,7 @@ export default class ComboBox extends React.Component {
               pageHeight={pageHeight}
               pageWidth={pageWidth}
               pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
-              textFilter={this.state.textFilter}
+              textFilter={textFilter}
               onSelectCustom={this.onSelectCustom}
               onCancel={this.onCancel}
               onSetFilter={this.onSetFilter}

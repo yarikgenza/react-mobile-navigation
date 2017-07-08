@@ -6,7 +6,7 @@ import Text from 'binary-ui-components/mobile/Text';
 import { DirectionEnum } from 'react-mobile-navigation-core';
 import { Modal } from 'react-mobile-navigation-modal';
 
-export class SettingsMainPageComponent extends React.Component {
+export default class SettingsMainPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -66,13 +66,11 @@ export class SettingsMainPageComponent extends React.Component {
 }
 
 SettingsMainPageComponent.defaultProps = {
-  pagingActions: undefined,
   pageId: undefined,
   comboBox: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
-  pagingActions: React.PropTypes.any,
   pageId: React.PropTypes.any,
   comboBox: React.PropTypes.any,
 };

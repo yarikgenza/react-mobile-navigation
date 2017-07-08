@@ -10,7 +10,7 @@ import {
   comboBoxCustomOptionModel,
 } from 'react-mobile-navigation-combobox';
 
-export class SettingsMainPageComponent extends React.Component {
+export default class SettingsMainPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -100,13 +100,11 @@ export class SettingsMainPageComponent extends React.Component {
 }
 
 SettingsMainPageComponent.defaultProps = {
-  pagingActions: undefined,
   pageId: undefined,
   comboBox: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
-  pagingActions: React.PropTypes.any,
   pageId: React.PropTypes.any,
   comboBox: React.PropTypes.any,
 };

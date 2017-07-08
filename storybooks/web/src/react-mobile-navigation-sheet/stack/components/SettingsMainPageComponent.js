@@ -2,7 +2,7 @@ import React from 'react';
 import { DirectionEnum } from 'react-mobile-navigation-core';
 import { ActionSheet } from '../../stack-action-pages';
 
-export class SettingsMainPageComponent extends React.Component {
+export default class SettingsMainPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -51,14 +51,12 @@ export class SettingsMainPageComponent extends React.Component {
 }
 
 SettingsMainPageComponent.defaultProps = {
-  pagingActions: undefined,
   pageId: undefined,
   actionSheet: undefined,
   actionSheetActions: undefined,
 };
 
 SettingsMainPageComponent.propTypes = {
-  pagingActions: React.PropTypes.any,
   pageId: React.PropTypes.any,
   actionSheet: React.PropTypes.any,
   actionSheetActions: React.PropTypes.any,

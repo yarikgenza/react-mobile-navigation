@@ -5,15 +5,15 @@ import {
   mobileNavigationCreateInitState,
   mobileNavigationInitStatePseudoActions,
 } from 'react-mobile-navigation-engine';
-import { SettingsMainPageComponent } from './pages/SettingsMainPageComponent';
-import { SettingsLicencesPageComponent } from './pages/SettingsLicencesPageComponent';
-import SettingsHelpPageContainer from '../container/pages/SettingsHelpPageContainer';
+import SettingsMainPageComponent from './pages/SettingsMainPageComponent';
+import SettingsLicencesPageComponent from './pages/SettingsLicencesPageComponent';
+import SettingsHelpPageComponent from './pages/SettingsHelpPageComponent';
 import * as SettingsModeTypesEnum from '../enum/settings-mode-types-enum';
 
 const width = 400;
 const height = 500;
 
-export const SettingsComponent = ({ initState }) => (
+const SettingsComponent = ({ initState }) => (
   <MobileNavigation
     initState={mobileNavigationCreateInitState(SettingsModeTypesEnum.MAIN, [
       SettingsModeTypesEnum.MAIN,
@@ -32,7 +32,9 @@ export const SettingsComponent = ({ initState }) => (
       <SettingsLicencesPageComponent />
     </MobileNavigationPage>
     <MobileNavigationPage pageId={SettingsModeTypesEnum.HELP}>
-      <SettingsHelpPageContainer />
+      <SettingsHelpPageComponent />
     </MobileNavigationPage>
   </MobileNavigation>
 );
+
+export default SettingsComponent;

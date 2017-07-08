@@ -6,8 +6,8 @@ const propTypes = {
   children: React.PropTypes.element.isRequired,
   direction: React.PropTypes.string,
   isAnimation: React.PropTypes.bool.isRequired,
+  pageStatusInit: React.PropTypes.string.isRequired,
   pageStatus: React.PropTypes.string.isRequired,
-  status: React.PropTypes.string.isRequired,
   onPageActivityEnd: React.PropTypes.func.isRequired,
 };
 
@@ -19,85 +19,97 @@ export default class Interpolation extends React.Component {
     super(props);
     this.state = {
       isShow: true,
-      translateValue: getSpringValue(props.status),
+      translateValue: getSpringValue(props.pageStatusInit),
     };
     this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
 
   componentDidMount() {
-    const { direction, isAnimation, pageStatus } = this.props;
-    // no animation
+    const { direction, isAnimation, onPageActivityEnd } = this.props;
+    // open with no animation
     if (direction === undefined) {
-      const { onPageActivityEnd } = this.props;
-      if (pageStatus === PageStatusTypesEnum.OPEN_DONE) {
-        onPageActivityEnd();
-      }
+      // page is always mounted with an OPEN_DONE status, so no need to check
+      onPageActivityEnd();
     }
-    // is animation
+    // open with animation
+    //  isShow is already true, so no need to set
     if (isAnimation) {
-      requestAnimationFrame(() => {
-        this.setState(() => ({
-          translateValue: getSpringValue(PageStatusTypesEnum.OPEN_DONE),
-        }));
-      });
+      this.triggerPageOpenAnimation();
     }
   }
 
   componentWillReceiveProps(newProps) {
-    // no animation
+    // with no animation
     if (newProps.direction === undefined) {
       const { pageStatus, onPageActivityEnd } = this.props;
       // open the page
-      if (
-        pageStatus === PageStatusTypesEnum.CLOSE_DONE &&
-        newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
-      ) {
+      if (this.isPageOpen(pageStatus, newProps.pageStatus)) {
         this.setState(() => ({
           isShow: true,
         }));
         onPageActivityEnd();
+        return;
       }
       // close the page
-      if (
-        pageStatus === PageStatusTypesEnum.OPEN_DONE &&
-        newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
-      ) {
+      if (this.isPageClose(pageStatus, newProps.pageStatus)) {
         onPageActivityEnd();
+        return;
       }
       return;
     }
-    // is animation
-    if (newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
+    // with animation
+    if (newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE) {
+      // open the page
       this.setState(() => ({
-        translateValue: getSpringValue(PageStatusTypesEnum.CLOSE_DONE),
+        translateValue: getSpringValue(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
       }));
       return;
     }
-    if (newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE) {
+    if (newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
+      // close the page
       this.setState(() => ({
-        translateValue: getSpringValue(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
+        translateValue: getSpringValue(PageStatusTypesEnum.CLOSE_DONE),
       }));
       return;
     }
     this.setState(() => ({
       isShow: true,
     }));
-    requestAnimationFrame(() => {
-      this.setState(() => ({
-        translateValue: getSpringValue(PageStatusTypesEnum.OPEN_DONE),
-      }));
-    });
+    this.triggerPageOpenAnimation();
   }
 
   onTransitionEnd() {
-    const { pageStatus } = this.props;
+    const { pageStatus, onPageActivityEnd } = this.props;
     if (pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
       this.setState(() => ({
         isShow: false,
       }));
     }
-    const { onPageActivityEnd } = this.props;
     onPageActivityEnd();
+  }
+
+  isPageOpen(statusBefore, statusAfter) {
+    return (
+      statusBefore === PageStatusTypesEnum.CLOSE_DONE &&
+      statusAfter === PageStatusTypesEnum.OPEN_DONE
+    );
+  }
+
+  isPageClose(statusBefore, statusAfter) {
+    return (
+      statusBefore === PageStatusTypesEnum.OPEN_DONE &&
+      statusAfter === PageStatusTypesEnum.CLOSE_DONE
+    );
+  }
+
+  triggerPageOpenAnimation() {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        this.setState(() => ({
+          translateValue: getSpringValue(PageStatusTypesEnum.OPEN_DONE),
+        }));
+      });
+    });
   }
 
   render() {

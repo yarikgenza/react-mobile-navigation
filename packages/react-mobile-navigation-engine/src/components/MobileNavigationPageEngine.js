@@ -9,9 +9,9 @@ const propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,
+  pageStatusInit: React.PropTypes.string,
   pageState: React.PropTypes.object.isRequired,
   pageWidth: React.PropTypes.number,
-  status: React.PropTypes.string.isRequired,
   onActionSheetOpenStart: React.PropTypes.func.isRequired,
   onActionSheetCloseStart: React.PropTypes.func.isRequired,
   onAlertOpenStart: React.PropTypes.func.isRequired,
@@ -24,6 +24,7 @@ const propTypes = {
   onPageOpenVerticalStart: React.PropTypes.func.isRequired,
   onPageOpenDone: React.PropTypes.func,
   onPageCloseStart: React.PropTypes.func.isRequired,
+  onPageCloseForce: React.PropTypes.func.isRequired,
   onPageCloseDone: React.PropTypes.func,
 };
 
@@ -45,24 +46,28 @@ export default class MobileNavigationPageEngine extends React.Component {
   onPageActivityEnd() {
     const { pageState, onPageOpenDone, onPageCloseDone } = this.props;
     switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_DONE:
+      case PageStatusTypesEnum.OPEN_DONE: {
         if (onPageOpenDone) {
           onPageOpenDone();
         }
-        if (typeof this.cache.onOpenCallback !== 'function') {
+        const { onOpenCallback } = this.cache;
+        if (typeof onOpenCallback !== 'function') {
           return;
         }
-        this.cache.onOpenCallback();
+        onOpenCallback();
         return;
-      case PageStatusTypesEnum.CLOSE_DONE:
+      }
+      case PageStatusTypesEnum.CLOSE_DONE: {
         if (onPageCloseDone) {
           onPageCloseDone();
         }
-        if (typeof this.cache.onCloseCallback !== 'function') {
+        const { onCloseCallback } = this.cache;
+        if (typeof onCloseCallback !== 'function') {
           return;
         }
-        this.cache.onCloseCallback();
+        onCloseCallback();
         return;
+      }
       default:
         return;
     }
@@ -82,9 +87,9 @@ export default class MobileNavigationPageEngine extends React.Component {
       isAnimation,
       pageHeight,
       pageId,
+      pageStatusInit,
       pageState,
       pageWidth,
-      status,
       onActionSheetOpenStart,
       onActionSheetCloseStart,
       onAlertOpenStart,
@@ -96,41 +101,37 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageOpenHorizontalStart,
       onPageOpenVerticalStart,
       onPageCloseStart,
-      onPageCloseDone,
+      onPageCloseForce,
     } = this.props;
+    const { direction, status, zIndex } = pageState;
     return (
       <Interpolation
-        direction={pageState.direction}
+        direction={direction}
         isAnimation={isAnimation}
-        pageStatus={pageState.status}
-        status={status}
+        pageStatusInit={pageStatusInit || status}
+        pageStatus={status}
         onPageActivityEnd={this.onPageActivityEnd}
       >
         {React.cloneElement(children, {
-          actionSheetOpen: onActionSheetOpenStart,
-          actionSheetClose: onActionSheetCloseStart,
-          alertOpen: onAlertOpenStart,
-          comboBoxOpen: onComboBoxOpenStart,
-          comboBoxClose: onComboBoxCloseStart,
-          direction: pageState.direction,
-          modalOpen: onModalOpenStart,
-          modalClose: onModalCloseStart,
+          direction,
           pageHeight,
           pageId,
-          pageStatus: pageState.status,
           pageWidth,
-          pagingActions: {
-            openPage: onPageOpenStart,
-            openPageHorizontal: onPageOpenHorizontalStart,
-            openPageVertical: onPageOpenVerticalStart,
-            goBack: onPageCloseStart,
-            goBackForce: onPageCloseDone,
-          },
-          pagingCallbacks: {
-            setOnOpen: this.setOnOpen,
-            setOnClose: this.setOnClose,
-          },
-          zIndex: pageState.zIndex,
+          zIndex,
+          setOnPageOpenCallback: this.setOnOpen,
+          setOnPageCloseCallback: this.setOnClose,
+          onActionSheetOpen: onActionSheetOpenStart,
+          onActionSheetClose: onActionSheetCloseStart,
+          onAlertOpen: onAlertOpenStart,
+          onComboBoxOpen: onComboBoxOpenStart,
+          onComboBoxClose: onComboBoxCloseStart,
+          onModalOpen: onModalOpenStart,
+          onModalClose: onModalCloseStart,
+          onPageOpen: onPageOpenStart,
+          onPageOpenHorizontal: onPageOpenHorizontalStart,
+          onPageOpenVertical: onPageOpenVerticalStart,
+          onPageClose: onPageCloseStart,
+          onPageCloseForce,
         })}
       </Interpolation>
     );

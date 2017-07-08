@@ -3,7 +3,7 @@ import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
-export class SettingsLicencesPageComponent extends React.Component {
+export default class SettingsLicencesPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -12,14 +12,14 @@ export class SettingsLicencesPageComponent extends React.Component {
   }
 
   connectedHelpText() {
-    this.props.pagingActions.openPage(
+    this.props.onPageOpen(
       SettingsModeTypesEnum.HELP,
       DirectionEnum.HORIZONTAL
     );
   }
 
   closePageClick(e) {
-    this.props.pagingActions.goBack();
+    this.props.onPageClose();
   }
 
   render() {
@@ -37,10 +37,6 @@ export class SettingsLicencesPageComponent extends React.Component {
   }
 }
 
-SettingsLicencesPageComponent.defaultProps = {
-  pagingActions: undefined,
-};
+SettingsLicencesPageComponent.defaultProps = {};
 
-SettingsLicencesPageComponent.propTypes = {
-  pagingActions: React.PropTypes.any,
-};
+SettingsLicencesPageComponent.propTypes = {};

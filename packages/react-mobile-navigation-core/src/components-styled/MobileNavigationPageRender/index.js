@@ -10,5 +10,4 @@ export default styled.div.attrs({
   overflow: hidden;
   position: absolute;
   width: 100%;
-  transition: all 0.25s;
 `;

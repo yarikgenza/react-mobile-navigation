@@ -5,7 +5,6 @@ import MobileNavigationPageRender from './components-styled/MobileNavigationPage
 import MobileNavigationViewRender from './components-styled/MobileNavigationViewRender';
 import * as DirectionEnum from './constants/direction-types';
 import * as PageStatusTypesEnum from './constants/page-status-types';
-import actionPageStoreModel from './store-models/action-page-store-model';
 import getTranslate3dByDirection from './utils/animation-position';
 
 export {
@@ -16,7 +15,6 @@ export {
   MobileNavigationViewRender,
   DirectionEnum,
   PageStatusTypesEnum,
-  actionPageStoreModel,
   getTranslate3dByDirection,
 };
 
@@ -28,6 +26,5 @@ export default {
   MobileNavigationViewRender,
   DirectionEnum,
   PageStatusTypesEnum,
-  actionPageStoreModel,
   getTranslate3dByDirection,
 };

@@ -3,7 +3,7 @@ import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
-export class SettingsMainPageComponent extends React.Component {
+export default class SettingsMainPageComponent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -12,14 +12,14 @@ export class SettingsMainPageComponent extends React.Component {
   }
 
   connectedListText() {
-    this.props.pagingActions.openPage(
+    this.props.onPageOpen(
       SettingsModeTypesEnum.LICENSES,
       DirectionEnum.VERTICAL
     );
   }
 
   connectedHelpText() {
-    this.props.pagingActions.openPage(
+    this.props.onPageOpen(
       SettingsModeTypesEnum.HELP,
       DirectionEnum.HORIZONTAL
     );
@@ -40,10 +40,6 @@ export class SettingsMainPageComponent extends React.Component {
   }
 }
 
-SettingsMainPageComponent.defaultProps = {
-  pagingActions: undefined,
-};
+SettingsMainPageComponent.defaultProps = {};
 
-SettingsMainPageComponent.propTypes = {
-  pagingActions: React.PropTypes.any,
-};
+SettingsMainPageComponent.propTypes = {};

@@ -10,5 +10,5 @@ export default styled.div.attrs({
   height: auto;
   position: absolute;
   width: 100%;
-  transition: all 0.25s;
+  transition: transform 0.25s;
 `;
