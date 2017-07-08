@@ -3,7 +3,7 @@ import * as DirectionEnum from '../constants/direction-types';
 function getTransform(direction, transform) {
   return {
     transform,
-    transition: direction ? 'transform 0.25s' : undefined,
+    transition: direction ? 'transform 0.2s ease-in-out' : undefined,
   };
 }
 

@@ -2652,9 +2652,9 @@ react-dom@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
-react-mobile-navigation-core@^1.0.5-0:
-  version "1.0.5-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.5-0.tgz#ccca95b304c9322ddfa5e8266f21d842844c5c87"
+react-mobile-navigation-core@^1.0.6-0:
+  version "1.0.6-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.6-0.tgz#838a9aa79bf4bf05ba26353ef7fbc55312492324"
 
 react@~15.3.2:
   version "15.3.2"

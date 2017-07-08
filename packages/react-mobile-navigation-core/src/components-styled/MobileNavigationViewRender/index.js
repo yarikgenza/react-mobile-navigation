@@ -9,6 +9,6 @@ export default styled.div.attrs({
   bottom: 0;
   height: auto;
   position: absolute;
+  transition: transform 0.2s ease-in-out;
   width: 100%;
-  transition: transform 0.25s;
 `;
