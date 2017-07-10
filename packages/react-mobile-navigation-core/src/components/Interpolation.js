@@ -8,7 +8,8 @@ const propTypes = {
   isAnimation: React.PropTypes.bool.isRequired,
   pageStatusInit: React.PropTypes.string.isRequired,
   pageStatus: React.PropTypes.string.isRequired,
-  onPageActivityEnd: React.PropTypes.func.isRequired,
+  onPageOpenDone: React.PropTypes.func.isRequired,
+  onPageCloseDone: React.PropTypes.func.isRequired,
 };
 
 const defaultProps = {};
@@ -25,11 +26,12 @@ export default class Interpolation extends React.Component {
   }
 
   componentDidMount() {
-    const { direction, isAnimation, onPageActivityEnd } = this.props;
+    const { direction, isAnimation, onPageOpenDone } = this.props;
     // open with no animation
     if (direction === undefined) {
       // page is always mounted with an OPEN_DONE status, so no need to check
-      onPageActivityEnd();
+      onPageOpenDone();
+      return;
     }
     // open with animation
     //  isShow is already true, so no need to set
@@ -39,67 +41,77 @@ export default class Interpolation extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
     // with no animation
     if (newProps.direction === undefined) {
-      const { pageStatus, onPageActivityEnd } = this.props;
       // open the page
-      if (this.isPageOpen(pageStatus, newProps.pageStatus)) {
+      if (
+        pageStatus === PageStatusTypesEnum.CLOSE_DONE &&
+        newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
+      ) {
         this.setState(() => ({
           isShow: true,
         }));
-        onPageActivityEnd();
+        onPageOpenDone();
         return;
       }
       // close the page
-      if (this.isPageClose(pageStatus, newProps.pageStatus)) {
-        onPageActivityEnd();
+      if (
+        pageStatus === PageStatusTypesEnum.OPEN_DONE &&
+        newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
+      ) {
+        onPageCloseDone();
         return;
       }
       return;
     }
     // with animation
-    if (newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE) {
-      // open the page
+    if (
+      pageStatus === PageStatusTypesEnum.OPEN_DONE &&
+      newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE
+    ) {
+      // hide the page
       this.setState(() => ({
         translateValue: getSpringValue(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
       }));
       return;
     }
-    if (newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
+    if (
+      pageStatus === PageStatusTypesEnum.OPEN_DONE &&
+      newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
+    ) {
       // close the page
       this.setState(() => ({
         translateValue: getSpringValue(PageStatusTypesEnum.CLOSE_DONE),
       }));
       return;
     }
-    this.setState(() => ({
-      isShow: true,
-    }));
-    this.triggerPageOpenAnimation();
+    if (
+      pageStatus !== PageStatusTypesEnum.OPEN_DONE &&
+      newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
+    ) {
+      // open the page
+      this.setState(() => ({
+        isShow: true,
+      }));
+      this.triggerPageOpenAnimation();
+    }
   }
 
   onTransitionEnd() {
-    const { pageStatus, onPageActivityEnd } = this.props;
+    const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
     if (pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
+      // call page close after child dom is unmounted
       this.setState(() => ({
         isShow: false,
-      }));
+      }), () => {
+        onPageCloseDone();
+      });
+      return;
     }
-    onPageActivityEnd();
-  }
-
-  isPageOpen(statusBefore, statusAfter) {
-    return (
-      statusBefore === PageStatusTypesEnum.CLOSE_DONE &&
-      statusAfter === PageStatusTypesEnum.OPEN_DONE
-    );
-  }
-
-  isPageClose(statusBefore, statusAfter) {
-    return (
-      statusBefore === PageStatusTypesEnum.OPEN_DONE &&
-      statusAfter === PageStatusTypesEnum.CLOSE_DONE
-    );
+    if (pageStatus === PageStatusTypesEnum.OPEN_DONE) {
+      onPageOpenDone();
+    }
   }
 
   triggerPageOpenAnimation() {

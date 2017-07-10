@@ -34,7 +34,8 @@ export default class ActionSheet extends React.Component {
     this.onSelect = this.onSelect.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.onShadowClick = this.onShadowClick.bind(this);
-    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
   onSelect(selectedOption) {
@@ -59,27 +60,22 @@ export default class ActionSheet extends React.Component {
     this.onCancel();
   }
 
-  onPageActivityEnd() {
-    const { pageStatus, onSelect, onActionSheetOpenDone, onActionSheetCloseDone } = this.props;
-    switch (pageStatus) {
-      case PageStatusTypesEnum.OPEN_DONE:
-        onActionSheetOpenDone();
-        return;
-      case PageStatusTypesEnum.CLOSE_DONE: {
-        const { selectedOption } = this.state;
-        // set state until use does actions which can possibly unmount the component
-        this.setState(() => ({ selectedOption: undefined }));
-        onActionSheetCloseDone();
-        if (selectedOption && selectedOption.handler) {
-          selectedOption.handler();
-        }
-        if (onSelect && selectedOption) {
-          onSelect(selectedOption);
-        }
-        return;
-      }
-      default:
-        return;
+  onPageOpenDone() {
+    const { onActionSheetOpenDone } = this.props;
+    onActionSheetOpenDone();
+  }
+
+  onPageCloseDone() {
+    const { onSelect, onActionSheetCloseDone } = this.props;
+    const { selectedOption } = this.state;
+    // set state until use does actions which can possibly unmount the component
+    this.setState(() => ({ selectedOption: undefined }));
+    onActionSheetCloseDone();
+    if (selectedOption && selectedOption.handler) {
+      selectedOption.handler();
+    }
+    if (onSelect && selectedOption) {
+      onSelect(selectedOption);
     }
   }
 
@@ -96,7 +92,8 @@ export default class ActionSheet extends React.Component {
         isAnimation
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        onPageActivityEnd={this.onPageActivityEnd}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationShadowPage
           direction={direction}

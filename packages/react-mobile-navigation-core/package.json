@@ -1,18 +1,20 @@
 {
   "name": "react-mobile-navigation-core",
-  "version": "1.0.7-0",
+  "version": "1.0.8-0",
   "description": "React mobile mavigation core.",
   "author": {
     "name": "Rostyslav Khanas",
     "email": "rk@try.cards"
   },
-  "repository": {
-    "type": "git"
-  },
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint src",
     "build": "npm run lint && npm run clean && babel src --out-dir lib"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:opensource-cards/react-mobile-navigation.git"
   },
   "files": [
     "lib"

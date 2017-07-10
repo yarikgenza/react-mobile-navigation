@@ -33,7 +33,8 @@ export default class AlertBox extends React.Component {
   constructor(props) {
     super(props);
     this.timerAutoHideId = undefined;
-    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
   componentWillUnmount() {
@@ -41,21 +42,15 @@ export default class AlertBox extends React.Component {
     this.closeAlertForce();
   }
 
-  onPageActivityEnd() {
-    const { pageStatus, onAlertOpenDone, onAlertCloseDone } = this.props;
-    switch (pageStatus) {
-      case PageStatusTypesEnum.OPEN_DONE: {
-        onAlertOpenDone();
-        this.closeAlert();
-        return;
-      }
-      case PageStatusTypesEnum.CLOSE_DONE: {
-        onAlertCloseDone();
-        return;
-      }
-      default:
-        return;
-    }
+  onPageOpenDone() {
+    const { onAlertOpenDone } = this.props;
+    onAlertOpenDone();
+    this.closeAlert();
+  }
+
+  onPageCloseDone() {
+    const { onAlertCloseDone } = this.props;
+    onAlertCloseDone();
   }
 
   closeAlert() {
@@ -86,7 +81,8 @@ export default class AlertBox extends React.Component {
         isAnimation
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        onPageActivityEnd={this.onPageActivityEnd}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationView direction={direction} zIndex={zIndex} >
           {children}

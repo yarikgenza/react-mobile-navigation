@@ -31,22 +31,18 @@ export default class Modal extends React.Component {
     this.state = {
       selectedOption: undefined,
     };
-    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
-  onPageActivityEnd() {
-    const { pageStatus, onModalOpenDone, onModalCloseDone } = this.props;
-    switch (pageStatus) {
-      case PageStatusTypesEnum.OPEN_DONE:
-        onModalOpenDone();
-        return;
-      case PageStatusTypesEnum.CLOSE_DONE: {
-        onModalCloseDone();
-        return;
-      }
-      default:
-        return;
-    }
+  onPageOpenDone() {
+    const { onModalOpenDone } = this.props;
+    onModalOpenDone();
+  }
+
+  onPageCloseDone() {
+    const { onModalCloseDone } = this.props;
+    onModalCloseDone();
   }
 
   render() {
@@ -57,7 +53,8 @@ export default class Modal extends React.Component {
         isAnimation
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        onPageActivityEnd={this.onPageActivityEnd}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
           {children}

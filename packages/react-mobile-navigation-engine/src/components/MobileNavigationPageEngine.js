@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
+import { Interpolation } from 'react-mobile-navigation-core';
 
 const propTypes = {
   children: React.PropTypes.any.isRequired,
@@ -38,39 +38,36 @@ export default class MobileNavigationPageEngine extends React.Component {
       onOpenCallback: null,
       onCloseCallback: null,
     };
-    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
     this.setOnOpen = this.setOnOpen.bind(this);
     this.setOnClose = this.setOnClose.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
-  onPageActivityEnd() {
-    const { pageState, onPageOpenDone, onPageCloseDone } = this.props;
-    switch (pageState.status) {
-      case PageStatusTypesEnum.OPEN_DONE: {
-        if (onPageOpenDone) {
-          onPageOpenDone();
-        }
-        const { onOpenCallback } = this.cache;
-        if (typeof onOpenCallback !== 'function') {
-          return;
-        }
-        onOpenCallback();
-        return;
-      }
-      case PageStatusTypesEnum.CLOSE_DONE: {
-        if (onPageCloseDone) {
-          onPageCloseDone();
-        }
-        const { onCloseCallback } = this.cache;
-        if (typeof onCloseCallback !== 'function') {
-          return;
-        }
-        onCloseCallback();
-        return;
-      }
-      default:
-        return;
+  onPageOpenDone() {
+    const { onPageOpenDone } = this.props;
+    if (onPageOpenDone) {
+      onPageOpenDone();
     }
+    const { onOpenCallback } = this.cache;
+    if (typeof onOpenCallback !== 'function') {
+      return;
+    }
+    onOpenCallback();
+    return;
+  }
+
+  onPageCloseDone() {
+    const { onPageCloseDone } = this.props;
+    if (onPageCloseDone) {
+      onPageCloseDone();
+    }
+    const { onCloseCallback } = this.cache;
+    if (typeof onCloseCallback !== 'function') {
+      return;
+    }
+    onCloseCallback();
+    return;
   }
 
   setOnOpen(onOpenFn) {
@@ -110,7 +107,8 @@ export default class MobileNavigationPageEngine extends React.Component {
         isAnimation={isAnimation}
         pageStatusInit={pageStatusInit || status}
         pageStatus={status}
-        onPageActivityEnd={this.onPageActivityEnd}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         {React.cloneElement(children, {
           direction,

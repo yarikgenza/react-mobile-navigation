@@ -58,7 +58,8 @@ export default class ComboBox extends React.Component {
     this.onCancel = this.onCancel.bind(this);
     this.onTrySelectCustom = this.onTrySelectCustom.bind(this);
     this.onSetFilter = this.onSetFilter.bind(this);
-    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
   componentWillReceiveProps() {
@@ -109,46 +110,36 @@ export default class ComboBox extends React.Component {
     this.filteredItems = this.getFilteredItems(value);
   }
 
-  onPageActivityEnd() {
-    const {
-      pageStatus,
-      onSelectCustom,
-      onSelect,
-      onComboBoxOpenDone,
-      onComboBoxCloseDone,
-    } = this.props;
-    switch (pageStatus) {
-      case PageStatusTypesEnum.OPEN_DONE:
-        onComboBoxOpenDone();
-        return;
-      case PageStatusTypesEnum.CLOSE_DONE: {
-        const { selectedCustomOption, selectedOption } = this.state;
-        // set state until a user does actions which can possibly unmount the component
-        this.setState(() => ({
-          selectedCustomOption: undefined,
-          selectedOption: undefined,
-          textFilter: '',
-        }));
-        // option
-        if (selectedOption && selectedOption.handler) {
-          selectedOption.handler();
-        }
-        if (onSelect && selectedOption) {
-          onSelect(selectedOption);
-        }
-        // custom option
-        if (selectedCustomOption && selectedCustomOption.handler) {
-          selectedCustomOption.handler(selectedCustomOption.value);
-        }
-        if (onSelectCustom && selectedCustomOption) {
-          onSelectCustom(selectedCustomOption);
-        }
-        onComboBoxCloseDone();
-        return;
-      }
-      default:
-        return;
+  onPageOpenDone() {
+    const { onComboBoxOpenDone } = this.props;
+    onComboBoxOpenDone();
+  }
+
+  onPageCloseDone() {
+    const { onSelectCustom, onSelect, onComboBoxCloseDone } = this.props;
+    const { selectedCustomOption, selectedOption } = this.state;
+    // set state until a user does actions which can possibly unmount the component
+    this.setState(() => ({
+      selectedCustomOption: undefined,
+      selectedOption: undefined,
+      textFilter: '',
+    }));
+    // option
+    if (selectedOption && selectedOption.handler) {
+      selectedOption.handler();
     }
+    if (onSelect && selectedOption) {
+      onSelect(selectedOption);
+    }
+    // custom option
+    if (selectedCustomOption && selectedCustomOption.handler) {
+      selectedCustomOption.handler(selectedCustomOption.value);
+    }
+    if (onSelectCustom && selectedCustomOption) {
+      onSelectCustom(selectedCustomOption);
+    }
+    onComboBoxCloseDone();
+    return;
   }
 
   getFilteredItems(textFilter) {
@@ -185,7 +176,8 @@ export default class ComboBox extends React.Component {
         isAnimation
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        onPageActivityEnd={this.onPageActivityEnd}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
           <StackPage

@@ -21,7 +21,8 @@ export default class ActionSheet extends React.Component {
   constructor(props) {
     super(props);
     this.onShadowClick = this.onShadowClick.bind(this);
-    this.onPageActivityEnd = this.onPageActivityEnd.bind(this);
+    this.onPageOpenDone = this.onPageOpenDone.bind(this);
+    this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
   onShadowClick() {
@@ -32,7 +33,24 @@ export default class ActionSheet extends React.Component {
     this.props.onCancel();
   }
 
-  onPageActivityEnd() {
+  onPageOpenDone() {
+    switch (this.props.pageStatus) {
+      case PageStatusTypesEnum.OPEN_DONE:
+        this.props.pagingActions.openPageDone(
+          this.props.pageId
+        );
+        return;
+      case PageStatusTypesEnum.CLOSE_DONE:
+        this.props.pagingActions.goBack(
+          this.props.pageId
+        );
+        return;
+      default:
+        return;
+    }
+  }
+
+  onPageCloseDone() {
     switch (this.props.pageStatus) {
       case PageStatusTypesEnum.OPEN_DONE:
         this.props.pagingActions.openPageDone(
@@ -56,7 +74,8 @@ export default class ActionSheet extends React.Component {
         isAnimation
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
-        onPageActivityEnd={this.onPageActivityEnd}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationShadowPage onShadowClick={this.onShadowClick} >
           <ActionSheetListComponent />
