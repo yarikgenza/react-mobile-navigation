@@ -15,6 +15,7 @@ const propTypes = {
     React.PropTypes.string,
   ]),
   direction: React.PropTypes.string.isRequired,
+  isShow: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
   pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
@@ -46,12 +47,12 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    const { children, direction, pageHeight, pageStatus, zIndex } = this.props;
+    const { children, direction, isShow, pageHeight, pageStatus, zIndex } = this.props;
     return (
       <Interpolation
         direction={direction}
         isAnimation
-        isShow
+        isShow={isShow}
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}

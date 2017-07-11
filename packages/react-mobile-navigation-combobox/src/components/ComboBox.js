@@ -18,6 +18,7 @@ const propTypes = {
   direction: React.PropTypes.string.isRequired,
   inputPlaceholder: React.PropTypes.string,
   isBold: React.PropTypes.bool,
+  isShow: React.PropTypes.bool.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   headerStyle: React.PropTypes.object.isRequired,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
@@ -161,6 +162,7 @@ export default class ComboBox extends React.Component {
       headerStyle,
       inputPlaceholder,
       isBold,
+      isShow,
       noOptionsMatchingInputLabel,
       pageHeight,
       pageWidth,
@@ -174,7 +176,7 @@ export default class ComboBox extends React.Component {
       <Interpolation
         direction={direction}
         isAnimation
-        isShow
+        isShow={isShow}
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}

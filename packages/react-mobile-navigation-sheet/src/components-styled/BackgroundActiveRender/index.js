@@ -12,7 +12,7 @@ export default styled.div.attrs({
   bottom: 0;
   left: 0;
   right: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000);
   z-index: 1;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;

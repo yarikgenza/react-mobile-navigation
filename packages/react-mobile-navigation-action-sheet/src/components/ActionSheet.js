@@ -6,6 +6,7 @@ import ActionSheetList from './ActionSheetList';
 const propTypes = {
   cancelLabel: React.PropTypes.string,
   direction: React.PropTypes.string.isRequired,
+  isShow: React.PropTypes.bool.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
@@ -85,12 +86,12 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
-    const { cancelLabel, direction, items, pageStatus, zIndex } = this.props;
+    const { cancelLabel, direction, isShow, items, pageStatus, zIndex } = this.props;
     return (
       <Interpolation
         direction={direction}
         isAnimation
-        isShow
+        isShow={isShow}
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}

@@ -39,15 +39,19 @@ export default class MobileNavigation extends React.Component {
     this.memoizedNavigation = undefined;
     this.state = {
       actionSheet: {
+        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       alert: {
+        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       comboBox: {
+        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       modal: {
+        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       navigation: props.initState,
@@ -81,99 +85,123 @@ export default class MobileNavigation extends React.Component {
   onActionSheetOpenStart(props, direction) {
     this.memoizedActionSheet = props;
     this.memoizedActionSheetDirection = direction;
-    this.setState(() => ({
-      actionSheet: {
+    this.setState((prevState) => ({
+      actionSheet: Object.assign({}, prevState.actionSheet, {
+        isShow: true,
         status: PageStatusTypesEnum.OPEN_DONE,
-      },
+      }),
     }));
   }
 
   onActionSheetOpenDone() {}
 
   onActionSheetCloseStart() {
-    this.setState(() => ({
-      actionSheet: {
+    this.setState((prevState) => ({
+      actionSheet: Object.assign({}, prevState.actionSheet, {
         status: PageStatusTypesEnum.CLOSE_DONE,
-      },
+      }),
     }));
   }
 
   onActionSheetCloseDone() {
     this.memoizedActionSheet = undefined;
     this.memoizedActionSheetDirection = undefined;
+    this.setState((prevState) => ({
+      actionSheet: Object.assign({}, prevState.actionSheet, {
+        isShow: false,
+      }),
+    }));
   }
 
   onAlertOpenStart(props) {
     this.memoizedAlert = props;
-    this.setState(() => ({
-      alert: {
+    this.setState((prevState) => ({
+      alert: Object.assign({}, prevState.alert, {
+        isShow: true,
         status: PageStatusTypesEnum.OPEN_DONE,
-      },
+      }),
     }));
   }
 
   onAlertOpenDone() { }
 
   onAlertCloseStart() {
-    this.setState(() => ({
-      alert: {
+    this.setState((prevState) => ({
+      alert: Object.assign({}, prevState.alert, {
         status: PageStatusTypesEnum.CLOSE_DONE,
-      },
+      }),
     }));
   }
 
   onAlertCloseDone() {
     this.memoizedAlert = undefined;
+    this.setState((prevState) => ({
+      alert: Object.assign({}, prevState.alert, {
+        isShow: false,
+      }),
+    }));
   }
 
   onComboBoxOpenStart(props, direction) {
     this.memoizedComboBox = props;
     this.memoizedComboBoxDirection = direction;
-    this.setState(() => ({
-      comboBox: {
+    this.setState((prevState) => ({
+      comboBox: Object.assign({}, prevState.comboBox, {
+        isShow: true,
         status: PageStatusTypesEnum.OPEN_DONE,
-      },
+      }),
     }));
   }
 
   onComboBoxOpenDone() { }
 
   onComboBoxCloseStart() {
-    this.setState(() => ({
-      comboBox: {
+    this.setState((prevState) => ({
+      comboBox: Object.assign({}, prevState.comboBox, {
         status: PageStatusTypesEnum.CLOSE_DONE,
-      },
+      }),
     }));
   }
 
   onComboBoxCloseDone() {
     this.memoizedComboBox = undefined;
     this.memoizedComboBoxDirection = undefined;
+    this.setState((prevState) => ({
+      comboBox: Object.assign({}, prevState.comboBox, {
+        isShow: false,
+      }),
+    }));
   }
 
   onModalOpenStart(props, direction) {
     this.memoizedModal = props;
     this.memoizedModalDirection = direction;
-    this.setState(() => ({
-      modal: {
+    this.setState((prevState) => ({
+      modal: Object.assign({}, prevState.modal, {
+        isShow: true,
         status: PageStatusTypesEnum.OPEN_DONE,
-      },
+      }),
     }));
   }
 
   onModalOpenDone() { }
 
   onModalCloseStart() {
-    this.setState(() => ({
-      modal: {
+    this.setState((prevState) => ({
+      modal: Object.assign({}, prevState.modal, {
         status: PageStatusTypesEnum.CLOSE_DONE,
-      },
+      }),
     }));
   }
 
   onModalCloseDone() {
     this.memoizedModal = undefined;
     this.memoizedModalDirection = undefined;
+    this.setState((prevState) => ({
+      modal: Object.assign({}, prevState.modal, {
+        isShow: false,
+      }),
+    }));
   }
 
   onPageOpenStart(pageIdNew, direction) {
@@ -183,17 +211,17 @@ export default class MobileNavigation extends React.Component {
       return;
     }
     this.memoizedNavigation = navigation;
-    this.setState(() => ({
-      navigation: Object.assign({}, navigation, {
+    this.setState((prevState) => ({
+      navigation: Object.assign({}, prevState.navigation, {
         actionMeta: {
           type: PAGE_OPEN_START,
           pageId: pageIdNew,
         },
         pageIdActive: pageIdNew,
         pages: stackPagingReducers(
-          navigation.pages,
+          prevState.navigation.pages,
           { type: PAGE_OPEN_START, pageIdNew, direction },
-          getPrevPageId(navigation, pageIdNew),
+          getPrevPageId(prevState.navigation, pageIdNew),
         ),
       }),
     }));
@@ -212,15 +240,14 @@ export default class MobileNavigation extends React.Component {
   }
 
   onPageOpenDone() {
-    const { navigation } = this.state;
     this.memoizedNavigation = undefined;
-    this.setState(() => ({
-      navigation: Object.assign({}, navigation, {
+    this.setState((prevState) => ({
+      navigation: Object.assign({}, prevState.navigation, {
         actionMeta: undefined,
         pages: stackPagingReducers(
-          navigation.pages,
+          prevState.navigation.pages,
           { type: PAGE_OPEN_DONE },
-          navigation.pageIdActive
+          prevState.navigation.pageIdActive
         ),
       }),
     }));
@@ -229,45 +256,49 @@ export default class MobileNavigation extends React.Component {
   onPageCloseStart() {
     const { navigation } = this.state;
     this.memoizedNavigation = navigation;
-    this.setState(() => ({
-      navigation: Object.assign({}, navigation, {
+    this.setState((prevState) => ({
+      navigation: Object.assign({}, prevState.navigation, {
         actionMeta: {
           type: PAGE_CLOSE_START,
-          pageId: navigation.pageIdActive,
+          pageId: prevState.navigation.pageIdActive,
         },
         pages: stackPagingReducers(
-          navigation.pages,
+          prevState.navigation.pages,
           { type: PAGE_CLOSE_START },
-          navigation.pageIdActive
+          prevState.navigation.pageIdActive
         ),
       }),
     }));
   }
 
   onPageCloseForce() {
-    const { navigation } = this.state;
-    this.setState(() => ({
-      navigation: Object.assign({}, navigation, {
-        pageIdActive: getPrevPageById(navigation.pages, navigation.pageIdActive),
+    this.setState((prevState) => ({
+      navigation: Object.assign({}, prevState.navigation, {
+        actionMeta: {
+          type: PAGE_CLOSE_DONE_FORCE,
+          pageId: prevState.navigation.pageIdActive,
+        },
         pages: stackPagingReducers(
-          navigation.pages,
+          prevState.navigation.pages,
           { type: PAGE_CLOSE_DONE_FORCE },
-          navigation.pageIdActive
+          prevState.navigation.pageIdActive
         ),
       }),
     }));
   }
 
   onPageCloseDone() {
-    const { navigation } = this.state;
-    this.setState(() => ({
-      navigation: Object.assign({}, navigation, {
+    this.setState((prevState) => ({
+      navigation: Object.assign({}, prevState.navigation, {
         actionMeta: undefined,
-        pageIdActive: getPrevPageById(navigation.pages, navigation.pageIdActive),
+        pageIdActive: getPrevPageById(
+          prevState.navigation.pages,
+          prevState.navigation.pageIdActive
+        ),
         pages: stackPagingReducers(
-          navigation.pages,
+          prevState.navigation.pages,
           { type: PAGE_CLOSE_DONE },
-          navigation.pageIdActive
+          prevState.navigation.pageIdActive
         ),
       }),
     }), () => {
@@ -300,7 +331,6 @@ export default class MobileNavigation extends React.Component {
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
-    console.log('navigation', navigation);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
@@ -346,8 +376,10 @@ export default class MobileNavigation extends React.Component {
               onPageCloseStart={this.onPageCloseStart}
               onPageCloseForce={this.onPageCloseForce}
               onPageCloseDone={
-                navigation.actionMeta &&
-                navigation.actionMeta.type === PAGE_CLOSE_START &&
+                navigation.actionMeta && (
+                  navigation.actionMeta.type === PAGE_CLOSE_START ||
+                  navigation.actionMeta.type === PAGE_CLOSE_DONE_FORCE
+                ) &&
                 navigation.actionMeta.pageId === pageId
                   ? this.onPageCloseDone
                   : undefined
@@ -367,6 +399,7 @@ export default class MobileNavigation extends React.Component {
             items={this.memoizedComboBox.items}
             inputPlaceholder={this.memoizedComboBox.inputPlaceholder}
             isBold={this.memoizedComboBox.isBold}
+            isShow={comboBox.isShow}
             noOptionsMatchingInputLabel={this.memoizedComboBox.noOptionsMatchingInputLabel}
             pageHeight={pageHeight}
             pageWidth={pageWidth}
@@ -387,6 +420,7 @@ export default class MobileNavigation extends React.Component {
         {this.memoizedModal && (
           <Modal
             direction={this.memoizedModalDirection}
+            isShow={modal.isShow}
             pageHeight={pageHeight}
             pageStatus={modal.status}
             zIndex={1001}
@@ -400,6 +434,7 @@ export default class MobileNavigation extends React.Component {
           <AlertBox
             autoHideDuration={this.memoizedAlert.autoHideDuration}
             direction={DirectionEnum.VERTICAL}
+            isShow={alert.isShow}
             pageStatus={alert.status}
             zIndex={1002}
             onAlertOpenDone={this.onAlertOpenDone}
@@ -413,6 +448,7 @@ export default class MobileNavigation extends React.Component {
           <ActionSheet
             cancelLabel={this.memoizedActionSheet.cancelLabel}
             direction={this.memoizedActionSheetDirection}
+            isShow={actionSheet.isShow}
             items={this.memoizedActionSheet.items}
             pageStatus={actionSheet.status}
             zIndex={1003}

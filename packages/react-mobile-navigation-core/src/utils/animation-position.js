@@ -3,7 +3,7 @@ import * as DirectionEnum from '../constants/direction-types';
 function getTransform(direction, transform) {
   return {
     transform,
-    transition: direction ? 'transform 500ms cubic-bezier(0.190, 1.000, 0.220, 1.000)' : undefined,
+    transition: direction ? 'transform 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000)' : undefined,
   };
 }
 

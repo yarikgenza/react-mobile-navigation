@@ -77,13 +77,12 @@ export default (state = initialState, action, pageIdActive) => {
       return Object.assign({}, state, {
         [pageIdActive]: Object.assign({}, state[pageIdActive], {
           direction: undefined,
-          prevPageId: undefined,
-          status: PageStatusTypesEnum.CLOSE_DONE,
+          status: PageStatusTypesEnum.CLOSE_START,
           zIndex: 0,
         }),
         [pageIdActivePrev]: Object.assign({}, state[pageIdActivePrev], {
           direction: undefined,
-          status: PageStatusTypesEnum.OPEN_DONE,
+          status: PageStatusTypesEnum.OPEN_START,
         }),
       });
     }
