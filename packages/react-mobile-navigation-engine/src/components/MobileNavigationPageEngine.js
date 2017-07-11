@@ -1,5 +1,5 @@
 import React from 'react';
-import { Interpolation } from 'react-mobile-navigation-core';
+import { Interpolation, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 const propTypes = {
   children: React.PropTypes.any.isRequired,
@@ -79,6 +79,21 @@ export default class MobileNavigationPageEngine extends React.Component {
     this.cache.onCloseCallback = onCloseFn;
   }
 
+  getStatus() {
+    const { pageState } = this.props;
+    const { status } = pageState;
+    if (status === PageStatusTypesEnum.BACK_ANIMATING_OUT_START) {
+      return PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE;
+    }
+    if (status === PageStatusTypesEnum.CLOSE_START) {
+      return PageStatusTypesEnum.CLOSE_DONE;
+    }
+    if (status === PageStatusTypesEnum.OPEN_START) {
+      return PageStatusTypesEnum.OPEN_DONE;
+    }
+    return status;
+  }
+
   render() {
     const {
       children,
@@ -102,14 +117,19 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageCloseStart,
       onPageCloseForce,
     } = this.props;
-    const { direction, isShow, status, zIndex } = pageState;
+    const { direction, status, zIndex } = pageState;
+    const statusValidated = this.getStatus();
+    // console.log(isShow);
     return (
       <Interpolation
         direction={direction}
         isAnimation={isAnimation}
-        isShow={isShow}
-        pageStatusInit={pageStatusInit || status}
-        pageStatus={status}
+        isShow={
+          status !== PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE &&
+          status !== PageStatusTypesEnum.CLOSE_DONE
+        }
+        pageStatusInit={pageStatusInit || statusValidated}
+        pageStatus={statusValidated}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >

@@ -10,7 +10,7 @@ import { getPagingPrevPageById } from '../utils/page-manager';
 
 const initialState = {
   direction: undefined,
-  isShow: false,
+  // isShow: false,
   prevPageId: undefined,
   status: undefined,
   zIndex: undefined,
@@ -21,34 +21,44 @@ export default (state = initialState, action, activePageId) => {
     case PAGE_OPEN_START: {
       const zIndex = state[activePageId].zIndex + 1;
       return Object.assign({}, state, {
-        [action.pageIdNew]: action.direction ? Object.assign({}, state[action.pageIdNew], {
-          direction: action.direction,
-          isShow: true,
-          prevPageId: activePageId,
-          status: PageStatusTypesEnum.OPEN_DONE,
-          zIndex,
-        }) : Object.assign({}, state[action.pageIdNew], {
-          direction: undefined,
-          isShow: true,
-          prevPageId: activePageId,
-          status: PageStatusTypesEnum.OPEN_DONE,
-          zIndex,
-        }),
-        [activePageId]: action.direction ? Object.assign({}, state[activePageId], {
-          direction: action.direction,
-          status: PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE,
-        }) : Object.assign({}, state[activePageId], {
-          direction: undefined,
-          isShow: false,
-          status: PageStatusTypesEnum.CLOSE_DONE,
-        }),
+        [action.pageIdNew]: action.direction !== undefined
+          ? Object.assign({}, state[action.pageIdNew], {
+            direction: action.direction,
+            // isShow: true,
+            prevPageId: activePageId,
+            status: PageStatusTypesEnum.OPEN_START,
+            zIndex,
+          }) : Object.assign({}, state[action.pageIdNew], {
+            direction: undefined,
+            // isShow: true,
+            prevPageId: activePageId,
+            status: PageStatusTypesEnum.OPEN_START,
+            zIndex,
+          }),
+        [activePageId]: action.direction !== undefined
+          ? Object.assign({}, state[activePageId], {
+            direction: action.direction,
+            status: PageStatusTypesEnum.BACK_ANIMATING_OUT_START,
+          }) : Object.assign({}, state[activePageId], {
+            direction: undefined,
+            // isShow: false,
+            status: PageStatusTypesEnum.CLOSE_DONE,
+          }),
       });
     }
     case PAGE_OPEN_DONE: {
       const activePageIdPrev = getPagingPrevPageById(state, activePageId);
       return Object.assign({}, state, {
-        [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
-          isShow: false,
+        [activePageIdPrev]: state[activePageIdPrev].direction !== undefined
+          ? Object.assign({}, state[activePageIdPrev], {
+            // isShow: false,
+            status: PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE,
+          }) : Object.assign({}, state[activePageIdPrev], {
+            // isShow: false,
+            status: PageStatusTypesEnum.CLOSE_DONE,
+          }),
+        [activePageId]: Object.assign({}, state[activePageId], {
+          status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });
     }
@@ -57,17 +67,17 @@ export default (state = initialState, action, activePageId) => {
       return Object.assign({}, state, {
         [activePageId]: state[activePageId].direction !== undefined
           ? Object.assign({}, state[activePageId], {
-            status: PageStatusTypesEnum.CLOSE_DONE,
+            status: PageStatusTypesEnum.CLOSE_START,
           }) : Object.assign({}, state[activePageId], {
             direction: undefined,
             // isShow: false,
             // prevPageId: undefined,
-            status: PageStatusTypesEnum.CLOSE_DONE,
+            status: PageStatusTypesEnum.CLOSE_START,
             zIndex: 0,
           }),
         [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
-          isShow: true,
-          status: PageStatusTypesEnum.OPEN_DONE,
+          // isShow: true,
+          status: PageStatusTypesEnum.OPEN_START,
         }),
       });
     }
@@ -76,15 +86,16 @@ export default (state = initialState, action, activePageId) => {
       return Object.assign({}, state, {
         [activePageId]: Object.assign({}, state[activePageId], {
           direction: undefined,
-          isShow: false,
+          // isShow: false,
           prevPageId: undefined,
-          // status: PageStatusTypesEnum.CLOSE_DONE
+          status: PageStatusTypesEnum.CLOSE_DONE,
           zIndex: 0,
         }),
         [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
           direction: state[activePageIdPrev].prevPageId
             ? state[state[activePageIdPrev].prevPageId].direction
             : undefined,
+          status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });
     }
@@ -93,14 +104,14 @@ export default (state = initialState, action, activePageId) => {
       return Object.assign({}, state, {
         [activePageId]: Object.assign({}, state[activePageId], {
           direction: undefined,
-          isShow: false,
+          // isShow: false,
           prevPageId: undefined,
           status: PageStatusTypesEnum.CLOSE_DONE,
           zIndex: 0,
         }),
         [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
           direction: undefined,
-          isShow: true,
+          // isShow: true,
           status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });

@@ -23,7 +23,7 @@ export function getPrevPageId(state, pageId) {
 export function getInitPage(isDefaultPage) {
   return {
     direction: undefined,
-    isShow: false,
+    // isShow: false,
     prevPageId: undefined,
     status: isDefaultPage ? OPEN_DONE : CLOSE_DONE,
     zIndex: isDefaultPage ? 1 : 0,

@@ -283,7 +283,10 @@ export default class MobileNavigation extends React.Component {
     }
     // is before active page and should be visible
     const activePageState = this.getPageState(activePageId);
-    if (activePageState.isShow === true && activePageState.prevPageId === pageId) {
+    if (
+      activePageState.status !== PageStatusTypesEnum.OPEN_DONE &&
+      activePageState.prevPageId === pageId
+    ) {
       return true;
     }
     return false;

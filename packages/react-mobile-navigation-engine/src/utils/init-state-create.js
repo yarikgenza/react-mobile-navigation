@@ -24,7 +24,7 @@ export default (activePageId, pagesList, actions = []) => (
         }),
         [newPageId]: Object.assign({}, accumulator.pages[newPageId], {
           direction: action.direction,
-          isShow: true,
+          // isShow: true,
           prevPageId: currentPageId,
           status: OPEN_DONE,
           zIndex: accumulator.pages[currentPageId].zIndex + 1,
