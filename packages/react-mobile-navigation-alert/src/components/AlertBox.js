@@ -79,6 +79,7 @@ export default class AlertBox extends React.Component {
       <Interpolation
         direction={direction}
         isAnimation
+        isShow
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}

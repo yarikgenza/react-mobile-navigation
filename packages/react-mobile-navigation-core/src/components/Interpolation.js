@@ -6,6 +6,7 @@ const propTypes = {
   children: React.PropTypes.element.isRequired,
   direction: React.PropTypes.string,
   isAnimation: React.PropTypes.bool.isRequired,
+  isShow: React.PropTypes.bool.isRequired,
   pageStatusInit: React.PropTypes.string.isRequired,
   pageStatus: React.PropTypes.string.isRequired,
   onPageOpenDone: React.PropTypes.func.isRequired,
@@ -19,7 +20,6 @@ export default class Interpolation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isShow: true,
       translateValue: getSpringValue(props.pageStatusInit),
     };
     this.onTransitionEnd = this.onTransitionEnd.bind(this);
@@ -34,7 +34,6 @@ export default class Interpolation extends React.Component {
       return;
     }
     // open with animation
-    // isShow is already true, so no need to set
     if (isAnimation) {
       this.triggerPageOpenAnimation();
     }
@@ -49,9 +48,6 @@ export default class Interpolation extends React.Component {
         pageStatus === PageStatusTypesEnum.CLOSE_DONE &&
         newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
       ) {
-        this.setState(() => ({
-          isShow: true,
-        }));
         onPageOpenDone();
         return;
       }
@@ -91,9 +87,6 @@ export default class Interpolation extends React.Component {
       newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
     ) {
       // open the page
-      this.setState(() => ({
-        isShow: true,
-      }));
       this.triggerPageOpenAnimation();
     }
   }
@@ -101,12 +94,7 @@ export default class Interpolation extends React.Component {
   onTransitionEnd() {
     const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
     if (pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
-      // call page close after child dom is unmounted
-      this.setState(() => ({
-        isShow: false,
-      }), () => {
-        onPageCloseDone();
-      });
+      onPageCloseDone();
       return;
     }
     if (pageStatus === PageStatusTypesEnum.OPEN_DONE) {
@@ -125,8 +113,8 @@ export default class Interpolation extends React.Component {
   }
 
   render() {
-    const { children, pageStatus } = this.props;
-    const { isShow, translateValue } = this.state;
+    const { children, isShow, pageStatus } = this.props;
+    const { translateValue } = this.state;
     return React.cloneElement(React.Children.only(children), {
       isShow,
       pageStatus,

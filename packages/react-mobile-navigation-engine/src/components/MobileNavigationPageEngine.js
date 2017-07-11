@@ -22,6 +22,7 @@ const propTypes = {
   onPageOpenStart: React.PropTypes.func.isRequired,
   onPageOpenHorizontalStart: React.PropTypes.func.isRequired,
   onPageOpenVerticalStart: React.PropTypes.func.isRequired,
+  onPageOpenForce: React.PropTypes.func.isRequired,
   onPageOpenDone: React.PropTypes.func,
   onPageCloseStart: React.PropTypes.func.isRequired,
   onPageCloseForce: React.PropTypes.func.isRequired,
@@ -97,14 +98,16 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageOpenStart,
       onPageOpenHorizontalStart,
       onPageOpenVerticalStart,
+      onPageOpenForce,
       onPageCloseStart,
       onPageCloseForce,
     } = this.props;
-    const { direction, status, zIndex } = pageState;
+    const { direction, isShow, status, zIndex } = pageState;
     return (
       <Interpolation
         direction={direction}
         isAnimation={isAnimation}
+        isShow={isShow}
         pageStatusInit={pageStatusInit || status}
         pageStatus={status}
         onPageOpenDone={this.onPageOpenDone}
@@ -126,6 +129,7 @@ export default class MobileNavigationPageEngine extends React.Component {
           onModalOpen: onModalOpenStart,
           onModalClose: onModalCloseStart,
           onPageOpen: onPageOpenStart,
+          onPageOpenForce,
           onPageOpenHorizontal: onPageOpenHorizontalStart,
           onPageOpenVertical: onPageOpenVerticalStart,
           onPageClose: onPageCloseStart,

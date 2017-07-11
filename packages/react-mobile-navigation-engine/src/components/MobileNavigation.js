@@ -6,6 +6,7 @@ import { DirectionEnum, PageStatusTypesEnum } from 'react-mobile-navigation-core
 import Modal from 'react-mobile-navigation-modal';
 import {
   PAGE_OPEN_START,
+  PAGE_OPEN_DONE,
   PAGE_CLOSE_START,
   PAGE_CLOSE_DONE,
   PAGE_CLOSE_DONE_FORCE,
@@ -71,6 +72,7 @@ export default class MobileNavigation extends React.Component {
     this.onPageOpenStart = this.onPageOpenStart.bind(this);
     this.onPageOpenHorizontalStart = this.onPageOpenHorizontalStart.bind(this);
     this.onPageOpenVerticalStart = this.onPageOpenVerticalStart.bind(this);
+    this.onPageOpenForce = this.onPageOpenForce.bind(this);
     this.onPageOpenDone = this.onPageOpenDone.bind(this);
     this.onPageCloseStart = this.onPageCloseStart.bind(this);
     this.onPageCloseForce = this.onPageCloseForce.bind(this);
@@ -203,9 +205,23 @@ export default class MobileNavigation extends React.Component {
     this.onPageOpenStart(pageIdNew, DirectionEnum.VERTICAL);
   }
 
+  onPageOpenForce() {
+    // TODO:
+  }
+
   onPageOpenDone() {
+    const { navigation } = this.state;
     this.memoizedNavigation = undefined;
     this.memoizedNavigationAction = false;
+    this.setState(() => ({
+      navigation: Object.assign({}, navigation, {
+        pages: stackPagingReducers(
+          navigation.pages,
+          { type: PAGE_OPEN_DONE },
+          navigation.activePageId
+        ),
+      }),
+    }));
   }
 
   onPageCloseStart() {
@@ -259,34 +275,24 @@ export default class MobileNavigation extends React.Component {
     return navigation.pages[prevPageId];
   }
 
-  /**
-   * Render only visible and the previous pages.
-   * @param {*} activePageId
-   */
   isVisiblePage(activePageId, pageId) {
+    // return this.getPageState(pageId).isShow;
     // is active page
     if (activePageId === pageId) {
       return true;
     }
-    // is before active page
-    if (this.getPageState(activePageId).prevPageId === pageId) {
+    // is before active page and should be visible
+    const activePageState = this.getPageState(activePageId);
+    if (activePageState.isShow === true && activePageState.prevPageId === pageId) {
       return true;
     }
     return false;
   }
 
-  bindActionCreators(actionCreator, dispatch) {
-    return Object.keys(actionCreator)
-      .reduce((accumulator, value) => (
-        Object.assign(accumulator, {
-          [value]: (...props) => { dispatch(actionCreator[value](...props)); },
-        })
-      ), {});
-  }
-
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
+    console.log('navigation', navigation);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
@@ -317,6 +323,7 @@ export default class MobileNavigation extends React.Component {
               onPageOpenStart={this.onPageOpenStart}
               onPageOpenHorizontalStart={this.onPageOpenHorizontalStart}
               onPageOpenVerticalStart={this.onPageOpenVerticalStart}
+              onPageOpenForce={this.onPageOpenForce}
               onPageOpenDone={
                 // pass a callback only if an active page
                 navigation.activePageId === pageId
@@ -336,33 +343,6 @@ export default class MobileNavigation extends React.Component {
             </MobileNavigationPageEngine>
           );
         })}
-        {this.memoizedActionSheet && (
-          <ActionSheet
-            cancelLabel={this.memoizedActionSheet.cancelLabel}
-            direction={this.memoizedActionSheetDirection}
-            items={this.memoizedActionSheet.items}
-            pageStatus={actionSheet.status}
-            zIndex={1003}
-            onSelect={this.memoizedActionSheet.onSelect}
-            onCancel={this.memoizedActionSheet.onCancel}
-            onActionSheetOpenDone={this.onActionSheetOpenDone}
-            onActionSheetCloseStart={this.onActionSheetCloseStart}
-            onActionSheetCloseDone={this.onActionSheetCloseDone}
-          />
-        )}
-        {this.memoizedAlert && (
-          <AlertBox
-            autoHideDuration={this.memoizedAlert.autoHideDuration}
-            direction={DirectionEnum.VERTICAL}
-            pageStatus={alert.status}
-            zIndex={1002}
-            onAlertOpenDone={this.onAlertOpenDone}
-            onAlertCloseStart={this.onAlertCloseStart}
-            onAlertCloseDone={this.onAlertCloseDone}
-          >
-            {this.memoizedAlert.render()}
-          </AlertBox>
-        )}
         {this.memoizedComboBox && (
           <ComboBox
             allowCustomValue={this.memoizedComboBox.allowCustomValue}
@@ -401,6 +381,33 @@ export default class MobileNavigation extends React.Component {
           >
             {this.memoizedModal.render()}
           </Modal>
+        )}
+        {this.memoizedAlert && (
+          <AlertBox
+            autoHideDuration={this.memoizedAlert.autoHideDuration}
+            direction={DirectionEnum.VERTICAL}
+            pageStatus={alert.status}
+            zIndex={1002}
+            onAlertOpenDone={this.onAlertOpenDone}
+            onAlertCloseStart={this.onAlertCloseStart}
+            onAlertCloseDone={this.onAlertCloseDone}
+          >
+            {this.memoizedAlert.render()}
+          </AlertBox>
+        )}
+        {this.memoizedActionSheet && (
+          <ActionSheet
+            cancelLabel={this.memoizedActionSheet.cancelLabel}
+            direction={this.memoizedActionSheetDirection}
+            items={this.memoizedActionSheet.items}
+            pageStatus={actionSheet.status}
+            zIndex={1003}
+            onSelect={this.memoizedActionSheet.onSelect}
+            onCancel={this.memoizedActionSheet.onCancel}
+            onActionSheetOpenDone={this.onActionSheetOpenDone}
+            onActionSheetCloseStart={this.onActionSheetCloseStart}
+            onActionSheetCloseDone={this.onActionSheetCloseDone}
+          />
         )}
       </MobileNavigationRender>
     );
