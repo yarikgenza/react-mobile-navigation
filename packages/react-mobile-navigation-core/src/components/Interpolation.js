@@ -34,7 +34,7 @@ export default class Interpolation extends React.Component {
       return;
     }
     // open with animation
-    //  isShow is already true, so no need to set
+    // isShow is already true, so no need to set
     if (isAnimation) {
       this.triggerPageOpenAnimation();
     }
