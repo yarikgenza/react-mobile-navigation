@@ -88,7 +88,9 @@ export default class Interpolation extends React.Component {
     ) {
       // open the page
       this.triggerPageOpenAnimation();
+      return;
     }
+    return;
   }
 
   onTransitionEnd() {
@@ -99,7 +101,9 @@ export default class Interpolation extends React.Component {
     }
     if (pageStatus === PageStatusTypesEnum.OPEN_DONE) {
       onPageOpenDone();
+      return;
     }
+    return;
   }
 
   triggerPageOpenAnimation() {

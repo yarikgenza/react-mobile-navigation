@@ -2,28 +2,27 @@ import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 const { OPEN_DONE, CLOSE_DONE } = PageStatusTypesEnum;
 
-export function getPagingPrevPageById(pages, activePageId) {
-  return pages[activePageId].prevPageId;
+export function getPagingPrevPageById(pages, pageIdActive) {
+  return pages[pageIdActive].prevPageId;
 }
 
 function isCurrentPageActive(state, pageId) {
-  return pageId === state.activePageId;
+  return pageId === state.pageIdActive;
 }
 
-export function getPrevPageById(pages, activePageId) {
-  return getPagingPrevPageById(pages, activePageId);
+export function getPrevPageById(pages, pageIdActive) {
+  return getPagingPrevPageById(pages, pageIdActive);
 }
 
 export function getPrevPageId(state, pageId) {
   return isCurrentPageActive(state, pageId)
-    ? getPrevPageById(state.pages, state.activePageId)
-    : state.activePageId;
+    ? getPrevPageById(state.pages, state.pageIdActive)
+    : state.pageIdActive;
 }
 
 export function getInitPage(isDefaultPage) {
   return {
     direction: undefined,
-    // isShow: false,
     prevPageId: undefined,
     status: isDefaultPage ? OPEN_DONE : CLOSE_DONE,
     zIndex: isDefaultPage ? 1 : 0,

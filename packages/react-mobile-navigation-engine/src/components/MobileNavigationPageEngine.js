@@ -36,8 +36,8 @@ export default class MobileNavigationPageEngine extends React.Component {
   constructor(props) {
     super(props);
     this.cache = {
-      onOpenCallback: null,
-      onCloseCallback: null,
+      onOpenUserCallback: null,
+      onCloseUserCallback: null,
     };
     this.setOnOpen = this.setOnOpen.bind(this);
     this.setOnClose = this.setOnClose.bind(this);
@@ -50,11 +50,11 @@ export default class MobileNavigationPageEngine extends React.Component {
     if (onPageOpenDone) {
       onPageOpenDone();
     }
-    const { onOpenCallback } = this.cache;
-    if (typeof onOpenCallback !== 'function') {
+    const { onOpenUserCallback } = this.cache;
+    if (typeof onOpenUserCallback === 'function') {
+      onOpenUserCallback();
       return;
     }
-    onOpenCallback();
     return;
   }
 
@@ -63,20 +63,20 @@ export default class MobileNavigationPageEngine extends React.Component {
     if (onPageCloseDone) {
       onPageCloseDone();
     }
-    const { onCloseCallback } = this.cache;
-    if (typeof onCloseCallback !== 'function') {
+    const { onCloseUserCallback } = this.cache;
+    if (typeof onCloseUserCallback === 'function') {
+      onCloseUserCallback();
       return;
     }
-    onCloseCallback();
     return;
   }
 
   setOnOpen(onOpenFn) {
-    this.cache.onOpenCallback = onOpenFn;
+    this.cache.onOpenUserCallback = onOpenFn;
   }
 
   setOnClose(onCloseFn) {
-    this.cache.onCloseCallback = onCloseFn;
+    this.cache.onCloseUserCallback = onCloseFn;
   }
 
   getStatus() {
@@ -119,7 +119,6 @@ export default class MobileNavigationPageEngine extends React.Component {
     } = this.props;
     const { direction, status, zIndex } = pageState;
     const statusValidated = this.getStatus();
-    // console.log(isShow);
     return (
       <Interpolation
         direction={direction}

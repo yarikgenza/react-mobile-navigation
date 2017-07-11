@@ -10,108 +10,96 @@ import { getPagingPrevPageById } from '../utils/page-manager';
 
 const initialState = {
   direction: undefined,
-  // isShow: false,
   prevPageId: undefined,
   status: undefined,
   zIndex: undefined,
 };
 
-export default (state = initialState, action, activePageId) => {
+export default (state = initialState, action, pageIdActive) => {
   switch (action.type) {
     case PAGE_OPEN_START: {
-      const zIndex = state[activePageId].zIndex + 1;
+      const zIndex = state[pageIdActive].zIndex + 1;
       return Object.assign({}, state, {
         [action.pageIdNew]: action.direction !== undefined
           ? Object.assign({}, state[action.pageIdNew], {
             direction: action.direction,
-            // isShow: true,
-            prevPageId: activePageId,
+            prevPageId: pageIdActive,
             status: PageStatusTypesEnum.OPEN_START,
             zIndex,
           }) : Object.assign({}, state[action.pageIdNew], {
             direction: undefined,
-            // isShow: true,
-            prevPageId: activePageId,
+            prevPageId: pageIdActive,
             status: PageStatusTypesEnum.OPEN_START,
             zIndex,
           }),
-        [activePageId]: action.direction !== undefined
-          ? Object.assign({}, state[activePageId], {
+        [pageIdActive]: action.direction !== undefined
+          ? Object.assign({}, state[pageIdActive], {
             direction: action.direction,
             status: PageStatusTypesEnum.BACK_ANIMATING_OUT_START,
-          }) : Object.assign({}, state[activePageId], {
+          }) : Object.assign({}, state[pageIdActive], {
             direction: undefined,
-            // isShow: false,
             status: PageStatusTypesEnum.CLOSE_DONE,
           }),
       });
     }
     case PAGE_OPEN_DONE: {
-      const activePageIdPrev = getPagingPrevPageById(state, activePageId);
+      const pageIdActivePrev = getPagingPrevPageById(state, pageIdActive);
       return Object.assign({}, state, {
-        [activePageIdPrev]: state[activePageIdPrev].direction !== undefined
-          ? Object.assign({}, state[activePageIdPrev], {
-            // isShow: false,
+        [pageIdActivePrev]: state[pageIdActivePrev].direction !== undefined
+          ? Object.assign({}, state[pageIdActivePrev], {
             status: PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE,
-          }) : Object.assign({}, state[activePageIdPrev], {
-            // isShow: false,
+          }) : Object.assign({}, state[pageIdActivePrev], {
             status: PageStatusTypesEnum.CLOSE_DONE,
           }),
-        [activePageId]: Object.assign({}, state[activePageId], {
+        [pageIdActive]: Object.assign({}, state[pageIdActive], {
           status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });
     }
     case PAGE_CLOSE_START: {
-      const activePageIdPrev = getPagingPrevPageById(state, activePageId);
+      const pageIdActivePrev = getPagingPrevPageById(state, pageIdActive);
       return Object.assign({}, state, {
-        [activePageId]: state[activePageId].direction !== undefined
-          ? Object.assign({}, state[activePageId], {
+        [pageIdActive]: state[pageIdActive].direction !== undefined
+          ? Object.assign({}, state[pageIdActive], {
             status: PageStatusTypesEnum.CLOSE_START,
-          }) : Object.assign({}, state[activePageId], {
+          }) : Object.assign({}, state[pageIdActive], {
             direction: undefined,
-            // isShow: false,
-            // prevPageId: undefined,
             status: PageStatusTypesEnum.CLOSE_START,
             zIndex: 0,
           }),
-        [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
-          // isShow: true,
+        [pageIdActivePrev]: Object.assign({}, state[pageIdActivePrev], {
           status: PageStatusTypesEnum.OPEN_START,
         }),
       });
     }
-    case PAGE_CLOSE_DONE: {
-      const activePageIdPrev = getPagingPrevPageById(state, activePageId);
+    case PAGE_CLOSE_DONE_FORCE: {
+      const pageIdActivePrev = getPagingPrevPageById(state, pageIdActive);
       return Object.assign({}, state, {
-        [activePageId]: Object.assign({}, state[activePageId], {
+        [pageIdActive]: Object.assign({}, state[pageIdActive], {
           direction: undefined,
-          // isShow: false,
           prevPageId: undefined,
           status: PageStatusTypesEnum.CLOSE_DONE,
           zIndex: 0,
         }),
-        [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
-          direction: state[activePageIdPrev].prevPageId
-            ? state[state[activePageIdPrev].prevPageId].direction
-            : undefined,
+        [pageIdActivePrev]: Object.assign({}, state[pageIdActivePrev], {
+          direction: undefined,
           status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });
     }
-    case PAGE_CLOSE_DONE_FORCE: {
-      const activePageIdPrev = getPagingPrevPageById(state, activePageId);
+    case PAGE_CLOSE_DONE: {
+      const pageIdActivePrev = getPagingPrevPageById(state, pageIdActive);
       return Object.assign({}, state, {
-        [activePageId]: Object.assign({}, state[activePageId], {
+        [pageIdActive]: Object.assign({}, state[pageIdActive], {
           direction: undefined,
-          // isShow: false,
           prevPageId: undefined,
           status: PageStatusTypesEnum.CLOSE_DONE,
           zIndex: 0,
         }),
-        [activePageIdPrev]: Object.assign({}, state[activePageIdPrev], {
-          direction: undefined,
-          // isShow: true,
+        [pageIdActivePrev]: Object.assign({}, state[pageIdActivePrev], {
+          direction: state[pageIdActivePrev].prevPageId
+            ? state[state[pageIdActivePrev].prevPageId].direction
+            : undefined,
           status: PageStatusTypesEnum.OPEN_DONE,
         }),
       });

@@ -20,6 +20,7 @@ export default class SettingsHelpPageComponent extends React.Component {
     this.closePageClick = this.closePageClick.bind(this);
     this.closePageForceClick = this.closePageForceClick.bind(this);
     this.connectedHelpText = this.connectedHelpText.bind(this);
+    this.connectedHelpTextForce = this.connectedHelpTextForce.bind(this);
   }
 
   onClick() {
@@ -119,6 +120,12 @@ export default class SettingsHelpPageComponent extends React.Component {
     );
   }
 
+  connectedHelpTextForce() {
+    this.props.onPageOpenForce(
+      SettingsModeTypesEnum.LICENSES
+    );
+  }
+
   closePageClick(e) {
     this.props.onPageClose();
   }
@@ -133,6 +140,9 @@ export default class SettingsHelpPageComponent extends React.Component {
         <div style={{ textAlign: 'center' }} >Help (3)</div>
         <div onClick={this.connectedHelpText} >
           Open licenses
+        </div>
+        <div onClick={this.connectedHelpTextForce} >
+          Open licenses force
         </div>
         <div onClick={this.closePageClick} >
           Go back
