@@ -7,18 +7,11 @@ import {
 
 const propTypes = {
   autoHideDuration: React.PropTypes.number,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.arrayOf(React.PropTypes.number),
-    React.PropTypes.arrayOf(React.PropTypes.string),
-    React.PropTypes.node,
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   direction: React.PropTypes.string.isRequired,
   isShow: React.PropTypes.bool.isRequired,
   pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
+  render: React.PropTypes.func.isRequired,
   onAlertOpenDone: React.PropTypes.func.isRequired,
   onAlertCloseStart: React.PropTypes.func.isRequired,
   onAlertCloseDone: React.PropTypes.func.isRequired,
@@ -26,7 +19,6 @@ const propTypes = {
 
 const defaultProps = {
   autoHideDuration: 2500,
-  children: undefined,
 };
 
 export default class AlertBox extends React.Component {
@@ -72,7 +64,7 @@ export default class AlertBox extends React.Component {
   }
 
   render() {
-    const { children, direction, isShow, pageStatus, zIndex } = this.props;
+    const { direction, isShow, pageStatus, zIndex, render } = this.props;
     return (
       <Interpolation
         direction={direction}
@@ -84,7 +76,7 @@ export default class AlertBox extends React.Component {
         onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationView direction={direction} zIndex={zIndex} >
-          {children}
+          {render()}
         </MobileNavigationView>
       </Interpolation>
     );

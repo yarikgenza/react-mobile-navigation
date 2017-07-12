@@ -10,7 +10,7 @@ const propTypes = {
   children: React.PropTypes.element,
   direction: React.PropTypes.string.isRequired,
   isShow: React.PropTypes.bool,
-  translateValue: React.PropTypes.number,
+  position: React.PropTypes.number,
   zIndex: React.PropTypes.number.isRequired,
   onShadowClick: React.PropTypes.func,
   onTransitionEnd: React.PropTypes.func,
@@ -22,7 +22,7 @@ const MobileNavigationShadowPage = ({
   children,
   direction,
   isShow,
-  translateValue,
+  position,
   zIndex,
   onShadowClick,
   onTransitionEnd,
@@ -30,11 +30,11 @@ const MobileNavigationShadowPage = ({
   isShow ? (
     <MobileNavigationPageRender styleIndex={zIndex} >
       <BackgroundActiveRender
-        styleOpacity={0.3 * (1 - translateValue / 100)}
+        styleOpacity={0.3 * (1 - position / 100)}
         onClick={onShadowClick}
       />
       <ContentRender
-        styleTranslate={getTranslate3dByDirection(direction, translateValue)}
+        styleTranslate={getTranslate3dByDirection(direction, position)}
         onTransitionEnd={onTransitionEnd}
       >
         {children}

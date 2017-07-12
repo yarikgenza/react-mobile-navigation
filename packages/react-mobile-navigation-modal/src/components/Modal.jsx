@@ -6,18 +6,11 @@ import {
 } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.node),
-    React.PropTypes.arrayOf(React.PropTypes.number),
-    React.PropTypes.arrayOf(React.PropTypes.string),
-    React.PropTypes.node,
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   direction: React.PropTypes.string.isRequired,
   isShow: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
   pageStatus: React.PropTypes.string,
+  render: React.PropTypes.func.isRequired,
   zIndex: React.PropTypes.number.isRequired,
   onModalOpenDone: React.PropTypes.func.isRequired,
   onModalCloseDone: React.PropTypes.func.isRequired,
@@ -47,7 +40,7 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    const { children, direction, isShow, pageHeight, pageStatus, zIndex } = this.props;
+    const { direction, isShow, pageHeight, pageStatus, zIndex, render } = this.props;
     return (
       <Interpolation
         direction={direction}
@@ -59,7 +52,7 @@ export default class Modal extends React.Component {
         onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
-          {children}
+          {render()}
         </MobileNavigationPage>
       </Interpolation>
     );

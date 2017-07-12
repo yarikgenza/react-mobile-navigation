@@ -5,7 +5,7 @@ import MobileNavigationPageRender from './components-styled/MobileNavigationPage
 import MobileNavigationViewRender from './components-styled/MobileNavigationViewRender';
 import * as DirectionEnum from './constants/direction-types';
 import * as PageStatusTypesEnum from './constants/page-status-types';
-import getTranslate3dByDirection from './utils/animation-position';
+import getTranslate3dByDirection from './utils/style-api';
 
 export {
   Interpolation,

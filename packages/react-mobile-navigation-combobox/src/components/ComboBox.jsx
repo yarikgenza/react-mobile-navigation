@@ -7,7 +7,7 @@ import {
   Interpolation,
   MobileNavigationPage,
 } from 'react-mobile-navigation-core';
-import { ComboboxComponent } from './ComboboxComponent';
+import ComboboxList from './ComboboxList';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
 
@@ -57,10 +57,10 @@ export default class ComboBox extends React.Component {
     this.onSelect = this.onSelect.bind(this);
     this.onSelectCustom = this.onSelectCustom.bind(this);
     this.onCancel = this.onCancel.bind(this);
-    this.onTrySelectCustom = this.onTrySelectCustom.bind(this);
-    this.onSetFilter = this.onSetFilter.bind(this);
+    this.onFilterSet = this.onFilterSet.bind(this);
     this.onPageOpenDone = this.onPageOpenDone.bind(this);
     this.onPageCloseDone = this.onPageCloseDone.bind(this);
+    this.onTrySelectCustom = this.onTrySelectCustom.bind(this);
   }
 
   componentWillReceiveProps() {
@@ -106,7 +106,7 @@ export default class ComboBox extends React.Component {
     }
   }
 
-  onSetFilter(value) {
+  onFilterSet(value) {
     this.setState(() => ({ textFilter: value }));
     this.filteredItems = this.getFilteredItems(value);
   }
@@ -202,7 +202,7 @@ export default class ComboBox extends React.Component {
             titleIcon={undefined}
             useSearch={false}
           >
-            <ComboboxComponent
+            <ComboboxList
               allowCustomValue={allowCustomValue}
               customOptionModel={customOptionModel}
               filteredItems={this.filteredItems}
@@ -213,10 +213,10 @@ export default class ComboBox extends React.Component {
               pageWidth={pageWidth}
               pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
               textFilter={textFilter}
-              onSelectCustom={this.onSelectCustom}
               onCancel={this.onCancel}
-              onSetFilter={this.onSetFilter}
+              onFilterSet={this.onFilterSet}
               onSelect={this.onSelect}
+              onSelectCustom={this.onSelectCustom}
               onTrySelectCustom={this.onTrySelectCustom}
             />
           </StackPage>

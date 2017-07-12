@@ -1,4 +1,4 @@
-# React Mobile Navigation
+# react-mobile-navigation
 
 A set of React mobile navigation modules.
 

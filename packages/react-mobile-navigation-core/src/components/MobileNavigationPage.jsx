@@ -1,25 +1,25 @@
 import React from 'react';
 import MobileNavigationPageRender from '../components-styled/MobileNavigationPageRender';
-import getTranslate3dByDirection from '../utils/animation-position';
+import getTranslate3dByDirection from '../utils/style-api';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
   direction: React.PropTypes.string,
   isShow: React.PropTypes.bool,
-  translateValue: React.PropTypes.number,
+  position: React.PropTypes.number,
   zIndex: React.PropTypes.number,
   onTransitionEnd: React.PropTypes.func,
 };
 
 const defaultProps = {
-  translateValue: undefined,
+  position: undefined,
 };
 
 const MobileNavigationPage = ({
   children,
   direction,
   isShow,
-  translateValue,
+  position,
   zIndex,
   onTransitionEnd,
   ...props,
@@ -27,7 +27,7 @@ const MobileNavigationPage = ({
   isShow ? (
     <MobileNavigationPageRender
       styleIndex={zIndex}
-      styleTranslate={getTranslate3dByDirection(direction, translateValue)}
+      styleTranslate={getTranslate3dByDirection(direction, position)}
       onTransitionEnd={onTransitionEnd}
     >
       {React.cloneElement(React.Children.only(children), props)}

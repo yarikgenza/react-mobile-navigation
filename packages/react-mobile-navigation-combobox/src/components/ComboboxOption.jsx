@@ -9,7 +9,7 @@ const propTypes = {
 
 const defaultProps = {};
 
-export default class ComboboxOption extends React.PureComponent {
+export default class ComboBoxOption extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -31,5 +31,5 @@ export default class ComboboxOption extends React.PureComponent {
   }
 }
 
-ComboboxOption.propTypes = propTypes;
-ComboboxOption.defaultProps = defaultProps;
+ComboBoxOption.propTypes = propTypes;
+ComboBoxOption.defaultProps = defaultProps;

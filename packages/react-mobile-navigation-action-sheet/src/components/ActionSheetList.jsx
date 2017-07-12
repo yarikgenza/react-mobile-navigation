@@ -17,20 +17,9 @@ const defaultProps = {
 };
 
 export default class ActionSheetList extends React.PureComponent {
-
-  constructor(props) {
-    super(props);
-    this.onSelect = this.onSelect.bind(this);
-  }
-
-  onSelect() {
-    const { onCancel } = this.props;
-    onCancel();
-  }
-
   render() {
-    const { cancelLabel, items, pageIndex, onSelect } = this.props;
-    const cancelItem = actionSheetOptionModel('cancel-key', cancelLabel);
+    const { cancelLabel, items, pageIndex, onCancel, onSelect } = this.props;
+    const itemCancel = actionSheetOptionModel('cancel-key', cancelLabel);
     return (
       <ActionSheetListRender styleIndex={pageIndex + 1} >
         {items.map((item) => (
@@ -41,10 +30,10 @@ export default class ActionSheetList extends React.PureComponent {
           />
         ))}
         <ActionSheetListItem
-          key={cancelItem.key}
+          key={itemCancel.key}
           isRed
-          item={cancelItem}
-          onSelect={this.onSelect}
+          item={itemCancel}
+          onSelect={onCancel}
         />
       </ActionSheetListRender>
     );

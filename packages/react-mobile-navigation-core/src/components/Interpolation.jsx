@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import * as PageStatusTypesEnum from '../constants/page-status-types';
-import { getSpringValue } from '../utils/visability-statuses';
+import { getPositionFromStatus } from '../utils/position-api';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
@@ -20,7 +20,7 @@ export default class Interpolation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      translateValue: getSpringValue(props.pageStatusInit),
+      position: getPositionFromStatus(props.pageStatusInit),
     };
     this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
@@ -68,7 +68,7 @@ export default class Interpolation extends React.Component {
     ) {
       // hide the page
       this.setState(() => ({
-        translateValue: getSpringValue(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
+        position: getPositionFromStatus(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
       }));
       return;
     }
@@ -78,7 +78,7 @@ export default class Interpolation extends React.Component {
     ) {
       // close the page
       this.setState(() => ({
-        translateValue: getSpringValue(PageStatusTypesEnum.CLOSE_DONE),
+        position: getPositionFromStatus(PageStatusTypesEnum.CLOSE_DONE),
       }));
       return;
     }
@@ -110,7 +110,7 @@ export default class Interpolation extends React.Component {
     window.requestAnimationFrame(() => {
       window.requestAnimationFrame(() => {
         this.setState(() => ({
-          translateValue: getSpringValue(PageStatusTypesEnum.OPEN_DONE),
+          position: getPositionFromStatus(PageStatusTypesEnum.OPEN_DONE),
         }));
       });
     });
@@ -118,11 +118,11 @@ export default class Interpolation extends React.Component {
 
   render() {
     const { children, isShow, pageStatus } = this.props;
-    const { translateValue } = this.state;
+    const { position } = this.state;
     return React.cloneElement(React.Children.only(children), {
       isShow,
       pageStatus,
-      translateValue,
+      position,
       onTransitionEnd: this.onTransitionEnd,
     });
   }

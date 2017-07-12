@@ -412,27 +412,13 @@ export default class MobileNavigation extends React.Component {
         })}
         {this.memoizedComboBox && (
           <ComboBox
-            allowCustomValue={this.memoizedComboBox.allowCustomValue}
-            bodyStyle={this.memoizedComboBox.bodyStyle}
-            customOptionModel={this.memoizedComboBox.customOptionModel}
+            {...this.memoizedComboBox}
             direction={this.memoizedComboBoxDirection}
-            headerStyle={this.memoizedComboBox.headerStyle}
-            items={this.memoizedComboBox.items}
-            inputPlaceholder={this.memoizedComboBox.inputPlaceholder}
-            isBold={this.memoizedComboBox.isBold}
             isShow={comboBox.isShow}
-            noOptionsMatchingInputLabel={this.memoizedComboBox.noOptionsMatchingInputLabel}
             pageHeight={pageHeight}
             pageWidth={pageWidth}
-            pressEnterToSaveCustomFieldLabel={
-              this.memoizedComboBox.pressEnterToSaveCustomFieldLabel
-            }
             pageStatus={comboBox.status}
-            title={this.memoizedComboBox.title}
             zIndex={1000}
-            onCancel={this.memoizedComboBox.onCancel}
-            onSelect={this.memoizedComboBox.onSelect}
-            onSelectCustom={this.memoizedComboBox.onSelectCustom}
             onComboBoxOpenDone={this.onComboBoxOpenDone}
             onComboBoxCloseStart={this.onComboBoxCloseStart}
             onComboBoxCloseDone={this.onComboBoxCloseDone}
@@ -440,6 +426,7 @@ export default class MobileNavigation extends React.Component {
         )}
         {this.memoizedModal && (
           <Modal
+            {...this.memoizedModal}
             direction={this.memoizedModalDirection}
             isShow={modal.isShow}
             pageHeight={pageHeight}
@@ -447,13 +434,11 @@ export default class MobileNavigation extends React.Component {
             zIndex={1001}
             onModalOpenDone={this.onModalOpenDone}
             onModalCloseDone={this.onModalCloseDone}
-          >
-            {this.memoizedModal.render()}
-          </Modal>
+          />
         )}
         {this.memoizedAlert && (
           <AlertBox
-            autoHideDuration={this.memoizedAlert.autoHideDuration}
+            {...this.memoizedAlert}
             direction={DirectionEnum.VERTICAL}
             isShow={alert.isShow}
             pageStatus={alert.status}
@@ -461,20 +446,15 @@ export default class MobileNavigation extends React.Component {
             onAlertOpenDone={this.onAlertOpenDone}
             onAlertCloseStart={this.onAlertCloseStart}
             onAlertCloseDone={this.onAlertCloseDone}
-          >
-            {this.memoizedAlert.render()}
-          </AlertBox>
+          />
         )}
         {this.memoizedActionSheet && (
           <ActionSheet
-            cancelLabel={this.memoizedActionSheet.cancelLabel}
+            {...this.memoizedActionSheet}
             direction={this.memoizedActionSheetDirection}
             isShow={actionSheet.isShow}
-            items={this.memoizedActionSheet.items}
             pageStatus={actionSheet.status}
             zIndex={1003}
-            onSelect={this.memoizedActionSheet.onSelect}
-            onCancel={this.memoizedActionSheet.onCancel}
             onActionSheetOpenDone={this.onActionSheetOpenDone}
             onActionSheetCloseStart={this.onActionSheetCloseStart}
             onActionSheetCloseDone={this.onActionSheetCloseDone}

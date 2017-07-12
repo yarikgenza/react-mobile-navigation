@@ -1,7 +1,10 @@
 import * as PageStatusTypesEnum from '../constants/page-status-types';
-import { INTERP_OUT, INTERP_BEGIN, INTERP_END } from '../constants/interpolation-values';
 
-export function getSpringValue(status) {
+const INTERP_OUT = -30;
+const INTERP_BEGIN = 0;
+const INTERP_END = 100;
+
+export function getPositionFromStatus(status) {
   switch (status) {
     case PageStatusTypesEnum.OPEN_DONE:
       return INTERP_BEGIN;

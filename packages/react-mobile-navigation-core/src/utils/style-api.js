@@ -7,12 +7,12 @@ function getTransform(direction, transform) {
   };
 }
 
-export default (direction, translateValue) => {
+export default (direction, position) => {
   switch (direction) {
     case DirectionEnum.VERTICAL:
-      return getTransform(direction, `translate3d(0, ${translateValue}%, 0)`);
+      return getTransform(direction, `translate3d(0, ${position}%, 0)`);
     case DirectionEnum.HORIZONTAL:
-      return getTransform(direction, `translate3d(${translateValue}%, 0, 0)`);
+      return getTransform(direction, `translate3d(${position}%, 0, 0)`);
     default:
       return getTransform(direction, 'translate3d(0%, 0%, 0)');
   }

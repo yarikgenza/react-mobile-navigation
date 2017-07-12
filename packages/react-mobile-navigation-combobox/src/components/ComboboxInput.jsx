@@ -6,7 +6,7 @@ const propTypes = {
   isBold: React.PropTypes.bool.isRequired,
   isValid: React.PropTypes.bool,
   placeholder: React.PropTypes.string,
-  onSetFilter: React.PropTypes.func.isRequired,
+  onFilterSet: React.PropTypes.func.isRequired,
   onFilterOnKeyUp: React.PropTypes.func,
 };
 
@@ -17,7 +17,7 @@ const defaultProps = {
   onFilterOnKeyUp: undefined,
 };
 
-export default class ComboboxInput extends React.Component {
+export default class ComboBoxInput extends React.Component {
 
   constructor(props) {
     super(props);
@@ -26,12 +26,7 @@ export default class ComboboxInput extends React.Component {
     };
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
-    this.onFilterOnInput = this.onFilterOnInput.bind(this);
-  }
-
-  onFilterOnInput(e) {
-    const { onSetFilter } = this.props;
-    onSetFilter(e.target.value);
+    this.onInput = this.onInput.bind(this);
   }
 
   onBlur() {
@@ -40,6 +35,11 @@ export default class ComboboxInput extends React.Component {
 
   onFocus() {
     this.setState(() => ({ isActive: true }));
+  }
+
+  onInput(e) {
+    const { onFilterSet } = this.props;
+    onFilterSet(e.target.value);
   }
 
   render() {
@@ -54,12 +54,12 @@ export default class ComboboxInput extends React.Component {
         value={textFilter}
         onBlur={this.onBlur}
         onFocus={this.onFocus}
-        onInput={this.onFilterOnInput}
+        onInput={this.onInput}
         onKeyUp={onFilterOnKeyUp}
       />
     );
   }
 }
 
-ComboboxInput.propTypes = propTypes;
-ComboboxInput.defaultProps = defaultProps;
+ComboBoxInput.propTypes = propTypes;
+ComboBoxInput.defaultProps = defaultProps;

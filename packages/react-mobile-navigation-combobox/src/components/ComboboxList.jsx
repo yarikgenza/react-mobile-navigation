@@ -1,8 +1,8 @@
 ﻿import React from 'react';
 import StackBodyCustomContent from 'binary-ui-stack/StackBodyCustomContent';
 import ComboboxNoOptionsStyled from '../components-styled/ComboboxNoOptionsStyled';
-import ComboboxOption from './ComboboxOption';
-import ComboboxInput from './ComboboxInput';
+import ComboBoxOption from './ComboboxOption';
+import ComboBoxInput from './ComboboxInput';
 import { ENTER, ESCAPE } from '../constants/key-events';
 
 const propTypes = {
@@ -17,9 +17,9 @@ const propTypes = {
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
   noOptionsMatchingInputLabel: React.PropTypes.string,
   onCancel: React.PropTypes.func,
+  onFilterSet: React.PropTypes.func,
   onSelect: React.PropTypes.func,
   onSelectCustom: React.PropTypes.func,
-  onSetFilter: React.PropTypes.func,
   onTrySelectCustom: React.PropTypes.func,
 };
 
@@ -33,7 +33,7 @@ const defaultProps = {
   noOptionsMatchingInputLabel: 'There are no options matching your input',
 };
 
-export class ComboboxComponent extends React.Component {
+export default class ComboBoxList extends React.Component {
 
   constructor(props) {
     super(props);
@@ -71,7 +71,7 @@ export class ComboboxComponent extends React.Component {
   renderOptions(isBold) {
     const { filteredItems, onSelect } = this.props;
     return filteredItems.map((item) => (
-      <ComboboxOption
+      <ComboBoxOption
         isBold={isBold}
         item={item}
         key={item.key}
@@ -100,16 +100,16 @@ export class ComboboxComponent extends React.Component {
       pageHeight,
       pageWidth,
       textFilter,
-      onSetFilter,
+      onFilterSet,
     } = this.props;
     return (
       <StackBodyCustomContent pageHeight={pageHeight} pageWidth={pageWidth} >
-        <ComboboxInput
+        <ComboBoxInput
           isBold={isBold}
           isValid={this.isValid()}
           placeholder={inputPlaceholder}
           textFilter={textFilter}
-          onSetFilter={onSetFilter}
+          onFilterSet={onFilterSet}
           onFilterOnKeyUp={this.onFilterOnKeyUp}
         />
         {this.renderFilteredItems(isBold)}
@@ -118,5 +118,5 @@ export class ComboboxComponent extends React.Component {
   }
 }
 
-ComboboxComponent.propTypes = propTypes;
-ComboboxComponent.defaultProps = defaultProps;
+ComboBoxList.propTypes = propTypes;
+ComboBoxList.defaultProps = defaultProps;

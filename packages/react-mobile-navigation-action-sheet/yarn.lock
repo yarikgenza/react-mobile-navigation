@@ -724,7 +724,7 @@ binary-extensions@^1.0.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.8.0.tgz#48ec8d16df4377eae5fa5884682480af4d95c774"
 
-binary-ui-styles@^0.2.3:
+binary-ui-styles@^0.2.7:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/binary-ui-styles/-/binary-ui-styles-0.2.7.tgz#b9d4697c3168897d82ffeb09f933ed761185e7f8"
 
@@ -2370,7 +2370,7 @@ strip-json-comments@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
 
-styled-components@^2.0.0:
+styled-components@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-2.1.1.tgz#7e9b5bc319ee3963b47aebb74f4658119ea9d484"
   dependencies:

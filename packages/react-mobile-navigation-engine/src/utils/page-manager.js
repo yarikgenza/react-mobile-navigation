@@ -1,17 +1,15 @@
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
-const { OPEN_DONE, CLOSE_DONE } = PageStatusTypesEnum;
-
 export function getPagingPrevPageById(pages, pageIdActive) {
   return pages[pageIdActive].prevPageId;
 }
 
-function isCurrentPageActive(state, pageId) {
-  return pageId === state.pageIdActive;
-}
-
 export function getPrevPageById(pages, pageIdActive) {
   return getPagingPrevPageById(pages, pageIdActive);
+}
+
+function isCurrentPageActive(state, pageId) {
+  return pageId === state.pageIdActive;
 }
 
 export function getPrevPageId(state, pageId) {
@@ -24,7 +22,7 @@ export function getInitPage(isDefaultPage) {
   return {
     direction: undefined,
     prevPageId: undefined,
-    status: isDefaultPage ? OPEN_DONE : CLOSE_DONE,
+    status: isDefaultPage ? PageStatusTypesEnum.OPEN_DONE : PageStatusTypesEnum.CLOSE_DONE,
     zIndex: isDefaultPage ? 1 : 0,
   };
 }
