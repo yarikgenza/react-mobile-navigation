@@ -23,6 +23,7 @@ export default class SettingsLicencesPageComponent extends React.Component {
   }
 
   render() {
+    console.log('Render (2)');
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Licenses (2)</div>

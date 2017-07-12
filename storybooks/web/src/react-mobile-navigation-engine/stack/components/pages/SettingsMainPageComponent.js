@@ -26,6 +26,7 @@ export default class SettingsMainPageComponent extends React.Component {
   }
 
   render() {
+    console.log('Render (1)');
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Main (1)</div>

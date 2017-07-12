@@ -16,6 +16,7 @@ export default class SettingsHelpPageComponent extends React.Component {
     this.openActionSheet = this.openActionSheet.bind(this);
     this.openComboBox = this.openComboBox.bind(this);
     this.openAlert = this.openAlert.bind(this);
+    this.openAlertAutoHide = this.openAlertAutoHide.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closePageClick = this.closePageClick.bind(this);
     this.closePageForceClick = this.closePageForceClick.bind(this);
@@ -61,11 +62,22 @@ export default class SettingsHelpPageComponent extends React.Component {
     }, DirectionEnum.VERTICAL);
   }
 
-  openAlert() {
-    this.props.onAlertOpen({
+  openAlertAutoHide() {
+    const { onAlertOpen } = this.props;
+    onAlertOpen({
       autoHideDuration: 2500,
       render: () => (
         <Alert text="text" type={ALERT_TYPES.CRITICAL} onClick={() => { console.log(1); }} />
+      ),
+    });
+  }
+
+  openAlert() {
+    const { onAlertOpen, onAlertClose } = this.props;
+    onAlertOpen({
+      autoHideDuration: 0,
+      render: () => (
+        <Alert text="text" type={ALERT_TYPES.CRITICAL} onClick={() => { console.log(1); onAlertClose(); }} />
       ),
     });
   }
@@ -135,6 +147,7 @@ export default class SettingsHelpPageComponent extends React.Component {
   }
 
   render() {
+    console.log('Render (3)');
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Help (3)</div>
@@ -155,6 +168,9 @@ export default class SettingsHelpPageComponent extends React.Component {
         </div>
         <div onClick={this.openComboBox} >
           Show combobox
+        </div>
+        <div onClick={this.openAlertAutoHide} >
+          Show alert auto-hide
         </div>
         <div onClick={this.openAlert} >
           Show alert

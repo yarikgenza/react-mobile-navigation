@@ -6,7 +6,7 @@ import {
 } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  autoHideDuration: React.PropTypes.number.isRequired,
+  autoHideDuration: React.PropTypes.number,
   children: React.PropTypes.oneOfType([
     React.PropTypes.arrayOf(React.PropTypes.node),
     React.PropTypes.arrayOf(React.PropTypes.number),
@@ -63,10 +63,7 @@ export default class AlertBox extends React.Component {
       }, autoHideDuration);
       return;
     }
-    // close right away
-    this.timerAutoHideId = setTimeout(() => {
-      onAlertCloseStart();
-    }, 0);
+    // do not close
   }
 
   closeAlertForce() {

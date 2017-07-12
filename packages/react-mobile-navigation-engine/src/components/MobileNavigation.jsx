@@ -85,6 +85,11 @@ export default class MobileNavigation extends React.Component {
   onActionSheetOpenStart(props, direction) {
     this.memoizedActionSheet = props;
     this.memoizedActionSheetDirection = direction;
+    const { actionSheet } = this.state;
+    // ignore opening attempts if not closed yet
+    if (actionSheet.status !== PageStatusTypesEnum.CLOSE_DONE) {
+      return;
+    }
     this.setState((prevState) => ({
       actionSheet: Object.assign({}, prevState.actionSheet, {
         isShow: true,
@@ -115,6 +120,11 @@ export default class MobileNavigation extends React.Component {
 
   onAlertOpenStart(props) {
     this.memoizedAlert = props;
+    const { alert } = this.state;
+    // ignore opening attempts if not closed yet
+    if (alert.status !== PageStatusTypesEnum.CLOSE_DONE) {
+      return;
+    }
     this.setState((prevState) => ({
       alert: Object.assign({}, prevState.alert, {
         isShow: true,
@@ -145,6 +155,11 @@ export default class MobileNavigation extends React.Component {
   onComboBoxOpenStart(props, direction) {
     this.memoizedComboBox = props;
     this.memoizedComboBoxDirection = direction;
+    const { comboBox } = this.state;
+    // ignore opening attempts if not closed yet
+    if (comboBox.status !== PageStatusTypesEnum.CLOSE_DONE) {
+      return;
+    }
     this.setState((prevState) => ({
       comboBox: Object.assign({}, prevState.comboBox, {
         isShow: true,
@@ -176,6 +191,11 @@ export default class MobileNavigation extends React.Component {
   onModalOpenStart(props, direction) {
     this.memoizedModal = props;
     this.memoizedModalDirection = direction;
+    const { modal } = this.state;
+    // ignore opening attempts if not closed yet
+    if (modal.status !== PageStatusTypesEnum.CLOSE_DONE) {
+      return;
+    }
     this.setState((prevState) => ({
       modal: Object.assign({}, prevState.modal, {
         isShow: true,
@@ -358,6 +378,7 @@ export default class MobileNavigation extends React.Component {
               onActionSheetOpenStart={this.onActionSheetOpenStart}
               onActionSheetCloseStart={this.onActionSheetCloseStart}
               onAlertOpenStart={this.onAlertOpenStart}
+              onAlertCloseStart={this.onAlertCloseStart}
               onComboBoxOpenStart={this.onComboBoxOpenStart}
               onComboBoxCloseStart={this.onComboBoxCloseStart}
               onModalOpenStart={this.onModalOpenStart}
