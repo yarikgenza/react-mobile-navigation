@@ -11,7 +11,7 @@ const propTypes = {
   allowCustomValue: React.PropTypes.bool,
   textFilter: React.PropTypes.string,
   inputPlaceholder: React.PropTypes.string,
-  isBold: React.PropTypes.bool.isRequired,
+  isBold: React.PropTypes.bool,
   pageHeight: React.PropTypes.number.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
@@ -24,9 +24,10 @@ const propTypes = {
 };
 
 const defaultProps = {
+  allowCustomValue: false,
   customOptionModel: {},
   filteredItems: [],
-  allowCustomValue: false,
+  isBold: false,
   textFilter: '',
   inputPlaceholder: '',
   pressEnterToSaveCustomFieldLabel: 'Type enter to save custom field name',

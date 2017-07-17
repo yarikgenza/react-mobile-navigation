@@ -1,11 +1,10 @@
 ﻿import React from 'react';
 import * as PageStatusTypesEnum from '../constants/page-status-types';
-import { getPositionFromStatus } from '../utils/position-api';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
-  direction: React.PropTypes.string,
   isAnimation: React.PropTypes.bool.isRequired,
+  isForce: React.PropTypes.bool,
   isShow: React.PropTypes.bool.isRequired,
   pageStatusInit: React.PropTypes.string.isRequired,
   pageStatus: React.PropTypes.string.isRequired,
@@ -13,22 +12,21 @@ const propTypes = {
   onPageCloseDone: React.PropTypes.func.isRequired,
 };
 
-const defaultProps = {};
+const defaultProps = {
+  isForce: undefined,
+};
 
 export default class Interpolation extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      position: getPositionFromStatus(props.pageStatusInit),
-    };
     this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
 
   componentDidMount() {
-    const { direction, isAnimation, onPageOpenDone } = this.props;
+    const { isAnimation, isForce, onPageOpenDone } = this.props;
     // open with no animation
-    if (direction === undefined) {
+    if (isForce) {
       // page is always mounted with an OPEN_DONE status, so no need to check
       onPageOpenDone();
       return;
@@ -42,7 +40,7 @@ export default class Interpolation extends React.Component {
   componentWillReceiveProps(newProps) {
     const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
     // with no animation
-    if (newProps.direction === undefined) {
+    if (newProps.isForce) {
       // open the page
       if (
         pageStatus === PageStatusTypesEnum.CLOSE_DONE &&
@@ -56,7 +54,9 @@ export default class Interpolation extends React.Component {
         pageStatus === PageStatusTypesEnum.OPEN_DONE &&
         newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
       ) {
-        onPageCloseDone();
+        window.requestAnimationFrame(() => {
+          onPageCloseDone();
+        });
         return;
       }
       return;
@@ -67,9 +67,6 @@ export default class Interpolation extends React.Component {
       newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE
     ) {
       // hide the page
-      this.setState(() => ({
-        position: getPositionFromStatus(PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE),
-      }));
       return;
     }
     if (
@@ -77,9 +74,6 @@ export default class Interpolation extends React.Component {
       newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
     ) {
       // close the page
-      this.setState(() => ({
-        position: getPositionFromStatus(PageStatusTypesEnum.CLOSE_DONE),
-      }));
       return;
     }
     if (
@@ -106,23 +100,14 @@ export default class Interpolation extends React.Component {
     return;
   }
 
-  triggerPageOpenAnimation() {
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        this.setState(() => ({
-          position: getPositionFromStatus(PageStatusTypesEnum.OPEN_DONE),
-        }));
-      });
-    });
-  }
+  triggerPageOpenAnimation() { }
 
   render() {
-    const { children, isShow, pageStatus } = this.props;
-    const { position } = this.state;
+    const { children, isForce, isShow, pageStatus } = this.props;
     return React.cloneElement(React.Children.only(children), {
+      isForce,
       isShow,
       pageStatus,
-      position,
       onTransitionEnd: this.onTransitionEnd,
     });
   }

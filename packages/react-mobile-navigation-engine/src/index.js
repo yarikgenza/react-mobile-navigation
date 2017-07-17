@@ -1,9 +1,9 @@
-import MobileNavigation from './components/MobileNavigation';
-import mobileNavigationCreateInitState from './utils/init-state-create';
-import * as mobileNavigationInitStatePseudoActions from './utils/init-state-pseudo-actions';
+import { openPage } from './actions/navigation-actions';
+
+export { default } from './components/MobileNavigation';
+
+const navigationActions = { openPage };
 
 export {
-  MobileNavigation,
-  mobileNavigationCreateInitState,
-  mobileNavigationInitStatePseudoActions,
+  navigationActions,
 };

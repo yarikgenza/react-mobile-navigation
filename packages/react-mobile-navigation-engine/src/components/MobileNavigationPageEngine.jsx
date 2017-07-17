@@ -4,14 +4,14 @@ import { Interpolation, PageStatusTypesEnum } from 'react-mobile-navigation-core
 const propTypes = {
   children: React.PropTypes.any.isRequired,
   isAnimation: React.PropTypes.bool.isRequired,
-  pageHeight: React.PropTypes.number,
+  pageHeight: React.PropTypes.number.isRequired,
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,
   pageStatusInit: React.PropTypes.string,
   pageState: React.PropTypes.object.isRequired,
-  pageWidth: React.PropTypes.number,
+  pageWidth: React.PropTypes.number.isRequired,
   onActionSheetOpenStart: React.PropTypes.func.isRequired,
   onActionSheetCloseStart: React.PropTypes.func.isRequired,
   onAlertOpenStart: React.PropTypes.func.isRequired,
@@ -21,12 +21,8 @@ const propTypes = {
   onModalOpenStart: React.PropTypes.func.isRequired,
   onModalCloseStart: React.PropTypes.func.isRequired,
   onPageOpenStart: React.PropTypes.func.isRequired,
-  onPageOpenHorizontalStart: React.PropTypes.func.isRequired,
-  onPageOpenVerticalStart: React.PropTypes.func.isRequired,
-  onPageOpenForce: React.PropTypes.func.isRequired,
   onPageOpenDone: React.PropTypes.func,
   onPageCloseStart: React.PropTypes.func.isRequired,
-  onPageCloseForce: React.PropTypes.func.isRequired,
   onPageCloseDone: React.PropTypes.func,
 };
 
@@ -113,18 +109,14 @@ export default class MobileNavigationPageEngine extends React.Component {
       onModalOpenStart,
       onModalCloseStart,
       onPageOpenStart,
-      onPageOpenHorizontalStart,
-      onPageOpenVerticalStart,
-      onPageOpenForce,
       onPageCloseStart,
-      onPageCloseForce,
     } = this.props;
-    const { direction, status, zIndex } = pageState;
+    const { isForce, status, zIndex } = pageState;
     const statusValidated = this.getStatus();
     return (
       <Interpolation
-        direction={direction}
         isAnimation={isAnimation}
+        isForce={isForce}
         isShow={
           status !== PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE &&
           status !== PageStatusTypesEnum.CLOSE_DONE
@@ -135,7 +127,6 @@ export default class MobileNavigationPageEngine extends React.Component {
         onPageCloseDone={this.onPageCloseDone}
       >
         {React.cloneElement(children, {
-          direction,
           pageHeight,
           pageId,
           pageWidth,
@@ -151,11 +142,7 @@ export default class MobileNavigationPageEngine extends React.Component {
           onModalOpen: onModalOpenStart,
           onModalClose: onModalCloseStart,
           onPageOpen: onPageOpenStart,
-          onPageOpenForce,
-          onPageOpenHorizontal: onPageOpenHorizontalStart,
-          onPageOpenVertical: onPageOpenVerticalStart,
           onPageClose: onPageCloseStart,
-          onPageCloseForce,
         })}
       </Interpolation>
     );

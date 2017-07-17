@@ -18,11 +18,11 @@ export function getPrevPageId(state, pageId) {
     : state.pageIdActive;
 }
 
-export function getInitPage(isDefaultPage) {
+export function getInitPage(isDefaultPage, pageType) {
   return {
-    direction: undefined,
     prevPageId: undefined,
     status: isDefaultPage ? PageStatusTypesEnum.OPEN_DONE : PageStatusTypesEnum.CLOSE_DONE,
+    type: pageType,
     zIndex: isDefaultPage ? 1 : 0,
   };
 }

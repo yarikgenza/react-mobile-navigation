@@ -5,7 +5,7 @@ import React from 'react';
 import {
   PageStatusTypesEnum,
   Interpolation,
-  MobileNavigationPage,
+  MobileNavigationModal,
 } from 'react-mobile-navigation-core';
 import ComboboxList from './ComboboxList';
 import { isStringEmpty } from '../utils/string';
@@ -13,14 +13,13 @@ import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
 
 const propTypes = {
   allowCustomValue: React.PropTypes.bool,
-  bodyStyle: React.PropTypes.object.isRequired,
+  bodyStyle: React.PropTypes.object,
   customOptionModel: React.PropTypes.object,
-  direction: React.PropTypes.string.isRequired,
   inputPlaceholder: React.PropTypes.string,
   isBold: React.PropTypes.bool,
   isShow: React.PropTypes.bool.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  headerStyle: React.PropTypes.object.isRequired,
+  headerStyle: React.PropTypes.object,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
   noOptionsMatchingInputLabel: React.PropTypes.string,
   pageHeight: React.PropTypes.number.isRequired,
@@ -38,8 +37,10 @@ const propTypes = {
 
 const defaultProps = {
   allowCustomValue: false,
-  inputPlaceholder: '',
-  isBold: false,
+  bodyStyle: undefined,
+  headerStyle: undefined,
+  inputPlaceholder: undefined,
+  isBold: undefined,
   items: [],
 };
 
@@ -158,7 +159,6 @@ export default class ComboBox extends React.Component {
       allowCustomValue,
       bodyStyle,
       customOptionModel,
-      direction,
       headerStyle,
       inputPlaceholder,
       isBold,
@@ -170,11 +170,11 @@ export default class ComboBox extends React.Component {
       pressEnterToSaveCustomFieldLabel,
       title,
       zIndex,
+      onComboBoxCloseStart,
     } = this.props;
     const { textFilter } = this.state;
     return (
       <Interpolation
-        direction={direction}
         isAnimation
         isShow={isShow}
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
@@ -182,7 +182,12 @@ export default class ComboBox extends React.Component {
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
-        <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
+        <MobileNavigationModal
+          pageHeight={pageHeight}
+          pageWidth={pageWidth}
+          zIndex={zIndex}
+          onPageClose={onComboBoxCloseStart}
+        >
           <StackPage
             bodyStyle={bodyStyle}
             headerStyle={headerStyle}
@@ -206,11 +211,11 @@ export default class ComboBox extends React.Component {
               allowCustomValue={allowCustomValue}
               customOptionModel={customOptionModel}
               filteredItems={this.filteredItems}
-              inputPlaceholder={inputPlaceholder}
               isBold={isBold}
               noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
               pageHeight={pageHeight}
               pageWidth={pageWidth}
+              placeholder={inputPlaceholder}
               pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
               textFilter={textFilter}
               onCancel={this.onCancel}
@@ -220,7 +225,7 @@ export default class ComboBox extends React.Component {
               onTrySelectCustom={this.onTrySelectCustom}
             />
           </StackPage>
-        </MobileNavigationPage>
+        </MobileNavigationModal>
       </Interpolation>
     );
   }

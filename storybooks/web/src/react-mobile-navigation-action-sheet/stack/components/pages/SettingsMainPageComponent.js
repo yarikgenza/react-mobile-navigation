@@ -1,5 +1,4 @@
 import React from 'react';
-import { DirectionEnum } from 'react-mobile-navigation-core';
 import {
   ActionSheet,
   actionSheetOptionModel,
@@ -19,11 +18,7 @@ export default class SettingsMainPageComponent extends React.Component {
     this.actionSheetItems = [
       actionSheetOptionModel('licenses', 'Licenses', () => { console.log('licenses'); }),
     ];
-    this.props.actionSheetActions.openPage(
-      this.props.pageId,
-      DirectionEnum.VERTICAL,
-      2
-    );
+    this.props.actionSheetActions.openPage();
   }
 
   onActionSheetSelect(selectedItem) {

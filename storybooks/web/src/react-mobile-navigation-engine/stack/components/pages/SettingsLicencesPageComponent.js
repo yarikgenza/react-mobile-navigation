@@ -1,6 +1,5 @@
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export default class SettingsLicencesPageComponent extends React.Component {
@@ -12,10 +11,7 @@ export default class SettingsLicencesPageComponent extends React.Component {
   }
 
   connectedHelpText() {
-    this.props.onPageOpen(
-      SettingsModeTypesEnum.HELP,
-      DirectionEnum.HORIZONTAL
-    );
+    this.props.onPageOpen(SettingsModeTypesEnum.HELP);
   }
 
   closePageClick(e) {

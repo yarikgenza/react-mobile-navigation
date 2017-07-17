@@ -2,21 +2,24 @@
 import {
   PageStatusTypesEnum,
   Interpolation,
-  MobileNavigationPage,
+  MobileNavigationModal,
 } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  direction: React.PropTypes.string.isRequired,
   isShow: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
   pageStatus: React.PropTypes.string,
+  pageWidth: React.PropTypes.number.isRequired,
   render: React.PropTypes.func.isRequired,
   zIndex: React.PropTypes.number.isRequired,
   onModalOpenDone: React.PropTypes.func.isRequired,
+  onModalCloseStart: React.PropTypes.func.isRequired,
   onModalCloseDone: React.PropTypes.func.isRequired,
 };
 
-const defaultProps = {};
+const defaultProps = {
+  render: () => null,
+};
 
 export default class Modal extends React.Component {
 
@@ -40,10 +43,9 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    const { direction, isShow, pageHeight, pageStatus, zIndex, render } = this.props;
+    const { isShow, pageHeight, pageStatus, pageWidth, zIndex, render, onModalCloseStart } = this.props;
     return (
       <Interpolation
-        direction={direction}
         isAnimation
         isShow={isShow}
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
@@ -51,9 +53,14 @@ export default class Modal extends React.Component {
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
-        <MobileNavigationPage direction={direction} pageHeight={pageHeight} zIndex={zIndex} >
+        <MobileNavigationModal
+          pageHeight={pageHeight}
+          pageWidth={pageWidth}
+          zIndex={zIndex}
+          onPageClose={onModalCloseStart}
+        >
           {render()}
-        </MobileNavigationPage>
+        </MobileNavigationModal>
       </Interpolation>
     );
   }

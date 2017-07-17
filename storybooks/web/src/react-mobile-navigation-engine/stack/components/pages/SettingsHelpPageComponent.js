@@ -4,7 +4,6 @@ import Alert, { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
 import StackPage from 'binary-ui-stack';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import { DirectionEnum } from 'react-mobile-navigation-core';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
 export default class SettingsHelpPageComponent extends React.Component {
@@ -20,8 +19,8 @@ export default class SettingsHelpPageComponent extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closePageClick = this.closePageClick.bind(this);
     this.closePageForceClick = this.closePageForceClick.bind(this);
-    this.connectedHelpText = this.connectedHelpText.bind(this);
-    this.connectedHelpTextForce = this.connectedHelpTextForce.bind(this);
+    this.connectedLicensesText = this.connectedLicensesText.bind(this);
+    this.connectedLicensesTextForce = this.connectedLicensesTextForce.bind(this);
   }
 
   onClick() {
@@ -34,7 +33,7 @@ export default class SettingsHelpPageComponent extends React.Component {
       items: [],
       onCancel: () => {},
       onSelect: () => {},
-    }, DirectionEnum.VERTICAL);
+    });
   }
 
   openComboBox() {
@@ -59,7 +58,7 @@ export default class SettingsHelpPageComponent extends React.Component {
       onCancel: () => {},
       onSelect: () => {},
       onSelectCustom: () => {},
-    }, DirectionEnum.VERTICAL);
+    });
   }
 
   openAlertAutoHide() {
@@ -115,7 +114,7 @@ export default class SettingsHelpPageComponent extends React.Component {
           </StackPage>
         );
       },
-    }, DirectionEnum.VERTICAL);
+    });
   }
 
   componentOpeningDone() {
@@ -126,16 +125,12 @@ export default class SettingsHelpPageComponent extends React.Component {
     console.log('componentClosingDone', this.cache);
   }
 
-  connectedHelpText() {
-    this.props.onPageOpen(
-      SettingsModeTypesEnum.LICENSES
-    );
+  connectedLicensesText() {
+    this.props.onPageOpen(SettingsModeTypesEnum.LICENSES);
   }
 
-  connectedHelpTextForce() {
-    this.props.onPageOpenForce(
-      SettingsModeTypesEnum.LICENSES
-    );
+  connectedLicensesTextForce() {
+    this.props.onPageOpen(SettingsModeTypesEnum.LICENSES, true);
   }
 
   closePageClick(e) {
@@ -143,7 +138,7 @@ export default class SettingsHelpPageComponent extends React.Component {
   }
 
   closePageForceClick(e) {
-    this.props.onPageCloseForce();
+    this.props.onPageClose(true);
   }
 
   render() {
@@ -151,10 +146,10 @@ export default class SettingsHelpPageComponent extends React.Component {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Help (3)</div>
-        <div onClick={this.connectedHelpText} >
+        <div onClick={this.connectedLicensesText} >
           Open licenses
         </div>
-        <div onClick={this.connectedHelpTextForce} >
+        <div onClick={this.connectedLicensesTextForce} >
           Open licenses force
         </div>
         <div onClick={this.closePageClick} >

@@ -21,9 +21,8 @@
   ],
   "main": "lib/index.js",
   "dependencies": {
-    "binary-ui-styles": "^0.2.7",
-    "react-mobile-navigation-core": "^1.0.9-0",
-    "react-mobile-navigation-sheet": "^1.0.9-0"
+    "binary-ui-styles": "^0.2.10",
+    "react-mobile-navigation-core": "^1.0.9-0"
   },
   "peerDependencies": {
     "react": "^15.0.0",

@@ -1,41 +1,50 @@
 import React from 'react';
 import MobileNavigationPageRender from '../components-styled/MobileNavigationPageRender';
+import * as DirectionEnum from '../constants/direction-types';
 import getTranslate3dByDirection from '../utils/style-api';
+import { getPositionFromStatus } from '../utils/position-api';
+import { ORIGINAL } from '../constants/page-types';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
-  direction: React.PropTypes.string,
+  isForce: React.PropTypes.bool,
   isShow: React.PropTypes.bool,
-  position: React.PropTypes.number,
+  pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number,
   onTransitionEnd: React.PropTypes.func,
 };
 
 const defaultProps = {
-  position: undefined,
+  isForce: undefined,
+  pageStatus: undefined,
 };
 
 const MobileNavigationPage = ({
   children,
-  direction,
+  isForce,
   isShow,
-  position,
+  pageStatus,
   zIndex,
   onTransitionEnd,
   ...props,
 }) => (
-  isShow ? (
-    <MobileNavigationPageRender
-      styleIndex={zIndex}
-      styleTranslate={getTranslate3dByDirection(direction, position)}
-      onTransitionEnd={onTransitionEnd}
-    >
-      {React.cloneElement(React.Children.only(children), props)}
-    </MobileNavigationPageRender>
-  ) : null
+  <MobileNavigationPageRender
+    styleIndex={zIndex}
+    styleTranslate={
+      getTranslate3dByDirection(
+        DirectionEnum.HORIZONTAL,
+        isForce,
+        getPositionFromStatus(pageStatus)
+      )
+    }
+    onTransitionEnd={onTransitionEnd}
+  >
+    {isShow ? React.cloneElement(React.Children.only(children), props) : null}
+  </MobileNavigationPageRender>
 );
 
 MobileNavigationPage.propTypes = propTypes;
 MobileNavigationPage.defaultProps = defaultProps;
+MobileNavigationPage.pageType = ORIGINAL;
 
 export default MobileNavigationPage;

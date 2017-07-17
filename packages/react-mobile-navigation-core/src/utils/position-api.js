@@ -16,3 +16,16 @@ export function getPositionFromStatus(status) {
       return INTERP_BEGIN;
   }
 }
+
+export function getModalPositionFromStatus(status) {
+  switch (status) {
+    case PageStatusTypesEnum.OPEN_DONE:
+      return INTERP_BEGIN;
+    case PageStatusTypesEnum.CLOSE_DONE:
+      return INTERP_END;
+    case PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE:
+      return INTERP_BEGIN;
+    default:
+      return INTERP_BEGIN;
+  }
+}

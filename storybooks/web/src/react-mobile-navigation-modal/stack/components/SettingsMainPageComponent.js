@@ -3,7 +3,6 @@ import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
 import Button from 'binary-ui-components/mobile/Button';
 import Group from 'binary-ui-components/mobile/Group';
 import Text from 'binary-ui-components/mobile/Text';
-import { DirectionEnum } from 'react-mobile-navigation-core';
 import { Modal } from 'react-mobile-navigation-modal';
 
 export default class SettingsMainPageComponent extends React.Component {
@@ -20,11 +19,7 @@ export default class SettingsMainPageComponent extends React.Component {
   openCombobox() {
     this.comboBoxItems = [];
     /*
-    this.props.comboBoxActions.openPage(
-      this.props.pageId,
-      DirectionEnum.VERTICAL,
-      this.props.pageState.zIndex
-    );
+    this.props.comboBoxActions.openPage();
     */
   }
 

@@ -1,47 +1,52 @@
 import React from 'react';
-import {
-  getTranslate3dByDirection,
-  MobileNavigationPageRender,
-} from 'react-mobile-navigation-core';
+import MobileNavigationPageRender from '../components-styled/MobileNavigationPageRender';
 import BackgroundActiveRender from '../components-styled/BackgroundActiveRender';
 import ContentRender from '../components-styled/ContentRender';
+import { getModalPositionFromStatus } from '../utils/position-api';
+import getTranslate3dByDirection from '../utils/style-api';
 
 const propTypes = {
   children: React.PropTypes.element,
   direction: React.PropTypes.string.isRequired,
+  isForce: React.PropTypes.bool,
   isShow: React.PropTypes.bool,
-  position: React.PropTypes.number,
+  pageStatus: React.PropTypes.string,
   zIndex: React.PropTypes.number.isRequired,
   onShadowClick: React.PropTypes.func,
   onTransitionEnd: React.PropTypes.func,
 };
 
-const defaultProps = {};
+const defaultProps = {
+  isForce: undefined,
+};
 
 const MobileNavigationShadowPage = ({
   children,
   direction,
+  isForce,
   isShow,
-  position,
+  pageStatus,
   zIndex,
   onShadowClick,
   onTransitionEnd,
-}) => (
-  isShow ? (
+}) => {
+  const position = getModalPositionFromStatus(pageStatus);
+  return (
     <MobileNavigationPageRender styleIndex={zIndex} >
       <BackgroundActiveRender
+        isForce={isForce}
         styleOpacity={0.3 * (1 - position / 100)}
         onClick={onShadowClick}
       />
       <ContentRender
-        styleTranslate={getTranslate3dByDirection(direction, position)}
+        styleTranslate={getTranslate3dByDirection(direction, isForce, position)}
         onTransitionEnd={onTransitionEnd}
       >
-        {children}
+        {isShow ? children : null}
       </ContentRender>
     </MobileNavigationPageRender>
-  ) : null
-);
+  );
+};
 
 MobileNavigationShadowPage.propTypes = propTypes;
 MobileNavigationShadowPage.defaultProps = defaultProps;

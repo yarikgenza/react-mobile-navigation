@@ -1,11 +1,14 @@
 ﻿import React from 'react';
-import { PageStatusTypesEnum, Interpolation } from 'react-mobile-navigation-core';
-import MobileNavigationShadowPage from 'react-mobile-navigation-sheet';
+import {
+  DirectionEnum,
+  PageStatusTypesEnum,
+  Interpolation,
+  MobileNavigationShadowPage,
+} from 'react-mobile-navigation-core';
 import ActionSheetList from './ActionSheetList';
 
 const propTypes = {
   cancelLabel: React.PropTypes.string,
-  direction: React.PropTypes.string.isRequired,
   isShow: React.PropTypes.bool.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   pageStatus: React.PropTypes.string,
@@ -86,10 +89,9 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
-    const { cancelLabel, direction, isShow, items, pageStatus, zIndex } = this.props;
+    const { cancelLabel, isShow, items, pageStatus, zIndex } = this.props;
     return (
       <Interpolation
-        direction={direction}
         isAnimation
         isShow={isShow}
         pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
@@ -98,7 +100,7 @@ export default class ActionSheet extends React.Component {
         onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationShadowPage
-          direction={direction}
+          direction={DirectionEnum.VERTICAL}
           zIndex={zIndex}
           onShadowClick={this.onShadowClick}
         >
