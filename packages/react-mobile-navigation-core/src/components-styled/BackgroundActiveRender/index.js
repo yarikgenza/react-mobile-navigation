@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 export default styled.div.attrs({
   style: props => ({
+    backdropFilter: props.styleBackdropFilter,
     opacity: props.styleOpacity,
-    transition: props.isForce ? undefined : 'opacity 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+    transition: props.isForce ? undefined : 'all 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000)',
   }),
 })`
   background-color: #000000;

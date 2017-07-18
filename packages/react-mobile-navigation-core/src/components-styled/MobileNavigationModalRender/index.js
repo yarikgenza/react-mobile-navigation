@@ -7,4 +7,7 @@ export default styled.div.attrs({
   }),
 })`
   margin: 0 auto;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 `;

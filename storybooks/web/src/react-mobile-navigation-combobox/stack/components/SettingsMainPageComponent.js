@@ -75,7 +75,6 @@ export default class SettingsMainPageComponent extends React.Component {
     };
     const SIDE_MENU_BODY_STYLE = {
       backgroundColor: 'white',
-      borderRadius: '5px',
       overflowX: 'hidden',
       overflowY: 'auto',
     };

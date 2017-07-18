@@ -35,7 +35,8 @@ const MobileNavigationShadowPage = ({
     <MobileNavigationPageRender styleIndex={zIndex} >
       <BackgroundActiveRender
         isForce={isForce}
-        styleOpacity={0.3 * (1 - position / 100)}
+        styleBackdropFilter={`blur(${2 * (1 - position / 100)}px)`}
+        styleOpacity={0.2 * (1 - position / 100)}
         onClick={onShadowClick}
       />
       <ContentRender

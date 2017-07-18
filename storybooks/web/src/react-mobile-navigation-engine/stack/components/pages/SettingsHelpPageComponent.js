@@ -40,7 +40,6 @@ export default class SettingsHelpPageComponent extends React.Component {
     this.props.onComboBoxOpen({
       bodyStyle: {
         backgroundColor: 'white',
-        borderRadius: '5px',
         overflowX: 'hidden',
         overflowY: 'auto',
       },
@@ -89,7 +88,6 @@ export default class SettingsHelpPageComponent extends React.Component {
           <StackPage
             bodyStyle={{
               backgroundColor: 'white',
-              borderRadius: '5px',
               overflowX: 'hidden',
               overflowY: 'auto',
             }}
