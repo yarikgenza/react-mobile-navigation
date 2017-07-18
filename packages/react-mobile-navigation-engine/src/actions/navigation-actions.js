@@ -5,18 +5,18 @@ import {
   PAGE_CLOSE_DONE,
 } from '../action-types/navigation-action-types';
 
-export function openPage(pageIdNew, isForce = false) {
+export function onPageOpen(pageIdNew, isForce = false) {
   return { type: PAGE_OPEN_START, isForce, pageIdNew };
 }
 
-export function openPageDone() {
+export function onPageOpenDone() {
   return { type: PAGE_OPEN_DONE };
 }
 
-export function closePage(isForce = false) {
+export function onPageClose(isForce = false) {
   return { type: PAGE_CLOSE_START, isForce };
 }
 
-export function closePageDone() {
+export function onPageCloseDone() {
   return { type: PAGE_CLOSE_DONE };
 }

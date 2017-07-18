@@ -236,7 +236,7 @@ export default class MobileNavigation extends React.Component {
         pageIdActive: pageIdNew,
         pages: navigationReducers(
           prevState.navigation.pages,
-          navigationActions.openPage(pageIdNew, isForce),
+          navigationActions.onPageOpen(pageIdNew, isForce),
           getPrevPageId(prevState.navigation, pageIdNew),
         ),
       }),
@@ -250,7 +250,7 @@ export default class MobileNavigation extends React.Component {
         actionMeta: undefined,
         pages: navigationReducers(
           prevState.navigation.pages,
-          navigationActions.openPageDone(),
+          navigationActions.onPageOpenDone(),
           prevState.navigation.pageIdActive
         ),
       }),
@@ -268,7 +268,7 @@ export default class MobileNavigation extends React.Component {
         },
         pages: navigationReducers(
           prevState.navigation.pages,
-          navigationActions.closePage(isForce),
+          navigationActions.onPageClose(isForce),
           prevState.navigation.pageIdActive
         ),
       }),
@@ -285,7 +285,7 @@ export default class MobileNavigation extends React.Component {
         ),
         pages: navigationReducers(
           prevState.navigation.pages,
-          navigationActions.closePageDone(),
+          navigationActions.onPageCloseDone(),
           prevState.navigation.pageIdActive
         ),
       }),

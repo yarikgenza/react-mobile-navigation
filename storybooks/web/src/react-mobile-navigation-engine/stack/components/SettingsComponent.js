@@ -14,7 +14,7 @@ const height = 500;
 const SettingsComponent = ({ initState }) => (
   <MobileNavigation
     initPagesState={[
-      navigationActions.openPage(SettingsModeTypesEnum.HELP),
+      navigationActions.onPageOpen(SettingsModeTypesEnum.HELP),
     ]}
     pageHeight={height}
     pageIdRoot={SettingsModeTypesEnum.MAIN}
