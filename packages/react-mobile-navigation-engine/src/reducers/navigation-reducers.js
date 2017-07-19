@@ -50,30 +50,19 @@ export default (state = initialState, action, pageIdActive) => {
       });
     }
     case PAGE_OPEN_PROCESSING: {
-      const zIndex = state[pageIdActive].zIndex + 1;
       return Object.assign({}, state, {
         [action.pageIdNew]: action.isForce
           ? Object.assign({}, state[action.pageIdNew], {
-            // isForce: true,
-            // prevPageId: pageIdActive,
             status: PageStatusTypesEnum.OPEN_PROCESSING,
-            // zIndex,
           })
           : Object.assign({}, state[action.pageIdNew], {
-            // isForce: undefined,
-            // prevPageId: pageIdActive,
             status: PageStatusTypesEnum.OPEN_PROCESSING,
-            // zIndex,
           }),
         [pageIdActive]: state[action.pageIdNew].type === PageTypesEnum.ORIGINAL
           ? (
             action.isForce
-              ? Object.assign({}, state[pageIdActive], {
-                // isForce: true,
-                // status: PageStatusTypesEnum.CLOSE_DONE,
-              })
+              ? Object.assign({}, state[pageIdActive], { })
               : Object.assign({}, state[pageIdActive], {
-                // isForce: undefined,
                 status: PageStatusTypesEnum.BACK_ANIMATING_OUT_PROCESSING,
               })
           )
@@ -105,7 +94,7 @@ export default (state = initialState, action, pageIdActive) => {
         [pageIdActive]: (state[pageIdActive].isForce || action.isForce)
           ? Object.assign({}, state[pageIdActive], {
             isForce: true,
-            status: PageStatusTypesEnum.CLOSE_START,
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
             zIndex: 0,
           })
           : Object.assign({}, state[pageIdActive], {
@@ -117,7 +106,7 @@ export default (state = initialState, action, pageIdActive) => {
             action.isForce
               ? Object.assign({}, state[pageIdActivePrev], {
                 isForce: true,
-                status: PageStatusTypesEnum.BACK_ANIMATING_IN_START,
+                status: PageStatusTypesEnum.BACK_ANIMATING_IN_PROCESSING,
               })
               : Object.assign({}, state[pageIdActivePrev], {
                 status: PageStatusTypesEnum.BACK_ANIMATING_IN_START,
@@ -131,19 +120,15 @@ export default (state = initialState, action, pageIdActive) => {
       return Object.assign({}, state, {
         [pageIdActive]: (state[pageIdActive].isForce || action.isForce)
           ? Object.assign({}, state[pageIdActive], {
-            // isForce: true,
             status: PageStatusTypesEnum.CLOSE_PROCESSING,
-            // zIndex: 0,
           })
           : Object.assign({}, state[pageIdActive], {
-            // isForce: undefined,
             status: PageStatusTypesEnum.CLOSE_PROCESSING,
           }),
         [pageIdActivePrev]: state[pageIdActive].type === PageTypesEnum.ORIGINAL
           ? (
             action.isForce
               ? Object.assign({}, state[pageIdActivePrev], {
-                // isForce: true,
                 status: PageStatusTypesEnum.BACK_ANIMATING_IN_PROCESSING,
               })
               : Object.assign({}, state[pageIdActivePrev], {

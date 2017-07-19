@@ -275,8 +275,7 @@ export default class MobileNavigation extends React.Component {
   }
 
   onPageCloseStart(isForce = false) {
-    const { navigation } = this.state;
-    this.memoizedNavigation = navigation;
+    this.memoizedNavigation = this.state.navigation;
     this.setState((prevState) => ({
       navigation: Object.assign({}, prevState.navigation, {
         actionMeta: {
@@ -290,7 +289,8 @@ export default class MobileNavigation extends React.Component {
         ),
       }),
     }), () => {
-      if (isForce) {
+      const { navigation } = this.state;
+      if (navigation.pages[navigation.pageIdActive].isForce || isForce) {
         return;
       }
       // force rendering in the next frame

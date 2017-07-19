@@ -1,8 +1,9 @@
 ﻿import React from 'react';
 import {
-  BACK_ANIMATING_OUT_DONE,
   OPEN_DONE,
   OPEN_PROCESSING,
+  OPEN_START,
+  CLOSE_START,
   CLOSE_PROCESSING,
   CLOSE_DONE,
 } from '../constants/page-status-types';
@@ -36,12 +37,12 @@ export default class Interpolation extends React.Component {
       return;
     }
     // open the page
-    if (pageStatus === CLOSE_DONE && newProps.pageStatus === OPEN_DONE) {
+    if (pageStatus === CLOSE_DONE && newProps.pageStatus === OPEN_START) {
       onPageOpenDone();
       return;
     }
     // close the page
-    if (pageStatus === OPEN_DONE && newProps.pageStatus === CLOSE_DONE) {
+    if (pageStatus === OPEN_DONE && newProps.pageStatus === CLOSE_PROCESSING) {
       // force rendering in the next frame
       window.requestAnimationFrame(() => {
         onPageCloseDone();
