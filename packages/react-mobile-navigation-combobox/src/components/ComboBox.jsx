@@ -2,7 +2,11 @@
 import IconDone from 'binary-ui-icons/binary/Done';
 import StackPage from 'binary-ui-stack';
 import React from 'react';
-import { Interpolation, MobileNavigationModal } from 'react-mobile-navigation-core';
+import {
+  Interpolation,
+  MobileNavigationModal,
+  PageStatusTypesEnum,
+} from 'react-mobile-navigation-core';
 import ComboboxList from './ComboboxList';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
@@ -13,7 +17,6 @@ const propTypes = {
   customOptionModel: React.PropTypes.object,
   inputPlaceholder: React.PropTypes.string,
   isBold: React.PropTypes.bool,
-  isShow: React.PropTypes.bool.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   headerStyle: React.PropTypes.object,
   pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
@@ -158,7 +161,6 @@ export default class ComboBox extends React.Component {
       headerStyle,
       inputPlaceholder,
       isBold,
-      isShow,
       noOptionsMatchingInputLabel,
       pageHeight,
       pageWidth,
@@ -171,7 +173,7 @@ export default class ComboBox extends React.Component {
     const { textFilter } = this.state;
     return (
       <Interpolation
-        isShow={isShow}
+        isShow={pageStatus !== PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}

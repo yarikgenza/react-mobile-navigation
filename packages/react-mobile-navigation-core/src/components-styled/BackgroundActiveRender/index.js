@@ -1,10 +1,13 @@
 import styled from 'styled-components';
+import { TRANSFORM_CURVE } from '../../utils/style-api';
 
 export default styled.div.attrs({
   style: props => ({
     backdropFilter: props.styleBackdropFilter,
     opacity: props.styleOpacity,
-    transition: props.isForce ? undefined : 'all 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+    transition: props.isForce
+      ? undefined
+      : `opacity 0.5s ${TRANSFORM_CURVE}, backdrop-filter 0.5s ${TRANSFORM_CURVE}`,
   }),
 })`
   background-color: #000000;

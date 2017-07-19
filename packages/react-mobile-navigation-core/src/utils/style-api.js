@@ -2,12 +2,14 @@ import * as DirectionEnum from '../constants/direction-types';
 
 export const MODAL_MARGIN = 10;
 
+export const TRANSFORM_CURVE = 'cubic-bezier(0.190, 1.000, 0.220, 1.000)';
+
 function getTransform(direction, isForce, transform) {
   return {
     transform,
     transition: (!direction || isForce)
       ? undefined
-      : 'transform 0.5s cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+      : `transform 0.5s ${TRANSFORM_CURVE}`,
   };
 }
 

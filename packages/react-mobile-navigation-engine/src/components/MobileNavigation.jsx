@@ -39,19 +39,15 @@ export default class MobileNavigation extends React.Component {
     this.memoizedNavigation = undefined;
     this.state = {
       actionSheet: {
-        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       alert: {
-        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       comboBox: {
-        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       modal: {
-        isShow: false,
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       navigation: createInitState(
@@ -92,29 +88,52 @@ export default class MobileNavigation extends React.Component {
     if (actionSheet.status !== PageStatusTypesEnum.CLOSE_DONE) {
       return;
     }
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       actionSheet: Object.assign({}, prevState.actionSheet, {
-        isShow: true,
+        status: PageStatusTypesEnum.OPEN_START,
+      }),
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          actionSheet: Object.assign({}, prevState.actionSheet, {
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
+          }),
+        }));
+      });
+    });
+  }
+
+  onActionSheetOpenDone() {
+    this.setState(prevState => ({
+      actionSheet: Object.assign({}, prevState.actionSheet, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
     }));
   }
 
-  onActionSheetOpenDone() {}
-
   onActionSheetCloseStart() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       actionSheet: Object.assign({}, prevState.actionSheet, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
+        status: PageStatusTypesEnum.CLOSE_START,
       }),
-    }));
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          actionSheet: Object.assign({}, prevState.actionSheet, {
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+          }),
+        }));
+      });
+    });
   }
 
   onActionSheetCloseDone() {
     this.memoizedActionSheet = {};
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       actionSheet: Object.assign({}, prevState.actionSheet, {
-        isShow: false,
+        status: PageStatusTypesEnum.CLOSE_DONE,
       }),
     }));
   }
@@ -126,29 +145,52 @@ export default class MobileNavigation extends React.Component {
     if (alert.status !== PageStatusTypesEnum.CLOSE_DONE) {
       return;
     }
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       alert: Object.assign({}, prevState.alert, {
-        isShow: true,
+        status: PageStatusTypesEnum.OPEN_START,
+      }),
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          alert: Object.assign({}, prevState.alert, {
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
+          }),
+        }));
+      });
+    });
+  }
+
+  onAlertOpenDone() {
+    this.setState(prevState => ({
+      alert: Object.assign({}, prevState.alert, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
     }));
   }
 
-  onAlertOpenDone() { }
-
   onAlertCloseStart() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       alert: Object.assign({}, prevState.alert, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
+        status: PageStatusTypesEnum.CLOSE_START,
       }),
-    }));
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          alert: Object.assign({}, prevState.alert, {
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+          }),
+        }));
+      });
+    });
   }
 
   onAlertCloseDone() {
     this.memoizedAlert = {};
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       alert: Object.assign({}, prevState.alert, {
-        isShow: false,
+        status: PageStatusTypesEnum.CLOSE_DONE,
       }),
     }));
   }
@@ -160,29 +202,52 @@ export default class MobileNavigation extends React.Component {
     if (comboBox.status !== PageStatusTypesEnum.CLOSE_DONE) {
       return;
     }
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       comboBox: Object.assign({}, prevState.comboBox, {
-        isShow: true,
+        status: PageStatusTypesEnum.OPEN_START,
+      }),
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          comboBox: Object.assign({}, prevState.comboBox, {
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
+          }),
+        }));
+      });
+    });
+  }
+
+  onComboBoxOpenDone() {
+    this.setState(prevState => ({
+      comboBox: Object.assign({}, prevState.comboBox, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
     }));
   }
 
-  onComboBoxOpenDone() { }
-
   onComboBoxCloseStart() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       comboBox: Object.assign({}, prevState.comboBox, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
+        status: PageStatusTypesEnum.CLOSE_START,
       }),
-    }));
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          comboBox: Object.assign({}, prevState.comboBox, {
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+          }),
+        }));
+      });
+    });
   }
 
   onComboBoxCloseDone() {
     this.memoizedComboBox = {};
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       comboBox: Object.assign({}, prevState.comboBox, {
-        isShow: false,
+        status: PageStatusTypesEnum.CLOSE_DONE,
       }),
     }));
   }
@@ -194,29 +259,52 @@ export default class MobileNavigation extends React.Component {
     if (modal.status !== PageStatusTypesEnum.CLOSE_DONE) {
       return;
     }
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       modal: Object.assign({}, prevState.modal, {
-        isShow: true,
+        status: PageStatusTypesEnum.OPEN_START,
+      }),
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          modal: Object.assign({}, prevState.modal, {
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
+          }),
+        }));
+      });
+    });
+  }
+
+  onModalOpenDone() {
+    this.setState(prevState => ({
+      modal: Object.assign({}, prevState.modal, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
     }));
   }
 
-  onModalOpenDone() { }
-
   onModalCloseStart() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       modal: Object.assign({}, prevState.modal, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
+        status: PageStatusTypesEnum.CLOSE_START,
       }),
-    }));
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(prevState => ({
+          modal: Object.assign({}, prevState.modal, {
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+          }),
+        }));
+      });
+    });
   }
 
   onModalCloseDone() {
     this.memoizedModal = {};
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       modal: Object.assign({}, prevState.modal, {
-        isShow: false,
+        status: PageStatusTypesEnum.CLOSE_DONE,
       }),
     }));
   }
@@ -228,7 +316,7 @@ export default class MobileNavigation extends React.Component {
       return;
     }
     this.memoizedNavigation = navigation;
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       navigation: Object.assign({}, prevState.navigation, {
         actionMeta: {
           type: PAGE_OPEN_START,
@@ -247,12 +335,12 @@ export default class MobileNavigation extends React.Component {
       }
       // force rendering in the next frame
       window.requestAnimationFrame(() => {
-        this.setState((prevStateNew) => ({
-          navigation: Object.assign({}, prevStateNew.navigation, {
+        this.setState(prevState => ({
+          navigation: Object.assign({}, prevState.navigation, {
             pages: navigationReducers(
-              prevStateNew.navigation.pages,
+              prevState.navigation.pages,
               navigationActions.onPageOpenProcessing(pageIdNew),
-              getPrevPageId(prevStateNew.navigation, pageIdNew),
+              getPrevPageId(prevState.navigation, pageIdNew),
             ),
           }),
         }));
@@ -262,7 +350,7 @@ export default class MobileNavigation extends React.Component {
 
   onPageOpenDone() {
     this.memoizedNavigation = undefined;
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       navigation: Object.assign({}, prevState.navigation, {
         actionMeta: undefined,
         pages: navigationReducers(
@@ -276,7 +364,7 @@ export default class MobileNavigation extends React.Component {
 
   onPageCloseStart(isForce = false) {
     this.memoizedNavigation = this.state.navigation;
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       navigation: Object.assign({}, prevState.navigation, {
         actionMeta: {
           type: PAGE_CLOSE_START,
@@ -295,12 +383,12 @@ export default class MobileNavigation extends React.Component {
       }
       // force rendering in the next frame
       window.requestAnimationFrame(() => {
-        this.setState((prevStateNew) => ({
-          navigation: Object.assign({}, prevStateNew.navigation, {
+        this.setState(prevState => ({
+          navigation: Object.assign({}, prevState.navigation, {
             pages: navigationReducers(
-              prevStateNew.navigation.pages,
+              prevState.navigation.pages,
               navigationActions.onPageCloseProcessing(),
-              prevStateNew.navigation.pageIdActive
+              prevState.navigation.pageIdActive
             ),
           }),
         }));
@@ -309,7 +397,7 @@ export default class MobileNavigation extends React.Component {
   }
 
   onPageCloseDone() {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       navigation: Object.assign({}, prevState.navigation, {
         actionMeta: undefined,
         pageIdActive: getPrevPageById(
@@ -372,42 +460,38 @@ export default class MobileNavigation extends React.Component {
         })}
         <ComboBox
           {...this.memoizedComboBox}
-          isShow={comboBox.isShow}
           pageHeight={pageHeight}
           pageStatus={comboBox.status}
           pageWidth={pageWidth}
-          zIndex={comboBox.isShow ? 1000 : 0}
+          zIndex={comboBox.status !== PageStatusTypesEnum.CLOSE_DONE ? 1000 : 0}
           onComboBoxOpenDone={this.onComboBoxOpenDone}
           onComboBoxCloseStart={this.onComboBoxCloseStart}
           onComboBoxCloseDone={this.onComboBoxCloseDone}
         />
         <Modal
           {...this.memoizedModal}
-          isShow={modal.isShow}
           pageHeight={pageHeight}
           pageStatus={modal.status}
           pageWidth={pageWidth}
-          zIndex={modal.isShow ? 1001 : 0}
+          zIndex={modal.status !== PageStatusTypesEnum.CLOSE_DONE ? 1001 : 0}
           onModalOpenDone={this.onModalOpenDone}
           onModalCloseStart={this.onModalCloseStart}
           onModalCloseDone={this.onModalCloseDone}
         />
         <AlertBox
           {...this.memoizedAlert}
-          isShow={alert.isShow}
           pageStatus={alert.status}
           pageWidth={pageWidth}
-          zIndex={alert.isShow ? 1002 : 0}
+          zIndex={alert.status !== PageStatusTypesEnum.CLOSE_DONE ? 1002 : 0}
           onAlertOpenDone={this.onAlertOpenDone}
           onAlertCloseStart={this.onAlertCloseStart}
           onAlertCloseDone={this.onAlertCloseDone}
         />
         <ActionSheet
           {...this.memoizedActionSheet}
-          isShow={actionSheet.isShow}
           pageStatus={actionSheet.status}
           pageWidth={pageWidth}
-          zIndex={actionSheet.isShow ? 1003 : 0}
+          zIndex={actionSheet.status !== PageStatusTypesEnum.CLOSE_DONE ? 1003 : 0}
           onActionSheetOpenDone={this.onActionSheetOpenDone}
           onActionSheetCloseStart={this.onActionSheetCloseStart}
           onActionSheetCloseDone={this.onActionSheetCloseDone}

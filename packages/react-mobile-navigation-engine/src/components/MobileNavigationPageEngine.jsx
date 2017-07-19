@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import React from 'react';
 import { Interpolation, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
@@ -46,7 +47,7 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageOpenDone();
     }
     const { onOpenUserCallback } = this.cache;
-    if (typeof onOpenUserCallback === 'function') {
+    if (isFunction(onOpenUserCallback)) {
       onOpenUserCallback();
       return;
     }
@@ -59,7 +60,7 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageCloseDone();
     }
     const { onCloseUserCallback } = this.cache;
-    if (typeof onCloseUserCallback === 'function') {
+    if (isFunction(onCloseUserCallback)) {
       onCloseUserCallback();
       return;
     }

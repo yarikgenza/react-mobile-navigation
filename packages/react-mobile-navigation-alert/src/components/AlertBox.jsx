@@ -1,9 +1,12 @@
 ﻿import React from 'react';
-import { Interpolation, MobileNavigationView } from 'react-mobile-navigation-core';
+import {
+  Interpolation,
+  MobileNavigationView,
+  PageStatusTypesEnum,
+} from 'react-mobile-navigation-core';
 
 const propTypes = {
   autoHideDuration: React.PropTypes.number,
-  isShow: React.PropTypes.bool.isRequired,
   pageStatus: React.PropTypes.string,
   pageWidth: React.PropTypes.number.isRequired,
   zIndex: React.PropTypes.number.isRequired,
@@ -61,10 +64,10 @@ export default class AlertBox extends React.Component {
   }
 
   render() {
-    const { isShow, pageStatus, pageWidth, zIndex, render } = this.props;
+    const { pageStatus, pageWidth, zIndex, render } = this.props;
     return (
       <Interpolation
-        isShow={isShow}
+        isShow={pageStatus !== PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
