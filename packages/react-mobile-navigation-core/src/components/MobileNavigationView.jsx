@@ -1,6 +1,6 @@
 import React from 'react';
 import MobileNavigationViewRender from '../components-styled/MobileNavigationViewRender';
-import * as DirectionEnum from '../constants/direction-types';
+import { VERTICAL } from '../constants/direction-types';
 import getTranslate3dByDirection, { MODAL_MARGIN } from '../utils/style-api';
 import { getPositionFromStatus } from '../utils/position-api';
 
@@ -37,7 +37,7 @@ const MobileNavigationView = ({
       styleIndex={zIndex}
       styleTranslate={
         getTranslate3dByDirection(
-          DirectionEnum.VERTICAL,
+          VERTICAL,
           isForce,
           getPositionFromStatus(pageStatus)
         )

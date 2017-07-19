@@ -2,12 +2,12 @@ import React from 'react';
 import MobileNavigationPageRender from '../components-styled/MobileNavigationPageRender';
 import BackgroundActiveRender from '../components-styled/BackgroundActiveRender';
 import ContentRender from '../components-styled/ContentRender';
+import { VERTICAL } from '../constants/direction-types';
 import { getModalPositionFromStatus } from '../utils/position-api';
 import getTranslate3dByDirection from '../utils/style-api';
 
 const propTypes = {
   children: React.PropTypes.element,
-  direction: React.PropTypes.string.isRequired,
   isForce: React.PropTypes.bool,
   isShow: React.PropTypes.bool,
   pageLeft: React.PropTypes.number.isRequired,
@@ -29,7 +29,6 @@ const defaultProps = {
 
 const MobileNavigationShadowPage = ({
   children,
-  direction,
   isForce,
   isShow,
   pageStatus,
@@ -51,7 +50,7 @@ const MobileNavigationShadowPage = ({
       <ContentRender
         pageLeft={pageLeft}
         pageWidth={pageWidth}
-        styleTranslate={getTranslate3dByDirection(direction, isForce, position)}
+        styleTranslate={getTranslate3dByDirection(VERTICAL, isForce, position)}
         onTransitionEnd={onTransitionEnd}
       >
         {isShow ? children : null}

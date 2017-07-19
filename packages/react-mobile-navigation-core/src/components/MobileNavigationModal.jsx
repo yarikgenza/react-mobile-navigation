@@ -1,7 +1,7 @@
 import React from 'react';
 import MobileNavigationShadowPage from './MobileNavigationShadowPage';
 import MobileNavigationModalRender from '../components-styled/MobileNavigationModalRender';
-import * as DirectionEnum from '../constants/direction-types';
+import { VERTICAL } from '../constants/direction-types';
 import { MODAL } from '../constants/page-types';
 import { MODAL_MARGIN } from '../utils/style-api';
 
@@ -60,7 +60,7 @@ export default class MobileNavigationModal extends React.Component {
     const pageWidthNew = pageWidth - (2 * MODAL_MARGIN);
     return (
       <MobileNavigationShadowPage
-        direction={DirectionEnum.VERTICAL}
+        direction={VERTICAL}
         isForce={isForce}
         isShow={isShow}
         pageLeft={MODAL_MARGIN}

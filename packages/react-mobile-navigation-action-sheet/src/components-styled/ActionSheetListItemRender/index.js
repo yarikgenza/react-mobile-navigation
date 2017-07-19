@@ -13,5 +13,5 @@ export default styled.div`
   &:active {
     background-color: ${BINARY_COLOR_SAND_90};
   }
-  ${props => (props.isRed ? `color: ${BINARY_COLOR_RED_40}; font-weight: 400;` : '')}
+  ${props => (props.isRed ? `color: ${BINARY_COLOR_RED_40}; font-weight: 400;` : undefined)}
 `;

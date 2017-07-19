@@ -1,9 +1,9 @@
 import React from 'react';
 import MobileNavigationPageRender from '../components-styled/MobileNavigationPageRender';
-import * as DirectionEnum from '../constants/direction-types';
+import { HORIZONTAL } from '../constants/direction-types';
+import { ORIGINAL } from '../constants/page-types';
 import getTranslate3dByDirection from '../utils/style-api';
 import { getPositionFromStatus } from '../utils/position-api';
-import { ORIGINAL } from '../constants/page-types';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
@@ -32,7 +32,7 @@ const MobileNavigationPage = ({
     styleIndex={zIndex}
     styleTranslate={
       getTranslate3dByDirection(
-        DirectionEnum.HORIZONTAL,
+        HORIZONTAL,
         isForce,
         getPositionFromStatus(pageStatus)
       )

@@ -1,6 +1,5 @@
 ﻿import React from 'react';
 import {
-  DirectionEnum,
   Interpolation,
   MobileNavigationShadowPage,
   PageStatusTypesEnum,
@@ -98,7 +97,6 @@ export default class ActionSheet extends React.Component {
         onPageCloseDone={this.onPageCloseDone}
       >
         <MobileNavigationShadowPage
-          direction={DirectionEnum.VERTICAL}
           pageLeft={0}
           pageWidth={pageWidth}
           zIndex={zIndex}
