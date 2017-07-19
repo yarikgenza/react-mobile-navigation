@@ -2,18 +2,14 @@
 import {
   OPEN_DONE,
   OPEN_PROCESSING,
-  OPEN_START,
-  CLOSE_START,
   CLOSE_PROCESSING,
   CLOSE_DONE,
 } from '../constants/page-status-types';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
-  isAnimation: React.PropTypes.bool.isRequired,
   isForce: React.PropTypes.bool,
   isShow: React.PropTypes.bool.isRequired,
-  pageStatusInit: React.PropTypes.string.isRequired,
   pageStatus: React.PropTypes.string.isRequired,
   onPageOpenDone: React.PropTypes.func.isRequired,
   onPageCloseDone: React.PropTypes.func.isRequired,
@@ -32,16 +28,13 @@ export default class Interpolation extends React.Component {
 
   componentWillReceiveProps(newProps) {
     const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
-    // with no animation
     if (!newProps.isForce) {
       return;
     }
-    // open the page
-    if (pageStatus === CLOSE_DONE && newProps.pageStatus === OPEN_START) {
+    if (pageStatus === CLOSE_DONE && newProps.pageStatus === OPEN_PROCESSING) {
       onPageOpenDone();
       return;
     }
-    // close the page
     if (pageStatus === OPEN_DONE && newProps.pageStatus === CLOSE_PROCESSING) {
       // force rendering in the next frame
       window.requestAnimationFrame(() => {

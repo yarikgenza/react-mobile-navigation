@@ -2,11 +2,7 @@
 import IconDone from 'binary-ui-icons/binary/Done';
 import StackPage from 'binary-ui-stack';
 import React from 'react';
-import {
-  PageStatusTypesEnum,
-  Interpolation,
-  MobileNavigationModal,
-} from 'react-mobile-navigation-core';
+import { Interpolation, MobileNavigationModal } from 'react-mobile-navigation-core';
 import ComboboxList from './ComboboxList';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
@@ -175,9 +171,7 @@ export default class ComboBox extends React.Component {
     const { textFilter } = this.state;
     return (
       <Interpolation
-        isAnimation
         isShow={isShow}
-        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}

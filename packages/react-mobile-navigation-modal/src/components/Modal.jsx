@@ -1,9 +1,5 @@
 ﻿import React from 'react';
-import {
-  PageStatusTypesEnum,
-  Interpolation,
-  MobileNavigationModal,
-} from 'react-mobile-navigation-core';
+import { Interpolation, MobileNavigationModal } from 'react-mobile-navigation-core';
 
 const propTypes = {
   isShow: React.PropTypes.bool.isRequired,
@@ -43,12 +39,18 @@ export default class Modal extends React.Component {
   }
 
   render() {
-    const { isShow, pageHeight, pageStatus, pageWidth, zIndex, render, onModalCloseStart } = this.props;
+    const {
+      isShow,
+      pageHeight,
+      pageStatus,
+      pageWidth,
+      zIndex,
+      render,
+      onModalCloseStart,
+    } = this.props;
     return (
       <Interpolation
-        isAnimation
         isShow={isShow}
-        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}

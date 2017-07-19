@@ -330,26 +330,15 @@ export default class MobileNavigation extends React.Component {
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
-    console.log('navigation.pages', navigation.pages);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
           const pageId = child.props.pageId;
           return (
             <MobileNavigationPageEngine
-              isAnimation={!!(
-                navigation.actionMeta &&
-                navigation.actionMeta.type === PAGE_OPEN_START &&
-                navigation.actionMeta.pageId === pageId
-              )}
               key={pageId}
               pageHeight={pageHeight}
               pageId={pageId}
-              pageStatusInit={
-                this.memoizedNavigation
-                  ? this.memoizedNavigation.pages[pageId].status
-                  : undefined
-              }
               pageState={navigation.pages[pageId]}
               pageWidth={pageWidth}
               onActionSheetOpenStart={this.onActionSheetOpenStart}

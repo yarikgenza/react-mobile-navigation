@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import {
   DirectionEnum,
-  PageStatusTypesEnum,
   Interpolation,
   MobileNavigationShadowPage,
 } from 'react-mobile-navigation-core';
@@ -93,9 +92,7 @@ export default class ActionSheet extends React.Component {
     const { cancelLabel, isShow, items, pageStatus, pageWidth, zIndex } = this.props;
     return (
       <Interpolation
-        isAnimation
         isShow={isShow}
-        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}

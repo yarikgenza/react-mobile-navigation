@@ -25,7 +25,7 @@ export default (state = initialState, action, pageIdActive) => {
           ? Object.assign({}, state[action.pageIdNew], {
             isForce: true,
             prevPageId: pageIdActive,
-            status: PageStatusTypesEnum.OPEN_START,
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
             zIndex,
           })
           : Object.assign({}, state[action.pageIdNew], {

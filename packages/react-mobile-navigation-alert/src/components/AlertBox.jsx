@@ -1,9 +1,5 @@
 ﻿import React from 'react';
-import {
-  PageStatusTypesEnum,
-  Interpolation,
-  MobileNavigationView,
-} from 'react-mobile-navigation-core';
+import { Interpolation, MobileNavigationView } from 'react-mobile-navigation-core';
 
 const propTypes = {
   autoHideDuration: React.PropTypes.number,
@@ -68,9 +64,7 @@ export default class AlertBox extends React.Component {
     const { isShow, pageStatus, pageWidth, zIndex, render } = this.props;
     return (
       <Interpolation
-        isAnimation
         isShow={isShow}
-        pageStatusInit={PageStatusTypesEnum.CLOSE_DONE}
         pageStatus={pageStatus}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}

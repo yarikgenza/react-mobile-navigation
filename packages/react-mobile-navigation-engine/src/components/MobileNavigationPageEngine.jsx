@@ -3,13 +3,11 @@ import { Interpolation, PageStatusTypesEnum } from 'react-mobile-navigation-core
 
 const propTypes = {
   children: React.PropTypes.any.isRequired,
-  isAnimation: React.PropTypes.bool.isRequired,
   pageHeight: React.PropTypes.number.isRequired,
   pageId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,
-  pageStatusInit: React.PropTypes.string,
   pageState: React.PropTypes.object.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
   onActionSheetOpenStart: React.PropTypes.func.isRequired,
@@ -76,28 +74,11 @@ export default class MobileNavigationPageEngine extends React.Component {
     this.cache.onCloseUserCallback = onCloseFn;
   }
 
-  getStatus() {
-    const { pageState } = this.props;
-    const { status } = pageState;
-    if (status === PageStatusTypesEnum.BACK_ANIMATING_OUT_PROCESSING) {
-      return PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE;
-    }
-    if (status === PageStatusTypesEnum.CLOSE_PROCESSING) {
-      return PageStatusTypesEnum.CLOSE_DONE;
-    }
-    if (status === PageStatusTypesEnum.OPEN_PROCESSING) {
-      return PageStatusTypesEnum.OPEN_DONE;
-    }
-    return status;
-  }
-
   render() {
     const {
       children,
-      isAnimation,
       pageHeight,
       pageId,
-      pageStatusInit,
       pageState,
       pageWidth,
       onActionSheetOpenStart,
@@ -112,16 +93,13 @@ export default class MobileNavigationPageEngine extends React.Component {
       onPageCloseStart,
     } = this.props;
     const { isForce, status, zIndex } = pageState;
-    const statusValidated = this.getStatus();
     return (
       <Interpolation
-        isAnimation={isAnimation}
         isForce={isForce}
         isShow={
           status !== PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE &&
           status !== PageStatusTypesEnum.CLOSE_DONE
         }
-        pageStatusInit={pageStatusInit || statusValidated}
         pageStatus={status}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
