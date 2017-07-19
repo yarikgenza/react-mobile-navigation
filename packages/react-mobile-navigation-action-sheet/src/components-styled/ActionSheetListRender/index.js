@@ -14,7 +14,6 @@ export default styled.div.attrs({
   box-sizing: border-box;
   line-height: 50px;
   overflow: hidden;
-  margin: 0 auto;
   vertical-align: middle;
   width: 100%;
   cursor: default;

@@ -9,6 +9,7 @@ const propTypes = {
   autoHideDuration: React.PropTypes.number,
   isShow: React.PropTypes.bool.isRequired,
   pageStatus: React.PropTypes.string,
+  pageWidth: React.PropTypes.number.isRequired,
   zIndex: React.PropTypes.number.isRequired,
   render: React.PropTypes.func.isRequired,
   onAlertOpenDone: React.PropTypes.func.isRequired,
@@ -64,7 +65,7 @@ export default class AlertBox extends React.Component {
   }
 
   render() {
-    const { isShow, pageStatus, zIndex, render } = this.props;
+    const { isShow, pageStatus, pageWidth, zIndex, render } = this.props;
     return (
       <Interpolation
         isAnimation
@@ -74,7 +75,7 @@ export default class AlertBox extends React.Component {
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
-        <MobileNavigationView zIndex={zIndex} >
+        <MobileNavigationView pageWidth={pageWidth} zIndex={zIndex} >
           {render()}
         </MobileNavigationView>
       </Interpolation>

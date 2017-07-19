@@ -3,6 +3,7 @@ import MobileNavigationShadowPage from './MobileNavigationShadowPage';
 import MobileNavigationModalRender from '../components-styled/MobileNavigationModalRender';
 import * as DirectionEnum from '../constants/direction-types';
 import { MODAL } from '../constants/page-types';
+import { MODAL_MARGIN } from '../utils/style-api';
 
 const propTypes = {
   children: React.PropTypes.element,
@@ -28,44 +29,61 @@ const defaultProps = {
   onTransitionEnd: undefined,
 };
 
-const MobileNavigationModal = ({
-  children,
-  isForce,
-  isShow,
-  pageHeight,
-  pageStatus,
-  pageWidth,
-  zIndex,
-  onTransitionEnd,
-  ...props,
-}) => {
-  const pageHeightNew = pageHeight - 10;
-  const pageWidthNew = pageWidth - 20;
-  return (
-    <MobileNavigationShadowPage
-      direction={DirectionEnum.VERTICAL}
-      isForce={isForce}
-      isShow={isShow}
-      pageStatus={pageStatus}
-      zIndex={zIndex}
-      onShadowClick={props.onPageClose}
-      onTransitionEnd={onTransitionEnd}
-    >
-      <MobileNavigationModalRender pageHeight={pageHeightNew} pageWidth={pageWidthNew} >
-        {children
-          ? React.cloneElement(
-            React.Children.only(children),
-            Object.assign({}, props, { pageHeight: pageHeightNew, pageWidth: pageWidthNew })
-          )
-          : null
-        }
-      </MobileNavigationModalRender>
-    </MobileNavigationShadowPage>
-  );
-};
+export default class MobileNavigationModal extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.onShadowClick = this.onShadowClick.bind(this);
+  }
+
+  onShadowClick() {
+    const { onPageClose } = this.props;
+    if (!onPageClose) {
+      return;
+    }
+    onPageClose();
+  }
+
+  render() {
+    const {
+      children,
+      isForce,
+      isShow,
+      pageHeight,
+      pageStatus,
+      pageWidth,
+      zIndex,
+      onTransitionEnd,
+      ...props,
+    } = this.props;
+    const pageHeightNew = pageHeight - MODAL_MARGIN;
+    const pageWidthNew = pageWidth - (2 * MODAL_MARGIN);
+    return (
+      <MobileNavigationShadowPage
+        direction={DirectionEnum.VERTICAL}
+        isForce={isForce}
+        isShow={isShow}
+        pageLeft={MODAL_MARGIN}
+        pageStatus={pageStatus}
+        pageWidth={pageWidthNew}
+        zIndex={zIndex}
+        onShadowClick={this.onShadowClick}
+        onTransitionEnd={onTransitionEnd}
+      >
+        <MobileNavigationModalRender pageHeight={pageHeightNew} pageWidth={pageWidthNew} >
+          {children
+            ? React.cloneElement(
+              React.Children.only(children),
+              Object.assign({}, props, { pageHeight: pageHeightNew, pageWidth: pageWidthNew })
+            )
+            : null
+          }
+        </MobileNavigationModalRender>
+      </MobileNavigationShadowPage>
+    );
+  }
+}
 
 MobileNavigationModal.propTypes = propTypes;
 MobileNavigationModal.defaultProps = defaultProps;
 MobileNavigationModal.pageType = MODAL;
-
-export default MobileNavigationModal;

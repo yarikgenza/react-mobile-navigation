@@ -1,5 +1,11 @@
 ﻿import React from 'react';
-import * as PageStatusTypesEnum from '../constants/page-status-types';
+import {
+  BACK_ANIMATING_OUT_DONE,
+  OPEN_DONE,
+  OPEN_PROCESSING,
+  CLOSE_PROCESSING,
+  CLOSE_DONE,
+} from '../constants/page-status-types';
 
 const propTypes = {
   children: React.PropTypes.element.isRequired,
@@ -23,65 +29,23 @@ export default class Interpolation extends React.Component {
     this.onTransitionEnd = this.onTransitionEnd.bind(this);
   }
 
-  componentDidMount() {
-    const { isAnimation, isForce, onPageOpenDone } = this.props;
-    // open with no animation
-    if (isForce) {
-      // page is always mounted with an OPEN_DONE status, so no need to check
-      onPageOpenDone();
-      return;
-    }
-    // open with animation
-    if (isAnimation) {
-      this.triggerPageOpenAnimation();
-    }
-  }
-
   componentWillReceiveProps(newProps) {
     const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
     // with no animation
-    if (newProps.isForce) {
-      // open the page
-      if (
-        pageStatus === PageStatusTypesEnum.CLOSE_DONE &&
-        newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
-      ) {
-        onPageOpenDone();
-        return;
-      }
-      // close the page
-      if (
-        pageStatus === PageStatusTypesEnum.OPEN_DONE &&
-        newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
-      ) {
-        window.requestAnimationFrame(() => {
-          onPageCloseDone();
-        });
-        return;
-      }
+    if (!newProps.isForce) {
       return;
     }
-    // with animation
-    if (
-      pageStatus === PageStatusTypesEnum.OPEN_DONE &&
-      newProps.pageStatus === PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE
-    ) {
-      // hide the page
+    // open the page
+    if (pageStatus === CLOSE_DONE && newProps.pageStatus === OPEN_DONE) {
+      onPageOpenDone();
       return;
     }
-    if (
-      pageStatus === PageStatusTypesEnum.OPEN_DONE &&
-      newProps.pageStatus === PageStatusTypesEnum.CLOSE_DONE
-    ) {
-      // close the page
-      return;
-    }
-    if (
-      pageStatus !== PageStatusTypesEnum.OPEN_DONE &&
-      newProps.pageStatus === PageStatusTypesEnum.OPEN_DONE
-    ) {
-      // open the page
-      this.triggerPageOpenAnimation();
+    // close the page
+    if (pageStatus === OPEN_DONE && newProps.pageStatus === CLOSE_DONE) {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        onPageCloseDone();
+      });
       return;
     }
     return;
@@ -89,18 +53,16 @@ export default class Interpolation extends React.Component {
 
   onTransitionEnd() {
     const { pageStatus, onPageOpenDone, onPageCloseDone } = this.props;
-    if (pageStatus === PageStatusTypesEnum.CLOSE_DONE) {
+    if (pageStatus === CLOSE_PROCESSING) {
       onPageCloseDone();
       return;
     }
-    if (pageStatus === PageStatusTypesEnum.OPEN_DONE) {
+    if (pageStatus === OPEN_PROCESSING) {
       onPageOpenDone();
       return;
     }
     return;
   }
-
-  triggerPageOpenAnimation() { }
 
   render() {
     const { children, isForce, isShow, pageStatus } = this.props;

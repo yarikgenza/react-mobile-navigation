@@ -786,8 +786,8 @@ binary-ui-icons@^0.2.11, binary-ui-icons@^0.2.12:
     prop-types "^15.5.10"
 
 binary-ui-stack@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.2.3.tgz#62e9f65aabb97d3bd9bc5228cb510c09477d4362"
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.2.4.tgz#994bcde0c7050fe3d8035559ecd6288d68397b06"
   dependencies:
     binary-ui-components "^0.2.11"
     binary-ui-icons "^0.2.11"
@@ -1152,9 +1152,16 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-doctrine@1.3.x, doctrine@^1.2.2:
+doctrine@1.3.x:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.3.0.tgz#13e75682b55518424276f7c173783456ef913d26"
+  dependencies:
+    esutils "^2.0.2"
+    isarray "^1.0.0"
+
+doctrine@^1.2.2:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
   dependencies:
     esutils "^2.0.2"
     isarray "^1.0.0"

@@ -10,14 +10,21 @@ const propTypes = {
   direction: React.PropTypes.string.isRequired,
   isForce: React.PropTypes.bool,
   isShow: React.PropTypes.bool,
+  pageLeft: React.PropTypes.number.isRequired,
   pageStatus: React.PropTypes.string,
+  pageWidth: React.PropTypes.number.isRequired,
   zIndex: React.PropTypes.number.isRequired,
   onShadowClick: React.PropTypes.func,
   onTransitionEnd: React.PropTypes.func,
 };
 
 const defaultProps = {
+  children: undefined,
   isForce: undefined,
+  isShow: undefined,
+  pageStatus: undefined,
+  onShadowClick: undefined,
+  onTransitionEnd: undefined,
 };
 
 const MobileNavigationShadowPage = ({
@@ -26,6 +33,8 @@ const MobileNavigationShadowPage = ({
   isForce,
   isShow,
   pageStatus,
+  pageLeft,
+  pageWidth,
   zIndex,
   onShadowClick,
   onTransitionEnd,
@@ -40,6 +49,8 @@ const MobileNavigationShadowPage = ({
         onClick={onShadowClick}
       />
       <ContentRender
+        pageLeft={pageLeft}
+        pageWidth={pageWidth}
         styleTranslate={getTranslate3dByDirection(direction, isForce, position)}
         onTransitionEnd={onTransitionEnd}
       >

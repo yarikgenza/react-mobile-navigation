@@ -12,6 +12,7 @@ const propTypes = {
   isShow: React.PropTypes.bool.isRequired,
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   pageStatus: React.PropTypes.string,
+  pageWidth: React.PropTypes.number.isRequired,
   zIndex: React.PropTypes.number.isRequired,
   onCancel: React.PropTypes.func,
   onSelect: React.PropTypes.func,
@@ -89,7 +90,7 @@ export default class ActionSheet extends React.Component {
   }
 
   render() {
-    const { cancelLabel, isShow, items, pageStatus, zIndex } = this.props;
+    const { cancelLabel, isShow, items, pageStatus, pageWidth, zIndex } = this.props;
     return (
       <Interpolation
         isAnimation
@@ -101,6 +102,8 @@ export default class ActionSheet extends React.Component {
       >
         <MobileNavigationShadowPage
           direction={DirectionEnum.VERTICAL}
+          pageLeft={0}
+          pageWidth={pageWidth}
           zIndex={zIndex}
           onShadowClick={this.onShadowClick}
         >

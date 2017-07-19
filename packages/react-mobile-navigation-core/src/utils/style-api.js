@@ -1,5 +1,7 @@
 import * as DirectionEnum from '../constants/direction-types';
 
+export const MODAL_MARGIN = 10;
+
 function getTransform(direction, isForce, transform) {
   return {
     transform,

@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 export default styled.div.attrs({
-  style: props => props.styleTranslate,
+  style: props => ({
+    left: props.pageLeft,
+    width: props.pageWidth,
+    ...props.styleTranslate,
+  }),
 })`
   bottom: 0;
   box-sizing: border-box;
   position: absolute;
-  width: 100%;
   z-index: 2;
 `;
