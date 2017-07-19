@@ -1,5 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import infoAddon from '@storybook/addon-info';
+import { storiesOf,  setAddon } from '@storybook/react';
 import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 import ActionSheet from '../src/react-mobile-navigation-action-sheet/stack/components/SettingsComponent';
 import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
@@ -7,6 +8,8 @@ import Engine from '../src/react-mobile-navigation-engine/stack/components/Setti
 import * as Settings2ModeTypesEnum from '../src/react-mobile-navigation-engine/stack/enum/settings-mode-types-enum';
 import ComboBox from '../src/react-mobile-navigation-combobox/stack/components/SettingsMainPageComponent';
 import Modal from '../src/react-mobile-navigation-modal/stack/components/SettingsMainPageComponent';
+
+setAddon(infoAddon);
 
 const width = 400;
 const height = 500;
@@ -26,7 +29,7 @@ function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
 }
 
 storiesOf('examples', module)
-  .add('react-mobile-navigation-action-sheet', () => (
+  .addWithInfo('react-mobile-navigation-action-sheet', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
@@ -41,7 +44,7 @@ storiesOf('examples', module)
       <ActionSheet />
     </div>
   ))
-  .add('react-mobile-navigation-combobox', () => (
+  .addWithInfo('react-mobile-navigation-combobox', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
@@ -56,7 +59,7 @@ storiesOf('examples', module)
       <ComboBox pageState={{ zIndex: 1 }} />
     </div>
   ))
-  .add('react-mobile-navigation-engine', () => (
+  .addWithInfo('react-mobile-navigation-engine', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
@@ -71,7 +74,7 @@ storiesOf('examples', module)
       <Engine />
     </div>
   ))
-  .add('react-mobile-navigation-modal', () => (
+  .addWithInfo('react-mobile-navigation-modal', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
