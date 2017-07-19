@@ -1,8 +1,10 @@
 import { PageStatusTypesEnum, PageTypesEnum } from 'react-mobile-navigation-core';
 import {
   PAGE_OPEN_START,
+  PAGE_OPEN_PROCESSING,
   PAGE_OPEN_DONE,
   PAGE_CLOSE_START,
+  PAGE_CLOSE_PROCESSING,
   PAGE_CLOSE_DONE,
 } from '../action-types/navigation-action-types';
 import { getPagingPrevPageById } from '../utils/page-manager';
@@ -23,13 +25,13 @@ export default (state = initialState, action, pageIdActive) => {
           ? Object.assign({}, state[action.pageIdNew], {
             isForce: true,
             prevPageId: pageIdActive,
-            status: PageStatusTypesEnum.OPEN_PROCESSING,
+            status: PageStatusTypesEnum.OPEN_START,
             zIndex,
           })
           : Object.assign({}, state[action.pageIdNew], {
             isForce: undefined,
             prevPageId: pageIdActive,
-            status: PageStatusTypesEnum.OPEN_PROCESSING,
+            status: PageStatusTypesEnum.OPEN_START,
             zIndex,
           }),
         [pageIdActive]: state[action.pageIdNew].type === PageTypesEnum.ORIGINAL
@@ -41,6 +43,37 @@ export default (state = initialState, action, pageIdActive) => {
               })
               : Object.assign({}, state[pageIdActive], {
                 isForce: undefined,
+                status: PageStatusTypesEnum.BACK_ANIMATING_OUT_START,
+              })
+          )
+          : state[pageIdActive],
+      });
+    }
+    case PAGE_OPEN_PROCESSING: {
+      const zIndex = state[pageIdActive].zIndex + 1;
+      return Object.assign({}, state, {
+        [action.pageIdNew]: action.isForce
+          ? Object.assign({}, state[action.pageIdNew], {
+            // isForce: true,
+            // prevPageId: pageIdActive,
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
+            // zIndex,
+          })
+          : Object.assign({}, state[action.pageIdNew], {
+            // isForce: undefined,
+            // prevPageId: pageIdActive,
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
+            // zIndex,
+          }),
+        [pageIdActive]: state[action.pageIdNew].type === PageTypesEnum.ORIGINAL
+          ? (
+            action.isForce
+              ? Object.assign({}, state[pageIdActive], {
+                // isForce: true,
+                // status: PageStatusTypesEnum.CLOSE_DONE,
+              })
+              : Object.assign({}, state[pageIdActive], {
+                // isForce: undefined,
                 status: PageStatusTypesEnum.BACK_ANIMATING_OUT_PROCESSING,
               })
           )
@@ -72,22 +105,49 @@ export default (state = initialState, action, pageIdActive) => {
         [pageIdActive]: (state[pageIdActive].isForce || action.isForce)
           ? Object.assign({}, state[pageIdActive], {
             isForce: true,
-            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+            status: PageStatusTypesEnum.CLOSE_START,
             zIndex: 0,
           })
           : Object.assign({}, state[pageIdActive], {
             isForce: undefined,
-            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+            status: PageStatusTypesEnum.CLOSE_START,
           }),
         [pageIdActivePrev]: state[pageIdActive].type === PageTypesEnum.ORIGINAL
           ? (
             action.isForce
               ? Object.assign({}, state[pageIdActivePrev], {
                 isForce: true,
-                status: PageStatusTypesEnum.OPEN_PROCESSING,
+                status: PageStatusTypesEnum.BACK_ANIMATING_IN_START,
               })
               : Object.assign({}, state[pageIdActivePrev], {
-                status: PageStatusTypesEnum.OPEN_PROCESSING,
+                status: PageStatusTypesEnum.BACK_ANIMATING_IN_START,
+              })
+          )
+          : state[pageIdActivePrev],
+      });
+    }
+    case PAGE_CLOSE_PROCESSING: {
+      const pageIdActivePrev = getPagingPrevPageById(state, pageIdActive);
+      return Object.assign({}, state, {
+        [pageIdActive]: (state[pageIdActive].isForce || action.isForce)
+          ? Object.assign({}, state[pageIdActive], {
+            // isForce: true,
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+            // zIndex: 0,
+          })
+          : Object.assign({}, state[pageIdActive], {
+            // isForce: undefined,
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
+          }),
+        [pageIdActivePrev]: state[pageIdActive].type === PageTypesEnum.ORIGINAL
+          ? (
+            action.isForce
+              ? Object.assign({}, state[pageIdActivePrev], {
+                // isForce: true,
+                status: PageStatusTypesEnum.BACK_ANIMATING_IN_PROCESSING,
+              })
+              : Object.assign({}, state[pageIdActivePrev], {
+                status: PageStatusTypesEnum.BACK_ANIMATING_IN_PROCESSING,
               })
           )
           : state[pageIdActivePrev],

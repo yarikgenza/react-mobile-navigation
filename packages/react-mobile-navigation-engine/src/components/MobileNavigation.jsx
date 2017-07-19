@@ -241,7 +241,23 @@ export default class MobileNavigation extends React.Component {
           getPrevPageId(prevState.navigation, pageIdNew),
         ),
       }),
-    }));
+    }), () => {
+      if (isForce) {
+        return;
+      }
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState((prevStateNew) => ({
+          navigation: Object.assign({}, prevStateNew.navigation, {
+            pages: navigationReducers(
+              prevStateNew.navigation.pages,
+              navigationActions.onPageOpenProcessing(pageIdNew),
+              getPrevPageId(prevStateNew.navigation, pageIdNew),
+            ),
+          }),
+        }));
+      });
+    });
   }
 
   onPageOpenDone() {
@@ -273,7 +289,23 @@ export default class MobileNavigation extends React.Component {
           prevState.navigation.pageIdActive
         ),
       }),
-    }));
+    }), () => {
+      if (isForce) {
+        return;
+      }
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState((prevStateNew) => ({
+          navigation: Object.assign({}, prevStateNew.navigation, {
+            pages: navigationReducers(
+              prevStateNew.navigation.pages,
+              navigationActions.onPageCloseProcessing(),
+              prevStateNew.navigation.pageIdActive
+            ),
+          }),
+        }));
+      });
+    });
   }
 
   onPageCloseDone() {
@@ -298,7 +330,7 @@ export default class MobileNavigation extends React.Component {
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
-    // console.log('navigation', navigation);
+    console.log('navigation.pages', navigation.pages);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {

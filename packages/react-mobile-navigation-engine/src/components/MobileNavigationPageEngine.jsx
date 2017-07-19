@@ -122,7 +122,7 @@ export default class MobileNavigationPageEngine extends React.Component {
           status !== PageStatusTypesEnum.CLOSE_DONE
         }
         pageStatusInit={pageStatusInit || statusValidated}
-        pageStatus={statusValidated}
+        pageStatus={status}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
