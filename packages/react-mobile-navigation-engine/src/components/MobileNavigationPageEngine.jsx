@@ -79,13 +79,13 @@ export default class MobileNavigationPageEngine extends React.Component {
   getStatus() {
     const { pageState } = this.props;
     const { status } = pageState;
-    if (status === PageStatusTypesEnum.BACK_ANIMATING_OUT_START) {
+    if (status === PageStatusTypesEnum.BACK_ANIMATING_OUT_PROCESSING) {
       return PageStatusTypesEnum.BACK_ANIMATING_OUT_DONE;
     }
-    if (status === PageStatusTypesEnum.CLOSE_START) {
+    if (status === PageStatusTypesEnum.CLOSE_PROCESSING) {
       return PageStatusTypesEnum.CLOSE_DONE;
     }
-    if (status === PageStatusTypesEnum.OPEN_START) {
+    if (status === PageStatusTypesEnum.OPEN_PROCESSING) {
       return PageStatusTypesEnum.OPEN_DONE;
     }
     return status;

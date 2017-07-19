@@ -23,13 +23,13 @@ export default (state = initialState, action, pageIdActive) => {
           ? Object.assign({}, state[action.pageIdNew], {
             isForce: true,
             prevPageId: pageIdActive,
-            status: PageStatusTypesEnum.OPEN_START,
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
             zIndex,
           })
           : Object.assign({}, state[action.pageIdNew], {
             isForce: undefined,
             prevPageId: pageIdActive,
-            status: PageStatusTypesEnum.OPEN_START,
+            status: PageStatusTypesEnum.OPEN_PROCESSING,
             zIndex,
           }),
         [pageIdActive]: state[action.pageIdNew].type === PageTypesEnum.ORIGINAL
@@ -41,7 +41,7 @@ export default (state = initialState, action, pageIdActive) => {
               })
               : Object.assign({}, state[pageIdActive], {
                 isForce: undefined,
-                status: PageStatusTypesEnum.BACK_ANIMATING_OUT_START,
+                status: PageStatusTypesEnum.BACK_ANIMATING_OUT_PROCESSING,
               })
           )
           : state[pageIdActive],
@@ -72,22 +72,22 @@ export default (state = initialState, action, pageIdActive) => {
         [pageIdActive]: (state[pageIdActive].isForce || action.isForce)
           ? Object.assign({}, state[pageIdActive], {
             isForce: true,
-            status: PageStatusTypesEnum.CLOSE_START,
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
             zIndex: 0,
           })
           : Object.assign({}, state[pageIdActive], {
             isForce: undefined,
-            status: PageStatusTypesEnum.CLOSE_START,
+            status: PageStatusTypesEnum.CLOSE_PROCESSING,
           }),
         [pageIdActivePrev]: state[pageIdActive].type === PageTypesEnum.ORIGINAL
           ? (
             action.isForce
               ? Object.assign({}, state[pageIdActivePrev], {
                 isForce: true,
-                status: PageStatusTypesEnum.OPEN_START,
+                status: PageStatusTypesEnum.OPEN_PROCESSING,
               })
               : Object.assign({}, state[pageIdActivePrev], {
-                status: PageStatusTypesEnum.OPEN_START,
+                status: PageStatusTypesEnum.OPEN_PROCESSING,
               })
           )
           : state[pageIdActivePrev],

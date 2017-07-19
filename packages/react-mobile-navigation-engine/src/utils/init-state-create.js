@@ -1,5 +1,5 @@
 import { getInitPage } from './page-manager';
-import { openPageDone } from '../actions/navigation-actions';
+import { onPageOpenDone } from '../actions/navigation-actions';
 import navigationReducers from '../reducers/navigation-reducers';
 
 function getInitPages(pageIdActive, pagesList) {
@@ -23,7 +23,7 @@ export default (pageIdRoot, pagesList, actions = []) => (
     return {
       actionMeta: undefined,
       pageIdActive: action.pageIdNew,
-      pages: navigationReducers(stateStart.pages, openPageDone(), stateStart.pageIdActive),
+      pages: navigationReducers(stateStart.pages, onPageOpenDone(), stateStart.pageIdActive),
     };
   }, {
     actionMeta: undefined,

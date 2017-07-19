@@ -14,7 +14,7 @@ import { getPrevPageById, getPrevPageId, isPrevPage } from '../utils/page-manage
 
 const propTypes = {
   children: React.PropTypes.any,
-  initPagesState: React.PropTypes.array.isRequired,
+  initPagesState: React.PropTypes.array,
   pageHeight: React.PropTypes.number.isRequired,
   pageIdRoot: React.PropTypes.oneOfType([
     React.PropTypes.number,
@@ -25,6 +25,7 @@ const propTypes = {
 
 const defaultProps = {
   children: undefined,
+  initPagesState: [],
 };
 
 export default class MobileNavigation extends React.Component {
@@ -297,6 +298,7 @@ export default class MobileNavigation extends React.Component {
   render() {
     const { children, pageHeight, pageWidth } = this.props;
     const { actionSheet, alert, comboBox, modal, navigation } = this.state;
+    // console.log('navigation', navigation);
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
