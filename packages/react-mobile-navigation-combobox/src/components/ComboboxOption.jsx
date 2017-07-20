@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import ComboBoxOptionStyled from '../components-styled/ComboboxOptionStyled';
+import ComboBoxOptionStyled from '../components-styled/ComboBoxOptionStyled';
 
 const propTypes = {
   isBold: React.PropTypes.bool.isRequired,

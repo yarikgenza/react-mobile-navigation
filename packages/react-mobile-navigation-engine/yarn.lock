@@ -704,13 +704,13 @@ binary-ui-components@^0.2.11:
     prop-types "^15.5.10"
     styled-components "^2.0.0"
 
-binary-ui-icons@^0.2.11, binary-ui-icons@^0.2.13, binary-ui-icons@^0.2.3:
+binary-ui-icons@^0.2.11, binary-ui-icons@^0.2.13:
   version "0.2.13"
   resolved "https://registry.yarnpkg.com/binary-ui-icons/-/binary-ui-icons-0.2.13.tgz#a9d8287e2048bc1959b2c268f8bef7169d34cc36"
   dependencies:
     prop-types "^15.5.10"
 
-binary-ui-stack@^0.2.0:
+binary-ui-stack@^0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.2.4.tgz#994bcde0c7050fe3d8035559ecd6288d68397b06"
   dependencies:
@@ -720,7 +720,7 @@ binary-ui-stack@^0.2.0:
     prop-types "^15.5.10"
     styled-components "^2.1.1"
 
-binary-ui-styles@^0.2.10, binary-ui-styles@^0.2.13, binary-ui-styles@^0.2.3:
+binary-ui-styles@^0.2.10, binary-ui-styles@^0.2.13:
   version "0.2.13"
   resolved "https://registry.yarnpkg.com/binary-ui-styles/-/binary-ui-styles-0.2.13.tgz#e56c264ba7f15646942a13fd886e000c4f757b76"
 
@@ -1665,7 +1665,7 @@ js-search-no-filter@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/js-search-no-filter/-/js-search-no-filter-0.0.1.tgz#36c217568bf575a55e76d21a9ad10af08868bae2"
 
-js-search@^1.3.7:
+js-search@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/js-search/-/js-search-1.4.2.tgz#59a91e117d6badb20bf0d7643ba7577d5a81d7e2"
 
@@ -2085,49 +2085,39 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-mobile-navigation-action-sheet@^1.0.9-0:
-  version "1.0.9-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-action-sheet/-/react-mobile-navigation-action-sheet-1.0.9-0.tgz#b2580c0603ae6147e32a83c43c9f78e2be9f41ac"
+react-mobile-navigation-action-sheet@^1.0.10-0:
+  version "1.0.10-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-action-sheet/-/react-mobile-navigation-action-sheet-1.0.10-0.tgz#4650984538a3d8bf04329a7fd92013327d02537b"
   dependencies:
-    binary-ui-styles "^0.2.3"
-    react-mobile-navigation-core "^1.0.9-0"
-    react-mobile-navigation-sheet "^1.0.9-0"
-    styled-components "^2.0.0"
+    binary-ui-styles "^0.2.10"
+    react-mobile-navigation-core "^1.0.10-0"
 
-react-mobile-navigation-alert@^1.0.9-0:
-  version "1.0.9-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-alert/-/react-mobile-navigation-alert-1.0.9-0.tgz#15a752db042a0e66d964d442ee3420ccb8cf2d19"
+react-mobile-navigation-alert@^1.0.10-0:
+  version "1.0.10-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-alert/-/react-mobile-navigation-alert-1.0.10-0.tgz#9c46da8987d6d558e4eebf56b4dbeee727a42da0"
   dependencies:
-    react-mobile-navigation-core "^1.0.9-0"
+    react-mobile-navigation-core "^1.0.10-0"
 
-react-mobile-navigation-combobox@^1.0.9-0:
-  version "1.0.9-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-combobox/-/react-mobile-navigation-combobox-1.0.9-0.tgz#bf625b70f80ad9f69cca954d21ceb5da809d985e"
+react-mobile-navigation-combobox@^1.0.10-0:
+  version "1.0.10-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-combobox/-/react-mobile-navigation-combobox-1.0.10-0.tgz#7093f5046dd59c8047cf60df9126c810f53e6245"
   dependencies:
-    binary-ui-icons "^0.2.3"
-    binary-ui-stack "^0.2.0"
-    binary-ui-styles "^0.2.3"
-    js-search "^1.3.7"
+    binary-ui-icons "^0.2.11"
+    binary-ui-stack "^0.2.3"
+    binary-ui-styles "^0.2.10"
+    js-search "^1.4.2"
     js-search-no-filter "^0.0.1"
-    react-mobile-navigation-core "^1.0.9-0"
+    react-mobile-navigation-core "^1.0.10-0"
 
-react-mobile-navigation-core@^1.0.9-0:
-  version "1.0.9-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.9-0.tgz#aad7c017f713845f94e52630f6a35ec4d00efa72"
+react-mobile-navigation-core@^1.0.10-0:
+  version "1.0.10-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.10-0.tgz#abc2112585ddf007523c5ca89f43ec3e189a035e"
 
-react-mobile-navigation-modal@^1.0.9-0:
-  version "1.0.9-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-modal/-/react-mobile-navigation-modal-1.0.9-0.tgz#c6dd3f9920edb1ef8d74f9a5a97bfc5a2ced65d4"
+react-mobile-navigation-modal@^1.0.10-0:
+  version "1.0.10-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-modal/-/react-mobile-navigation-modal-1.0.10-0.tgz#d6f493c09c0106b16e035f8fba31e400cd4fe6ca"
   dependencies:
-    binary-ui-icons "^0.2.3"
-    binary-ui-styles "^0.2.3"
-    react-mobile-navigation-core "^1.0.9-0"
-
-react-mobile-navigation-sheet@^1.0.9-0:
-  version "1.0.9-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-sheet/-/react-mobile-navigation-sheet-1.0.9-0.tgz#ed69b1b7a291d1403386651b64f13285d1c4bf31"
-  dependencies:
-    react-mobile-navigation-core "^1.0.9-0"
+    react-mobile-navigation-core "^1.0.10-0"
 
 react@~15.3.2:
   version "15.3.2"

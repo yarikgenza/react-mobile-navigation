@@ -1,21 +1,27 @@
-﻿import React from 'react';
+﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
+import IconDone from 'binary-ui-icons/binary/Done';
+import StackPage from 'binary-ui-stack';
 import StackBodyCustomContent from 'binary-ui-stack/StackBodyCustomContent';
-import ComboboxNoOptionsStyled from '../components-styled/ComboboxNoOptionsStyled';
-import ComboBoxOption from './ComboboxOption';
-import ComboBoxInput from './ComboboxInput';
+import React from 'react';
+import ComboBoxOption from './ComboBoxOption';
+import ComboBoxInput from './ComboBoxInput';
+import ComboBoxNoOptionsStyled from '../components-styled/ComboBoxNoOptionsStyled';
 import { ENTER, ESCAPE } from '../constants/key-events';
 
 const propTypes = {
+  allowCustomValue: React.PropTypes.bool,
+  bodyStyle: React.PropTypes.object,
   customOptionModel: React.PropTypes.object,
   filteredItems: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  allowCustomValue: React.PropTypes.bool,
-  textFilter: React.PropTypes.string,
+  headerStyle: React.PropTypes.object,
   inputPlaceholder: React.PropTypes.string,
   isBold: React.PropTypes.bool,
-  pageHeight: React.PropTypes.number.isRequired,
-  pageWidth: React.PropTypes.number.isRequired,
-  pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
   noOptionsMatchingInputLabel: React.PropTypes.string,
+  pageHeight: React.PropTypes.number,
+  pageWidth: React.PropTypes.number,
+  pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
+  stackTitle: React.PropTypes.string,
+  textFilter: React.PropTypes.string,
   onCancel: React.PropTypes.func,
   onFilterSet: React.PropTypes.func,
   onSelect: React.PropTypes.func,
@@ -25,13 +31,18 @@ const propTypes = {
 
 const defaultProps = {
   allowCustomValue: false,
+  bodyStyle: undefined,
   customOptionModel: {},
   filteredItems: [],
+  headerStyle: undefined,
+  inputPlaceholder: undefined,
   isBold: false,
+  noOptionsMatchingInputLabel: undefined,
+  pageHeight: undefined,
+  pageWidth: undefined,
+  pressEnterToSaveCustomFieldLabel: undefined,
+  stackTitle: undefined,
   textFilter: '',
-  inputPlaceholder: '',
-  pressEnterToSaveCustomFieldLabel: 'Type enter to save custom field name',
-  noOptionsMatchingInputLabel: 'There are no options matching your input',
 };
 
 export default class ComboBoxList extends React.Component {
@@ -83,9 +94,9 @@ export default class ComboBoxList extends React.Component {
 
   renderNoOptions() {
     return (
-      <ComboboxNoOptionsStyled>
+      <ComboBoxNoOptionsStyled>
         {this.getNoOptionsText()}
-      </ComboboxNoOptionsStyled>
+      </ComboBoxNoOptionsStyled>
     );
   }
 
@@ -96,25 +107,51 @@ export default class ComboBoxList extends React.Component {
 
   render() {
     const {
+      allowCustomValue,
+      bodyStyle,
+      headerStyle,
       inputPlaceholder,
       isBold,
       pageHeight,
       pageWidth,
+      stackTitle,
       textFilter,
+      onCancel,
       onFilterSet,
+      onTrySelectCustom,
     } = this.props;
     return (
-      <StackBodyCustomContent pageHeight={pageHeight} pageWidth={pageWidth} >
-        <ComboBoxInput
-          isBold={isBold}
-          isValid={this.isValid()}
-          placeholder={inputPlaceholder}
-          textFilter={textFilter}
-          onFilterSet={onFilterSet}
-          onFilterOnKeyUp={this.onFilterOnKeyUp}
-        />
-        {this.renderFilteredItems(isBold)}
-      </StackBodyCustomContent>
+      <StackPage
+        bodyStyle={bodyStyle}
+        headerStyle={headerStyle}
+        leftButton={{
+          renderIcon: () => (<IconCancel />),
+          onClick: onCancel,
+        }}
+        pageHeight={pageHeight}
+        rightButton={(allowCustomValue
+          ? {
+            renderIcon: () => (<IconDone />),
+            onClick: onTrySelectCustom,
+          } : undefined
+        )}
+        stackTitle={stackTitle}
+        stackTitleEditable={false}
+        titleIcon={undefined}
+        useSearch={false}
+      >
+        <StackBodyCustomContent pageHeight={pageHeight} pageWidth={pageWidth} >
+          <ComboBoxInput
+            isBold={isBold}
+            isValid={this.isValid()}
+            placeholder={inputPlaceholder}
+            textFilter={textFilter}
+            onFilterSet={onFilterSet}
+            onFilterOnKeyUp={this.onFilterOnKeyUp}
+          />
+          {this.renderFilteredItems(isBold)}
+        </StackBodyCustomContent>
+      </StackPage>
     );
   }
 }

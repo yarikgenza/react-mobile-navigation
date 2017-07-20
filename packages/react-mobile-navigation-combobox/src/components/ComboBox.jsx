@@ -1,13 +1,10 @@
-﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
-import IconDone from 'binary-ui-icons/binary/Done';
-import StackPage from 'binary-ui-stack';
-import React from 'react';
+﻿import React from 'react';
 import {
   Interpolation,
   MobileNavigationModal,
   PageStatusTypesEnum,
 } from 'react-mobile-navigation-core';
-import ComboboxList from './ComboboxList';
+import ComboBoxList from './ComboBoxList';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
 
@@ -184,43 +181,24 @@ export default class ComboBox extends React.Component {
           zIndex={zIndex}
           onPageClose={onComboBoxCloseStart}
         >
-          <StackPage
+          <ComboBoxList
+            allowCustomValue={allowCustomValue}
             bodyStyle={bodyStyle}
+            customOptionModel={customOptionModel}
             headerStyle={headerStyle}
-            leftButton={{
-              onClick: this.onCancel,
-              renderIcon: () => (<IconCancel />),
-            }}
-            pageHeight={pageHeight}
-            rightButton={(allowCustomValue
-              ? {
-                onClick: this.onTrySelectCustom,
-                renderIcon: () => (<IconDone />),
-              } : undefined
-            )}
+            filteredItems={this.filteredItems}
+            inputPlaceholder={inputPlaceholder}
+            isBold={isBold}
+            noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
+            pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
             stackTitle={title}
-            stackTitleEditable={false}
-            titleIcon={undefined}
-            useSearch={false}
-          >
-            <ComboboxList
-              allowCustomValue={allowCustomValue}
-              customOptionModel={customOptionModel}
-              filteredItems={this.filteredItems}
-              isBold={isBold}
-              noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
-              pageHeight={pageHeight}
-              pageWidth={pageWidth}
-              placeholder={inputPlaceholder}
-              pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
-              textFilter={textFilter}
-              onCancel={this.onCancel}
-              onFilterSet={this.onFilterSet}
-              onSelect={this.onSelect}
-              onSelectCustom={this.onSelectCustom}
-              onTrySelectCustom={this.onTrySelectCustom}
-            />
-          </StackPage>
+            textFilter={textFilter}
+            onCancel={this.onCancel}
+            onFilterSet={this.onFilterSet}
+            onSelect={this.onSelect}
+            onSelectCustom={this.onSelectCustom}
+            onTrySelectCustom={this.onTrySelectCustom}
+          />
         </MobileNavigationModal>
       </Interpolation>
     );

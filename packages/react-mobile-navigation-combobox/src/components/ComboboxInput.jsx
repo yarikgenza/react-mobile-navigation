@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import ComboBoxInputStyled from '../components-styled/ComboboxInputStyled';
+import ComboBoxInputStyled from '../components-styled/ComboBoxInputStyled';
 
 const propTypes = {
   textFilter: React.PropTypes.string,
@@ -12,8 +12,8 @@ const propTypes = {
 
 const defaultProps = {
   isValid: true,
-  textFilter: '',
   placeholder: '',
+  textFilter: '',
   onFilterOnKeyUp: undefined,
 };
 
