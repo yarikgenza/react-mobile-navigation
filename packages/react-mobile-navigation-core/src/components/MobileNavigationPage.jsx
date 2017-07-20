@@ -23,7 +23,6 @@ const MobileNavigationPage = ({
   children,
   isForce,
   isShow,
-  pageStatus,
   zIndex,
   onTransitionEnd,
   ...props,
@@ -34,7 +33,7 @@ const MobileNavigationPage = ({
       getTranslate3dByDirection(
         HORIZONTAL,
         isForce,
-        getPositionFromStatus(pageStatus)
+        getPositionFromStatus(props.pageStatus)
       )
     }
     onTransitionEnd={onTransitionEnd}

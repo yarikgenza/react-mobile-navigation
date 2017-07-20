@@ -947,16 +947,9 @@ detect-indent@^4.0.0:
   dependencies:
     repeating "^2.0.0"
 
-doctrine@1.3.x:
+doctrine@1.3.x, doctrine@^1.2.2:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.3.0.tgz#13e75682b55518424276f7c173783456ef913d26"
-  dependencies:
-    esutils "^2.0.2"
-    isarray "^1.0.0"
-
-doctrine@^1.2.2:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
   dependencies:
     esutils "^2.0.2"
     isarray "^1.0.0"
@@ -2085,22 +2078,22 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-mobile-navigation-action-sheet@^1.0.10-0:
-  version "1.0.10-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-action-sheet/-/react-mobile-navigation-action-sheet-1.0.10-0.tgz#4650984538a3d8bf04329a7fd92013327d02537b"
+react-mobile-navigation-action-sheet@^1.0.11-0:
+  version "1.0.11-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-action-sheet/-/react-mobile-navigation-action-sheet-1.0.11-0.tgz#725b1b1e1d580a089ff162c0aca3898fd8d28920"
   dependencies:
     binary-ui-styles "^0.2.10"
     react-mobile-navigation-core "^1.0.10-0"
 
-react-mobile-navigation-alert@^1.0.10-0:
-  version "1.0.10-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-alert/-/react-mobile-navigation-alert-1.0.10-0.tgz#9c46da8987d6d558e4eebf56b4dbeee727a42da0"
+react-mobile-navigation-alert@^1.0.11-0:
+  version "1.0.11-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-alert/-/react-mobile-navigation-alert-1.0.11-0.tgz#2a5a7d55cc3ef74f9d7439837d01a6212533175e"
   dependencies:
     react-mobile-navigation-core "^1.0.10-0"
 
-react-mobile-navigation-combobox@^1.0.10-0:
-  version "1.0.10-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-combobox/-/react-mobile-navigation-combobox-1.0.10-0.tgz#7093f5046dd59c8047cf60df9126c810f53e6245"
+react-mobile-navigation-combobox@^1.0.11-0:
+  version "1.0.11-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-combobox/-/react-mobile-navigation-combobox-1.0.11-0.tgz#c8a9643cac35264485dab100d1f0b95111ef4488"
   dependencies:
     binary-ui-icons "^0.2.11"
     binary-ui-stack "^0.2.3"
@@ -2113,9 +2106,9 @@ react-mobile-navigation-core@^1.0.10-0:
   version "1.0.10-0"
   resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.10-0.tgz#abc2112585ddf007523c5ca89f43ec3e189a035e"
 
-react-mobile-navigation-modal@^1.0.10-0:
-  version "1.0.10-0"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-modal/-/react-mobile-navigation-modal-1.0.10-0.tgz#d6f493c09c0106b16e035f8fba31e400cd4fe6ca"
+react-mobile-navigation-modal@^1.0.11-0:
+  version "1.0.11-0"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-modal/-/react-mobile-navigation-modal-1.0.11-0.tgz#c32571895c7b1018543a2735139334241d6e2eb4"
   dependencies:
     react-mobile-navigation-core "^1.0.10-0"
 

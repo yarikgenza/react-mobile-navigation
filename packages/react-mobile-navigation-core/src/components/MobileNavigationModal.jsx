@@ -50,7 +50,6 @@ export default class MobileNavigationModal extends React.Component {
       isForce,
       isShow,
       pageHeight,
-      pageStatus,
       pageWidth,
       zIndex,
       onTransitionEnd,
@@ -64,7 +63,7 @@ export default class MobileNavigationModal extends React.Component {
         isForce={isForce}
         isShow={isShow}
         pageLeft={MODAL_MARGIN}
-        pageStatus={pageStatus}
+        pageStatus={props.pageStatus}
         pageWidth={pageWidthNew}
         zIndex={zIndex}
         onShadowClick={this.onShadowClick}

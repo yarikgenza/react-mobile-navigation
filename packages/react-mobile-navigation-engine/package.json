@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-engine",
-  "version": "1.0.11-0",
+  "version": "1.0.12-0",
   "description": "React mobile navigation.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -8,8 +8,8 @@
   },
   "scripts": {
     "clean": "rimraf lib",
-    "lint": "eslint src; exit 0",
-    "build": "npm run lint && npm run clean && babel src --out-dir lib"
+    "lint": "eslint src",
+    "build": "npm run lint && npm run clean && NODE_ENV=release babel src --out-dir lib"
   },
   "license": "MIT",
   "repository": {
@@ -22,11 +22,11 @@
   "main": "lib/index.js",
   "dependencies": {
     "lodash": "^4.17.4",
-    "react-mobile-navigation-action-sheet": "^1.0.11-0",
-    "react-mobile-navigation-alert": "^1.0.11-0",
-    "react-mobile-navigation-combobox": "^1.0.11-0",
-    "react-mobile-navigation-core": "^1.0.10-0",
-    "react-mobile-navigation-modal": "^1.0.11-0"
+    "react-mobile-navigation-action-sheet": "^1.0.12-0",
+    "react-mobile-navigation-alert": "^1.0.12-0",
+    "react-mobile-navigation-combobox": "^1.0.12-0",
+    "react-mobile-navigation-core": "^1.0.12-0",
+    "react-mobile-navigation-modal": "^1.0.12-0"
   },
   "peerDependencies": {
     "react": "^15.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-core",
-  "version": "1.0.10-0",
+  "version": "1.0.12-0",
   "description": "React mobile mavigation core.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint src",
-    "build": "npm run lint && npm run clean && babel src --out-dir lib"
+    "build": "npm run lint && npm run clean && NODE_ENV=release babel src --out-dir lib"
   },
   "license": "MIT",
   "repository": {

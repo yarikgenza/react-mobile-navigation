@@ -785,7 +785,7 @@ binary-ui-icons@^0.2.11, binary-ui-icons@^0.2.13:
   dependencies:
     prop-types "^15.5.10"
 
-binary-ui-stack@^0.2.3:
+binary-ui-stack@^0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/binary-ui-stack/-/binary-ui-stack-0.2.4.tgz#994bcde0c7050fe3d8035559ecd6288d68397b06"
   dependencies:
@@ -2223,7 +2223,11 @@ micromatch@^2.1.5, micromatch@^2.3.11:
     parse-glob "^3.0.4"
     regex-cache "^0.4.2"
 
-"mime-db@>= 1.27.0 < 2", mime-db@~1.27.0:
+"mime-db@>= 1.27.0 < 2":
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.29.0.tgz#48d26d235589651704ac5916ca06001914266878"
+
+mime-db@~1.27.0:
   version "1.27.0"
   resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.27.0.tgz#820f572296bbd20ec25ed55e5b5de869e5436eb1"
 
