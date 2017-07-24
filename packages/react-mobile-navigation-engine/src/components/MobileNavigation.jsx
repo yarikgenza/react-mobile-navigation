@@ -3,7 +3,6 @@ import ActionSheet from 'react-mobile-navigation-action-sheet';
 import AlertBox from 'react-mobile-navigation-alert';
 import ComboBox from 'react-mobile-navigation-combobox';
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import Modal from 'react-mobile-navigation-modal';
 import { PAGE_OPEN_START, PAGE_CLOSE_START } from '../action-types/navigation-action-types';
 import * as navigationActions from '../actions/navigation-actions';
 import MobileNavigationPageEngine from '../components/MobileNavigationPageEngine';
@@ -35,7 +34,6 @@ export default class MobileNavigation extends React.Component {
     this.memoizedActionSheet = {};
     this.memoizedAlert = {};
     this.memoizedComboBox = {};
-    this.memoizedModal = {};
     this.memoizedNavigation = undefined;
     this.state = {
       actionSheet: {
@@ -45,9 +43,6 @@ export default class MobileNavigation extends React.Component {
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       comboBox: {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      },
-      modal: {
         status: PageStatusTypesEnum.CLOSE_DONE,
       },
       navigation: createInitState(
@@ -71,10 +66,6 @@ export default class MobileNavigation extends React.Component {
     this.onComboBoxOpenDone = this.onComboBoxOpenDone.bind(this);
     this.onComboBoxCloseStart = this.onComboBoxCloseStart.bind(this);
     this.onComboBoxCloseDone = this.onComboBoxCloseDone.bind(this);
-    this.onModalOpenStart = this.onModalOpenStart.bind(this);
-    this.onModalOpenDone = this.onModalOpenDone.bind(this);
-    this.onModalCloseStart = this.onModalCloseStart.bind(this);
-    this.onModalCloseDone = this.onModalCloseDone.bind(this);
     this.onPageOpenStart = this.onPageOpenStart.bind(this);
     this.onPageOpenDone = this.onPageOpenDone.bind(this);
     this.onPageCloseStart = this.onPageCloseStart.bind(this);
@@ -252,63 +243,6 @@ export default class MobileNavigation extends React.Component {
     }));
   }
 
-  onModalOpenStart(props) {
-    this.memoizedModal = props;
-    const { modal } = this.state;
-    // ignore opening attempts if not closed yet
-    if (modal.status !== PageStatusTypesEnum.CLOSE_DONE) {
-      return;
-    }
-    this.setState(prevState => ({
-      modal: Object.assign({}, prevState.modal, {
-        status: PageStatusTypesEnum.OPEN_START,
-      }),
-    }), () => {
-      // force rendering in the next frame
-      window.requestAnimationFrame(() => {
-        this.setState(prevState => ({
-          modal: Object.assign({}, prevState.modal, {
-            status: PageStatusTypesEnum.OPEN_PROCESSING,
-          }),
-        }));
-      });
-    });
-  }
-
-  onModalOpenDone() {
-    this.setState(prevState => ({
-      modal: Object.assign({}, prevState.modal, {
-        status: PageStatusTypesEnum.OPEN_DONE,
-      }),
-    }));
-  }
-
-  onModalCloseStart() {
-    this.setState(prevState => ({
-      modal: Object.assign({}, prevState.modal, {
-        status: PageStatusTypesEnum.CLOSE_START,
-      }),
-    }), () => {
-      // force rendering in the next frame
-      window.requestAnimationFrame(() => {
-        this.setState(prevState => ({
-          modal: Object.assign({}, prevState.modal, {
-            status: PageStatusTypesEnum.CLOSE_PROCESSING,
-          }),
-        }));
-      });
-    });
-  }
-
-  onModalCloseDone() {
-    this.memoizedModal = {};
-    this.setState(prevState => ({
-      modal: Object.assign({}, prevState.modal, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      }),
-    }));
-  }
-
   onPageOpenStart(pageIdNew, isForce = false) {
     const { navigation } = this.state;
     // do not open previous page
@@ -417,7 +351,7 @@ export default class MobileNavigation extends React.Component {
 
   render() {
     const { children, pageHeight, pageWidth } = this.props;
-    const { actionSheet, alert, comboBox, modal, navigation } = this.state;
+    const { actionSheet, alert, comboBox, navigation } = this.state;
     return (
       <MobileNavigationRender>
         {React.Children.toArray(children).map(child => {
@@ -435,8 +369,6 @@ export default class MobileNavigation extends React.Component {
               onAlertCloseStart={this.onAlertCloseStart}
               onComboBoxOpenStart={this.onComboBoxOpenStart}
               onComboBoxCloseStart={this.onComboBoxCloseStart}
-              onModalOpenStart={this.onModalOpenStart}
-              onModalCloseStart={this.onModalCloseStart}
               onPageOpenStart={this.onPageOpenStart}
               onPageOpenDone={
                 navigation.actionMeta &&
@@ -468,21 +400,11 @@ export default class MobileNavigation extends React.Component {
           onComboBoxCloseStart={this.onComboBoxCloseStart}
           onComboBoxCloseDone={this.onComboBoxCloseDone}
         />
-        <Modal
-          {...this.memoizedModal}
-          pageHeight={pageHeight}
-          pageStatus={modal.status}
-          pageWidth={pageWidth}
-          zIndex={modal.status !== PageStatusTypesEnum.CLOSE_DONE ? 1001 : 0}
-          onModalOpenDone={this.onModalOpenDone}
-          onModalCloseStart={this.onModalCloseStart}
-          onModalCloseDone={this.onModalCloseDone}
-        />
         <AlertBox
           {...this.memoizedAlert}
           pageStatus={alert.status}
           pageWidth={pageWidth}
-          zIndex={alert.status !== PageStatusTypesEnum.CLOSE_DONE ? 1002 : 0}
+          zIndex={alert.status !== PageStatusTypesEnum.CLOSE_DONE ? 1001 : 0}
           onAlertOpenDone={this.onAlertOpenDone}
           onAlertCloseStart={this.onAlertCloseStart}
           onAlertCloseDone={this.onAlertCloseDone}
@@ -491,7 +413,7 @@ export default class MobileNavigation extends React.Component {
           {...this.memoizedActionSheet}
           pageStatus={actionSheet.status}
           pageWidth={pageWidth}
-          zIndex={actionSheet.status !== PageStatusTypesEnum.CLOSE_DONE ? 1003 : 0}
+          zIndex={actionSheet.status !== PageStatusTypesEnum.CLOSE_DONE ? 1002 : 0}
           onActionSheetOpenDone={this.onActionSheetOpenDone}
           onActionSheetCloseStart={this.onActionSheetCloseStart}
           onActionSheetCloseDone={this.onActionSheetCloseDone}

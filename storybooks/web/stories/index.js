@@ -7,7 +7,6 @@ import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-s
 import Engine from '../src/react-mobile-navigation-engine/stack/components/SettingsComponent';
 import * as Settings2ModeTypesEnum from '../src/react-mobile-navigation-engine/stack/enum/settings-mode-types-enum';
 import ComboBox from '../src/react-mobile-navigation-combobox/stack/components/SettingsMainPageComponent';
-import Modal from '../src/react-mobile-navigation-modal/stack/components/SettingsMainPageComponent';
 
 setAddon(infoAddon);
 
@@ -72,22 +71,5 @@ storiesOf('examples', module)
         }`}
       </style>
       <Engine />
-    </div>
-  ))
-  .addWithInfo('react-mobile-navigation-modal', () => (
-    <div style={style} >
-      <style>
-        {`html, body, #CardsApp {
-          width: 100%;
-          height: 100%;
-        }
-        body {
-          margin: 0;
-          background-color: #eeeae5;
-        }`}
-      </style>
-      <Modal pageState={{ zIndex: 1 }} >
-        Here is my text
-      </Modal>
     </div>
   ));

@@ -8,8 +8,7 @@
         "react-mobile-navigation-alert": "./lib/react-mobile-navigation-alert/src",
         "react-mobile-navigation-combobox": "./lib/react-mobile-navigation-combobox/src",
         "react-mobile-navigation-core": "./lib/react-mobile-navigation-core/src",
-        "react-mobile-navigation-engine": "./lib/react-mobile-navigation-engine/src",
-        "react-mobile-navigation-modal": "./lib/react-mobile-navigation-modal/src"
+        "react-mobile-navigation-engine": "./lib/react-mobile-navigation-engine/src"
       }
     }]
   ]

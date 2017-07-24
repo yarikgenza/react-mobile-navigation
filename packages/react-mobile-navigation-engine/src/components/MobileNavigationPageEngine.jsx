@@ -17,8 +17,6 @@ const propTypes = {
   onAlertCloseStart: React.PropTypes.func.isRequired,
   onComboBoxOpenStart: React.PropTypes.func.isRequired,
   onComboBoxCloseStart: React.PropTypes.func.isRequired,
-  onModalOpenStart: React.PropTypes.func.isRequired,
-  onModalCloseStart: React.PropTypes.func.isRequired,
   onPageOpenStart: React.PropTypes.func.isRequired,
   onPageOpenDone: React.PropTypes.func,
   onPageCloseStart: React.PropTypes.func.isRequired,
@@ -88,8 +86,6 @@ export default class MobileNavigationPageEngine extends React.Component {
       onAlertCloseStart,
       onComboBoxOpenStart,
       onComboBoxCloseStart,
-      onModalOpenStart,
-      onModalCloseStart,
       onPageOpenStart,
       onPageCloseStart,
     } = this.props;
@@ -118,8 +114,6 @@ export default class MobileNavigationPageEngine extends React.Component {
           onAlertClose: onAlertCloseStart,
           onComboBoxOpen: onComboBoxOpenStart,
           onComboBoxClose: onComboBoxCloseStart,
-          onModalOpen: onModalOpenStart,
-          onModalClose: onModalCloseStart,
           onPageOpen: onPageOpenStart,
           onPageClose: onPageCloseStart,
         })}

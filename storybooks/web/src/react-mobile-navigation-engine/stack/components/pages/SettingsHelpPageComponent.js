@@ -16,7 +16,6 @@ export default class SettingsHelpPageComponent extends React.Component {
     this.openComboBox = this.openComboBox.bind(this);
     this.openAlert = this.openAlert.bind(this);
     this.openAlertAutoHide = this.openAlertAutoHide.bind(this);
-    this.openModal = this.openModal.bind(this);
     this.closePageClick = this.closePageClick.bind(this);
     this.closePageForceClick = this.closePageForceClick.bind(this);
     this.connectedLicensesText = this.connectedLicensesText.bind(this);
@@ -80,41 +79,6 @@ export default class SettingsHelpPageComponent extends React.Component {
     });
   }
 
-  openModal() {
-    const { onModalOpen, onModalClose, pageHeight } = this.props;
-    onModalOpen({
-      render: () => {
-        return (
-          <StackPage
-            bodyStyle={{
-              backgroundColor: 'white',
-              overflowX: 'hidden',
-              overflowY: 'auto',
-            }}
-            headerStyle={{
-              backgroundColor: '#eeeae5',
-            }}
-            leftButton={{ onClick: () => { onModalClose() }, renderIcon: () => (<IconCancel />) }}
-            pageHeight={pageHeight}
-            rightButton={{ onClick: () => { onModalClose() }, renderIcon: () => (<IconDone />) }}
-            stackTitle="Modal Title"
-            stackTitleEditable={false}
-            titleIcon={undefined}
-            useSearch={false}
-          >
-            <div style={{ fontSize: '64px' }} >Content Here 1</div>
-            <div style={{ fontSize: '64px' }} >Content Here 2</div>
-            <div style={{ fontSize: '64px' }} >Content Here 3</div>
-            <div style={{ fontSize: '64px' }} >Content Here 4</div>
-            <div style={{ fontSize: '64px' }} >Content Here 5</div>
-            <div style={{ fontSize: '64px' }} >Content Here 6</div>
-            <div style={{ fontSize: '64px' }} >Content Here 7</div>
-          </StackPage>
-        );
-      },
-    });
-  }
-
   componentOpeningDone() {
     console.log('componentOpeningDone', this.cache);
   }
@@ -168,9 +132,6 @@ export default class SettingsHelpPageComponent extends React.Component {
         <div onClick={this.openAlert} >
           Show alert
         </div>
-        <div onClick={this.openModal} >
-          Show modal
-        </div>
       </div>
     );
   }
@@ -179,13 +140,9 @@ export default class SettingsHelpPageComponent extends React.Component {
 SettingsHelpPageComponent.defaultProps = {
   onActionSheetOpen: undefined,
   onAlertOpen: undefined,
-  onModalOpen: undefined,
-  onModalClose: undefined,
 };
 
 SettingsHelpPageComponent.propTypes = {
   onActionSheetOpen: React.PropTypes.func,
   onAlertOpen: React.PropTypes.func,
-  onModalOpen: React.PropTypes.func,
-  onModalClose: React.PropTypes.func,
 };
