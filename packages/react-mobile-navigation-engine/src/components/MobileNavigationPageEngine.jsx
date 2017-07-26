@@ -1,4 +1,3 @@
-import isFunction from 'lodash/isFunction';
 import React from 'react';
 import { Interpolation, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
@@ -11,6 +10,12 @@ const propTypes = {
   ]).isRequired,
   pageState: React.PropTypes.object.isRequired,
   pageWidth: React.PropTypes.number.isRequired,
+  setOnActionSheetOpenCallback: React.PropTypes.func.isRequired,
+  setOnActionSheetCloseCallback: React.PropTypes.func.isRequired,
+  setOnAlertOpenCallback: React.PropTypes.func.isRequired,
+  setOnAlertCloseCallback: React.PropTypes.func.isRequired,
+  setOnComboBoxOpenCallback: React.PropTypes.func.isRequired,
+  setOnComboBoxCloseCallback: React.PropTypes.func.isRequired,
   onActionSheetOpenStart: React.PropTypes.func.isRequired,
   onActionSheetCloseStart: React.PropTypes.func.isRequired,
   onAlertOpenStart: React.PropTypes.func.isRequired,
@@ -30,8 +35,8 @@ export default class MobileNavigationPageEngine extends React.Component {
   constructor(props) {
     super(props);
     this.cache = {
-      onOpenUserCallback: null,
-      onCloseUserCallback: null,
+      onPageOpenCallback: null,
+      onPageCloseCallback: null,
     };
     this.setOnOpen = this.setOnOpen.bind(this);
     this.setOnClose = this.setOnClose.bind(this);
@@ -41,36 +46,26 @@ export default class MobileNavigationPageEngine extends React.Component {
 
   onPageOpenDone() {
     const { onPageOpenDone } = this.props;
-    if (onPageOpenDone) {
-      onPageOpenDone();
-    }
-    const { onOpenUserCallback } = this.cache;
-    if (isFunction(onOpenUserCallback)) {
-      onOpenUserCallback();
+    if (!onPageOpenDone) {
       return;
     }
-    return;
+    onPageOpenDone(this.cache.onPageOpenCallback);
   }
 
   onPageCloseDone() {
     const { onPageCloseDone } = this.props;
-    if (onPageCloseDone) {
-      onPageCloseDone();
-    }
-    const { onCloseUserCallback } = this.cache;
-    if (isFunction(onCloseUserCallback)) {
-      onCloseUserCallback();
+    if (!onPageCloseDone) {
       return;
     }
-    return;
+    onPageCloseDone(this.cache.onPageCloseCallback);
   }
 
-  setOnOpen(onOpenFn) {
-    this.cache.onOpenUserCallback = onOpenFn;
+  setOnOpen(callback) {
+    this.cache.onPageOpenCallback = callback;
   }
 
-  setOnClose(onCloseFn) {
-    this.cache.onCloseUserCallback = onCloseFn;
+  setOnClose(callback) {
+    this.cache.onPageCloseCallback = callback;
   }
 
   render() {
@@ -80,6 +75,12 @@ export default class MobileNavigationPageEngine extends React.Component {
       pageId,
       pageState,
       pageWidth,
+      setOnActionSheetOpenCallback,
+      setOnActionSheetCloseCallback,
+      setOnAlertOpenCallback,
+      setOnAlertCloseCallback,
+      setOnComboBoxOpenCallback,
+      setOnComboBoxCloseCallback,
       onActionSheetOpenStart,
       onActionSheetCloseStart,
       onAlertOpenStart,
@@ -106,6 +107,12 @@ export default class MobileNavigationPageEngine extends React.Component {
           pageId,
           pageWidth,
           zIndex,
+          setOnActionSheetOpenCallback,
+          setOnActionSheetCloseCallback,
+          setOnAlertOpenCallback,
+          setOnAlertCloseCallback,
+          setOnComboBoxOpenCallback,
+          setOnComboBoxCloseCallback,
           setOnPageOpenCallback: this.setOnOpen,
           setOnPageCloseCallback: this.setOnClose,
           onActionSheetOpen: onActionSheetOpenStart,

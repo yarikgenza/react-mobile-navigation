@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import React from 'react';
 import ActionSheet from 'react-mobile-navigation-action-sheet';
 import AlertBox from 'react-mobile-navigation-alert';
@@ -31,6 +32,14 @@ export default class MobileNavigation extends React.Component {
 
   constructor(props) {
     super(props);
+    this.cache = {
+      onActionSheetOpenCallback: null,
+      onActionSheetCloseCallback: null,
+      onAlertOpenCallback: null,
+      onAlertCloseCallback: null,
+      onComboBoxOpenCallback: null,
+      onComboBoxCloseCallback: null,
+    };
     this.memoizedActionSheet = {};
     this.memoizedAlert = {};
     this.memoizedComboBox = {};
@@ -54,6 +63,12 @@ export default class MobileNavigation extends React.Component {
         props.initPagesState
       ),
     };
+    this.setOnActionSheetOpenCallback = this.setOnActionSheetOpenCallback.bind(this);
+    this.setOnActionSheetCloseCallback = this.setOnActionSheetCloseCallback.bind(this);
+    this.setOnAlertOpenCallback = this.setOnAlertOpenCallback.bind(this);
+    this.setOnAlertCloseCallback = this.setOnAlertCloseCallback.bind(this);
+    this.setOnComboBoxOpenCallback = this.setOnComboBoxOpenCallback.bind(this);
+    this.setOnComboBoxCloseCallback = this.setOnComboBoxCloseCallback.bind(this);
     this.onActionSheetOpenStart = this.onActionSheetOpenStart.bind(this);
     this.onActionSheetOpenDone = this.onActionSheetOpenDone.bind(this);
     this.onActionSheetCloseStart = this.onActionSheetCloseStart.bind(this);
@@ -100,7 +115,12 @@ export default class MobileNavigation extends React.Component {
       actionSheet: Object.assign({}, prevState.actionSheet, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
-    }));
+    }), () => {
+      const { onActionSheetOpenCallback } = this.cache;
+      if (isFunction(onActionSheetOpenCallback)) {
+        onActionSheetOpenCallback();
+      }
+    });
   }
 
   onActionSheetCloseStart() {
@@ -126,7 +146,12 @@ export default class MobileNavigation extends React.Component {
       actionSheet: Object.assign({}, prevState.actionSheet, {
         status: PageStatusTypesEnum.CLOSE_DONE,
       }),
-    }));
+    }), () => {
+      const { onActionSheetCloseCallback } = this.cache;
+      if (isFunction(onActionSheetCloseCallback)) {
+        onActionSheetCloseCallback();
+      }
+    });
   }
 
   onAlertOpenStart(props) {
@@ -157,7 +182,12 @@ export default class MobileNavigation extends React.Component {
       alert: Object.assign({}, prevState.alert, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
-    }));
+    }), () => {
+      const { onAlertOpenCallback } = this.cache;
+      if (isFunction(onAlertOpenCallback)) {
+        onAlertOpenCallback();
+      }
+    });
   }
 
   onAlertCloseStart() {
@@ -183,7 +213,12 @@ export default class MobileNavigation extends React.Component {
       alert: Object.assign({}, prevState.alert, {
         status: PageStatusTypesEnum.CLOSE_DONE,
       }),
-    }));
+    }), () => {
+      const { onAlertCloseCallback } = this.cache;
+      if (isFunction(onAlertCloseCallback)) {
+        onAlertCloseCallback();
+      }
+    });
   }
 
   onComboBoxOpenStart(props) {
@@ -214,7 +249,12 @@ export default class MobileNavigation extends React.Component {
       comboBox: Object.assign({}, prevState.comboBox, {
         status: PageStatusTypesEnum.OPEN_DONE,
       }),
-    }));
+    }), () => {
+      const { onComboBoxOpenCallback } = this.cache;
+      if (isFunction(onComboBoxOpenCallback)) {
+        onComboBoxOpenCallback();
+      }
+    });
   }
 
   onComboBoxCloseStart() {
@@ -240,7 +280,12 @@ export default class MobileNavigation extends React.Component {
       comboBox: Object.assign({}, prevState.comboBox, {
         status: PageStatusTypesEnum.CLOSE_DONE,
       }),
-    }));
+    }), () => {
+      const { onComboBoxCloseCallback } = this.cache;
+      if (isFunction(onComboBoxCloseCallback)) {
+        onComboBoxCloseCallback();
+      }
+    });
   }
 
   onPageOpenStart(pageIdNew, isForce = false) {
@@ -282,7 +327,7 @@ export default class MobileNavigation extends React.Component {
     });
   }
 
-  onPageOpenDone() {
+  onPageOpenDone(callback) {
     this.memoizedNavigation = undefined;
     this.setState(prevState => ({
       navigation: Object.assign({}, prevState.navigation, {
@@ -293,7 +338,11 @@ export default class MobileNavigation extends React.Component {
           prevState.navigation.pageIdActive
         ),
       }),
-    }));
+    }), () => {
+      if (isFunction(callback)) {
+        callback();
+      }
+    });
   }
 
   onPageCloseStart(isForce = false) {
@@ -330,7 +379,7 @@ export default class MobileNavigation extends React.Component {
     });
   }
 
-  onPageCloseDone() {
+  onPageCloseDone(callback) {
     this.setState(prevState => ({
       navigation: Object.assign({}, prevState.navigation, {
         actionMeta: undefined,
@@ -346,7 +395,34 @@ export default class MobileNavigation extends React.Component {
       }),
     }), () => {
       this.memoizedNavigation = undefined;
+      if (isFunction(callback)) {
+        callback();
+      }
     });
+  }
+
+  setOnActionSheetOpenCallback(callback) {
+    this.cache.onActionSheetOpenCallback = callback;
+  }
+
+  setOnActionSheetCloseCallback(callback) {
+    this.cache.onActionSheetCloseCallback = callback;
+  }
+
+  setOnAlertOpenCallback(callback) {
+    this.cache.onAlertOpenCallback = callback;
+  }
+
+  setOnAlertCloseCallback(callback) {
+    this.cache.onAlertCloseCallback = callback;
+  }
+
+  setOnComboBoxOpenCallback(callback) {
+    this.cache.onComboBoxOpenCallback = callback;
+  }
+
+  setOnComboBoxCloseCallback(callback) {
+    this.cache.onComboBoxCloseCallback = callback;
   }
 
   render() {
@@ -363,6 +439,12 @@ export default class MobileNavigation extends React.Component {
               pageId={pageId}
               pageState={navigation.pages[pageId]}
               pageWidth={pageWidth}
+              setOnActionSheetOpenCallback={this.setOnActionSheetOpenCallback}
+              setOnActionSheetCloseCallback={this.setOnActionSheetCloseCallback}
+              setOnAlertOpenCallback={this.setOnAlertOpenCallback}
+              setOnAlertCloseCallback={this.setOnAlertCloseCallback}
+              setOnComboBoxOpenCallback={this.setOnComboBoxOpenCallback}
+              setOnComboBoxCloseCallback={this.setOnComboBoxCloseCallback}
               onActionSheetOpenStart={this.onActionSheetOpenStart}
               onActionSheetCloseStart={this.onActionSheetCloseStart}
               onAlertOpenStart={this.onAlertOpenStart}

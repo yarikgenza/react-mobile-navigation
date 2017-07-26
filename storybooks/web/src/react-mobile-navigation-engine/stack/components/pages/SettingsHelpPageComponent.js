@@ -20,6 +20,18 @@ export default class SettingsHelpPageComponent extends React.Component {
     this.closePageForceClick = this.closePageForceClick.bind(this);
     this.connectedLicensesText = this.connectedLicensesText.bind(this);
     this.connectedLicensesTextForce = this.connectedLicensesTextForce.bind(this);
+    this.onAlertCloseCallback = this.onAlertCloseCallback.bind(this);
+    this.onPageCloseCallback = this.onPageCloseCallback.bind(this);
+    props.setOnAlertCloseCallback(this.onAlertCloseCallback);
+    props.setOnPageCloseCallback(this.onPageCloseCallback);
+  }
+
+  onAlertCloseCallback() {
+    console.log('onAlertCloseCallback');
+  }
+
+  onPageCloseCallback() {
+    console.log('onPageCloseCallback');
   }
 
   onClick() {
@@ -138,11 +150,15 @@ export default class SettingsHelpPageComponent extends React.Component {
 }
 
 SettingsHelpPageComponent.defaultProps = {
+  setOnAlertCloseCallback: undefined,
+  setOnPageCloseCallback: undefined,
   onActionSheetOpen: undefined,
   onAlertOpen: undefined,
 };
 
 SettingsHelpPageComponent.propTypes = {
+  setOnAlertCloseCallback: React.PropTypes.func,
+  setOnPageCloseCallback: React.PropTypes.func,
   onActionSheetOpen: React.PropTypes.func,
   onAlertOpen: React.PropTypes.func,
 };
