@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Interpolation,
   MobileNavigationView,
@@ -6,14 +7,14 @@ import {
 } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  autoHideDuration: React.PropTypes.number,
-  pageStatus: React.PropTypes.string,
-  pageWidth: React.PropTypes.number.isRequired,
-  zIndex: React.PropTypes.number.isRequired,
-  render: React.PropTypes.func.isRequired,
-  onAlertOpenDone: React.PropTypes.func.isRequired,
-  onAlertCloseStart: React.PropTypes.func.isRequired,
-  onAlertCloseDone: React.PropTypes.func.isRequired,
+  autoHideDuration: PropTypes.number,
+  pageStatus: PropTypes.string,
+  pageWidth: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired,
+  render: PropTypes.func.isRequired,
+  onAlertOpenDone: PropTypes.func.isRequired,
+  onAlertCloseStart: PropTypes.func.isRequired,
+  onAlertCloseDone: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

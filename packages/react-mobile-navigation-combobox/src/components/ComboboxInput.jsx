@@ -1,13 +1,14 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import ComboBoxInputStyled from '../components-styled/ComboBoxInputStyled';
 
 const propTypes = {
-  textFilter: React.PropTypes.string,
-  isBold: React.PropTypes.bool.isRequired,
-  isValid: React.PropTypes.bool,
-  placeholder: React.PropTypes.string,
-  onFilterSet: React.PropTypes.func.isRequired,
-  onFilterOnKeyUp: React.PropTypes.func,
+  textFilter: PropTypes.string,
+  isBold: PropTypes.bool.isRequired,
+  isValid: PropTypes.bool,
+  placeholder: PropTypes.string,
+  onFilterSet: PropTypes.func.isRequired,
+  onFilterOnKeyUp: PropTypes.func,
 };
 
 const defaultProps = {

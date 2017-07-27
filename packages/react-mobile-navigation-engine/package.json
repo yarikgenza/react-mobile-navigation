@@ -22,6 +22,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "lodash": "^4.17.4",
+    "prop-types": "^15.5.10",
     "react-mobile-navigation-action-sheet": "^1.0.13",
     "react-mobile-navigation-alert": "^1.0.13",
     "react-mobile-navigation-combobox": "^1.0.13",

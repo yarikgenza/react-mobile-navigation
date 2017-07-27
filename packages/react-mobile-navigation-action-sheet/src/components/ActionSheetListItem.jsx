@@ -1,10 +1,11 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import ActionSheetListItemRender from '../components-styled/ActionSheetListItemRender';
 
 const propTypes = {
-  isRed: React.PropTypes.bool,
-  item: React.PropTypes.object.isRequired,
-  onSelect: React.PropTypes.func.isRequired,
+  isRed: PropTypes.bool,
+  item: PropTypes.object.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

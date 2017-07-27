@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MobileNavigationPageRender from '../components-styled/MobileNavigationPageRender';
 import BackgroundActiveRender from '../components-styled/BackgroundActiveRender';
@@ -7,15 +8,15 @@ import { getModalPositionFromStatus } from '../utils/position-api';
 import getTranslate3dByDirection from '../utils/style-api';
 
 const propTypes = {
-  children: React.PropTypes.element,
-  isForce: React.PropTypes.bool,
-  isShow: React.PropTypes.bool,
-  pageLeft: React.PropTypes.number.isRequired,
-  pageStatus: React.PropTypes.string,
-  pageWidth: React.PropTypes.number.isRequired,
-  zIndex: React.PropTypes.number.isRequired,
-  onShadowClick: React.PropTypes.func,
-  onTransitionEnd: React.PropTypes.func,
+  children: PropTypes.element,
+  isForce: PropTypes.bool,
+  isShow: PropTypes.bool,
+  pageLeft: PropTypes.number.isRequired,
+  pageStatus: PropTypes.string,
+  pageWidth: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired,
+  onShadowClick: PropTypes.func,
+  onTransitionEnd: PropTypes.func,
 };
 
 const defaultProps = {

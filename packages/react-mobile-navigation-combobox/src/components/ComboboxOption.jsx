@@ -1,10 +1,11 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import ComboBoxOptionStyled from '../components-styled/ComboBoxOptionStyled';
 
 const propTypes = {
-  isBold: React.PropTypes.bool.isRequired,
-  item: React.PropTypes.object.isRequired,
-  handleItemSelect: React.PropTypes.func.isRequired,
+  isBold: PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired,
+  handleItemSelect: PropTypes.func.isRequired,
 };
 
 const defaultProps = {};

@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import {
   OPEN_DONE,
   OPEN_PROCESSING,
@@ -7,12 +8,12 @@ import {
 } from '../constants/page-status-types';
 
 const propTypes = {
-  children: React.PropTypes.element.isRequired,
-  isForce: React.PropTypes.bool,
-  isShow: React.PropTypes.bool.isRequired,
-  pageStatus: React.PropTypes.string.isRequired,
-  onPageOpenDone: React.PropTypes.func.isRequired,
-  onPageCloseDone: React.PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+  isForce: PropTypes.bool,
+  isShow: PropTypes.bool.isRequired,
+  pageStatus: PropTypes.string.isRequired,
+  onPageOpenDone: PropTypes.func.isRequired,
+  onPageCloseDone: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

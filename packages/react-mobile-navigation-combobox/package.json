@@ -26,6 +26,7 @@
     "binary-ui-styles": "^0.2.13",
     "js-search": "^1.4.2",
     "js-search-no-filter": "^0.0.1",
+    "prop-types": "^15.5.10",
     "react-mobile-navigation-core": "^1.0.13"
   },
   "peerDependencies": {

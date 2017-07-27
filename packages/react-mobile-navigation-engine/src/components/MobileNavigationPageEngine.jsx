@@ -1,31 +1,32 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Interpolation, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 const propTypes = {
-  children: React.PropTypes.any.isRequired,
-  pageHeight: React.PropTypes.number.isRequired,
-  pageId: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  children: PropTypes.any.isRequired,
+  pageHeight: PropTypes.number.isRequired,
+  pageId: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]).isRequired,
-  pageState: React.PropTypes.object.isRequired,
-  pageWidth: React.PropTypes.number.isRequired,
-  setOnActionSheetOpenCallback: React.PropTypes.func.isRequired,
-  setOnActionSheetCloseCallback: React.PropTypes.func.isRequired,
-  setOnAlertOpenCallback: React.PropTypes.func.isRequired,
-  setOnAlertCloseCallback: React.PropTypes.func.isRequired,
-  setOnComboBoxOpenCallback: React.PropTypes.func.isRequired,
-  setOnComboBoxCloseCallback: React.PropTypes.func.isRequired,
-  onActionSheetOpenStart: React.PropTypes.func.isRequired,
-  onActionSheetCloseStart: React.PropTypes.func.isRequired,
-  onAlertOpenStart: React.PropTypes.func.isRequired,
-  onAlertCloseStart: React.PropTypes.func.isRequired,
-  onComboBoxOpenStart: React.PropTypes.func.isRequired,
-  onComboBoxCloseStart: React.PropTypes.func.isRequired,
-  onPageOpenStart: React.PropTypes.func.isRequired,
-  onPageOpenDone: React.PropTypes.func,
-  onPageCloseStart: React.PropTypes.func.isRequired,
-  onPageCloseDone: React.PropTypes.func,
+  pageState: PropTypes.object.isRequired,
+  pageWidth: PropTypes.number.isRequired,
+  setOnActionSheetOpenCallback: PropTypes.func.isRequired,
+  setOnActionSheetCloseCallback: PropTypes.func.isRequired,
+  setOnAlertOpenCallback: PropTypes.func.isRequired,
+  setOnAlertCloseCallback: PropTypes.func.isRequired,
+  setOnComboBoxOpenCallback: PropTypes.func.isRequired,
+  setOnComboBoxCloseCallback: PropTypes.func.isRequired,
+  onActionSheetOpenStart: PropTypes.func.isRequired,
+  onActionSheetCloseStart: PropTypes.func.isRequired,
+  onAlertOpenStart: PropTypes.func.isRequired,
+  onAlertCloseStart: PropTypes.func.isRequired,
+  onComboBoxOpenStart: PropTypes.func.isRequired,
+  onComboBoxCloseStart: PropTypes.func.isRequired,
+  onPageOpenStart: PropTypes.func.isRequired,
+  onPageOpenDone: PropTypes.func,
+  onPageCloseStart: PropTypes.func.isRequired,
+  onPageCloseDone: PropTypes.func,
 };
 
 const defaultProps = {};

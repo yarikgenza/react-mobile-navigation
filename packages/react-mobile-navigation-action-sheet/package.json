@@ -22,6 +22,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "binary-ui-styles": "^0.2.13",
+    "prop-types": "^15.5.10",
     "react-mobile-navigation-core": "^1.0.13"
   },
   "peerDependencies": {

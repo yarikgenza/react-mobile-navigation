@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Interpolation,
   MobileNavigationShadowPage,
@@ -7,17 +8,17 @@ import {
 import ActionSheetList from './ActionSheetList';
 
 const propTypes = {
-  cancelLabel: React.PropTypes.string,
-  items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  pageStatus: React.PropTypes.string,
-  pageWidth: React.PropTypes.number.isRequired,
-  zIndex: React.PropTypes.number.isRequired,
-  onCancel: React.PropTypes.func,
-  onSelect: React.PropTypes.func,
-  onShadowClick: React.PropTypes.func,
-  onActionSheetOpenDone: React.PropTypes.func.isRequired,
-  onActionSheetCloseStart: React.PropTypes.func.isRequired,
-  onActionSheetCloseDone: React.PropTypes.func.isRequired,
+  cancelLabel: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageStatus: PropTypes.string,
+  pageWidth: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired,
+  onCancel: PropTypes.func,
+  onSelect: PropTypes.func,
+  onShadowClick: PropTypes.func,
+  onActionSheetOpenDone: PropTypes.func.isRequired,
+  onActionSheetCloseStart: PropTypes.func.isRequired,
+  onActionSheetCloseDone: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

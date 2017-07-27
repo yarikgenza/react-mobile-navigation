@@ -1,14 +1,15 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import ActionSheetListItem from './ActionSheetListItem';
 import ActionSheetListRender from '../components-styled/ActionSheetListRender';
 import actionSheetOptionModel from '../models/action-sheet-option-model';
 
 const propTypes = {
-  items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  cancelLabel: React.PropTypes.string,
-  pageIndex: React.PropTypes.number,
-  onCancel: React.PropTypes.func,
-  onSelect: React.PropTypes.func,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  cancelLabel: PropTypes.string,
+  pageIndex: PropTypes.number,
+  onCancel: PropTypes.func,
+  onSelect: PropTypes.func,
 };
 
 const defaultProps = {

@@ -1,4 +1,5 @@
 import isFunction from 'lodash/isFunction';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ActionSheet from 'react-mobile-navigation-action-sheet';
 import AlertBox from 'react-mobile-navigation-alert';
@@ -13,14 +14,14 @@ import createInitState from '../utils/init-state-create';
 import { getPrevPageById, getPrevPageId, isPrevPage } from '../utils/page-manager';
 
 const propTypes = {
-  children: React.PropTypes.any,
-  initPagesState: React.PropTypes.array,
-  pageHeight: React.PropTypes.number.isRequired,
-  pageIdRoot: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
+  children: PropTypes.any,
+  initPagesState: PropTypes.array,
+  pageHeight: PropTypes.number.isRequired,
+  pageIdRoot: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
   ]).isRequired,
-  pageWidth: React.PropTypes.number.isRequired,
+  pageWidth: PropTypes.number.isRequired,
 };
 
 const defaultProps = {

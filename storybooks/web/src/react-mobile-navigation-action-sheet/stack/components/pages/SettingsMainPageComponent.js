@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   ActionSheet,
@@ -47,7 +48,7 @@ SettingsMainPageComponent.defaultProps = {
 };
 
 SettingsMainPageComponent.propTypes = {
-  pageId: React.PropTypes.any,
-  actionSheet: React.PropTypes.any,
-  actionSheetActions: React.PropTypes.any,
+  pageId: PropTypes.any,
+  actionSheet: PropTypes.any,
+  actionSheetActions: PropTypes.any,
 };

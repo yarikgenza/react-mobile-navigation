@@ -2,6 +2,7 @@ import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
 import Alert, { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
 import StackPage from 'binary-ui-stack';
+import PropTypes from 'prop-types';
 import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
@@ -157,8 +158,8 @@ SettingsHelpPageComponent.defaultProps = {
 };
 
 SettingsHelpPageComponent.propTypes = {
-  setOnAlertCloseCallback: React.PropTypes.func,
-  setOnPageCloseCallback: React.PropTypes.func,
-  onActionSheetOpen: React.PropTypes.func,
-  onAlertOpen: React.PropTypes.func,
+  setOnAlertCloseCallback: PropTypes.func,
+  setOnPageCloseCallback: PropTypes.func,
+  onActionSheetOpen: PropTypes.func,
+  onAlertOpen: PropTypes.func,
 };

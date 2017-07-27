@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MobileNavigationViewRender from '../components-styled/MobileNavigationViewRender';
 import { VERTICAL } from '../constants/direction-types';
@@ -5,13 +6,13 @@ import getTranslate3dByDirection, { MODAL_MARGIN } from '../utils/style-api';
 import { getPositionFromStatus } from '../utils/position-api';
 
 const propTypes = {
-  children: React.PropTypes.element,
-  isForce: React.PropTypes.bool,
-  isShow: React.PropTypes.bool,
-  pageStatus: React.PropTypes.string,
-  pageWidth: React.PropTypes.number.isRequired,
-  zIndex: React.PropTypes.number.isRequired,
-  onTransitionEnd: React.PropTypes.func,
+  children: PropTypes.element,
+  isForce: PropTypes.bool,
+  isShow: PropTypes.bool,
+  pageStatus: PropTypes.string,
+  pageWidth: PropTypes.number.isRequired,
+  zIndex: PropTypes.number.isRequired,
+  onTransitionEnd: PropTypes.func,
 };
 
 const defaultProps = {

@@ -1,8 +1,9 @@
-import React from 'react';
 import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
 import Button from 'binary-ui-components/mobile/Button';
 import Group from 'binary-ui-components/mobile/Group';
 import Text from 'binary-ui-components/mobile/Text';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default class SettingsMainPageComponent extends React.Component {
 
@@ -64,6 +65,6 @@ SettingsMainPageComponent.defaultProps = {
 };
 
 SettingsMainPageComponent.propTypes = {
-  pageId: React.PropTypes.any,
-  comboBox: React.PropTypes.any,
+  pageId: PropTypes.any,
+  comboBox: PropTypes.any,
 };

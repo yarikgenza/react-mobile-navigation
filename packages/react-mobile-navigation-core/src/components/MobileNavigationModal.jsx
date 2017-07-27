@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import MobileNavigationShadowPage from './MobileNavigationShadowPage';
 import MobileNavigationModalRender from '../components-styled/MobileNavigationModalRender';
@@ -6,15 +7,15 @@ import { MODAL } from '../constants/page-types';
 import { MODAL_MARGIN } from '../utils/style-api';
 
 const propTypes = {
-  children: React.PropTypes.element,
-  isForce: React.PropTypes.bool,
-  isShow: React.PropTypes.bool,
-  pageHeight: React.PropTypes.number,
-  pageStatus: React.PropTypes.string,
-  pageWidth: React.PropTypes.number,
-  zIndex: React.PropTypes.number,
-  onPageClose: React.PropTypes.func,
-  onTransitionEnd: React.PropTypes.func,
+  children: PropTypes.element,
+  isForce: PropTypes.bool,
+  isShow: PropTypes.bool,
+  pageHeight: PropTypes.number,
+  pageStatus: PropTypes.string,
+  pageWidth: PropTypes.number,
+  zIndex: PropTypes.number,
+  onPageClose: PropTypes.func,
+  onTransitionEnd: PropTypes.func,
 };
 
 const defaultProps = {

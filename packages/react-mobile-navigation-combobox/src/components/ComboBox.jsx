@@ -1,4 +1,5 @@
-﻿import React from 'react';
+﻿import PropTypes from 'prop-types';
+import React from 'react';
 import {
   Interpolation,
   MobileNavigationModal,
@@ -9,26 +10,26 @@ import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
 
 const propTypes = {
-  allowCustomValue: React.PropTypes.bool,
-  bodyStyle: React.PropTypes.object,
-  customOptionModel: React.PropTypes.object,
-  inputPlaceholder: React.PropTypes.string,
-  isBold: React.PropTypes.bool,
-  items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  headerStyle: React.PropTypes.object,
-  pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
-  noOptionsMatchingInputLabel: React.PropTypes.string,
-  pageHeight: React.PropTypes.number.isRequired,
-  pageStatus: React.PropTypes.string,
-  pageWidth: React.PropTypes.number.isRequired,
-  title: React.PropTypes.string,
-  zIndex: React.PropTypes.number.isRequired,
-  onCancel: React.PropTypes.func,
-  onSelect: React.PropTypes.func,
-  onSelectCustom: React.PropTypes.func,
-  onComboBoxOpenDone: React.PropTypes.func.isRequired,
-  onComboBoxCloseStart: React.PropTypes.func.isRequired,
-  onComboBoxCloseDone: React.PropTypes.func.isRequired,
+  allowCustomValue: PropTypes.bool,
+  bodyStyle: PropTypes.object,
+  customOptionModel: PropTypes.object,
+  inputPlaceholder: PropTypes.string,
+  isBold: PropTypes.bool,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  headerStyle: PropTypes.object,
+  pressEnterToSaveCustomFieldLabel: PropTypes.string,
+  noOptionsMatchingInputLabel: PropTypes.string,
+  pageHeight: PropTypes.number.isRequired,
+  pageStatus: PropTypes.string,
+  pageWidth: PropTypes.number.isRequired,
+  title: PropTypes.string,
+  zIndex: PropTypes.number.isRequired,
+  onCancel: PropTypes.func,
+  onSelect: PropTypes.func,
+  onSelectCustom: PropTypes.func,
+  onComboBoxOpenDone: PropTypes.func.isRequired,
+  onComboBoxCloseStart: PropTypes.func.isRequired,
+  onComboBoxCloseDone: PropTypes.func.isRequired,
 };
 
 const defaultProps = {

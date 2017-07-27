@@ -2,6 +2,7 @@
 import IconDone from 'binary-ui-icons/binary/Done';
 import StackPage from 'binary-ui-stack';
 import StackBodyCustomContent from 'binary-ui-stack/StackBodyCustomContent';
+import PropTypes from 'prop-types';
 import React from 'react';
 import ComboBoxOption from './ComboBoxOption';
 import ComboBoxInput from './ComboBoxInput';
@@ -9,24 +10,24 @@ import ComboBoxNoOptionsStyled from '../components-styled/ComboBoxNoOptionsStyle
 import { ENTER, ESCAPE } from '../constants/key-events';
 
 const propTypes = {
-  allowCustomValue: React.PropTypes.bool,
-  bodyStyle: React.PropTypes.object,
-  customOptionModel: React.PropTypes.object,
-  filteredItems: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  headerStyle: React.PropTypes.object,
-  inputPlaceholder: React.PropTypes.string,
-  isBold: React.PropTypes.bool,
-  noOptionsMatchingInputLabel: React.PropTypes.string,
-  pageHeight: React.PropTypes.number,
-  pageWidth: React.PropTypes.number,
-  pressEnterToSaveCustomFieldLabel: React.PropTypes.string,
-  stackTitle: React.PropTypes.string,
-  textFilter: React.PropTypes.string,
-  onCancel: React.PropTypes.func,
-  onFilterSet: React.PropTypes.func,
-  onSelect: React.PropTypes.func,
-  onSelectCustom: React.PropTypes.func,
-  onTrySelectCustom: React.PropTypes.func,
+  allowCustomValue: PropTypes.bool,
+  bodyStyle: PropTypes.object,
+  customOptionModel: PropTypes.object,
+  filteredItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  headerStyle: PropTypes.object,
+  inputPlaceholder: PropTypes.string,
+  isBold: PropTypes.bool,
+  noOptionsMatchingInputLabel: PropTypes.string,
+  pageHeight: PropTypes.number,
+  pageWidth: PropTypes.number,
+  pressEnterToSaveCustomFieldLabel: PropTypes.string,
+  stackTitle: PropTypes.string,
+  textFilter: PropTypes.string,
+  onCancel: PropTypes.func,
+  onFilterSet: PropTypes.func,
+  onSelect: PropTypes.func,
+  onSelectCustom: PropTypes.func,
+  onTrySelectCustom: PropTypes.func,
 };
 
 const defaultProps = {
