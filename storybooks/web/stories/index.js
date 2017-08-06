@@ -1,14 +1,11 @@
 import React from 'react';
-import infoAddon from '@storybook/addon-info';
-import { storiesOf,  setAddon } from '@storybook/react';
+import { storiesOf } from '@storybook/react';
 import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
 import ActionSheet from '../src/react-mobile-navigation-action-sheet/stack/components/SettingsComponent';
 import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
 import Engine from '../src/react-mobile-navigation-engine/stack/components/SettingsComponent';
 import * as Settings2ModeTypesEnum from '../src/react-mobile-navigation-engine/stack/enum/settings-mode-types-enum';
 import ComboBox from '../src/react-mobile-navigation-combobox/stack/components/SettingsMainPageComponent';
-
-setAddon(infoAddon);
 
 const width = 400;
 const height = 500;
@@ -28,7 +25,7 @@ function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
 }
 
 storiesOf('examples', module)
-  .addWithInfo('react-mobile-navigation-action-sheet', () => (
+  .add('react-mobile-navigation-action-sheet', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
@@ -43,7 +40,7 @@ storiesOf('examples', module)
       <ActionSheet />
     </div>
   ))
-  .addWithInfo('react-mobile-navigation-combobox', () => (
+  .add('react-mobile-navigation-combobox', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
@@ -58,7 +55,7 @@ storiesOf('examples', module)
       <ComboBox pageState={{ zIndex: 1 }} />
     </div>
   ))
-  .addWithInfo('react-mobile-navigation-engine', () => (
+  .add('react-mobile-navigation-engine', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {

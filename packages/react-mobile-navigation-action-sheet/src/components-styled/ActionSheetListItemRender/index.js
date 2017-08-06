@@ -1,5 +1,5 @@
 import { BINARY_COLOR_RED_40, BINARY_COLOR_SAND_90 } from 'binary-ui-styles';
-import { NO_SELECT_CSS } from 'binary-ui-styles/web';
+import { NO_SELECT_CSS } from 'binary-ui-styles';
 import styled from 'styled-components';
 
 export default styled.div`

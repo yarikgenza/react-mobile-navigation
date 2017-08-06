@@ -1,4 +1,4 @@
-import { FONT_FAMILY_MAIN } from 'binary-ui-styles/web';
+import { FONT_FAMILY_MAIN } from 'binary-ui-styles';
 
 export const FIELD_VALUE_FONT_CSS = `
   font-family: ${FONT_FAMILY_MAIN};

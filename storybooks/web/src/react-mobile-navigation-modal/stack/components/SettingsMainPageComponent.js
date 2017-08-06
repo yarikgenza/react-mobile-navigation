@@ -1,7 +1,7 @@
 import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
 import Button from 'binary-ui-components/mobile/Button';
 import Group from 'binary-ui-components/mobile/Group';
-import Text from 'binary-ui-components/mobile/Text';
+import Textline from 'binary-ui-components/mobile/Textline';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -45,7 +45,7 @@ export default class SettingsMainPageComponent extends React.Component {
     return (
       <div key={'section 1'}>
         <Group
-          renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
+          renderLeft={() => (<Textline isBold >{COMBOBOX}</Textline>)}
           renderRight={() => (
             <Button
               label={COMBOBOX}

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ArrowDown from 'binary-ui-icons/binary/ArrowDown';
 import Button from 'binary-ui-components/mobile/Button';
 import Group from 'binary-ui-components/mobile/Group';
-import Text from 'binary-ui-components/mobile/Text';
+import Textline from 'binary-ui-components/mobile/Textline';
 import React from 'react';
 import {
   ComboBox,
@@ -81,7 +81,7 @@ export default class SettingsMainPageComponent extends React.Component {
     };
     return (
       <Group
-        renderLeft={() => (<Text isBold >{COMBOBOX}</Text>)}
+        renderLeft={() => (<Textline isBold >{COMBOBOX}</Textline>)}
         renderRight={() => (
           <Button
             label={COMBOBOX}
