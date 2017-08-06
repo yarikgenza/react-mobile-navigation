@@ -27,7 +27,7 @@ export default class ComboBoxInput extends React.Component {
     };
     this.onBlur = this.onBlur.bind(this);
     this.onFocus = this.onFocus.bind(this);
-    this.onInput = this.onInput.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   onBlur() {
@@ -38,9 +38,9 @@ export default class ComboBoxInput extends React.Component {
     this.setState(() => ({ isActive: true }));
   }
 
-  onInput(e) {
+  onInputChange(value) {
     const { onFilterSet } = this.props;
-    onFilterSet(e.target.value);
+    onFilterSet(value);
   }
 
   render() {
@@ -55,7 +55,7 @@ export default class ComboBoxInput extends React.Component {
         value={textFilter}
         onBlur={this.onBlur}
         onFocus={this.onFocus}
-        onInput={this.onInput}
+        onInputChange={this.onInputChange}
         onKeyUp={onFilterOnKeyUp}
       />
     );

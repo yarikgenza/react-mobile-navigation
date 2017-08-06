@@ -1,0 +1,7 @@
+import styled from 'styled-components/native';
+
+export default styled.Text.attrs({
+  onPress: (props) => (
+    () => { props.onItemSelect(); }
+  ),
+})``;

@@ -22,7 +22,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "binary-ui-icons": "^0.2.17",
-    "binary-ui-stack": "^0.2.6",
+    "binary-ui-stack": "^0.2.7",
     "binary-ui-styles": "^0.2.17",
     "js-search": "^1.4.2",
     "js-search-no-filter": "^0.0.1",

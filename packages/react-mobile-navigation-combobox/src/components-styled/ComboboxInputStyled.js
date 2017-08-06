@@ -21,6 +21,9 @@ export default styled.input.attrs({
     }
     return { borderBottom: `1px solid ${BINARY_COLOR_SAND_90}` };
   },
+  onChange: (props) => (
+    (e) => { props.onInputChange(e.target.value); }
+  ),
 })`
   ${props => (props.isBold ? FIELD_NAME_FONT_CSS : FIELD_VALUE_FONT_CSS)}
   ${LIST_ITEM_CONTENTS_BASE_CSS}

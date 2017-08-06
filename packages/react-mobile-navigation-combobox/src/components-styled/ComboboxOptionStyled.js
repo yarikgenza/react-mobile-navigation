@@ -1,13 +1,16 @@
-import { NO_SELECT_CSS } from 'binary-ui-styles';
+import { BINARY_COLOR_SAND_90, LIST_ITEM_HEIGHT, NO_SELECT_CSS } from 'binary-ui-styles';
 import styled from 'styled-components';
-import { BINARY_COLOR_SAND_90, LIST_ITEM_HEIGHT } from 'binary-ui-styles';
 import {
   FIELD_VALUE_FONT_CSS,
   FIELD_NAME_FONT_CSS,
   LIST_ITEM_CONTENTS_BASE_CSS,
 } from '../utils/styles';
 
-export default styled.div`
+export default styled.div.attrs({
+  onClick: (props) => (
+    () => { props.onItemSelect(); }
+  ),
+})`
   ${NO_SELECT_CSS}
   ${props => (props.isBold ? FIELD_NAME_FONT_CSS : FIELD_VALUE_FONT_CSS)}
   ${LIST_ITEM_CONTENTS_BASE_CSS}

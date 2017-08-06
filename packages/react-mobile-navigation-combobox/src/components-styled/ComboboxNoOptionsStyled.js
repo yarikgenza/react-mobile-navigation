@@ -1,5 +1,4 @@
-import { LIST_ITEM_HEIGHT } from 'binary-ui-styles';
-import { NO_SELECT_CSS } from 'binary-ui-styles';
+import { LIST_ITEM_HEIGHT, NO_SELECT_CSS } from 'binary-ui-styles';
 import styled from 'styled-components';
 import {
   FIELD_VALUE_FONT_CSS,
