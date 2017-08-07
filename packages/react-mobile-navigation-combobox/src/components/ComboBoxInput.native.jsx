@@ -1,8 +1,6 @@
 ﻿import PropTypes from 'prop-types';
 import React from 'react';
-import { View } from 'react-native';
-import ComboBoxInputStyled from '../components-styled/ComboBoxInputStyled';
-import { getHighlightEditStyle } from '../utils/styles';
+import Input from 'binary-ui-components/mobile/Input';
 
 const propTypes = {
   borderColor: PropTypes.string,
@@ -48,22 +46,20 @@ export default class ComboBoxInput extends React.Component {
   }
 
   render() {
-    const { isBold, isValid, placeholder, textFilter, onFilterOnKeyUp, borderColor } = this.props;
+    const { isBold, isValid, placeholder, textFilter, onFilterOnKeyUp } = this.props;
     const { isActive } = this.state;
     return (
-      <View style={getHighlightEditStyle(true, isValid, isActive, borderColor)} >
-        <ComboBoxInputStyled
-          isActive={isActive}
-          isBold={isBold}
-          isValid={isValid}
-          placeholder={isBold ? placeholder.toUpperCase() : placeholder}
-          value={isBold ? textFilter.toUpperCase() : textFilter}
-          onBlur={this.onBlur}
-          onFocus={this.onFocus}
-          onInputChange={this.onInputChange}
-          onKeyUp={onFilterOnKeyUp}
-        />
-      </View>
+      <Input
+        isActive={isActive}
+        isBold={isBold}
+        isValid={isValid}
+        placeholder={isBold ? placeholder.toUpperCase() : placeholder}
+        value={isBold ? textFilter.toUpperCase() : textFilter}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
+        onInputChange={this.onInputChange}
+        onKeyUp={onFilterOnKeyUp}
+      />
     );
   }
 }

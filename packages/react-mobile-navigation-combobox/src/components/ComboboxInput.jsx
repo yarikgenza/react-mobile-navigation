@@ -1,6 +1,7 @@
 ﻿import PropTypes from 'prop-types';
 import React from 'react';
 import ComboBoxInputStyled from '../components-styled/ComboBoxInputStyled';
+import Input from 'binary-ui-components/mobile/Input';
 
 const propTypes = {
   textFilter: PropTypes.string,
@@ -47,7 +48,7 @@ export default class ComboBoxInput extends React.Component {
     const { isBold, isValid, placeholder, textFilter, onFilterOnKeyUp } = this.props;
     const { isActive } = this.state;
     return (
-      <ComboBoxInputStyled
+      <Input
         isActive={isActive}
         isBold={isBold}
         isValid={isValid}
