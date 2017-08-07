@@ -14,8 +14,8 @@ import Welcome from './Welcome';
 
 const { height, width } = Dimensions.get('window');
 
-storiesOf('Examples', module)
-  .add('combobox', () => (
+storiesOf('ComboBox', module)
+  .add('Empty', () => (
     <ComboBox
       {...{
         bodyStyle: {
@@ -46,23 +46,35 @@ storiesOf('Examples', module)
       onComboBoxCloseStart={action()}
       onComboBoxCloseDone={action()}
     />
+  ))
+.add('With options', () => (
+    <ComboBox
+      {...{
+        bodyStyle: {
+          backgroundColor: 'white',
+          // overflowX: 'hidden',
+          // overflowY: 'auto',
+        },
+        headerStyle: {
+          backgroundColor: '#eeeae5',
+        },
+        allowCustomValue: true,
+        customOptionModel: undefined,
+        items: [],
+        inputPlaceholder: 'Type to search',
+        noOptionsMatchingInputLabel: 'No matches',
+        pressEnterToSaveCustomFieldLabel: 'Press enter to save custom field',
+        title: 'ComboBox with options',
+        onCancel: action(),
+        onSelect: action(),
+        onSelectCustom: action(),
+      }}
+      pageHeight={height}
+      pageStatus={PageStatusTypesEnum.OPEN_DONE}
+      pageWidth={width}
+      zIndex={1000}
+      onComboBoxOpenDone={action()}
+      onComboBoxCloseStart={action()}
+      onComboBoxCloseDone={action()}
+    />
   ));
-
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
-storiesOf('Button', module)
-  .addDecorator(getStory =>
-    <CenterView>
-      {getStory()}
-    </CenterView>
-  )
-  .add('with text', () =>
-    <Button onPress={action('clicked-text')}>
-      <Text>Hello Button</Text>
-    </Button>
-  )
-  .add('with some emoji', () =>
-    <Button onPress={action('clicked-emoji')}>
-      <Text>😀 😎 👍 💯</Text>
-    </Button>
-  );
