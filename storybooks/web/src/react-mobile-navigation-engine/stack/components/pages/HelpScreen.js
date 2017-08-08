@@ -7,7 +7,7 @@ import React from 'react';
 import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
 
-export default class SettingsHelpPageComponent extends React.Component {
+export default class HelpScreen extends React.Component {
 
   constructor(props) {
     super(props);
@@ -121,45 +121,15 @@ export default class SettingsHelpPageComponent extends React.Component {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Help (3)</div>
-        <div onClick={this.connectedLicensesText} >
-          Open licenses
-        </div>
-        <div onClick={this.connectedLicensesTextForce} >
-          Open licenses force
-        </div>
-        <div onClick={this.closePageClick} >
-          Go back
-        </div>
-        <div onClick={this.closePageForceClick} >
-          Go back force
-        </div>
-        <div onClick={this.openActionSheet} >
-          Show action sheet
-        </div>
-        <div onClick={this.openComboBox} >
-          Show combobox
-        </div>
-        <div onClick={this.openAlertAutoHide} >
-          Show alert auto-hide
-        </div>
-        <div onClick={this.openAlert} >
-          Show alert
-        </div>
+        <div onClick={this.connectedLicensesText} >Open Licenses</div>
+        <div onClick={this.connectedLicensesTextForce} >Open Licenses Force</div>
+        <div onClick={this.closePageClick} >Go Back</div>
+        <div onClick={this.closePageForceClick} >Go Back force</div>
+        <div onClick={this.openActionSheet} >Show ActionSheet</div>
+        <div onClick={this.openComboBox} >Show ComboBox</div>
+        <div onClick={this.openAlertAutoHide} >Show Alert auto-hide</div>
+        <div onClick={this.openAlert} >Show Alert</div>
       </div>
     );
   }
 }
-
-SettingsHelpPageComponent.defaultProps = {
-  setOnAlertCloseCallback: undefined,
-  setOnPageCloseCallback: undefined,
-  onActionSheetOpen: undefined,
-  onAlertOpen: undefined,
-};
-
-SettingsHelpPageComponent.propTypes = {
-  setOnAlertCloseCallback: PropTypes.func,
-  setOnPageCloseCallback: PropTypes.func,
-  onActionSheetOpen: PropTypes.func,
-  onAlertOpen: PropTypes.func,
-};

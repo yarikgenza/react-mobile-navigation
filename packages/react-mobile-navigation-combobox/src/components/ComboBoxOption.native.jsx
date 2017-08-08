@@ -27,9 +27,9 @@ export default class ComboBoxOption extends React.PureComponent {
   render() {
     const { item, isBold } = this.props;
     return (
-      <TouchableOpacity>
-        <ComboBoxOptionView isBold={isBold} style={item.style} onItemSelect={this.onItemSelect} >
-          <ComboBoxOptionStyled isBold={isBold} onItemSelect={this.onItemSelect} >
+      <TouchableOpacity onPress={this.onItemSelect} >
+        <ComboBoxOptionView>
+          <ComboBoxOptionStyled isBold={isBold} style={item.style} >
             {item.label}
           </ComboBoxOptionStyled>
         </ComboBoxOptionView>

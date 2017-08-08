@@ -26,7 +26,8 @@
     "react-mobile-navigation-action-sheet": "^1.0.13",
     "react-mobile-navigation-alert": "^1.0.13",
     "react-mobile-navigation-combobox": "^1.0.13",
-    "react-mobile-navigation-core": "^1.0.13"
+    "react-mobile-navigation-core": "^1.0.13",
+    "react-navigation": "^1.0.0-beta.11"
   },
   "peerDependencies": {
     "react": "^15.0.0",

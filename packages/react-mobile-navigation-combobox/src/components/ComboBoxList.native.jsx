@@ -127,13 +127,13 @@ export default class ComboBoxList extends React.Component {
         headerStyle={headerStyle}
         leftButton={{
           renderIcon: () => (<IconCancel />),
-          onClick: onCancel,
+          onPress: onCancel,
         }}
         pageHeight={pageHeight}
         rightButton={(allowCustomValue
           ? {
             renderIcon: () => (<IconDone />),
-            onClick: onTrySelectCustom,
+            onPress: onTrySelectCustom,
           } : undefined
         )}
         stackTitle={stackTitle}

@@ -25,7 +25,7 @@ export default class ComboBoxOption extends React.PureComponent {
   render() {
     const { item, isBold } = this.props;
     return (
-      <ComboBoxOptionStyled isBold={isBold} style={item.style} onItemSelect={this.onItemSelect} >
+      <ComboBoxOptionStyled isBold={isBold} style={item.style} onCick={this.onItemSelect} >
         {item.label}
       </ComboBoxOptionStyled>
     );

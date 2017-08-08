@@ -5,20 +5,20 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import ComboBox from 'react-mobile-navigation-combobox';
+import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import {
-  comboBoxOptionModel,
-} from 'react-mobile-navigation-combobox';
 
-import Button from './Button';
-import CenterView from './CenterView';
-import Welcome from './Welcome';
+import Demo from './Demo';
 
 const { height, width } = Dimensions.get('window');
 
-storiesOf('ComboBox', module)
-  .add('Empty', () => (
+storiesOf('Demo', module)
+  .add('all in one', () => (
+    <Demo />
+  ));
+
+storiesOf('Combobox', module)
+  .add('empty', () => (
     <ComboBox
       {...{
         bodyStyle: {
@@ -50,7 +50,7 @@ storiesOf('ComboBox', module)
       onComboBoxCloseDone={action()}
     />
   ))
-.add('With options', () => (
+  .add('with options', () => (
     <ComboBox
       {...{
         bodyStyle: {

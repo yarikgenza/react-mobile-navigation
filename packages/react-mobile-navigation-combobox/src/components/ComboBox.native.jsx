@@ -1,10 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {
-  Interpolation,
-  MobileNavigationModal,
-  PageStatusTypesEnum,
-} from 'react-mobile-navigation-core';
 import ComboBoxList from './ComboBoxList';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
@@ -19,9 +14,9 @@ const propTypes = {
   headerStyle: PropTypes.object,
   pressEnterToSaveCustomFieldLabel: PropTypes.string,
   noOptionsMatchingInputLabel: PropTypes.string,
-  pageHeight: PropTypes.number.isRequired,
+  pageHeight: PropTypes.number,
   pageStatus: PropTypes.string,
-  pageWidth: PropTypes.number.isRequired,
+  pageWidth: PropTypes.number,
   title: PropTypes.string,
   zIndex: PropTypes.number.isRequired,
   onCancel: PropTypes.func,
@@ -39,6 +34,8 @@ const defaultProps = {
   inputPlaceholder: undefined,
   isBold: undefined,
   items: [],
+  pageHeight: undefined,
+  pageWidth: undefined,
 };
 
 export default class ComboBox extends React.Component {
@@ -170,33 +167,26 @@ export default class ComboBox extends React.Component {
     } = this.props;
     const { textFilter } = this.state;
     return (
-      <MobileNavigationModal
-        isShow={pageStatus !== PageStatusTypesEnum.CLOSE_DONE}
+      <ComboBoxList
+        allowCustomValue={allowCustomValue}
+        bodyStyle={bodyStyle}
+        customOptionModel={customOptionModel}
+        headerStyle={headerStyle}
+        filteredItems={this.filteredItems}
+        inputPlaceholder={inputPlaceholder}
+        isBold={isBold}
+        noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
         pageHeight={pageHeight}
-        pageStatus={pageStatus}
         pageWidth={pageWidth}
-        zIndex={zIndex}
-        onPageClose={onComboBoxCloseStart}
-      >
-        <ComboBoxList
-          allowCustomValue={allowCustomValue}
-          bodyStyle={bodyStyle}
-          customOptionModel={customOptionModel}
-          headerStyle={headerStyle}
-          filteredItems={this.filteredItems}
-          inputPlaceholder={inputPlaceholder}
-          isBold={isBold}
-          noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
-          pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
-          stackTitle={title}
-          textFilter={textFilter}
-          onCancel={this.onCancel}
-          onFilterSet={this.onFilterSet}
-          onSelect={this.onSelect}
-          onSelectCustom={this.onSelectCustom}
-          onTrySelectCustom={this.onTrySelectCustom}
-        />
-      </MobileNavigationModal>
+        pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
+        stackTitle={title}
+        textFilter={textFilter}
+        onCancel={this.onCancel}
+        onFilterSet={this.onFilterSet}
+        onSelect={this.onSelect}
+        onSelectCustom={this.onSelectCustom}
+        onTrySelectCustom={this.onTrySelectCustom}
+      />
     );
   }
 }

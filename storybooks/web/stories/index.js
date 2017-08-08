@@ -1,8 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import ComboBox from 'react-mobile-navigation-combobox';
+
+import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
 import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
+
 import ActionSheet from '../src/react-mobile-navigation-action-sheet/stack/components/SettingsComponent';
 import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
 import Engine from '../src/react-mobile-navigation-engine/stack/components/SettingsComponent';
@@ -25,8 +27,8 @@ function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
   };
 }
 
-storiesOf('Examples', module)
-  .add('combobox', () => (
+storiesOf('Combobox', module)
+  .add('empty', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {
@@ -70,7 +72,76 @@ storiesOf('Examples', module)
       />
     </div>
   ))
-  .add('demo', () => (
+  .add('with options', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <ComboBox
+        {...{
+          bodyStyle: {
+            backgroundColor: 'white',
+            overflowX: 'hidden',
+            overflowY: 'auto',
+          },
+          headerStyle: {
+            backgroundColor: '#eeeae5',
+          },
+          allowCustomValue: true,
+          customOptionModel: undefined,
+          items: [
+            comboBoxOptionModel('first0', 'First', () => { console.log('1'); }, { color: 'blue' }),
+            comboBoxOptionModel('first1', 'Second', () => { console.log('2'); }),
+            comboBoxOptionModel('first2', 'Third', () => { console.log('3'); }),
+            comboBoxOptionModel('first3', 'Fourth', () => { console.log('4'); }),
+            comboBoxOptionModel('first4', 'Fifth', () => { console.log('5'); }),
+            comboBoxOptionModel('first5', 'Sixth', () => { console.log('6'); }),
+            comboBoxOptionModel('first6', 'Seventh', () => { console.log('7'); }),
+            comboBoxOptionModel('first7', 'Eighth', () => { console.log('8'); }),
+            comboBoxOptionModel('first8', 'Ninth', () => { console.log('9'); }),
+            comboBoxOptionModel('first9', 'Tenth', () => { console.log('10'); }),
+            comboBoxOptionModel('first10', 'Eleventh', () => { console.log('11'); }),
+            comboBoxOptionModel('first11', 'Twelveth', () => { console.log('12'); }),
+            comboBoxOptionModel('first12', 'Thirteenth', () => { console.log('13'); }),
+            comboBoxOptionModel('first13', 'Fourteenth', () => { console.log('14'); }),
+            comboBoxOptionModel('first14', 'Fifteenth', () => { console.log('15'); }),
+            comboBoxOptionModel('first15', 'Sixteenth', () => { console.log('16'); }),
+            comboBoxOptionModel('first16', 'Seventeenth', () => { console.log('17'); }),
+            comboBoxOptionModel('first17', 'Eighteenth', () => { console.log('18'); }),
+            comboBoxOptionModel('first18', 'Nineteenth', () => { console.log('19'); }),
+            comboBoxOptionModel('first19', 'Twentieth', () => { console.log('20'); }),
+            comboBoxOptionModel('first20', 'Twenty first', () => { console.log('21'); }),
+            comboBoxOptionModel('first21', 'Twenty second', () => { console.log('22'); }),
+            comboBoxOptionModel('first22', 'Twenty third', () => { console.log('23'); }),
+          ],
+          inputPlaceholder: 'Type to search',
+          noOptionsMatchingInputLabel: 'No matches',
+          pressEnterToSaveCustomFieldLabel: 'Press enter to save custom field',
+          title: 'ComboBox with options',
+          onCancel: action(),
+          onSelect: action(),
+          onSelectCustom: action(),
+        }}
+        pageHeight={height}
+        pageStatus={PageStatusTypesEnum.OPEN_DONE}
+        pageWidth={width}
+        zIndex={1000}
+        onComboBoxOpenDone={action()}
+        onComboBoxCloseStart={action()}
+        onComboBoxCloseDone={action()}
+      />
+    </div>
+  ));
+
+storiesOf('Demo', module)
+  .add('all in one', () => (
     <div style={style} >
       <style>
         {`html, body, #CardsApp {

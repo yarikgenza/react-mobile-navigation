@@ -3,31 +3,28 @@ import { MobileNavigationModal, MobileNavigationPage } from 'react-mobile-naviga
 import MobileNavigation, {
   navigationActions,
 } from 'react-mobile-navigation-engine';
-import SettingsMainPageComponent from './pages/SettingsMainPageComponent';
-import SettingsLicensesPageComponent from './pages/SettingsLicencesPageComponent';
-import SettingsHelpPageComponent from './pages/SettingsHelpPageComponent';
+import MainScreen from './pages/MainScreen';
+import LicensesScreen from './pages/LicensesScreen';
+import HelpScreen from './pages/HelpScreen';
 import * as SettingsModeTypesEnum from '../enum/settings-mode-types-enum';
-
-const width = 400;
-const height = 500;
 
 const SettingsComponent = ({ initState }) => (
   <MobileNavigation
     initPagesState={[
       navigationActions.onPageOpen(SettingsModeTypesEnum.HELP),
     ]}
-    pageHeight={height}
+    pageHeight={500}
     pageIdRoot={SettingsModeTypesEnum.MAIN}
-    pageWidth={width}
+    pageWidth={400}
   >
     <MobileNavigationPage pageId={SettingsModeTypesEnum.MAIN}>
-      <SettingsMainPageComponent />
+      <MainScreen />
     </MobileNavigationPage>
     <MobileNavigationModal pageId={SettingsModeTypesEnum.LICENSES}>
-      <SettingsLicensesPageComponent />
+      <LicensesScreen />
     </MobileNavigationModal>
     <MobileNavigationPage pageId={SettingsModeTypesEnum.HELP}>
-      <SettingsHelpPageComponent />
+      <HelpScreen />
     </MobileNavigationPage>
   </MobileNavigation>
 );

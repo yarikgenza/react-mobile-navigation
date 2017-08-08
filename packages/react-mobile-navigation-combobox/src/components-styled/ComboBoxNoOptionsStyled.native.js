@@ -5,10 +5,8 @@ import {
   FIELD_NAME_FONT_CSS,
 } from '../utils/styles';
 
-const halfHeight = LIST_ITEM_HEIGHT / 3;
-
 export default styled.Text`
   ${props => (props.isBold ? FIELD_NAME_FONT_CSS : FIELD_VALUE_FONT_CSS)}
-  padding-top: ${halfHeight};
+  padding-top: ${LIST_ITEM_HEIGHT / 3};
   padding-left: 10px;
 `;
