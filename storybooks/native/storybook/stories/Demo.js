@@ -3,6 +3,7 @@ import React from 'react';
 import { Dimensions, Modal, Text, TouchableHighlight, View } from 'react-native';
 import PropTypes from 'prop-types';
 
+import { actionSheetOptionModel } from 'react-mobile-navigation-action-sheet';
 import { MobileNavigationModal, MobileNavigationPage } from 'react-mobile-navigation-core';
 import MobileNavigation, {
   navigationActions,
@@ -43,7 +44,39 @@ class LicensesScreen extends React.Component {
 
 class HelpScreen extends React.Component {
   render() {
-    const { onComboBoxOpen, onComboBoxClose, onPageOpen, onPageClose } = this.props;
+    const {
+      onActionSheetOpen,
+      onAlertOpen,
+      onAlertClose,
+      onComboBoxOpen,
+      onComboBoxClose,
+      onPageOpen,
+      onPageClose,
+    } = this.props;
+    const actionSheetConfig = {
+      cancelLabel: 'Cancel',
+      items: [
+        actionSheetOptionModel('licenses', 'Licenses', () => { console.log('licenses'); }),
+      ],
+      onCancel: () => {},
+      onSelect: () => {},
+    };
+    const alertAutoHideConfig = {
+      autoHideDuration: 2500,
+      render: () => (
+        <View onPress={() => { }} >
+          <Text>Alert</Text>
+        </View>
+      ),
+    };
+    const alertConfig = {
+      autoHideDuration: 0,
+      render: () => (
+        <View onPress={() => { onAlertClose(); }} >
+          <Text>Alert</Text>
+        </View>
+      ),
+    };
     const comboBoxConfig = {
       bodyStyle: {
         backgroundColor: 'white',
@@ -72,10 +105,10 @@ class HelpScreen extends React.Component {
         <Button onClick={() => onPageOpen(LICENSES, true)} label="Open Licenses Force" />
         <Button onClick={() => onPageClose()} label="Go Back" />
         <Button onClick={() => onPageClose(true)} label="Go Back force" />
-        <Button onClick={() => { }} label="Show ActionSheet" />
+        <Button onClick={() => onActionSheetOpen(actionSheetConfig)} label="Show ActionSheet" />
         <Button onClick={() => onComboBoxOpen(comboBoxConfig)} label="Show ComboBox" />
-        <Button onClick={() => { }} label="Show Alert auto-hide" />
-        <Button onClick={() => { }} label="Show Alert" />
+        <Button onClick={() => onAlertOpen(alertAutoHideConfig)} label="Show Alert auto-hide" />
+        <Button onClick={() => onAlertOpen(alertConfig)} label="Show Alert" />
       </View>
     );
   }

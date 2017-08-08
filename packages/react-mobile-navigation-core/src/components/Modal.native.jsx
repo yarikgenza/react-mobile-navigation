@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Animated, Dimensions, Modal, DeviceEventEmitter, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Animated, Modal, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 import PropTypes from 'prop-types';
-// import { View, initializeRegistryWithDefinitions } from 'react-native-animatable';
-// import * as ANIMATION_DEFINITIONS from './animations';
 import { MODAL_MARGIN } from '../utils/style-api';
 
 const styles = StyleSheet.create({
@@ -17,14 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-// Override default animations
-// initializeRegistryWithDefinitions(ANIMATION_DEFINITIONS);
-
 const propTypes = {
-  backdropColor: PropTypes.string,
-  backdropOpacity: PropTypes.number,
-  backdropTransitionInTiming: PropTypes.number,
-  backdropTransitionOutTiming: PropTypes.number,
   children: PropTypes.node.isRequired,
   isVisible: PropTypes.bool.isRequired,
   hideOnBack: PropTypes.bool,
@@ -38,10 +29,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-  backdropColor: 'black',
-  backdropOpacity: 0.70,
-  backdropTransitionInTiming: 300,
-  backdropTransitionOutTiming: 300,
   isVisible: false,
   hideOnBack: true,
   hideOnBackdropPress: true,
@@ -85,7 +72,7 @@ export class ReactNativeModal extends Component {
     }
     Animated.timing(this._visibility, {
       toValue: nextProps.isVisible ? 1 : 0,
-      duration: 500,
+      duration: 300,
     }).start(() => {
       this.setState({ isVisible: nextProps.isVisible });
     });
@@ -135,10 +122,6 @@ export class ReactNativeModal extends Component {
 
   render() {
     const {
-      backdropColor,
-      backdropOpacity,
-      backdropTransitionInTiming,
-      backdropTransitionOutTiming,
       children,
       pageHeight,
       pageWidth,
@@ -148,22 +131,6 @@ export class ReactNativeModal extends Component {
     const { isVisible } = this.state;
     const pageHeightNew = pageHeight - MODAL_MARGIN;
     const pageWidthNew = pageWidth - (2 * MODAL_MARGIN);
-    const containerStyle = {
-      opacity: this._visibility.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, OPACITY_ON],
-      }),
-      /*
-      transform: [
-        {
-          scale: this._visibility.interpolate({
-            inputRange: [0, 1],
-            outputRange: [1.1, 1],
-          }),
-        },
-      ],
-      */
-    };
     return (
       <Modal
         transparent
@@ -175,7 +142,7 @@ export class ReactNativeModal extends Component {
           <Animated.View
             style={[
               styles.backdrop, {
-                backgroundColor: backdropColor,
+                backgroundColor: '#000000',
                 width: pageWidth,
                 height: pageHeight,
                 opacity: this._visibility.interpolate({
@@ -188,13 +155,14 @@ export class ReactNativeModal extends Component {
         </TouchableWithoutFeedback>
         <Animated.View
           style={[{
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-            bottom: 0,
-            height: pageHeightNew,
+            // borderTopLeftRadius: 10,
+            // borderTopRightRadius: 10,
+            flex: 1,
+            // justifyContent: 'center',
+            justifyContent: 'flex-end',
             marginLeft: MODAL_MARGIN,
             marginRight: MODAL_MARGIN,
-            position: 'absolute',
+            margin: 0,
             transform: [{
               translateY: this._visibility.interpolate({
                 inputRange: [0, 1],
