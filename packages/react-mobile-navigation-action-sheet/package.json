@@ -27,6 +27,7 @@
   },
   "peerDependencies": {
     "react": "^15.0.0",
+    "react-native": "^0.47.1",
     "styled-components": "^2.0.0"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "react": "~15.3.2",
     "react-art": "^0.15.1",
     "react-dom": "~15.3.2",
+    "react-native": "^0.47.1",
     "rimraf": "^2.3.4",
     "styled-components": "^2.1.1"
   }
