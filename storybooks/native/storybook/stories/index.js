@@ -6,7 +6,6 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
-import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
 
 import Demo from './Demo';
 
@@ -41,13 +40,13 @@ storiesOf('Combobox', module)
         onSelect: action(),
         onSelectCustom: action(),
       }}
+      isVisible={true}
       pageHeight={height}
-      pageStatus={PageStatusTypesEnum.OPEN_DONE}
       pageWidth={width}
       zIndex={1000}
-      onComboBoxOpenDone={action()}
-      onComboBoxCloseStart={action()}
-      onComboBoxCloseDone={action()}
+      onOpenDone={action()}
+      onCloseStart={action()}
+      onCloseDone={action()}
     />
   ))
   .add('with options', () => (
@@ -96,12 +95,12 @@ storiesOf('Combobox', module)
         onSelect: action(),
         onSelectCustom: action(),
       }}
+      isVisible={true}
       pageHeight={height}
-      pageStatus={PageStatusTypesEnum.OPEN_DONE}
       pageWidth={width}
       zIndex={1000}
-      onComboBoxOpenDone={action()}
-      onComboBoxCloseStart={action()}
-      onComboBoxCloseDone={action()}
+      onOpenDone={action()}
+      onCloseStart={action()}
+      onCloseDone={action()}
     />
   ));

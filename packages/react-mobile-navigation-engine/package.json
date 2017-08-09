@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-engine",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "React mobile navigation.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -23,10 +23,10 @@
   "dependencies": {
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
-    "react-mobile-navigation-action-sheet": "^1.0.13",
-    "react-mobile-navigation-alert": "^1.0.13",
-    "react-mobile-navigation-combobox": "^1.0.13",
-    "react-mobile-navigation-core": "^1.0.13",
+    "react-mobile-navigation-action-sheet": "^1.0.14",
+    "react-mobile-navigation-alert": "^1.0.14",
+    "react-mobile-navigation-combobox": "^1.0.14",
+    "react-mobile-navigation-core": "^1.0.14",
     "react-navigation": "^1.0.0-beta.11"
   },
   "peerDependencies": {

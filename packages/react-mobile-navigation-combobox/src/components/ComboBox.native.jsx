@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Modal } from 'react-mobile-navigation-core';
 import ComboBoxList from './ComboBoxList';
 import { isStringEmpty } from '../utils/string';
 import { getFilteredComboboxOptions } from '../utils/combobox-options-filter';
@@ -10,21 +11,21 @@ const propTypes = {
   customOptionModel: PropTypes.object,
   inputPlaceholder: PropTypes.string,
   isBold: PropTypes.bool,
+  isVisible: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   headerStyle: PropTypes.object,
   pressEnterToSaveCustomFieldLabel: PropTypes.string,
   noOptionsMatchingInputLabel: PropTypes.string,
   pageHeight: PropTypes.number,
-  pageStatus: PropTypes.string,
   pageWidth: PropTypes.number,
   title: PropTypes.string,
-  zIndex: PropTypes.number.isRequired,
   onCancel: PropTypes.func,
   onSelect: PropTypes.func,
   onSelectCustom: PropTypes.func,
-  onComboBoxOpenDone: PropTypes.func.isRequired,
-  onComboBoxCloseStart: PropTypes.func.isRequired,
-  onComboBoxCloseDone: PropTypes.func.isRequired,
+  onOpenCallback: PropTypes.func,
+  onCloseStart: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func.isRequired,
+  onCloseCallback: PropTypes.func,
 };
 
 const defaultProps = {
@@ -106,13 +107,10 @@ export default class ComboBox extends React.Component {
     this.filteredItems = this.getFilteredItems(value);
   }
 
-  onPageOpenDone() {
-    const { onComboBoxOpenDone } = this.props;
-    onComboBoxOpenDone();
-  }
+  onPageOpenDone() { }
 
   onPageCloseDone() {
-    const { onSelectCustom, onSelect, onComboBoxCloseDone } = this.props;
+    const { onSelectCustom, onSelect, onCloseDone } = this.props;
     const { selectedCustomOption, selectedOption } = this.state;
     // set state until a user does actions which can possibly unmount the component
     this.setState(() => ({
@@ -134,7 +132,7 @@ export default class ComboBox extends React.Component {
     if (onSelectCustom && selectedCustomOption) {
       onSelectCustom(selectedCustomOption);
     }
-    onComboBoxCloseDone();
+    onCloseDone();
     return;
   }
 
@@ -144,8 +142,8 @@ export default class ComboBox extends React.Component {
   }
 
   closeComboBox() {
-    const { onComboBoxCloseStart } = this.props;
-    onComboBoxCloseStart();
+    const { onCloseStart } = this.props;
+    onCloseStart();
   }
 
   render() {
@@ -156,37 +154,43 @@ export default class ComboBox extends React.Component {
       headerStyle,
       inputPlaceholder,
       isBold,
+      isVisible,
       noOptionsMatchingInputLabel,
       pageHeight,
       pageWidth,
-      pageStatus,
       pressEnterToSaveCustomFieldLabel,
       title,
-      zIndex,
-      onComboBoxCloseStart,
+      onCloseStart,
     } = this.props;
     const { textFilter } = this.state;
     return (
-      <ComboBoxList
-        allowCustomValue={allowCustomValue}
-        bodyStyle={bodyStyle}
-        customOptionModel={customOptionModel}
-        headerStyle={headerStyle}
-        filteredItems={this.filteredItems}
-        inputPlaceholder={inputPlaceholder}
-        isBold={isBold}
-        noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
+      <Modal
+        isVisible={isVisible}
         pageHeight={pageHeight}
         pageWidth={pageWidth}
-        pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
-        stackTitle={title}
-        textFilter={textFilter}
-        onCancel={this.onCancel}
-        onFilterSet={this.onFilterSet}
-        onSelect={this.onSelect}
-        onSelectCustom={this.onSelectCustom}
-        onTrySelectCustom={this.onTrySelectCustom}
-      />
+        onClose={onCloseStart}
+      >
+        <ComboBoxList
+          allowCustomValue={allowCustomValue}
+          bodyStyle={bodyStyle}
+          customOptionModel={customOptionModel}
+          headerStyle={headerStyle}
+          filteredItems={this.filteredItems}
+          inputPlaceholder={inputPlaceholder}
+          isBold={isBold}
+          noOptionsMatchingInputLabel={noOptionsMatchingInputLabel}
+          pageHeight={pageHeight}
+          pageWidth={pageWidth}
+          pressEnterToSaveCustomFieldLabel={pressEnterToSaveCustomFieldLabel}
+          stackTitle={title}
+          textFilter={textFilter}
+          onCancel={this.onCancel}
+          onFilterSet={this.onFilterSet}
+          onSelect={this.onSelect}
+          onSelectCustom={this.onSelectCustom}
+          onTrySelectCustom={this.onTrySelectCustom}
+        />
+      </Modal>
     );
   }
 }

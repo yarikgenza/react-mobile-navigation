@@ -16,11 +16,11 @@ const MAIN = 'MAIN';
 const LICENSES = 'LICENSES';
 const HELP = 'HELP';
 
-class MainScreen extends React.Component {
+class MainScreen extends React.PureComponent {
   render() {
-    const { onPageOpen } = this.props;
+    const { pageHeight, onPageOpen } = this.props;
     return (
-      <View>
+      <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: pageHeight }} >
         <Text>Main (1)</Text>
         <Button onClick={() => onPageOpen(LICENSES)} label="Open Licenses" />
         <Button onClick={() => onPageOpen(HELP)} label="Open Help" />
@@ -29,11 +29,11 @@ class MainScreen extends React.Component {
   }
 }
 
-class LicensesScreen extends React.Component {
+class LicensesScreen extends React.PureComponent {
   render() {
-    const { onPageOpen, onPageClose } = this.props;
+    const { pageHeight, onPageOpen, onPageClose } = this.props;
     return (
-      <View>
+      <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: pageHeight }} >
         <Text>Licenses (2)</Text>
         <Button onClick={() => onPageOpen(HELP)} label="Open Help" />
         <Button onClick={() => onPageClose()} label="Go Back" />
@@ -42,9 +42,10 @@ class LicensesScreen extends React.Component {
   }
 }
 
-class HelpScreen extends React.Component {
+class HelpScreen extends React.PureComponent {
   render() {
     const {
+      pageHeight,
       onActionSheetOpen,
       onAlertOpen,
       onAlertClose,
@@ -99,7 +100,7 @@ class HelpScreen extends React.Component {
       onSelectCustom: () => {},
     };
     return (
-      <View>
+      <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: pageHeight }} >
         <Text>Licenses (2)</Text>
         <Button onClick={() => onPageOpen(LICENSES)} label="Open Licenses" />
         <Button onClick={() => onPageOpen(LICENSES, true)} label="Open Licenses Force" />
@@ -115,24 +116,26 @@ class HelpScreen extends React.Component {
 }
 
 const Demo = ({ initState }) => (
-  <MobileNavigation
-    initPagesState={[
-      navigationActions.onPageOpen(HELP),
-    ]}
-    pageHeight={height}
-    pageIdRoot={MAIN}
-    pageWidth={width}
-  >
-    <MobileNavigationPage pageId={MAIN} >
-      <MainScreen />
-    </MobileNavigationPage>
-    <MobileNavigationModal pageId={LICENSES} >
-      <LicensesScreen />
-    </MobileNavigationModal>
-    <MobileNavigationPage pageId={HELP} >
-      <HelpScreen />
-    </MobileNavigationPage>
-  </MobileNavigation>
+  <View style={{ height, width }} >
+    <MobileNavigation
+      initPagesState={[
+        navigationActions.onPageOpen(HELP),
+      ]}
+      pageHeight={height}
+      pageIdRoot={MAIN}
+      pageWidth={width}
+    >
+      <MobileNavigationPage pageId={MAIN} >
+        <MainScreen />
+      </MobileNavigationPage>
+      <MobileNavigationModal pageId={LICENSES} >
+        <LicensesScreen />
+      </MobileNavigationModal>
+      <MobileNavigationPage pageId={HELP} >
+        <HelpScreen />
+      </MobileNavigationPage>
+    </MobileNavigation>
+  </View>
 );
 
 export default Demo;

@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-core",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "React mobile mavigation core.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -19,7 +19,7 @@
   "files": [
     "lib"
   ],
-  "main": "lib/index.js",
+  "main": "index.js",
   "dependencies": {
     "prop-types": "^15.5.10"
   },

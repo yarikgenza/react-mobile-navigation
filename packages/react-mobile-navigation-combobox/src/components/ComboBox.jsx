@@ -1,4 +1,5 @@
-﻿import PropTypes from 'prop-types';
+﻿import isFunction from 'lodash/isFunction';
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Interpolation,
@@ -15,21 +16,21 @@ const propTypes = {
   customOptionModel: PropTypes.object,
   inputPlaceholder: PropTypes.string,
   isBold: PropTypes.bool,
+  isVisible: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   headerStyle: PropTypes.object,
   pressEnterToSaveCustomFieldLabel: PropTypes.string,
   noOptionsMatchingInputLabel: PropTypes.string,
   pageHeight: PropTypes.number.isRequired,
-  pageStatus: PropTypes.string,
   pageWidth: PropTypes.number.isRequired,
   title: PropTypes.string,
-  zIndex: PropTypes.number.isRequired,
   onCancel: PropTypes.func,
   onSelect: PropTypes.func,
   onSelectCustom: PropTypes.func,
-  onComboBoxOpenDone: PropTypes.func.isRequired,
-  onComboBoxCloseStart: PropTypes.func.isRequired,
-  onComboBoxCloseDone: PropTypes.func.isRequired,
+  onOpenCallback: PropTypes.func,
+  onCloseStart: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func.isRequired,
+  onCloseCallback: PropTypes.func,
 };
 
 const defaultProps = {
@@ -49,6 +50,7 @@ export default class ComboBox extends React.Component {
     this.state = {
       selectedOption: undefined,
       selectedCustomOption: undefined,
+      status: props.isVisible ? PageStatusTypesEnum.OPEN_DONE : PageStatusTypesEnum.CLOSE_DONE,
       textFilter,
     };
     this.filteredItems = this.getFilteredItems(textFilter);
@@ -61,27 +63,91 @@ export default class ComboBox extends React.Component {
     this.onTrySelectCustom = this.onTrySelectCustom.bind(this);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(nextProps) {
+    const { isVisible } = this.props;
+    if (isVisible === false && nextProps.isVisible === true) {
+      this.onOpenStart();
+    }
+    if (isVisible === true && nextProps.isVisible === false) {
+      this.onCloseStart();
+    }
     const { textFilter } = this.state;
     this.filteredItems = this.getFilteredItems(textFilter);
   }
 
+  onOpenStart() {
+    const { status } = this.state;
+    // ignore opening attempts if not closed yet
+    if (status !== PageStatusTypesEnum.CLOSE_DONE) {
+      return;
+    }
+    this.setState(() => ({
+      status: PageStatusTypesEnum.OPEN_START,
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(() => ({
+          status: PageStatusTypesEnum.OPEN_PROCESSING,
+        }));
+      });
+    });
+  }
+
+  onOpenDone() {
+    this.setState(() => ({
+      status: PageStatusTypesEnum.OPEN_DONE,
+    }), () => {
+      const { onOpenCallback } = this.props;
+      if (isFunction(onOpenCallback)) {
+        onOpenCallback();
+      }
+    });
+  }
+
+  onCloseStart() {
+    this.setState(() => ({
+      status: PageStatusTypesEnum.CLOSE_START,
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(() => ({
+          status: PageStatusTypesEnum.CLOSE_PROCESSING,
+        }));
+      });
+    });
+  }
+
+  onCloseDone() {
+    const { onCloseDone } = this.props;
+    onCloseDone();
+    this.setState(() => ({
+      status: PageStatusTypesEnum.CLOSE_DONE,
+    }), () => {
+      const { onCloseCallback } = this.props;
+      if (isFunction(onCloseCallback)) {
+        onCloseCallback();
+      }
+    });
+  }
+
   onSelect(selectedOption) {
+    const { onCloseStart } = this.props;
     this.setState(() => ({ selectedOption }));
-    this.closeComboBox();
+    onCloseStart();
   }
 
   onSelectCustom(selectedCustomOption) {
+    const { onCloseStart } = this.props;
     this.setState(() => ({ selectedCustomOption }));
-    this.closeComboBox();
+    onCloseStart();
   }
 
   onCancel() {
-    const { onCancel } = this.props;
+    const { onCancel, onCloseStart } = this.props;
     if (onCancel) {
       onCancel();
     }
-    this.closeComboBox();
+    onCloseStart();
   }
 
   onTrySelectCustom() {
@@ -110,12 +176,11 @@ export default class ComboBox extends React.Component {
   }
 
   onPageOpenDone() {
-    const { onComboBoxOpenDone } = this.props;
-    onComboBoxOpenDone();
+    this.onOpenDone();
   }
 
   onPageCloseDone() {
-    const { onSelectCustom, onSelect, onComboBoxCloseDone } = this.props;
+    const { onSelectCustom, onSelect } = this.props;
     const { selectedCustomOption, selectedOption } = this.state;
     // set state until a user does actions which can possibly unmount the component
     this.setState(() => ({
@@ -137,18 +202,13 @@ export default class ComboBox extends React.Component {
     if (onSelectCustom && selectedCustomOption) {
       onSelectCustom(selectedCustomOption);
     }
-    onComboBoxCloseDone();
+    this.onCloseDone();
     return;
   }
 
   getFilteredItems(textFilter) {
     const { items } = this.props;
     return getFilteredComboboxOptions(textFilter, items);
-  }
-
-  closeComboBox() {
-    const { onComboBoxCloseStart } = this.props;
-    onComboBoxCloseStart();
   }
 
   render() {
@@ -162,17 +222,16 @@ export default class ComboBox extends React.Component {
       noOptionsMatchingInputLabel,
       pageHeight,
       pageWidth,
-      pageStatus,
       pressEnterToSaveCustomFieldLabel,
       title,
-      zIndex,
-      onComboBoxCloseStart,
+      onCloseStart,
     } = this.props;
-    const { textFilter } = this.state;
+    const { status, textFilter } = this.state;
+    const zIndex = status !== PageStatusTypesEnum.CLOSE_DONE ? 1001 : 0;
     return (
       <Interpolation
-        isShow={pageStatus !== PageStatusTypesEnum.CLOSE_DONE}
-        pageStatus={pageStatus}
+        isShow={status !== PageStatusTypesEnum.CLOSE_DONE}
+        pageStatus={status}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
@@ -180,7 +239,7 @@ export default class ComboBox extends React.Component {
           pageHeight={pageHeight}
           pageWidth={pageWidth}
           zIndex={zIndex}
-          onPageClose={onComboBoxCloseStart}
+          onPageClose={onCloseStart}
         >
           <ComboBoxList
             allowCustomValue={allowCustomValue}

@@ -9,6 +9,7 @@ import { MODAL_MARGIN } from '../utils/style-api';
 const propTypes = {
   children: PropTypes.element,
   isForce: PropTypes.bool,
+  isPassHeight: PropTypes.bool,
   isShow: PropTypes.bool,
   pageHeight: PropTypes.number,
   pageStatus: PropTypes.string,
@@ -21,6 +22,7 @@ const propTypes = {
 const defaultProps = {
   children: undefined,
   isForce: undefined,
+  isPassHeight: true,
   isShow: undefined,
   pageHeight: undefined,
   pageStatus: undefined,
@@ -49,6 +51,7 @@ export default class MobileNavigationModal extends React.Component {
     const {
       children,
       isForce,
+      isPassHeight,
       isShow,
       pageHeight,
       pageWidth,
@@ -70,11 +73,11 @@ export default class MobileNavigationModal extends React.Component {
         onShadowClick={this.onShadowClick}
         onTransitionEnd={onTransitionEnd}
       >
-        <MobileNavigationModalRender pageHeight={pageHeightNew} pageWidth={pageWidthNew} >
+        <MobileNavigationModalRender pageHeight={isPassHeight ? pageHeightNew : undefined} pageWidth={pageWidthNew} >
           {children
             ? React.cloneElement(
               React.Children.only(children),
-              Object.assign({}, props, { pageHeight: pageHeightNew, pageWidth: pageWidthNew })
+              Object.assign({}, props, { pageHeight: isPassHeight ? pageHeightNew : undefined, pageWidth: pageWidthNew })
             )
             : null
           }

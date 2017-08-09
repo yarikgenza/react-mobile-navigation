@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
-import { actionPageStoreModel, PageStatusTypesEnum } from 'react-mobile-navigation-core';
+import { actionPageStoreModel } from 'react-mobile-navigation-core';
 
 import ActionSheet from '../src/react-mobile-navigation-action-sheet/stack/components/SettingsComponent';
 import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
@@ -17,15 +17,6 @@ const style = {
   height: height,
   width: width,
 };
-const MAIN_PAGE_ID = 'MAIN_PAGE_ID';
-const pageState = mobileNavigationPageStoreModel(PageStatusTypesEnum.OPEN_DONE, 1, undefined);
-function mobileNavigationPageStoreModel(status, zIndex, prevPageId) {
-  return {
-    prevPageId,
-    status,
-    zIndex: zIndex,
-  };
-}
 
 storiesOf('Combobox', module)
   .add('empty', () => (
@@ -62,13 +53,13 @@ storiesOf('Combobox', module)
           onSelect: action(),
           onSelectCustom: action(),
         }}
+        isVisible={true}
         pageHeight={height}
-        pageStatus={PageStatusTypesEnum.OPEN_DONE}
         pageWidth={width}
         zIndex={1000}
-        onComboBoxOpenDone={action()}
-        onComboBoxCloseStart={action()}
-        onComboBoxCloseDone={action()}
+        onOpenDone={action()}
+        onCloseStart={action()}
+        onCloseDone={action()}
       />
     </div>
   ))
@@ -129,13 +120,13 @@ storiesOf('Combobox', module)
           onSelect: action(),
           onSelectCustom: action(),
         }}
+        isVisible={true}
         pageHeight={height}
-        pageStatus={PageStatusTypesEnum.OPEN_DONE}
         pageWidth={width}
         zIndex={1000}
-        onComboBoxOpenDone={action()}
-        onComboBoxCloseStart={action()}
-        onComboBoxCloseDone={action()}
+        onOpenDone={action()}
+        onCloseStart={action()}
+        onCloseDone={action()}
       />
     </div>
   ));

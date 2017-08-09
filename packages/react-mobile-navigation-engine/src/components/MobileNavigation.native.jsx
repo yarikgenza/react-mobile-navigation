@@ -4,7 +4,6 @@ import ActionSheet from 'react-mobile-navigation-action-sheet';
 import Alert from 'react-mobile-navigation-alert';
 import ComboBox from 'react-mobile-navigation-combobox';
 import { PageStatusTypesEnum } from 'react-mobile-navigation-core';
-import Modal from 'react-mobile-navigation-core/components/Modal.native';
 import { View } from 'react-native';
 import { StackNavigator as createStackNavigator } from 'react-navigation';
 
@@ -40,22 +39,25 @@ export default class MobileNavigation extends React.Component {
     this.memoizedAlert = {};
     this.memoizedComboBox = {};
     this.state = {
-      actionSheet: {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      },
-      alert: {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      },
-      comboBox: {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      },
+      isActionSheetVisible: false,
+      isAlertVisible: false,
+      isComboBoxVisible: false,
     };
+    this.setOnActionSheetOpenCallback = this.setOnActionSheetOpenCallback.bind(this);
+    this.setOnActionSheetCloseCallback = this.setOnActionSheetCloseCallback.bind(this);
+    this.setOnAlertOpenCallback = this.setOnAlertOpenCallback.bind(this);
+    this.setOnAlertCloseCallback = this.setOnAlertCloseCallback.bind(this);
+    this.setOnComboBoxOpenCallback = this.setOnComboBoxOpenCallback.bind(this);
+    this.setOnComboBoxCloseCallback = this.setOnComboBoxCloseCallback.bind(this);
     this.onActionSheetOpenStart = this.onActionSheetOpenStart.bind(this);
     this.onActionSheetCloseStart = this.onActionSheetCloseStart.bind(this);
+    this.onActionSheetCloseDone = this.onActionSheetCloseDone.bind(this);
     this.onAlertOpenStart = this.onAlertOpenStart.bind(this);
     this.onAlertCloseStart = this.onAlertCloseStart.bind(this);
+    this.onAlertCloseDone = this.onAlertCloseDone.bind(this);
     this.onComboBoxOpenStart = this.onComboBoxOpenStart.bind(this);
     this.onComboBoxCloseStart = this.onComboBoxCloseStart.bind(this);
+    this.onComboBoxCloseDone = this.onComboBoxCloseDone.bind(this);
     const navigationConfig = {};
     React.Children.toArray(props.children)
       // .filter(child => child.type.pageType === PageTypesEnum.MODAL)
@@ -77,141 +79,126 @@ export default class MobileNavigation extends React.Component {
         };
       });
     this.MobileNavigationPageEngine = createStackNavigator(navigationConfig, {
-      cardStyle: { shadowColor: 'rgba(0, 0, 0, 0)' },
+      cardStyle: {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        shadowColor: 'rgba(0, 0, 0, 0)',
+      },
       initialRouteName: props.pageIdRoot,
-      // mode: 'modal',
+      mode: 'card',
     });
   }
 
   onActionSheetOpenStart(props) {
     this.memoizedActionSheet = props;
-    const { actionSheet } = this.state;
-    // ignore opening attempts if not closed yet
-    if (actionSheet.status !== PageStatusTypesEnum.CLOSE_DONE) {
-      return;
-    }
-    this.setState(prevState => ({
-      actionSheet: Object.assign({}, prevState.actionSheet, {
-        status: PageStatusTypesEnum.OPEN_DONE,
-      }),
-    }), () => {
-      //
-    });
+    this.setState(() => ({
+      isActionSheetVisible: true,
+    }));
   }
 
   onActionSheetCloseStart() {
-    this.setState(prevState => ({
-      actionSheet: Object.assign({}, prevState.actionSheet, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      }),
-    }), () => {
-      //
-    });
+    this.setState(() => ({
+      isActionSheetVisible: false,
+    }));
+  }
+
+  onActionSheetCloseDone() {
+    this.memoizedActionSheet = {};
   }
 
   onAlertOpenStart(props) {
     this.memoizedAlert = props;
-    const { alert } = this.state;
-    // ignore opening attempts if not closed yet
-    if (alert.status !== PageStatusTypesEnum.CLOSE_DONE) {
-      return;
-    }
-    this.setState(prevState => ({
-      alert: Object.assign({}, prevState.alert, {
-        status: PageStatusTypesEnum.OPEN_DONE,
-      }),
-    }), () => {
-      //
-    });
+    this.setState(() => ({
+      isAlertVisible: true,
+    }));
   }
 
   onAlertCloseStart() {
-    this.setState(prevState => ({
-      alert: Object.assign({}, prevState.alert, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      }),
-    }), () => {
-      //
-    });
+    this.setState(() => ({
+      isAlertVisible: false,
+    }));
+  }
+
+  onAlertCloseDone() {
+    this.memoizedAlert = {};
   }
 
   onComboBoxOpenStart(props) {
     this.memoizedComboBox = props;
-    const { comboBox } = this.state;
-    // ignore opening attempts if not closed yet
-    if (comboBox.status !== PageStatusTypesEnum.CLOSE_DONE) {
-      return;
-    }
-    this.setState(prevState => ({
-      comboBox: Object.assign({}, prevState.comboBox, {
-        status: PageStatusTypesEnum.OPEN_DONE,
-      }),
-    }), () => {
-      //
-    });
+    this.setState(() => ({
+      isComboBoxVisible: true,
+    }));
   }
 
   onComboBoxCloseStart() {
-    this.setState(prevState => ({
-      comboBox: Object.assign({}, prevState.comboBox, {
-        status: PageStatusTypesEnum.CLOSE_DONE,
-      }),
-    }), () => {
-      //
-    });
+    this.setState(() => ({
+      isComboBoxVisible: false,
+    }));
+  }
+
+  onComboBoxCloseDone() {
+    this.memoizedComboBox = {};
+  }
+
+  setOnActionSheetOpenCallback(callback) {
+    this.cache.onActionSheetOpenCallback = callback;
+  }
+
+  setOnActionSheetCloseCallback(callback) {
+    this.cache.onActionSheetCloseCallback = callback;
+  }
+
+  setOnAlertOpenCallback(callback) {
+    this.cache.onAlertOpenCallback = callback;
+  }
+
+  setOnAlertCloseCallback(callback) {
+    this.cache.onAlertCloseCallback = callback;
+  }
+
+  setOnComboBoxOpenCallback(callback) {
+    this.cache.onComboBoxOpenCallback = callback;
+  }
+
+  setOnComboBoxCloseCallback(callback) {
+    this.cache.onComboBoxCloseCallback = callback;
   }
 
   render() {
     const { pageHeight, pageWidth } = this.props;
-    const { actionSheet, alert, comboBox } = this.state;
+    const { isActionSheetVisible, isAlertVisible, isComboBoxVisible } = this.state;
     return (
       <View style={{ height: pageHeight, width: pageWidth }} >
         <this.MobileNavigationPageEngine />
-        <Modal
-          isVisible={comboBox.status === PageStatusTypesEnum.OPEN_DONE}
+        <ComboBox
+          {...this.memoizedComboBox}
+          isVisible={isComboBoxVisible}
           pageHeight={pageHeight}
           pageWidth={pageWidth}
-          onClose={this.onComboBoxCloseStart}
-        >
-          <ComboBox
-            {...this.memoizedComboBox}
-            pageStatus={comboBox.status}
-            zIndex={1000}
-            onComboBoxOpenDone={() => { }}
-            onComboBoxCloseStart={this.onComboBoxCloseStart}
-            onComboBoxCloseDone={() => { }}
-          />
-        </Modal>
-        <Modal
-          isVisible={alert.status === PageStatusTypesEnum.OPEN_DONE}
+          onOpenCallback={this.cache.onComboBoxOpenCallback}
+          onCloseStart={this.onComboBoxCloseStart}
+          onCloseDone={this.onComboBoxCloseDone}
+          onCloseCallback={this.cache.onComboBoxCloseCallback}
+        />
+        <Alert
+          {...this.memoizedAlert}
+          isVisible={isAlertVisible}
           pageHeight={pageHeight}
           pageWidth={pageWidth}
-          onClose={this.onAlertCloseStart}
-        >
-          <Alert
-            {...this.memoizedAlert}
-            pageStatus={alert.status}
-            zIndex={1001}
-            onAlertOpenDone={() => { }}
-            onAlertCloseStart={this.onAlertCloseStart}
-            onAlertCloseDone={() => { }}
-          />
-        </Modal>
-        <Modal
-          isVisible={actionSheet.status === PageStatusTypesEnum.OPEN_DONE}
+          onOpenCallback={this.cache.onAlertOpenCallback}
+          onCloseStart={this.onAlertCloseStart}
+          onCloseDone={this.onAlertCloseDone}
+          onCloseCallback={this.cache.onAlertCloseCallback}
+        />
+        <ActionSheet
+          {...this.memoizedActionSheet}
+          isVisible={isActionSheetVisible}
           pageHeight={pageHeight}
           pageWidth={pageWidth}
-          onClose={this.onAlertCloseStart}
-        >
-          <ActionSheet
-            {...this.memoizedActionSheet}
-            pageStatus={actionSheet.status}
-            zIndex={1002}
-            onActionSheetOpenDone={() => { }}
-            onActionSheetCloseStart={this.onActionSheetCloseStart}
-            onActionSheetCloseDone={() => { }}
-          />
-        </Modal>
+          onOpenCallback={this.cache.onActionSheetOpenCallback}
+          onCloseStart={this.onActionSheetCloseStart}
+          onCloseDone={this.onActionSheetCloseDone}
+          onCloseCallback={this.cache.onActionSheetCloseCallback}
+        />
       </View>
     );
   }

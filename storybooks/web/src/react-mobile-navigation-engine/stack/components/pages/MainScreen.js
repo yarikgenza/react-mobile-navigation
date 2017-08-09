@@ -1,7 +1,9 @@
+import Button from 'binary-ui-components/mobile/Button';
 import React from 'react';
-import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
-import {  } from 'react-mobile-navigation-core';
+
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
+
+import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 
 export default class MainScreen extends React.Component {
 
@@ -24,8 +26,8 @@ export default class MainScreen extends React.Component {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Main (1)</div>
-        <div onClick={this.connectedListText} >Open Licenses</div>
-        <div onClick={this.connectedHelpText} >Open Help</div>
+        <Button onClick={this.connectedListText} label="Open Licenses" />
+        <Button onClick={this.connectedHelpText} label="Open Help" />
       </div>
     );
   }

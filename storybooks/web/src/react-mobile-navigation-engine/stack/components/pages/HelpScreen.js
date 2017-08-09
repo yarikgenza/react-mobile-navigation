@@ -1,11 +1,15 @@
 import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
 import Alert, { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
+import Button from 'binary-ui-components/mobile/Button';
 import StackPage from 'binary-ui-stack';
 import PropTypes from 'prop-types';
 import React from 'react';
-import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
+
+import { actionSheetOptionModel } from 'react-mobile-navigation-action-sheet';
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
+
+import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 
 export default class HelpScreen extends React.Component {
 
@@ -42,7 +46,9 @@ export default class HelpScreen extends React.Component {
   openActionSheet() {
     this.props.onActionSheetOpen({
       cancelLabel: 'Cancel',
-      items: [],
+      items: [
+        actionSheetOptionModel('licenses', 'Licenses', () => { console.log('licenses'); }),
+      ],
       onCancel: () => {},
       onSelect: () => {},
     });
@@ -121,14 +127,14 @@ export default class HelpScreen extends React.Component {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Help (3)</div>
-        <div onClick={this.connectedLicensesText} >Open Licenses</div>
-        <div onClick={this.connectedLicensesTextForce} >Open Licenses Force</div>
-        <div onClick={this.closePageClick} >Go Back</div>
-        <div onClick={this.closePageForceClick} >Go Back force</div>
-        <div onClick={this.openActionSheet} >Show ActionSheet</div>
-        <div onClick={this.openComboBox} >Show ComboBox</div>
-        <div onClick={this.openAlertAutoHide} >Show Alert auto-hide</div>
-        <div onClick={this.openAlert} >Show Alert</div>
+        <Button onClick={this.connectedLicensesText} label="Open Licenses" />
+        <Button onClick={this.connectedLicensesTextForce} label="Open Licenses Force" />
+        <Button onClick={this.closePageClick} label="Go Back" />
+        <Button onClick={this.closePageForceClick} label="Go Back force" />
+        <Button onClick={this.openActionSheet} label="Show ActionSheet" />
+        <Button onClick={this.openComboBox} label="Show ComboBox" />
+        <Button onClick={this.openAlertAutoHide} label="Show Alert auto-hide" />
+        <Button onClick={this.openAlert} label="Show Alert" />
       </div>
     );
   }

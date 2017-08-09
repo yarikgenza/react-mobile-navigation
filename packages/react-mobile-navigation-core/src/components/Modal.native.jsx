@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import { Animated, Modal, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import { Animated, Modal, TouchableWithoutFeedback, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { MODAL_MARGIN } from '../utils/style-api';
 
-const styles = StyleSheet.create({
-  backdrop: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    opacity: 0,
-    backgroundColor: 'black',
-  },
-});
-
 const propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   isVisible: PropTypes.bool.isRequired,
   hideOnBack: PropTypes.bool,
   hideOnBackdropPress: PropTypes.bool,
@@ -24,18 +12,15 @@ const propTypes = {
   pageWidth: PropTypes.number.isRequired,
   onClose: PropTypes.func,
   onBackButtonPress: PropTypes.func,
-  onModalShow: PropTypes.func,
-  onModalHide: PropTypes.func,
 };
 
 const defaultProps = {
+  children: undefined,
   isVisible: false,
   hideOnBack: true,
   hideOnBackdropPress: true,
   onClose: () => null,
   onBackButtonPress: () => null,
-  onModalShow: () => null,
-  onModalHide: () => null,
 };
 
 const OPACITY_ON = 0.2;
@@ -47,22 +32,22 @@ export class ReactNativeModal extends Component {
     this.state = {
       isVisible: props.isVisible,
     };
-    this._open = this._open.bind(this);
-    this._close = this._close.bind(this);
-    this._closeOnBack = this._closeOnBack.bind(this);
-    this._closeOnBackdrop = this._closeOnBackdrop.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.closeOnBack = this.closeOnBack.bind(this);
+    this.closeOnBackdrop = this.closeOnBackdrop.bind(this);
   }
 
   componentWillMount() {
     if (this.props.isVisible) {
       this.setState({ isVisible: true });
     }
-    this._visibility = new Animated.Value(this.props.isVisible ? 1 : 0);
+    this.visibility = new Animated.Value(this.props.isVisible ? 1 : 0);
   }
 
   componentDidMount() {
     if (this.state.isVisible) {
-      this._open();
+      this.openModal();
     }
   }
 
@@ -70,7 +55,7 @@ export class ReactNativeModal extends Component {
     if (!this.state.isVisible && nextProps.isVisible) {
       this.setState({ isVisible: true });
     }
-    Animated.timing(this._visibility, {
+    Animated.timing(this.visibility, {
       toValue: nextProps.isVisible ? 1 : 0,
       duration: 300,
     }).start(() => {
@@ -79,55 +64,33 @@ export class ReactNativeModal extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // On modal open request, we slide the view up and fade in the backdrop
     if (this.state.isVisible && !prevState.isVisible) {
-      this._open();
-      // On modal close request, we slide the view down and fade out the backdrop
+      this.openModal();
     } else if (!this.props.isVisible && prevProps.isVisible) {
-      this._close();
+      this.closeModal();
     }
   }
 
-  _open() {
-    /* this.backdropRef.transitionTo(
-      { opacity: this.props.backdropOpacity },
-      this.props.backdropTransitionInTiming,
-    );
-    this.contentRef[this.props.animationIn](this.props.animationInTiming).then(() => {
-      this.props.onModalShow();
-    }); */
-  }
+  openModal() { }
 
-  _close() {
-    /* this.backdropRef.transitionTo({ opacity: 0 }, this.props.backdropTransitionOutTiming);
-    this.contentRef[this.props.animationOut](this.props.animationOutTiming).then(() => {
-      this.setState({ isVisible: false });
-      this.props.onModalHide();
-    }); */
-  }
+  closeModal() { }
 
-  _closeOnBack() {
+  closeOnBack() {
     if (this.props.hideOnBack) {
-      this._close();
+      this.closeModal();
     }
     this.props.onBackButtonPress();
   }
 
-  _closeOnBackdrop() {
+  closeOnBackdrop() {
     if (this.props.hideOnBackdropPress) {
-      this._close();
+      this.closeModal();
     }
     this.props.onClose();
   }
 
   render() {
-    const {
-      children,
-      pageHeight,
-      pageWidth,
-      onModalShow,
-      onModalHide,
-    } = this.props;
+    const { children, pageHeight, pageWidth } = this.props;
     const { isVisible } = this.state;
     const pageHeightNew = pageHeight - MODAL_MARGIN;
     const pageWidthNew = pageWidth - (2 * MODAL_MARGIN);
@@ -136,36 +99,38 @@ export class ReactNativeModal extends Component {
         transparent
         animationType={'none'}
         visible={isVisible}
-        onRequestClose={this._closeOnBack}
+        onRequestClose={this.closeOnBack}
       >
-        <TouchableWithoutFeedback onPress={this._closeOnBackdrop}>
+        <TouchableWithoutFeedback onPress={this.closeOnBackdrop}>
           <Animated.View
-            style={[
-              styles.backdrop, {
-                backgroundColor: '#000000',
-                width: pageWidth,
-                height: pageHeight,
-                opacity: this._visibility.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, OPACITY_ON],
-                }),
-              },
-            ]}
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: '#000000',
+              width: pageWidth,
+              height: pageHeight,
+              opacity: this.visibility.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, OPACITY_ON],
+              }),
+            }}
           />
         </TouchableWithoutFeedback>
         <Animated.View
           style={[{
             // borderTopLeftRadius: 10,
             // borderTopRightRadius: 10,
-            //overflow: 'hidden',
+            // overflow: 'hidden',
             flex: 1,
-            // justifyContent: 'center',
             justifyContent: 'flex-end',
             marginLeft: MODAL_MARGIN,
             marginRight: MODAL_MARGIN,
             margin: 0,
             transform: [{
-              translateY: this._visibility.interpolate({
+              translateY: this.visibility.interpolate({
                 inputRange: [0, 1],
                 outputRange: [pageHeightNew, 0],
               }),
@@ -174,10 +139,10 @@ export class ReactNativeModal extends Component {
           }]}
           pointerEvents="box-none"
         >
-          {React.cloneElement(
+          {children ? React.cloneElement(
             React.Children.only(children),
             { pageHeight: pageHeightNew, pageWidth: pageWidthNew },
-          )}
+          ) : null}
         </Animated.View>
       </Modal>
     );

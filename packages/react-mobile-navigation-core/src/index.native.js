@@ -1,4 +1,5 @@
 import Interpolation from './components/Interpolation';
+import Modal from './components/Modal.native';
 import MobileNavigationModal from './components/MobileNavigationModal';
 import MobileNavigationPage from './components/MobileNavigationPage';
 import MobileNavigationView from './components/MobileNavigationView';
@@ -7,6 +8,7 @@ import * as PageTypesEnum from './constants/page-types';
 
 export {
   Interpolation,
+  Modal,
   MobileNavigationModal,
   MobileNavigationPage,
   MobileNavigationView,
@@ -16,6 +18,7 @@ export {
 
 export default {
   Interpolation,
+  Modal,
   MobileNavigationModal,
   MobileNavigationPage,
   MobileNavigationView,

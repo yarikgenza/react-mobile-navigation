@@ -1,24 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Modal } from 'react-mobile-navigation-core';
 import ActionSheetList from './ActionSheetList';
 
 const propTypes = {
   cancelLabel: PropTypes.string,
+  isVisible: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  pageStatus: PropTypes.string,
-  pageWidth: PropTypes.number,
-  zIndex: PropTypes.number.isRequired,
+  pageHeight: PropTypes.number.isRequired,
+  pageWidth: PropTypes.number.isRequired,
   onCancel: PropTypes.func,
   onSelect: PropTypes.func,
   onShadowClick: PropTypes.func,
-  onActionSheetOpenDone: PropTypes.func.isRequired,
-  onActionSheetCloseStart: PropTypes.func.isRequired,
-  onActionSheetCloseDone: PropTypes.func.isRequired,
+  onOpenCallback: PropTypes.func,
+  onCloseStart: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func.isRequired,
+  onCloseCallback: PropTypes.func,
 };
 
 const defaultProps = {
   items: [],
-  pageWidth: undefined,
 };
 
 /**
@@ -60,17 +61,14 @@ export default class ActionSheet extends React.Component {
     this.onCancel();
   }
 
-  onPageOpenDone() {
-    const { onActionSheetOpenDone } = this.props;
-    onActionSheetOpenDone();
-  }
+  onPageOpenDone() { }
 
   onPageCloseDone() {
-    const { onSelect, onActionSheetCloseDone } = this.props;
+    const { onSelect, onCloseDone } = this.props;
     const { selectedOption } = this.state;
     // set state until use does actions which can possibly unmount the component
     this.setState(() => ({ selectedOption: undefined }));
-    onActionSheetCloseDone();
+    onCloseDone();
     if (selectedOption && selectedOption.handler) {
       selectedOption.handler();
     }
@@ -80,20 +78,26 @@ export default class ActionSheet extends React.Component {
   }
 
   closeActionSheet() {
-    const { onActionSheetCloseStart } = this.props;
-    onActionSheetCloseStart();
+    const { onCloseStart } = this.props;
+    onCloseStart();
   }
 
   render() {
-    const { cancelLabel, items, pageStatus, pageWidth, zIndex } = this.props;
+    const { cancelLabel, isVisible, items, pageHeight, pageWidth, onCloseStart } = this.props;
     return (
-      <ActionSheetList
-        cancelLabel={cancelLabel}
-        items={items}
-        pageIndex={zIndex}
-        onCancel={this.onCancel}
-        onSelect={this.onSelect}
-      />
+      <Modal
+        isVisible={isVisible}
+        pageHeight={pageHeight}
+        pageWidth={pageWidth}
+        onClose={onCloseStart}
+      >
+        <ActionSheetList
+          cancelLabel={cancelLabel}
+          items={items}
+          onCancel={this.onCancel}
+          onSelect={this.onSelect}
+        />
+      </Modal>
     );
   }
 }

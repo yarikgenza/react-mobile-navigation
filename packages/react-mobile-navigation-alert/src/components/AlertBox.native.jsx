@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Modal } from 'react-mobile-navigation-core';
 
 const propTypes = {
   autoHideDuration: PropTypes.number,
-  // pageStatus: PropTypes.string,
-  // pageWidth: PropTypes.number.isRequired,
-  // zIndex: PropTypes.number.isRequired,
+  isVisible: PropTypes.bool.isRequired,
+  pageHeight: PropTypes.number.isRequired,
+  pageWidth: PropTypes.number.isRequired,
   render: PropTypes.func.isRequired,
-  onAlertOpenDone: PropTypes.func.isRequired,
-  onAlertCloseStart: PropTypes.func.isRequired,
-  onAlertCloseDone: PropTypes.func.isRequired,
+  onOpenCallback: PropTypes.func,
+  onCloseStart: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func.isRequired,
+  onCloseCallback: PropTypes.func,
 };
 
 const defaultProps = {
@@ -32,22 +34,20 @@ export default class AlertBox extends React.Component {
   }
 
   onPageOpenDone() {
-    const { onAlertOpenDone } = this.props;
-    onAlertOpenDone();
     this.closeAlert();
   }
 
   onPageCloseDone() {
-    const { onAlertCloseDone } = this.props;
-    onAlertCloseDone();
+    const { onCloseDone } = this.props;
+    onCloseDone();
   }
 
   closeAlert() {
-    const { autoHideDuration, onAlertCloseStart } = this.props;
+    const { autoHideDuration, onCloseStart } = this.props;
     clearTimeout(this.timerAutoHideId);
     if (autoHideDuration > 0) {
       this.timerAutoHideId = setTimeout(() => {
-        onAlertCloseStart();
+        onCloseStart();
       }, autoHideDuration);
       return;
     }
@@ -55,13 +55,22 @@ export default class AlertBox extends React.Component {
   }
 
   closeAlertForce() {
-    const { onAlertCloseDone } = this.props;
-    onAlertCloseDone();
+    const { onCloseDone } = this.props;
+    onCloseDone();
   }
 
   render() {
-    const { render } = this.props;
-    return render();
+    const { isVisible, pageHeight, pageWidth, render, onCloseStart } = this.props;
+    return (
+      <Modal
+        isVisible={isVisible}
+        pageHeight={pageHeight}
+        pageWidth={pageWidth}
+        onClose={onCloseStart}
+      >
+        {isVisible ? render() : null}
+      </Modal>
+    );
   }
 }
 

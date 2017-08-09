@@ -1,24 +1,26 @@
-﻿import PropTypes from 'prop-types';
+﻿import isFunction from 'lodash/isFunction';
+import PropTypes from 'prop-types';
 import React from 'react';
 import {
   Interpolation,
-  MobileNavigationShadowPage,
+  MobileNavigationModal,
   PageStatusTypesEnum,
 } from 'react-mobile-navigation-core';
 import ActionSheetList from './ActionSheetList';
 
 const propTypes = {
   cancelLabel: PropTypes.string,
+  isVisible: PropTypes.bool.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  pageStatus: PropTypes.string,
+  pageHeight: PropTypes.number.isRequired,
   pageWidth: PropTypes.number.isRequired,
-  zIndex: PropTypes.number.isRequired,
   onCancel: PropTypes.func,
   onSelect: PropTypes.func,
   onShadowClick: PropTypes.func,
-  onActionSheetOpenDone: PropTypes.func.isRequired,
-  onActionSheetCloseStart: PropTypes.func.isRequired,
-  onActionSheetCloseDone: PropTypes.func.isRequired,
+  onOpenCallback: PropTypes.func,
+  onCloseStart: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func.isRequired,
+  onCloseCallback: PropTypes.func,
 };
 
 const defaultProps = {
@@ -34,6 +36,7 @@ export default class ActionSheet extends React.Component {
     super(props);
     this.state = {
       selectedOption: undefined,
+      status: props.isVisible ? PageStatusTypesEnum.OPEN_DONE : PageStatusTypesEnum.CLOSE_DONE,
     };
     this.onSelect = this.onSelect.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -42,17 +45,83 @@ export default class ActionSheet extends React.Component {
     this.onPageCloseDone = this.onPageCloseDone.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { isVisible } = this.props;
+    if (isVisible === false && nextProps.isVisible === true) {
+      this.onOpenStart();
+    }
+    if (isVisible === true && nextProps.isVisible === false) {
+      this.onCloseStart();
+    }
+  }
+
+  onOpenStart() {
+    const { status } = this.state;
+    // ignore opening attempts if not closed yet
+    if (status !== PageStatusTypesEnum.CLOSE_DONE) {
+      return;
+    }
+    this.setState(() => ({
+      status: PageStatusTypesEnum.OPEN_START,
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(() => ({
+          status: PageStatusTypesEnum.OPEN_PROCESSING,
+        }));
+      });
+    });
+  }
+
+  onOpenDone() {
+    this.setState(() => ({
+      status: PageStatusTypesEnum.OPEN_DONE,
+    }), () => {
+      const { onOpenCallback } = this.props;
+      if (isFunction(onOpenCallback)) {
+        onOpenCallback();
+      }
+    });
+  }
+
+  onCloseStart() {
+    this.setState(() => ({
+      status: PageStatusTypesEnum.CLOSE_START,
+    }), () => {
+      // force rendering in the next frame
+      window.requestAnimationFrame(() => {
+        this.setState(() => ({
+          status: PageStatusTypesEnum.CLOSE_PROCESSING,
+        }));
+      });
+    });
+  }
+
+  onCloseDone() {
+    const { onCloseDone } = this.props;
+    onCloseDone();
+    this.setState(() => ({
+      status: PageStatusTypesEnum.CLOSE_DONE,
+    }), () => {
+      const { onCloseCallback } = this.props;
+      if (isFunction(onCloseCallback)) {
+        onCloseCallback();
+      }
+    });
+  }
+
   onSelect(selectedOption) {
+    const { onCloseStart } = this.props;
     this.setState(() => ({ selectedOption }));
-    this.closeActionSheet();
+    onCloseStart();
   }
 
   onCancel() {
-    const { onCancel } = this.props;
+    const { onCancel, onCloseStart } = this.props;
     if (onCancel) {
       onCancel();
     }
-    this.closeActionSheet();
+    onCloseStart();
   }
 
   onShadowClick() {
@@ -65,16 +134,15 @@ export default class ActionSheet extends React.Component {
   }
 
   onPageOpenDone() {
-    const { onActionSheetOpenDone } = this.props;
-    onActionSheetOpenDone();
+    this.onOpenDone();
   }
 
   onPageCloseDone() {
-    const { onSelect, onActionSheetCloseDone } = this.props;
+    const { onSelect } = this.props;
     const { selectedOption } = this.state;
     // set state until use does actions which can possibly unmount the component
     this.setState(() => ({ selectedOption: undefined }));
-    onActionSheetCloseDone();
+    this.onCloseDone();
     if (selectedOption && selectedOption.handler) {
       selectedOption.handler();
     }
@@ -83,25 +151,23 @@ export default class ActionSheet extends React.Component {
     }
   }
 
-  closeActionSheet() {
-    const { onActionSheetCloseStart } = this.props;
-    onActionSheetCloseStart();
-  }
-
   render() {
-    const { cancelLabel, items, pageStatus, pageWidth, zIndex } = this.props;
+    const { cancelLabel, items, pageHeight, pageWidth } = this.props;
+    const { status } = this.state;
+    const zIndex = status !== PageStatusTypesEnum.CLOSE_DONE ? 1002 : 0;
     return (
       <Interpolation
-        isShow={pageStatus !== PageStatusTypesEnum.CLOSE_DONE}
-        pageStatus={pageStatus}
+        isShow={status !== PageStatusTypesEnum.CLOSE_DONE}
+        pageStatus={status}
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
-        <MobileNavigationShadowPage
-          pageLeft={0}
+        <MobileNavigationModal
+          isPassHeight={false}
+          pageHeight={pageHeight}
           pageWidth={pageWidth}
           zIndex={zIndex}
-          onShadowClick={this.onShadowClick}
+          onPageClose={this.onShadowClick}
         >
           <ActionSheetList
             cancelLabel={cancelLabel}
@@ -110,7 +176,7 @@ export default class ActionSheet extends React.Component {
             onCancel={this.onCancel}
             onSelect={this.onSelect}
           />
-        </MobileNavigationShadowPage>
+        </MobileNavigationModal>
       </Interpolation>
     );
   }

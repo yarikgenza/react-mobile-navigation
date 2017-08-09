@@ -32,11 +32,7 @@ export default class ActionSheetListItem extends React.PureComponent {
       <TouchableHighlight
         underlayColor="rgba(0, 0, 0, 0.1)"
         onPress={this.onSelect}
-        style={{
-          overflow: 'hidden',
-          borderTopLeftRadius: 5,
-          borderTopRightRadius: 5,
-        }}
+        style={{ overflow: 'hidden' }}
       >
         <ActionSheetListItemView {...props}>
           <ActionSheetListItemRender isRed={isRed}>

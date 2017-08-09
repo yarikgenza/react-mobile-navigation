@@ -1,6 +1,9 @@
+import Button from 'binary-ui-components/mobile/Button';
 import React from 'react';
-import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
+
 import { MobileNavigationPage } from 'react-mobile-navigation-engine';
+
+import * as SettingsModeTypesEnum from '../../enum/settings-mode-types-enum';
 
 export default class LicensesScreen extends React.Component {
 
@@ -23,8 +26,8 @@ export default class LicensesScreen extends React.Component {
     return (
       <div style={{ backgroundColor: 'white', height: '100%', width: '100%' }} >
         <div style={{ textAlign: 'center' }} >Licenses (2)</div>
-        <div onClick={this.connectedHelpText} >Open Help</div>
-        <div onClick={this.closePageClick} >Go Back</div>
+        <Button onClick={this.connectedHelpText} label="Open Help" />
+        <Button onClick={this.closePageClick} label="Go Back" />
       </div>
     );
   }

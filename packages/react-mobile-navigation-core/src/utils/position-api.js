@@ -12,7 +12,7 @@ import {
   CLOSE_DONE,
 } from '../constants/page-status-types';
 
-const INTERP_OUT = -30;
+const INTERP_OUT = -10;
 const INTERP_BEGIN = 0;
 const INTERP_END = 100;
 
