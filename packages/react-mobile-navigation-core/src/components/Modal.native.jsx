@@ -157,6 +157,7 @@ export class ReactNativeModal extends Component {
           style={[{
             // borderTopLeftRadius: 10,
             // borderTopRightRadius: 10,
+            //overflow: 'hidden',
             flex: 1,
             // justifyContent: 'center',
             justifyContent: 'flex-end',

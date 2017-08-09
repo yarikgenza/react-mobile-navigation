@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { TouchableHighlight } from 'react-native';
 import ActionSheetListItemRender from '../components-styled/ActionSheetListItemRender';
+import ActionSheetListItemView from '../components-styled/ActionSheetListItemView';
 
 const propTypes = {
   isRed: PropTypes.bool,
@@ -25,11 +27,23 @@ export default class ActionSheetListItem extends React.PureComponent {
   }
 
   render() {
-    const { isRed, item } = this.props;
+    const { isRed, item, ...props } = this.props;
     return (
-      <ActionSheetListItemRender isRed={isRed} onClick={this.onSelect} >
-        {item.label}
-      </ActionSheetListItemRender>
+      <TouchableHighlight
+        underlayColor="rgba(0, 0, 0, 0.1)"
+        onPress={this.onSelect}
+        style={{
+          overflow: 'hidden',
+          borderTopLeftRadius: 5,
+          borderTopRightRadius: 5,
+        }}
+      >
+        <ActionSheetListItemView {...props}>
+          <ActionSheetListItemRender isRed={isRed}>
+            {item.label}
+          </ActionSheetListItemRender>
+        </ActionSheetListItemView>
+      </TouchableHighlight>
     );
   }
 }
