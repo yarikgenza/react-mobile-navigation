@@ -1,11 +1,11 @@
-﻿import IconCancel from 'binary-ui-icons/binary/Cancel';
+﻿import Input from 'binary-ui-components/mobile/Input';
+import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
 import StackPage from 'binary-ui-stack';
-import StackBodyCustomContent from 'binary-ui-stack/StackBodyCustomContent';
+import StackBodyContainer from 'binary-ui-stack/StackBodyContainer';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ComboBoxOption from './ComboBoxOption';
-import ComboBoxInput from './ComboBoxInput';
 import ComboBoxNoOptionsStyled from '../components-styled/ComboBoxNoOptionsStyled';
 import { ENTER, ESCAPE } from '../constants/key-events';
 
@@ -36,7 +36,7 @@ const defaultProps = {
   customOptionModel: {},
   filteredItems: [],
   headerStyle: undefined,
-  inputPlaceholder: undefined,
+  inputPlaceholder: '',
   isBold: false,
   noOptionsMatchingInputLabel: undefined,
   pageHeight: undefined,
@@ -141,17 +141,17 @@ export default class ComboBoxList extends React.Component {
         titleIcon={undefined}
         useSearch={false}
       >
-        <StackBodyCustomContent pageHeight={pageHeight} pageWidth={pageWidth} >
-          <ComboBoxInput
+        <StackBodyContainer pageHeight={pageHeight} pageWidth={pageWidth} >
+          <Input
             isBold={isBold}
             isValid={this.isValid()}
             placeholder={inputPlaceholder}
-            textFilter={textFilter}
-            onFilterSet={onFilterSet}
-            onFilterOnKeyUp={this.onFilterOnKeyUp}
+            value={textFilter}
+            onTextChange={onFilterSet}
+            onKeyUp={this.onFilterOnKeyUp}
           />
           {this.renderFilteredItems(isBold)}
-        </StackBodyCustomContent>
+        </StackBodyContainer>
       </StackPage>
     );
   }

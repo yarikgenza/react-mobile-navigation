@@ -1,13 +1,12 @@
+import Input from 'binary-ui-components/mobile/Input';
 import IconCancel from 'binary-ui-icons/binary/Cancel';
 import IconDone from 'binary-ui-icons/binary/Done';
 import StackPage from 'binary-ui-stack';
-import StackBodyCustomContent from 'binary-ui-stack/StackBodyCustomContent';
+import StackBodyContainer from 'binary-ui-stack/StackBodyContainer';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ComboBoxOption from './ComboBoxOption';
-import ComboBoxInput from './ComboBoxInput';
 import ComboBoxNoOptionsStyled from '../components-styled/ComboBoxNoOptionsStyled';
-import { ENTER, ESCAPE } from '../constants/key-events';
 
 const propTypes = {
   allowCustomValue: PropTypes.bool,
@@ -36,7 +35,7 @@ const defaultProps = {
   customOptionModel: {},
   filteredItems: [],
   headerStyle: undefined,
-  inputPlaceholder: undefined,
+  inputPlaceholder: '',
   isBold: false,
   noOptionsMatchingInputLabel: undefined,
   pageHeight: undefined,
@@ -47,25 +46,6 @@ const defaultProps = {
 };
 
 export default class ComboBoxList extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.onFilterOnKeyUp = this.onFilterOnKeyUp.bind(this);
-  }
-
-  onFilterOnKeyUp(e) {
-    const { onCancel, onTrySelectCustom } = this.props;
-    switch (e.keyCode) {
-      case ENTER:
-        onTrySelectCustom();
-        return;
-      case ESCAPE:
-        onCancel();
-        return;
-      default:
-        return;
-    }
-  }
 
   getNoOptionsText() {
     const {
@@ -145,17 +125,20 @@ export default class ComboBoxList extends React.Component {
         titleIcon={undefined}
         useSearch={false}
       >
-        <StackBodyCustomContent removeClippedSubviews pageHeight={pageHeight} pageWidth={pageWidth} >
-          <ComboBoxInput
+        <StackBodyContainer
+          removeClippedSubviews
+          pageHeight={pageHeight}
+          pageWidth={pageWidth}
+        >
+          <Input
             isBold={isBold}
             isValid={this.isValid()}
             placeholder={inputPlaceholder}
-            textFilter={textFilter}
-            onFilterSet={onFilterSet}
-            onFilterOnKeyUp={this.onFilterOnKeyUp}
+            value={textFilter}
+            onTextChange={onFilterSet}
           />
           {this.renderFilteredItems(isBold)}
-        </StackBodyCustomContent>
+        </StackBodyContainer>
       </StackPage>
     );
   }

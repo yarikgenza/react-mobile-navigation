@@ -56,8 +56,6 @@ storiesOf('Combobox', module)
         isVisible={true}
         pageHeight={height}
         pageWidth={width}
-        zIndex={1000}
-        onOpenDone={action()}
         onCloseStart={action()}
         onCloseDone={action()}
       />
@@ -123,8 +121,6 @@ storiesOf('Combobox', module)
         isVisible={true}
         pageHeight={height}
         pageWidth={width}
-        zIndex={1000}
-        onOpenDone={action()}
         onCloseStart={action()}
         onCloseDone={action()}
       />

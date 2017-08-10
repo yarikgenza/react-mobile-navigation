@@ -19,7 +19,7 @@
   "files": [
     "lib"
   ],
-  "main": "index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "prop-types": "^15.5.10"
   },

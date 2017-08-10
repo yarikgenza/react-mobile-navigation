@@ -29,7 +29,7 @@ const propTypes = {
   onSelectCustom: PropTypes.func,
   onOpenCallback: PropTypes.func,
   onCloseStart: PropTypes.func.isRequired,
-  onCloseDone: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func,
   onCloseCallback: PropTypes.func,
 };
 
@@ -119,7 +119,9 @@ export default class ComboBox extends React.Component {
 
   onCloseDone() {
     const { onCloseDone } = this.props;
-    onCloseDone();
+    if (onCloseDone) {
+      onCloseDone();
+    }
     this.setState(() => ({
       status: PageStatusTypesEnum.CLOSE_DONE,
     }), () => {
