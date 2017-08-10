@@ -49,7 +49,7 @@ export default class ComboBox extends React.Component {
       selectedCustomOption: undefined,
       textFilter,
     };
-    this.filteredItems = this.getFilteredItems(textFilter);
+    this.filteredItems = getFilteredComboboxOptions(textFilter, props.items);
     this.onSelect = this.onSelect.bind(this);
     this.onSelectCustom = this.onSelectCustom.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -59,9 +59,8 @@ export default class ComboBox extends React.Component {
     this.onTrySelectCustom = this.onTrySelectCustom.bind(this);
   }
 
-  componentWillReceiveProps() {
-    const { textFilter } = this.state;
-    this.filteredItems = this.getFilteredItems(textFilter);
+  componentWillReceiveProps(nextProps) {
+    this.filteredItems = getFilteredComboboxOptions(nextProps.textFilter, nextProps.items);
   }
 
   onSelect(selectedOption) {
@@ -103,8 +102,9 @@ export default class ComboBox extends React.Component {
   }
 
   onFilterSet(value) {
+    const { items } = this.props;
+    this.filteredItems = getFilteredComboboxOptions(value, items);
     this.setState(() => ({ textFilter: value }));
-    this.filteredItems = this.getFilteredItems(value);
   }
 
   onPageOpenDone() { }
@@ -134,11 +134,6 @@ export default class ComboBox extends React.Component {
     }
     onCloseDone();
     return;
-  }
-
-  getFilteredItems(textFilter) {
-    const { items } = this.props;
-    return getFilteredComboboxOptions(textFilter, items);
   }
 
   closeComboBox() {

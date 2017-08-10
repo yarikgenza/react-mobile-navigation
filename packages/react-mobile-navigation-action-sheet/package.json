@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-action-sheet",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "React mobile navigation action sheet.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -23,7 +23,7 @@
   "dependencies": {
     "binary-ui-styles": "^0.2.19",
     "prop-types": "^15.5.10",
-    "react-mobile-navigation-core": "^1.0.14"
+    "react-mobile-navigation-core": "^1.0.15"
   },
   "peerDependencies": {
     "react": "^15.0.0",

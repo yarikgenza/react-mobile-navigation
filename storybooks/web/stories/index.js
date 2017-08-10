@@ -18,6 +18,23 @@ const style = {
   width: width,
 };
 
+storiesOf('Demo', module)
+  .add('all in one', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <Engine />
+    </div>
+  ));
+
 storiesOf('Combobox', module)
   .add('empty', () => (
     <div style={style} >
@@ -124,22 +141,5 @@ storiesOf('Combobox', module)
         onCloseStart={action()}
         onCloseDone={action()}
       />
-    </div>
-  ));
-
-storiesOf('Demo', module)
-  .add('all in one', () => (
-    <div style={style} >
-      <style>
-        {`html, body, #CardsApp {
-          width: 100%;
-          height: 100%;
-        }
-        body {
-          margin: 0;
-          background-color: #eeeae5;
-        }`}
-      </style>
-      <Engine />
     </div>
   ));

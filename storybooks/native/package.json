@@ -28,7 +28,7 @@
   "dependencies": {
     "binary-ui-components": "^0.2.19",
     "binary-ui-icons": "^0.2.19",
-    "binary-ui-stack": "^0.2.8",
+    "binary-ui-stack": "^0.2.9",
     "binary-ui-styles": "^0.2.19",
     "expo": "^19.0.0",
     "js-search": "^1.4.2",

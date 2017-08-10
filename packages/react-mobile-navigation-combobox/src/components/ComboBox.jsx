@@ -53,7 +53,7 @@ export default class ComboBox extends React.Component {
       status: props.isVisible ? PageStatusTypesEnum.OPEN_DONE : PageStatusTypesEnum.CLOSE_DONE,
       textFilter,
     };
-    this.filteredItems = this.getFilteredItems(textFilter);
+    this.filteredItems = getFilteredComboboxOptions(textFilter, props.items);
     this.onSelect = this.onSelect.bind(this);
     this.onSelectCustom = this.onSelectCustom.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -71,8 +71,7 @@ export default class ComboBox extends React.Component {
     if (isVisible === true && nextProps.isVisible === false) {
       this.onCloseStart();
     }
-    const { textFilter } = this.state;
-    this.filteredItems = this.getFilteredItems(textFilter);
+    this.filteredItems = getFilteredComboboxOptions(nextProps.textFilter, nextProps.items);
   }
 
   onOpenStart() {
@@ -173,8 +172,9 @@ export default class ComboBox extends React.Component {
   }
 
   onFilterSet(value) {
+    const { items } = this.props;
+    this.filteredItems = getFilteredComboboxOptions(value, items);
     this.setState(() => ({ textFilter: value }));
-    this.filteredItems = this.getFilteredItems(value);
   }
 
   onPageOpenDone() {
@@ -206,11 +206,6 @@ export default class ComboBox extends React.Component {
     }
     this.onCloseDone();
     return;
-  }
-
-  getFilteredItems(textFilter) {
-    const { items } = this.props;
-    return getFilteredComboboxOptions(textFilter, items);
   }
 
   render() {

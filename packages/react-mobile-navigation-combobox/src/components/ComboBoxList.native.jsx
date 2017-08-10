@@ -5,8 +5,14 @@ import StackPage from 'binary-ui-stack';
 import StackBodyContainer from 'binary-ui-stack/StackBodyContainer';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { FlatList } from 'react-native';
 import ComboBoxOption from './ComboBoxOption';
 import ComboBoxNoOptionsStyled from '../components-styled/ComboBoxNoOptionsStyled';
+
+const STACK_PAGE_WRAPPER_STYLE = {
+  borderTopLeftRadius: 10,
+  borderTopRightRadius: 10,
+};
 
 const propTypes = {
   allowCustomValue: PropTypes.bool,
@@ -47,6 +53,11 @@ const defaultProps = {
 
 export default class ComboBoxList extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.renderRow = this.renderRow.bind(this);
+  }
+
   getNoOptionsText() {
     const {
       allowCustomValue,
@@ -61,52 +72,62 @@ export default class ComboBoxList extends React.Component {
     return filteredItems.length > 0 || allowCustomValue;
   }
 
-  renderOptions(isBold) {
-    const { filteredItems, onSelect } = this.props;
-    return filteredItems.map((item) => (
+  renderRow({ index, item, key }) {
+    const {
+      filteredItems,
+      inputPlaceholder,
+      isBold,
+      textFilter,
+      onFilterSet,
+      onSelect,
+    } = this.props;
+    if (index === 0) {
+      return (
+        <Input
+          isBold={isBold}
+          isValid={this.isValid()}
+          key={key}
+          placeholder={inputPlaceholder}
+          value={textFilter}
+          onTextChange={onFilterSet}
+        />
+      );
+    }
+    if (filteredItems.length === 0) {
+      return (
+        <ComboBoxNoOptionsStyled key={key} >
+          {this.getNoOptionsText()}
+        </ComboBoxNoOptionsStyled>
+      );
+    }
+    return (
       <ComboBoxOption
         isBold={isBold}
         item={item}
         key={item.key}
         handleItemSelect={onSelect}
       />
-    ));
-  }
-
-  renderNoOptions() {
-    return (
-      <ComboBoxNoOptionsStyled>
-        {this.getNoOptionsText()}
-      </ComboBoxNoOptionsStyled>
     );
-  }
-
-  renderFilteredItems(isBold) {
-    const { filteredItems } = this.props;
-    return filteredItems.length ? this.renderOptions(isBold) : this.renderNoOptions();
   }
 
   render() {
     const {
       allowCustomValue,
       bodyStyle,
+      filteredItems,
       headerStyle,
-      inputPlaceholder,
-      isBold,
       pageHeight,
       pageWidth,
       stackTitle,
-      textFilter,
       onCancel,
-      onFilterSet,
       onTrySelectCustom,
     } = this.props;
+    const filteredItemsExtended = filteredItems.length > 0
+      ? [{ key: 'search-bar' }, ...filteredItems]
+      : [{ key: 'search-bar' }, { key: 'no-items' }];
     return (
       <StackPage
-        wrapperStyle={{
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-        }}
+        wrapperStyle={STACK_PAGE_WRAPPER_STYLE}
         bodyStyle={bodyStyle}
         headerStyle={headerStyle}
         leftButton={{
@@ -125,19 +146,11 @@ export default class ComboBoxList extends React.Component {
         titleIcon={undefined}
         useSearch={false}
       >
-        <StackBodyContainer
-          removeClippedSubviews
-          pageHeight={pageHeight}
-          pageWidth={pageWidth}
-        >
-          <Input
-            isBold={isBold}
-            isValid={this.isValid()}
-            placeholder={inputPlaceholder}
-            value={textFilter}
-            onTextChange={onFilterSet}
+        <StackBodyContainer pageHeight={pageHeight} pageWidth={pageWidth} >
+          <FlatList
+            data={filteredItemsExtended}
+            renderItem={this.renderRow}
           />
-          {this.renderFilteredItems(isBold)}
         </StackBodyContainer>
       </StackPage>
     );

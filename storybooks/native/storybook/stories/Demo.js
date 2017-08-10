@@ -2,9 +2,8 @@ import Button from 'binary-ui-components/mobile/Button';
 import React from 'react';
 import { Dimensions, Modal, Text, TouchableHighlight, View } from 'react-native';
 import PropTypes from 'prop-types';
-import {
-  comboBoxOptionModel,
-} from 'react-mobile-navigation-combobox';
+
+import { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
 import { actionSheetOptionModel } from 'react-mobile-navigation-action-sheet';
 import { MobileNavigationModal, MobileNavigationPage } from 'react-mobile-navigation-core';
 import MobileNavigation, {
@@ -87,7 +86,7 @@ class HelpScreen extends React.PureComponent {
       headerStyle: {
         backgroundColor: '#eeeae5',
       },
-      allowCustomValue: true,
+      allowCustomValue: false,
       customOptionModel: undefined,
       items: [
         comboBoxOptionModel('first0', 'First', () => { console.log('1'); }, { color: 'blue' }),

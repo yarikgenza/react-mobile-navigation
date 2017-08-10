@@ -40,7 +40,7 @@ export class ReactNativeModal extends Component {
 
   componentWillMount() {
     if (this.props.isVisible) {
-      this.setState({ isVisible: true });
+      this.setState(() => ({ isVisible: true }));
     }
     this.visibility = new Animated.Value(this.props.isVisible ? 1 : 0);
   }
@@ -53,13 +53,13 @@ export class ReactNativeModal extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!this.state.isVisible && nextProps.isVisible) {
-      this.setState({ isVisible: true });
+      this.setState(() => ({ isVisible: true }));
     }
     Animated.timing(this.visibility, {
       toValue: nextProps.isVisible ? 1 : 0,
       duration: 300,
     }).start(() => {
-      this.setState({ isVisible: nextProps.isVisible });
+      this.setState(() => ({ isVisible: nextProps.isVisible }));
     });
   }
 
