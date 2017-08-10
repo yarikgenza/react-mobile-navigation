@@ -123,6 +123,10 @@ export default class ComboBoxList extends React.Component {
     } = this.props;
     return (
       <StackPage
+        wrapperStyle={{
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+        }}
         bodyStyle={bodyStyle}
         headerStyle={headerStyle}
         leftButton={{
@@ -141,7 +145,7 @@ export default class ComboBoxList extends React.Component {
         titleIcon={undefined}
         useSearch={false}
       >
-        <StackBodyCustomContent pageHeight={pageHeight} pageWidth={pageWidth} >
+        <StackBodyCustomContent removeClippedSubviews pageHeight={pageHeight} pageWidth={pageWidth} >
           <ComboBoxInput
             isBold={isBold}
             isValid={this.isValid()}

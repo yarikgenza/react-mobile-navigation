@@ -120,10 +120,9 @@ export class ReactNativeModal extends Component {
           />
         </TouchableWithoutFeedback>
         <Animated.View
+          removeClippedSubviews
           style={[{
-            // borderTopLeftRadius: 10,
-            // borderTopRightRadius: 10,
-            // overflow: 'hidden',
+            overflow: 'hidden',
             flex: 1,
             justifyContent: 'flex-end',
             marginLeft: MODAL_MARGIN,
@@ -136,6 +135,7 @@ export class ReactNativeModal extends Component {
               }),
             }],
             width: pageWidthNew,
+            zIndex: 100,
           }]}
           pointerEvents="box-none"
         >

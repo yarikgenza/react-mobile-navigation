@@ -1,6 +1,6 @@
 ﻿import PropTypes from 'prop-types';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableHighlight } from 'react-native';
 import ComboBoxOptionStyled from '../components-styled/ComboBoxOptionStyled';
 import ComboBoxOptionView from '../components-styled/ComboBoxOptionView';
 
@@ -25,15 +25,15 @@ export default class ComboBoxOption extends React.PureComponent {
   }
 
   render() {
-    const { item, isBold } = this.props;
+    const { item, isBold, props } = this.props;
     return (
-      <TouchableOpacity onPress={this.onItemSelect} >
-        <ComboBoxOptionView>
+      <TouchableHighlight underlayColor={'rgba(0, 0, 0, 0.05)'} onPress={this.onItemSelect} >
+        <ComboBoxOptionView {...props} >
           <ComboBoxOptionStyled isBold={isBold} style={item.style} >
             {item.label}
           </ComboBoxOptionStyled>
         </ComboBoxOptionView>
-      </TouchableOpacity>
+      </TouchableHighlight>
     );
   }
 }

@@ -9,4 +9,5 @@ export default styled.Text`
   ${props => (props.isBold ? FIELD_NAME_FONT_CSS : FIELD_VALUE_FONT_CSS)}
   padding-top: ${LIST_ITEM_HEIGHT / 3};
   padding-left: 10px;
+  overflow: hidden;
 `;

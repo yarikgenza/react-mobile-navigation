@@ -6,4 +6,5 @@ import {
 
 export default styled.Text`
   ${props => (props.isBold ? FIELD_NAME_FONT_CSS : FIELD_VALUE_FONT_CSS)}
+  overflow: hidden;
 `;

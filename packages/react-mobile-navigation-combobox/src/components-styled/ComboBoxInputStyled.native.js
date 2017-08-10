@@ -16,4 +16,5 @@ export default styled.TextInput.attrs({
   ${props => (props.isBold ? FIELD_NAME_FONT_CSS : FIELD_VALUE_FONT_CSS)}
   height: ${LIST_ITEM_HEIGHT}px;
   padding-left: 10px;
+  overflow: hidden;
 `;

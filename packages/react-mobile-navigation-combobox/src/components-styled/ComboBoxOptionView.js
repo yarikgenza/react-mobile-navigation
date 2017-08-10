@@ -7,4 +7,5 @@ export default styled.View`
   height: ${LIST_ITEM_HEIGHT}px;
   justify-content: center;
   padding-left: 10px;
+  overflow: hidden;
 `;
