@@ -24,7 +24,7 @@ const propTypes = {
   onSelectCustom: PropTypes.func,
   onOpenCallback: PropTypes.func,
   onCloseStart: PropTypes.func.isRequired,
-  onCloseDone: PropTypes.func.isRequired,
+  onCloseDone: PropTypes.func,
   onCloseCallback: PropTypes.func,
 };
 
