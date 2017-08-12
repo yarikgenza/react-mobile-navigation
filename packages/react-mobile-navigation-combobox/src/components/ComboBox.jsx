@@ -64,14 +64,17 @@ export default class ComboBox extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isVisible } = this.props;
+    const { isVisible, items } = this.props;
+    const { textFilter } = this.state;
+    if (items !== nextProps.items) {
+      this.filteredItems = getFilteredComboboxOptions(textFilter, nextProps.items);
+    }
     if (isVisible === false && nextProps.isVisible === true) {
       this.onOpenStart();
     }
     if (isVisible === true && nextProps.isVisible === false) {
       this.onCloseStart();
     }
-    this.filteredItems = getFilteredComboboxOptions(nextProps.textFilter, nextProps.items);
   }
 
   onOpenStart() {

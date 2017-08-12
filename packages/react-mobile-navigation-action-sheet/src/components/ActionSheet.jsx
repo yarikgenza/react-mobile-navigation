@@ -49,6 +49,7 @@ export default class ActionSheet extends React.Component {
     const { isVisible } = this.props;
     if (isVisible === false && nextProps.isVisible === true) {
       this.onOpenStart();
+      return;
     }
     if (isVisible === true && nextProps.isVisible === false) {
       this.onCloseStart();

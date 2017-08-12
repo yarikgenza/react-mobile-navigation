@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Animated, Modal, TouchableWithoutFeedback, View } from 'react-native';
+import { Animated, Easing, Modal, TouchableWithoutFeedback, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { MODAL_MARGIN } from '../utils/style-api';
+
+const OPACITY_ON = 0.2;
 
 const propTypes = {
   children: PropTypes.node,
@@ -23,8 +25,6 @@ const defaultProps = {
   onBackButtonPress: () => null,
 };
 
-const OPACITY_ON = 0.2;
-
 export class ReactNativeModal extends Component {
 
   constructor(props) {
@@ -39,34 +39,46 @@ export class ReactNativeModal extends Component {
   }
 
   componentWillMount() {
-    if (this.props.isVisible) {
+    const { isVisible } = this.props;
+    if (isVisible) {
       this.setState(() => ({ isVisible: true }));
     }
-    this.visibility = new Animated.Value(this.props.isVisible ? 1 : 0);
+    this.visibility = new Animated.Value(isVisible ? 1 : 0);
   }
 
   componentDidMount() {
-    if (this.state.isVisible) {
+    const { isVisible } = this.state;
+    if (isVisible) {
       this.openModal();
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!this.state.isVisible && nextProps.isVisible) {
-      this.setState(() => ({ isVisible: true }));
+    const { isVisible } = this.state;
+    if (isVisible === false && nextProps.isVisible === true) {
+      this.setState(() => ({
+        isVisible: true,
+      }));
     }
     Animated.timing(this.visibility, {
+      duration: 500,
+      easing: Easing.bezier(0.190, 1.000, 0.220, 1.000),
       toValue: nextProps.isVisible ? 1 : 0,
-      duration: 300,
-    }).start(() => {
-      this.setState(() => ({ isVisible: nextProps.isVisible }));
-    });
+      // useNativeDriver: true,
+    })
+      .start(() => {
+        this.setState(() => ({
+          isVisible: nextProps.isVisible,
+        }));
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.isVisible && !prevState.isVisible) {
       this.openModal();
-    } else if (!this.props.isVisible && prevProps.isVisible) {
+      return;
+    }
+    if (!this.props.isVisible && prevProps.isVisible) {
       this.closeModal();
     }
   }
@@ -76,17 +88,19 @@ export class ReactNativeModal extends Component {
   closeModal() { }
 
   closeOnBack() {
-    if (this.props.hideOnBack) {
+    const { hideOnBack, onBackButtonPress } = this.props;
+    if (hideOnBack) {
       this.closeModal();
     }
-    this.props.onBackButtonPress();
+    onBackButtonPress();
   }
 
   closeOnBackdrop() {
-    if (this.props.hideOnBackdropPress) {
+    const { hideOnBackdropPress, onClose } = this.props;
+    if (hideOnBackdropPress) {
       this.closeModal();
     }
-    this.props.onClose();
+    onClose();
   }
 
   render() {
@@ -97,7 +111,7 @@ export class ReactNativeModal extends Component {
     return (
       <Modal
         transparent
-        animationType={'none'}
+        animationType="none"
         visible={isVisible}
         onRequestClose={this.closeOnBack}
       >
@@ -121,6 +135,7 @@ export class ReactNativeModal extends Component {
         </TouchableWithoutFeedback>
         <Animated.View
           removeClippedSubviews
+          pointerEvents="box-none"
           style={[{
             overflow: 'hidden',
             flex: 1,
@@ -135,9 +150,8 @@ export class ReactNativeModal extends Component {
               }),
             }],
             width: pageWidthNew,
-            zIndex: 100,
+            zIndex: 1000,
           }]}
-          pointerEvents="box-none"
         >
           {children ? React.cloneElement(
             React.Children.only(children),

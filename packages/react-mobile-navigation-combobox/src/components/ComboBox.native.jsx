@@ -60,7 +60,11 @@ export default class ComboBox extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.filteredItems = getFilteredComboboxOptions(nextProps.textFilter, nextProps.items);
+    const { items } = this.props;
+    const { textFilter } = this.state;
+    if (items !== nextProps.items) {
+      this.filteredItems = getFilteredComboboxOptions(textFilter, nextProps.items);
+    }
   }
 
   onSelect(selectedOption) {
@@ -104,7 +108,9 @@ export default class ComboBox extends React.Component {
   onFilterSet(value) {
     const { items } = this.props;
     this.filteredItems = getFilteredComboboxOptions(value, items);
-    this.setState(() => ({ textFilter: value }));
+    this.setState(() => ({
+      textFilter: value,
+    }));
   }
 
   onPageOpenDone() { }
