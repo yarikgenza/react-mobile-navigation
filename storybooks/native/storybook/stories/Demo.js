@@ -1,3 +1,4 @@
+import Alert, { ALERT_TYPES } from 'binary-ui-components/mobile/Alert';
 import Button from 'binary-ui-components/mobile/Button';
 import React from 'react';
 import { Dimensions, Modal, Text, TouchableHighlight, View } from 'react-native';
@@ -67,7 +68,7 @@ class HelpScreen extends React.PureComponent {
       autoHideDuration: 2500,
       render: () => (
         <View onPress={() => { }} >
-          <Text>Alert</Text>
+          <Alert text="text" type={ALERT_TYPES.CRITICAL} onPress={() => { console.log(1); }} />
         </View>
       ),
     };
@@ -75,7 +76,7 @@ class HelpScreen extends React.PureComponent {
       autoHideDuration: 0,
       render: () => (
         <View onPress={() => { onAlertClose(); }} >
-          <Text>Alert</Text>
+          <Alert text="text" type={ALERT_TYPES.CRITICAL} onPress={() => { console.log(1); onAlertClose(); }} />
         </View>
       ),
     };

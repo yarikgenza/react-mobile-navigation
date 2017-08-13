@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-navigation-combobox",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "React mobile navigation combobox.",
   "author": {
     "name": "Rostyslav Khanas",
@@ -27,7 +27,7 @@
     "js-search": "^1.4.2",
     "js-search-no-filter": "^0.0.1",
     "prop-types": "^15.5.10",
-    "react-mobile-navigation-core": "^1.0.16"
+    "react-mobile-navigation-core": "^1.0.17"
   },
   "peerDependencies": {
     "react": "^15.0.0",

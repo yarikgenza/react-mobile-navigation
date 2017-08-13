@@ -147,7 +147,7 @@ export default class ComboBoxList extends React.Component {
             isValid={this.isValid()}
             placeholder={inputPlaceholder}
             value={textFilter}
-            onTextChange={onFilterSet}
+            onChange={onFilterSet}
             onKeyUp={this.onFilterOnKeyUp}
           />
           {this.renderFilteredItems(isBold)}

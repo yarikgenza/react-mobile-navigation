@@ -89,7 +89,7 @@ export default class ComboBoxList extends React.Component {
           key={key}
           placeholder={inputPlaceholder}
           value={textFilter}
-          onTextChange={onFilterSet}
+          onChange={onFilterSet}
         />
       );
     }

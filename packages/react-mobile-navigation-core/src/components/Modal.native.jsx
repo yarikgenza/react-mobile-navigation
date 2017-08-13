@@ -118,18 +118,18 @@ export class ReactNativeModal extends Component {
         <TouchableWithoutFeedback onPress={this.closeOnBackdrop}>
           <Animated.View
             style={{
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              left: 0,
-              right: 0,
               backgroundColor: '#000000',
-              width: pageWidth,
+              bottom: 0,
               height: pageHeight,
+              left: 0,
               opacity: this.visibility.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, OPACITY_ON],
               }),
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              width: pageWidth,
             }}
           />
         </TouchableWithoutFeedback>
