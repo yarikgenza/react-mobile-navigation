@@ -23,8 +23,8 @@ class MainScreen extends React.PureComponent {
     return (
       <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: pageHeight }} >
         <Text>Main (1)</Text>
-        <Button onClick={() => onPageOpen(LICENSES)} label="Open Licenses" />
-        <Button onClick={() => onPageOpen(HELP)} label="Open Help" />
+        <Button onPress={() => onPageOpen(LICENSES)} label="Open Licenses" />
+        <Button onPress={() => onPageOpen(HELP)} label="Open Help" />
       </View>
     );
   }
@@ -36,8 +36,8 @@ class LicensesScreen extends React.PureComponent {
     return (
       <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: pageHeight }} >
         <Text>Licenses (2)</Text>
-        <Button onClick={() => onPageOpen(HELP)} label="Open Help" />
-        <Button onClick={() => onPageClose()} label="Go Back" />
+        <Button onPress={() => onPageOpen(HELP)} label="Open Help" />
+        <Button onPress={() => onPageClose()} label="Go Back" />
       </View>
     );
   }
@@ -194,14 +194,14 @@ class HelpScreen extends React.PureComponent {
     return (
       <View style={{ backgroundColor: 'rgb(255, 255, 255)', height: pageHeight }} >
         <Text>Licenses (2)</Text>
-        <Button onClick={() => onPageOpen(LICENSES)} label="Open Licenses" />
-        <Button onClick={() => onPageOpen(LICENSES, true)} label="Open Licenses Force" />
-        <Button onClick={() => onPageClose()} label="Go Back" />
-        <Button onClick={() => onPageClose(true)} label="Go Back force" />
-        <Button onClick={() => onActionSheetOpen(actionSheetConfig)} label="Show ActionSheet" />
-        <Button onClick={() => onComboBoxOpen(comboBoxConfig)} label="Show ComboBox" />
-        <Button onClick={() => onAlertOpen(alertAutoHideConfig)} label="Show Alert auto-hide" />
-        <Button onClick={() => onAlertOpen(alertConfig)} label="Show Alert" />
+        <Button onPress={() => onPageOpen(LICENSES)} label="Open Licenses" />
+        <Button onPress={() => onPageOpen(LICENSES, true)} label="Open Licenses Force" />
+        <Button onPress={() => onPageClose()} label="Go Back" />
+        <Button onPress={() => onPageClose(true)} label="Go Back force" />
+        <Button onPress={() => onActionSheetOpen(actionSheetConfig)} label="Show ActionSheet" />
+        <Button onPress={() => onComboBoxOpen(comboBoxConfig)} label="Show ComboBox" />
+        <Button onPress={() => onAlertOpen(alertAutoHideConfig)} label="Show Alert auto-hide" />
+        <Button onPress={() => onAlertOpen(alertConfig)} label="Show Alert" />
       </View>
     );
   }

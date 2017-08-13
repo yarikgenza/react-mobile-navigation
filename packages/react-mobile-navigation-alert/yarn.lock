@@ -3779,9 +3779,9 @@ react-dom@~15.3.2:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.3.2.tgz#c46b0aa5380d7b838e7a59c4a7beff2ed315531f"
 
-react-mobile-navigation-core@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.15.tgz#b36567685352d46c13577d04793cc584d04108aa"
+react-mobile-navigation-core@^1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/react-mobile-navigation-core/-/react-mobile-navigation-core-1.0.16.tgz#268ba07e17bfd828b5c1afcf2c05abea2b844d30"
   dependencies:
     prop-types "^15.5.10"
 
