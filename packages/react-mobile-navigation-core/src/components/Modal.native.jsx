@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import React, { Component } from 'react';
 import { Animated, Easing, Modal, TouchableWithoutFeedback, View } from 'react-native';
 import PropTypes from 'prop-types';
@@ -13,6 +14,8 @@ const propTypes = {
   pageHeight: PropTypes.number.isRequired,
   pageWidth: PropTypes.number.isRequired,
   onClose: PropTypes.func,
+  onPageOpenDone: PropTypes.func,
+  onPageCloseDone: PropTypes.func,
   onBackButtonPress: PropTypes.func,
 };
 
@@ -83,9 +86,19 @@ export class ReactNativeModal extends Component {
     }
   }
 
-  openModal() { }
+  openModal() {
+    const { onPageOpenDone } = this.props;
+    if (isFunction(onPageOpenDone)) {
+      onPageOpenDone();
+    }
+  }
 
-  closeModal() { }
+  closeModal() {
+    const { onPageCloseDone } = this.props;
+    if (isFunction(onPageCloseDone)) {
+      onPageCloseDone();
+    }
+  }
 
   closeOnBack() {
     const { hideOnBack, onBackButtonPress } = this.props;

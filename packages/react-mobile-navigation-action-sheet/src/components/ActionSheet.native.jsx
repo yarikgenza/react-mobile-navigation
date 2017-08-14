@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal } from 'react-mobile-navigation-core';
@@ -61,14 +62,22 @@ export default class ActionSheet extends React.Component {
     this.onCancel();
   }
 
-  onPageOpenDone() { }
+  onPageOpenDone() {
+    const { onOpenCallback } = this.props;
+    if (isFunction(onOpenCallback)) {
+      onOpenCallback();
+    }
+  }
 
   onPageCloseDone() {
-    const { onSelect, onCloseDone } = this.props;
+    const { onSelect, onCloseDone, onCloseCallback } = this.props;
     const { selectedOption } = this.state;
     // set state until use does actions which can possibly unmount the component
     this.setState(() => ({ selectedOption: undefined }));
     onCloseDone();
+    if (isFunction(onCloseCallback)) {
+      onCloseCallback();
+    }
     if (selectedOption && selectedOption.handler) {
       selectedOption.handler();
     }
@@ -90,6 +99,8 @@ export default class ActionSheet extends React.Component {
         pageHeight={pageHeight}
         pageWidth={pageWidth}
         onClose={onCloseStart}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <ActionSheetList
           cancelLabel={cancelLabel}
