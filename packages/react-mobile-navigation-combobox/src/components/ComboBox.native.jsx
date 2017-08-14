@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal } from 'react-mobile-navigation-core';
@@ -113,10 +114,15 @@ export default class ComboBox extends React.Component {
     }));
   }
 
-  onPageOpenDone() { }
+  onPageOpenDone() {
+    const { onOpenCallback } = this.props;
+    if (isFunction(onOpenCallback)) {
+      onOpenCallback();
+    }
+  }
 
   onPageCloseDone() {
-    const { onSelectCustom, onSelect, onCloseDone } = this.props;
+    const { onSelectCustom, onSelect, onCloseDone, onCloseCallback } = this.props;
     const { selectedCustomOption, selectedOption } = this.state;
     // set state until a user does actions which can possibly unmount the component
     this.setState(() => ({
@@ -139,6 +145,9 @@ export default class ComboBox extends React.Component {
       onSelectCustom(selectedCustomOption);
     }
     onCloseDone();
+    if (isFunction(onCloseCallback)) {
+      onCloseCallback();
+    }
     return;
   }
 
@@ -170,6 +179,8 @@ export default class ComboBox extends React.Component {
         pageHeight={pageHeight}
         pageWidth={pageWidth}
         onClose={onCloseStart}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         <ComboBoxList
           allowCustomValue={allowCustomValue}

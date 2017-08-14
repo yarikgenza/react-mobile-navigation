@@ -1,3 +1,4 @@
+import isFunction from 'lodash/isFunction';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Modal } from 'react-mobile-navigation-core';
@@ -34,12 +35,19 @@ export default class AlertBox extends React.Component {
   }
 
   onPageOpenDone() {
+    const { onOpenCallback } = this.props;
     this.closeAlert();
+    if (isFunction(onOpenCallback)) {
+      onOpenCallback();
+    }
   }
 
   onPageCloseDone() {
-    const { onCloseDone } = this.props;
+    const { onCloseDone, onCloseCallback } = this.props;
     onCloseDone();
+    if (isFunction(onCloseCallback)) {
+      onCloseCallback();
+    }
   }
 
   closeAlert() {
@@ -53,7 +61,7 @@ export default class AlertBox extends React.Component {
     }
     // do not close
   }
-
+ 
   closeAlertForce() {
     const { onCloseDone } = this.props;
     onCloseDone();
@@ -67,6 +75,8 @@ export default class AlertBox extends React.Component {
         pageHeight={pageHeight}
         pageWidth={pageWidth}
         onClose={onCloseStart}
+        onPageOpenDone={this.onPageOpenDone}
+        onPageCloseDone={this.onPageCloseDone}
       >
         {isVisible ? render() : null}
       </Modal>

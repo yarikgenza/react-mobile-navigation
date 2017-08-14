@@ -74,6 +74,12 @@ export default class MobileNavigation extends React.Component {
             onComboBoxClose: this.onComboBoxCloseStart,
             onPageOpen: (pageId) => { navigation.navigate(pageId); },
             onPageClose: () => { navigation.goBack(); },
+            setOnActionSheetCloseCallback: this.setOnActionSheetCloseCallback,
+            setOnActionSheetOpenCallback: this.setOnActionSheetOpenCallback,
+            setOnAlertCloseCallback: this.setOnAlertCloseCallback,
+            setOnAlertOpenCallback: this.setOnAlertOpenCallback,
+            setOnComboBoxCloseCallback: this.setOnComboBoxCloseCallback,
+            setOnComboBoxOpenCallback: this.setOnComboBoxOpenCallback,
           }),
           navigationOptions: { header: null },
         };
