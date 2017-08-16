@@ -1,4 +1,4 @@
-import Interpolation from './components/Interpolation';
+import Interpolation from './components/Interpolation.native';
 import Modal from './components/Modal.native';
 import MobileNavigationModal from './components/MobileNavigationModal';
 import MobileNavigationPage from './components/MobileNavigationPage';

@@ -1,7 +1,7 @@
 import isFunction from 'lodash/isFunction';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Modal } from 'react-mobile-navigation-core';
+import { Interpolation } from 'react-mobile-navigation-core';
 
 const propTypes = {
   autoHideDuration: PropTypes.number,
@@ -61,7 +61,7 @@ export default class AlertBox extends React.Component {
     }
     // do not close
   }
- 
+
   closeAlertForce() {
     const { onCloseDone } = this.props;
     onCloseDone();
@@ -70,7 +70,7 @@ export default class AlertBox extends React.Component {
   render() {
     const { isVisible, pageHeight, pageWidth, render, onCloseStart } = this.props;
     return (
-      <Modal
+      <Interpolation
         isVisible={isVisible}
         pageHeight={pageHeight}
         pageWidth={pageWidth}
@@ -78,8 +78,8 @@ export default class AlertBox extends React.Component {
         onPageOpenDone={this.onPageOpenDone}
         onPageCloseDone={this.onPageCloseDone}
       >
-        {isVisible ? render() : null}
-      </Modal>
+        {render()}
+      </Interpolation>
     );
   }
 }
