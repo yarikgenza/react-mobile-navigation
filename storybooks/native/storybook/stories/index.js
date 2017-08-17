@@ -5,8 +5,9 @@ import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
+import ActionSheet from './ActionSheet';
+import Alert from './Alert';
 import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
-
 import Demo from './Demo';
 
 const { height, width } = Dimensions.get('window');
@@ -14,6 +15,25 @@ const { height, width } = Dimensions.get('window');
 storiesOf('Demo', module)
   .add('all in one', () => (
     <Demo />
+  ));
+
+storiesOf('ActionSheet', module)
+  .add('opened', () => (
+    <ActionSheet isOpened />
+  ))
+  .add('closed', () => (
+    <ActionSheet/>
+  ));
+
+storiesOf('Alert', module)
+  .add('opened', () => (
+    <Alert isOpened />
+  ))
+  .add('closed', () => (
+    <Alert/>
+  ))
+  .add('auto hide', () => (
+    <Alert autoHide/>
   ));
 
 storiesOf('Combobox', module)
