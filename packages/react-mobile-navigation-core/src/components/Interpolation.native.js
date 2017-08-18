@@ -94,31 +94,31 @@ export class Interpolation extends Component {
     const pageHeightNew = pageHeight;
     const pageWidthNew = pageWidth - (2 * MODAL_MARGIN);
     return isVisible ? (
-        <Animated.View
-          removeClippedSubviews
-          pointerEvents="box-none"
-          style={[{
-            overflow: 'hidden',
-            flex: 1,
-            justifyContent: 'flex-end',
-            marginLeft: MODAL_MARGIN,
-            marginRight: MODAL_MARGIN,
-            margin: 0,
-            transform: [{
-              translateY: this.visibility.interpolate({
-                inputRange: [0, 1],
-                outputRange: [pageHeightNew, 0],
-              }),
-            }],
-            width: pageWidthNew,
-            zIndex: 1000,
-          }]}
-        >
+      <Animated.View
+        removeClippedSubviews
+        pointerEvents="box-none"
+        style={[{
+          overflow: 'hidden',
+          flex: 1,
+          justifyContent: 'flex-end',
+          marginLeft: MODAL_MARGIN,
+          marginRight: MODAL_MARGIN,
+          margin: 0,
+          transform: [{
+            translateY: this.visibility.interpolate({
+              inputRange: [0, 1],
+              outputRange: [pageHeightNew, 0],
+            }),
+          }],
+          width: pageWidthNew,
+          zIndex: 1000,
+        }]}
+      >
           {children ? React.cloneElement(
             React.Children.only(children),
             { pageHeight: pageHeightNew, pageWidth: pageWidthNew },
           ) : null}
-        </Animated.View>
+      </Animated.View>
     ) : null;
   }
 }
