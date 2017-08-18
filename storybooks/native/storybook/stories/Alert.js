@@ -5,9 +5,7 @@ import { Dimensions, Text, View } from 'react-native';
 
 import { actionSheetOptionModel } from 'react-mobile-navigation-action-sheet';
 import { MobileNavigationPage } from 'react-mobile-navigation-core';
-import MobileNavigation, {
-  navigationActions
-} from 'react-mobile-navigation-engine';
+import MobileNavigation from 'react-mobile-navigation-engine';
 
 const { height, width } = Dimensions.get('window');
 
@@ -48,9 +46,6 @@ class AlertComponent extends React.Component {
 const Container = ({ initState, isOpened, autoHide }) => (
   <View style={{ height, width }} >
     <MobileNavigation
-      initPagesState={[
-        navigationActions.onPageOpen('MAIN'),
-      ]}
       pageHeight={height}
       pageIdRoot={'MAIN'}
       pageWidth={width}
