@@ -5,6 +5,8 @@ import { action } from '@storybook/addon-actions';
 import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
 import { actionPageStoreModel } from 'react-mobile-navigation-core';
 
+import Alert from './Alert';
+
 import ActionSheet from '../src/react-mobile-navigation-action-sheet/stack/components/SettingsComponent';
 import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
 import Engine from '../src/react-mobile-navigation-engine/stack/components/SettingsComponent';
@@ -34,6 +36,53 @@ storiesOf('Demo', module)
       <Engine />
     </div>
   ));
+
+storiesOf('Alert', module)
+  .add('opened', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <Alert isOpened/>
+    </div>
+  ))
+  .add('closed', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <Alert/>
+    </div>
+  ))
+  .add('auto hide', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <Alert autoHide/>
+    </div>
+  ))
 
 storiesOf('Combobox', module)
   .add('empty', () => (
