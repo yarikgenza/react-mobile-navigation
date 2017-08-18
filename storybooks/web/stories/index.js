@@ -5,9 +5,9 @@ import { action } from '@storybook/addon-actions';
 import ComboBox, { comboBoxOptionModel } from 'react-mobile-navigation-combobox';
 import { actionPageStoreModel } from 'react-mobile-navigation-core';
 
+import ActionSheet from './ActionSheet';
 import Alert from './Alert';
 
-import ActionSheet from '../src/react-mobile-navigation-action-sheet/stack/components/SettingsComponent';
 import * as Settings1ModeTypesEnum from '../src/react-mobile-navigation-action-sheet/stack/enum/settings-mode-types-enum';
 import Engine from '../src/react-mobile-navigation-engine/stack/components/SettingsComponent';
 import * as Settings2ModeTypesEnum from '../src/react-mobile-navigation-engine/stack/enum/settings-mode-types-enum';
@@ -36,6 +36,38 @@ storiesOf('Demo', module)
       <Engine />
     </div>
   ));
+
+storiesOf('ActionSheet', module)
+  .add('opened', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <ActionSheet isOpened/>
+    </div>
+  ))
+  .add('closed', () => (
+    <div style={style} >
+      <style>
+        {`html, body, #CardsApp {
+          width: 100%;
+          height: 100%;
+        }
+        body {
+          margin: 0;
+          background-color: #eeeae5;
+        }`}
+      </style>
+      <ActionSheet/>
+    </div>
+  ))
 
 storiesOf('Alert', module)
   .add('opened', () => (
